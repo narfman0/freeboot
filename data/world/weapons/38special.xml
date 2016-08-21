@@ -1,0 +1,22 @@
+<com.blastedstudios.freeboot.world.weapon.Gun>
+	<stats>
+		<accuracy>.8</accuracy>
+		<damage>28</damage>
+		<muzzleVelocity>250</muzzleVelocity>
+		<rateOfFire>1.7</rateOfFire>
+		<recoil>14</recoil>
+		<reloadSpeed>2000</reloadSpeed>
+		<roundsPerClip>6</roundsPerClip>
+		<projectileCount>1</projectileCount>
+	</stats>
+	<currentRounds>6</currentRounds>
+	<name>.38 Special</name>
+	<resource>38special</resource>
+	<id>38special</id>
+	<cost>150</cost>
+	<ammoType>_38specialJHP</ammoType>
+	<fireSound>Glock-18_1</fireSound>
+	<rolls>2</rolls>
+	<minLevel>1</minLevel>
+	<semiAutomatic>true</semiAutomatic>
+</com.blastedstudios.freeboot.world.weapon.Gun>

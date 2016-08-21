@@ -1,0 +1,22 @@
+<com.blastedstudios.freeboot.world.weapon.Gun>
+	<stats>
+		<accuracy>.87</accuracy>
+		<damage>25</damage>
+		<muzzleVelocity>375</muzzleVelocity>
+		<rateOfFire>1.5</rateOfFire>
+		<recoil>11.7</recoil>
+		<reloadSpeed>1500</reloadSpeed>
+		<roundsPerClip>16</roundsPerClip>
+		<projectileCount>1</projectileCount>
+	</stats>
+	<currentRounds>16</currentRounds>
+	<name>Glock</name>
+	<resource>glock</resource>
+	<id>glock</id>
+	<cost>100</cost>
+	<ammoType>_9mm</ammoType>
+	<fireSound>Glock-18_1</fireSound>
+	<rolls>7</rolls>
+	<minLevel>1</minLevel>
+	<semiAutomatic>true</semiAutomatic>
+</com.blastedstudios.freeboot.world.weapon.Gun>

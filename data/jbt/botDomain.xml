@@ -1,0 +1,68 @@
+<Domain package="com.blastedstudios.freeboot.ai.bt">
+	<ActionSet>
+		<Action name="Action">
+			<Parameter name="type" type="STRING" />
+		</Action>
+		<Action name="Aim">
+			<Parameter name="target" type="COORDINATE" />
+		</Action>
+		<Action name="ClosestEnemy">
+			<Parameter name="contextName" type="STRING" />
+		</Action>
+		<Action name="ClosestTurret" type="COORDINATE" />
+		<Action name="CooldownStart">
+			<Parameter name="identifier" type="STRING" />
+			<Parameter name="duration" type="INTEGER" />
+		</Action>
+		<Action name="CooldownEnd">
+			<Parameter name="identifier" type="STRING" />
+		</Action>
+		<Action name="CurrentObjective" />
+		<Action name="Drop" />
+		<Action name="Jump">
+			<Parameter name="towardPlayer" type="BOOLEAN" />
+		</Action>
+		<Action name="Land" />
+		<Action name="Move">
+			<Parameter name="target" type="COORDINATE" />
+		</Action>
+		<Action name="NotifyDanger">
+			<Parameter name="target" type="COORDINATE" />
+		</Action>
+		<Action name="OperateTurret">
+			<Parameter name="target" type="COORDINATE" />
+		</Action>
+		<Action name="RunAway" />
+		<Action name="Search">
+			<Parameter name="lastTarget" type="COORDINATE" />
+			<Parameter name="lastTime" type="INTEGER" />
+		</Action>
+		<Action name="Shoot">
+			<Parameter name="target" type="COORDINATE" />
+		</Action>
+		<Action name="SelectWeapon">
+			<Parameter name="target" type="COORDINATE" />
+		</Action>
+		<Action name="Stop" />
+		
+		<!-- Specific domain node(s) e.g. bosses -->
+		<Action name="GMInit" />
+		<Action name="ForestInit" />
+		<Action name="NearDeadInit" />
+	</ActionSet>
+	<SensorSet>
+		<Sensor name="Alert" type="BOOLEAN" />
+		<Sensor name="Danger" type="BOOLEAN" />
+		<Sensor name="InCover" type="BOOLEAN" />
+		<Sensor name="IsOffCooldown" type="BOOLEAN">
+			<Parameter name="identifier" type="STRING" />
+		</Sensor>
+		<Sensor name="IsDead" type="BOOLEAN" />
+		<Sensor name="IsObjective" type="BOOLEAN" />
+		<Sensor name="PlayerLeft" type="BOOLEAN" />
+		<Sensor name="PlayerUnder" type="BOOLEAN" />
+		<Sensor name="Visible" type="BOOLEAN" />
+	</SensorSet>
+	<EntitySet/>
+	<GoalSet/>
+</Domain>

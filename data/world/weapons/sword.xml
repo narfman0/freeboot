@@ -1,0 +1,15 @@
+<com.blastedstudios.freeboot.world.weapon.Melee>
+	<stats>
+		<damage>20</damage>
+	</stats>
+	<name>Sword</name>
+	<resource>sword</resource>
+	<id>sword</id>
+	<cost>100</cost>
+	<fireSound>clunk</fireSound>
+	<width>.1</width>
+	<height>.36</height>
+	<density>.01</density>
+	<rolls>1</rolls>
+	<minLevel>1</minLevel>
+</com.blastedstudios.freeboot.world.weapon.Melee>

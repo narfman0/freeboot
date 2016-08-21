@@ -1,0 +1,21 @@
+<com.blastedstudios.freeboot.world.weapon.Gun>
+	<stats>
+		<accuracy>.6</accuracy>
+		<damage>15</damage>
+		<muzzleVelocity>500</muzzleVelocity>
+		<rateOfFire>.7</rateOfFire>
+		<recoil>50</recoil>
+		<reloadSpeed>5000</reloadSpeed>
+		<roundsPerClip>8</roundsPerClip>
+		<projectileCount>9</projectileCount>
+	</stats>
+	<currentRounds>8</currentRounds>
+	<name>Benelli M4</name>
+	<resource>benellim4</resource>
+	<id>benellim4</id>
+	<cost>1700</cost>
+	<ammoType>_00buck</ammoType>
+	<fireSound>gun4</fireSound>
+	<rolls>4</rolls>
+	<minLevel>4</minLevel>
+</com.blastedstudios.freeboot.world.weapon.Gun>

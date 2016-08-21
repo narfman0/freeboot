@@ -1,0 +1,63 @@
+{
+com.badlogic.gdx.graphics.g2d.BitmapFont: { 
+	default: { file: data/fonts/robotoLight24.fnt },
+},
+com.badlogic.gdx.graphics.Color: {
+	brown: { a: 1, b: 0.3, g: 0.47, r: 0.427 },
+	brown1: { a: 1, b: 0.13333, g: 0.1529, r: 0.1607 },
+	brown3: { a: 1, b: 0.349, g: 0.44313, r: 0.48627 },
+	green: { a: 1, b: 0, g: 1, r: 0 },
+	yellow: { a: 1, b: 0.635, g: 1, r: 0.91 },
+	black: { a: 1, b: 0, g: 0, r: 0 },
+	white: { a: 1, b: 1, g: 1, r: 1 },
+	dialog: brown1,
+	hud-hpbar: yellow,
+	volume: white,
+},
+com.badlogic.gdx.scenes.scene2d.ui.Button$ButtonStyle: {
+	default: { down: default-button, up: default-button },
+},
+com.badlogic.gdx.scenes.scene2d.ui.TextButton$TextButtonStyle: {
+	default: { down: default-button, up: default-button, font: default, fontColor: brown1 },
+},
+com.badlogic.gdx.scenes.scene2d.ui.ImageButton$ImageButtonStyle: {
+	default: { down: default-button, up: default-button },
+},
+com.badlogic.gdx.scenes.scene2d.ui.ScrollPane$ScrollPaneStyle: {
+	default: { vScroll: default-slider, hScrollKnob: default-window, background: default-rect, hScroll: default-slider, vScrollKnob: default-window }
+},
+com.badlogic.gdx.scenes.scene2d.ui.SelectBox$SelectBoxStyle: {
+	default: {
+		font: default, fontColor: white, background: default-select, scrollStyle: default,
+		listStyle: { font: default, selection: default-select-selection }
+	}
+},
+com.badlogic.gdx.scenes.scene2d.ui.SplitPane$SplitPaneStyle: {
+	default-vertical: { handle: default-splitpane-vertical },
+	default-horizontal: { handle: default-splitpane }
+},
+com.badlogic.gdx.scenes.scene2d.ui.Window$WindowStyle: {
+	default: { titleFont: default, background: default-window, titleFontColor: brown1 }
+},
+com.badlogic.gdx.scenes.scene2d.ui.Slider$SliderStyle: {
+	default-horizontal: { background: default-slider, knob: default-slider-knob }
+},
+com.badlogic.gdx.scenes.scene2d.ui.Label$LabelStyle: {
+	default: { font: default, fontColor: brown1 }
+},
+com.badlogic.gdx.scenes.scene2d.ui.TextField$TextFieldStyle: {
+	default: { selection: default-window, background: default-window, font: default, fontColor: brown1, messageFont: default, messageFontColor: brown1, cursor: cursor }
+},
+com.badlogic.gdx.scenes.scene2d.ui.CheckBox$CheckBoxStyle: {
+	default: { checkboxOn: check-on, checkboxOff: check-off, font: default, fontColor: brown1 }
+},
+com.badlogic.gdx.scenes.scene2d.ui.List$ListStyle: {
+	default: { fontColorUnselected: brown, selection: default-rect-pad, fontColorSelected: brown1, font: default }
+},
+com.badlogic.gdx.scenes.scene2d.ui.Touchpad$TouchpadStyle: {
+	default: { background: default-pane, knob: default-window }
+},
+com.badlogic.gdx.scenes.scene2d.ui.Tree$TreeStyle: {
+	default: { minus: tree-minus, plus: tree-minus, selection: default-select-selection }
+}
+}

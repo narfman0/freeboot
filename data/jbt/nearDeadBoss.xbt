@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tree>
+  <Node id="Node_0" name="Root" type="Root">
+    <Children>
+      <Node id="Node_1" type="Repeat">
+        <Children>
+          <Node id="Node_2" type="Selector">
+            <Children>
+              <Node id="Node_3" type="Sequence">
+                <Children>
+                  <Node id="Node_4" type="Limit">
+                    <Parameters>
+                      <Parameter name="runs" fromcontext="false">1</Parameter>
+                    </Parameters>
+                    <Children>
+                      <Node id="Node_38" name="NearDeadInit" type="Action" />
+                    </Children>
+                  </Node>
+                </Children>
+              </Node>
+              <Node id="Node_52" type="Sequence">
+                <Children>
+                  <Node id="Node_39" name="Action" type="Action">
+                    <Parameters>
+                      <Parameter name="type" fromcontext="false">path</Parameter>
+                    </Parameters>
+                  </Node>
+                  <Node id="Node_40" name="Move" type="Action">
+                    <Parameters>
+                      <Parameter name="target" fromcontext="true">move_target</Parameter>
+                    </Parameters>
+                  </Node>
+                  <Node id="Node_45" name="Action" type="Action">
+                    <Parameters>
+                      <Parameter name="type" fromcontext="false">choose_weapon</Parameter>
+                    </Parameters>
+                  </Node>
+                  <Node id="Node_48" name="Action" type="Action">
+                    <Parameters>
+                      <Parameter name="type" fromcontext="false">aim</Parameter>
+                    </Parameters>
+                  </Node>
+                  <Node id="Node_46" name="Shoot" type="Action">
+                    <Parameters>
+                      <Parameter name="target" fromcontext="true">aim_target</Parameter>
+                    </Parameters>
+                  </Node>
+                </Children>
+              </Node>
+            </Children>
+          </Node>
+        </Children>
+      </Node>
+    </Children>
+  </Node>
+</Tree>
+

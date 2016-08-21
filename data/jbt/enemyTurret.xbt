@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tree>
+  <Node id="Node_0" name="Root" type="Root">
+    <Children>
+      <Node id="Node_28" type="Repeat">
+        <Children>
+          <Node id="Node_3" type="Selector">
+            <Children>
+              <Node id="Node_8" type="Sequence">
+                <Children>
+                  <Node id="Node_35" name="Visible" type="Condition" />
+                  <Node id="Node_36" type="Parallel">
+                    <Parameters>
+                      <Parameter name="policy" fromcontext="false">selector</Parameter>
+                    </Parameters>
+                    <Children>
+                      <Node id="Node_9" name="Danger" type="Condition" />
+                      <Node id="Node_37" name="Alert" type="Condition" />
+                    </Children>
+                  </Node>
+                  <Node id="Node_32" name="ClosestTurret" type="Action" />
+                  <Node id="Node_33" name="Move" type="Action">
+                    <Parameters>
+                      <Parameter name="target" fromcontext="true">ClosestTurretObjective</Parameter>
+                    </Parameters>
+                  </Node>
+                  <Node id="Node_34" name="OperateTurret" type="Action">
+                    <Parameters>
+                      <Parameter name="target" fromcontext="true">DangerTarget</Parameter>
+                    </Parameters>
+                  </Node>
+                </Children>
+              </Node>
+              <Node id="Node_29" type="Sequence">
+                <Children>
+                  <Node id="Node_30" name="CurrentObjective" type="Action" />
+                  <Node id="Node_31" name="Move" type="Action">
+                    <Parameters>
+                      <Parameter name="target" fromcontext="true">CurrentObjectiveTarget</Parameter>
+                    </Parameters>
+                  </Node>
+                </Children>
+              </Node>
+            </Children>
+          </Node>
+        </Children>
+      </Node>
+    </Children>
+  </Node>
+</Tree>
+

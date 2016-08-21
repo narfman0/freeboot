@@ -1,0 +1,21 @@
+<com.blastedstudios.freeboot.world.weapon.Gun>
+	<stats>
+		<accuracy>.99</accuracy>
+		<damage>75</damage>
+		<muzzleVelocity>868</muzzleVelocity>
+		<rateOfFire>.4</rateOfFire>
+		<recoil>10</recoil>
+		<reloadSpeed>3000</reloadSpeed>
+		<roundsPerClip>5</roundsPerClip>
+		<projectileCount>1</projectileCount>
+	</stats>
+	<currentRounds>5</currentRounds>
+	<name>PSG-1</name>
+	<resource>psg1</resource>
+	<id>psg1</id>
+	<cost>10000</cost>
+	<ammoType>_7_62mm</ammoType>
+	<fireSound>PSG-1_1</fireSound>
+	<rolls>2</rolls>
+	<minLevel>6</minLevel>
+</com.blastedstudios.freeboot.world.weapon.Gun>

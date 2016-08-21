@@ -1,0 +1,21 @@
+<com.blastedstudios.freeboot.world.weapon.Flamethrower>
+	<stats>
+		<accuracy>.97</accuracy>
+		<damage>1</damage>
+		<muzzleVelocity>15</muzzleVelocity>
+		<rateOfFire>30</rateOfFire>
+		<recoil>1</recoil>
+		<reloadSpeed>3500</reloadSpeed>
+		<roundsPerClip>200</roundsPerClip>
+		<projectileCount>1</projectileCount>
+	</stats>
+	<currentRounds>200</currentRounds>
+	<name>Flamethrower</name>
+	<resource>flamethrower</resource>
+	<id>flamethrower</id>
+	<cost>750</cost>
+	<ammoType>GAS</ammoType>
+	<fireSound>flamethrower</fireSound>
+	<rolls>1</rolls>
+	<minLevel>7</minLevel>
+</com.blastedstudios.freeboot.world.weapon.Flamethrower>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tree>
+  <Node id="Node_0" name="Root" type="Root">
+    <Children>
+      <Node id="Node_28" type="Repeat">
+        <Children>
+          <Node id="Node_3" type="Selector">
+            <Children>
+              <Node id="Node_8" type="Sequence">
+                <Children>
+                  <Node id="Node_45" name="Visible" type="Condition" />
+                  <Node id="Node_41" type="Parallel">
+                    <Parameters>
+                      <Parameter name="policy" fromcontext="false">selector</Parameter>
+                    </Parameters>
+                    <Children>
+                      <Node id="Node_9" name="Danger" type="Condition" />
+                      <Node id="Node_44" name="Alert" type="Condition" />
+                    </Children>
+                  </Node>
+                  <Node id="Node_39" name="NotifyDanger" type="Action">
+                    <Parameters>
+                      <Parameter name="target" fromcontext="true">DangerTarget</Parameter>
+                    </Parameters>
+                  </Node>
+                  <Node id="Node_46" name="SelectWeapon" type="Action">
+                    <Parameters>
+                      <Parameter name="target" fromcontext="true">DangerTarget</Parameter>
+                    </Parameters>
+                  </Node>
+                  <Node id="Node_13" name="Shoot" type="Action">
+                    <Parameters>
+                      <Parameter name="target" fromcontext="true">DangerTarget</Parameter>
+                    </Parameters>
+                  </Node>
+                  <Node id="Node_33" name="Move" type="Action">
+                    <Parameters>
+                      <Parameter name="target" fromcontext="true">DangerTarget</Parameter>
+                    </Parameters>
+                  </Node>
+                </Children>
+              </Node>
+              <Node id="Node_35" type="Sequence">
+                <Children>
+                  <Node id="Node_37" name="Search" type="Action">
+                    <Parameters>
+                      <Parameter name="lastTarget" fromcontext="true">DangerTarget</Parameter>
+                      <Parameter name="lastTime" fromcontext="true">DangerLastTime</Parameter>
+                    </Parameters>
+                  </Node>
+                  <Node id="Node_38" name="Move" type="Action">
+                    <Parameters>
+                      <Parameter name="target" fromcontext="true">SearchLocation</Parameter>
+                    </Parameters>
+                  </Node>
+                </Children>
+              </Node>
+              <Node id="Node_24" type="Sequence">
+                <Children>
+                  <Node id="Node_55" type="Parallel">
+                    <Parameters>
+                      <Parameter name="policy" fromcontext="false">selector</Parameter>
+                    </Parameters>
+                    <Children>
+                      <Node id="Node_51" type="Inverter">
+                        <Children>
+                          <Node id="Node_47" name="IsObjective" type="Condition" />
+                        </Children>
+                      </Node>
+                      <Node id="Node_56" name="IsOffCooldown" type="Condition">
+                        <Parameters>
+                          <Parameter name="identifier" fromcontext="false">closestEnemyRefresh</Parameter>
+                        </Parameters>
+                      </Node>
+                    </Children>
+                  </Node>
+                  <Node id="Node_50" name="ClosestEnemy" type="Action">
+                    <Parameters>
+                      <Parameter name="contextName" fromcontext="false">OBJECTIVE</Parameter>
+                    </Parameters>
+                  </Node>
+                  <Node id="Node_54" name="CooldownStart" type="Action">
+                    <Parameters>
+                      <Parameter name="identifier" fromcontext="false">closestEnemyRefresh</Parameter>
+                      <Parameter name="duration" fromcontext="false">5000</Parameter>
+                    </Parameters>
+                  </Node>
+                </Children>
+              </Node>
+              <Node id="Node_53" type="Sequence">
+                <Children>
+                  <Node id="Node_25" name="CurrentObjective" type="Action" />
+                  <Node id="Node_29" name="Move" type="Action">
+                    <Parameters>
+                      <Parameter name="target" fromcontext="true">CurrentObjectiveTarget</Parameter>
+                    </Parameters>
+                  </Node>
+                  <Node id="Node_40" name="Aim" type="Action">
+                    <Parameters>
+                      <Parameter name="target" fromcontext="true">CurrentObjectiveTarget</Parameter>
+                    </Parameters>
+                  </Node>
+                </Children>
+              </Node>
+            </Children>
+          </Node>
+        </Children>
+      </Node>
+    </Children>
+  </Node>
+</Tree>
+

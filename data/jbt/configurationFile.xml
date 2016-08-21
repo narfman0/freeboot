@@ -1,0 +1,12 @@
+<Configuration>
+  <DomainFile>data/jbt/botDomain.xml</DomainFile>
+  <ModelActionsPackage>com.blastedstudios.freeboot.ai.bt.actions</ModelActionsPackage>
+  <ModelConditionsPackage>com.blastedstudios.freeboot.ai.bt.conditions</ModelConditionsPackage>
+  <ModelActionsOutputDirectory>src/com/blastedstudios/freeboot/ai/bt/actions</ModelActionsOutputDirectory>
+  <ModelConditionsOutputDirectory>src/com/blastedstudios/freeboot/ai/bt/conditions</ModelConditionsOutputDirectory>
+  <ExecutionActionsPackage>com.blastedstudios.freeboot.ai.bt.actions.execution</ExecutionActionsPackage>
+  <ExecutionConditionsPackage>com.blastedstudios.freeboot.ai.bt.conditions.execution</ExecutionConditionsPackage>
+  <ExecutionActionsOutputDirectory>src/com/blastedstudios/freeboot/ai/bt/actions/execution</ExecutionActionsOutputDirectory>
+  <ExecutionConditionsOutputDirectory>src/com/blastedstudios/freeboot/ai/bt/conditions/execution</ExecutionConditionsOutputDirectory>
+</Configuration>
+

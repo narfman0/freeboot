@@ -1,0 +1,15 @@
+<com.blastedstudios.freeboot.world.weapon.Melee>
+	<stats>
+		<damage>25</damage>
+	</stats>
+	<name>Spear</name>
+	<resource>spear</resource>
+	<id>spear</id>
+	<cost>100</cost>
+	<fireSound>clunk</fireSound>
+	<width>.07</width>
+	<height>.47</height>
+	<density>.01</density>
+	<rolls>1</rolls>
+	<minLevel>4</minLevel>
+</com.blastedstudios.freeboot.world.weapon.Melee>

@@ -1,0 +1,32 @@
+<com.blastedstudios.freeboot.world.being.NPCData>
+  <properties>
+    <entry>
+      <string>HP</string>
+      <string>10</string>
+    </entry>
+    <entry>
+      <string>Faction</string>
+      <string>FRIEND</string>
+    </entry>
+    <entry>
+      <string>Resource</string>
+      <string>manBluePantsWhiteTop</string>
+    </entry>
+    <entry>
+      <string>Behavior</string>
+      <string>NeutralBT</string>
+    </entry>
+    <entry>
+      <string>Vendor</string>
+      <string>true</string>
+    </entry>
+    <entry>
+      <string>VendorWeapons</string>
+      <string>glock</string>
+    </entry>
+    <entry>
+      <string>VendorRandom</string>
+      <string>true</string>
+    </entry>
+  </properties>
+</com.blastedstudios.freeboot.world.being.NPCData>

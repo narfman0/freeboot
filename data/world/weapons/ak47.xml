@@ -1,0 +1,22 @@
+<com.blastedstudios.freeboot.world.weapon.Gun>
+	<stats>
+		<accuracy>.9</accuracy>
+		<damage>40</damage>
+		<muzzleVelocity>715</muzzleVelocity>
+		<rateOfFire>10</rateOfFire>
+		<recoil>20</recoil>
+		<reloadSpeed>3500</reloadSpeed>
+		<roundsPerClip>30</roundsPerClip>
+		<projectileCount>1</projectileCount>
+	</stats>
+	<currentRounds>30</currentRounds>
+	<name>AK-47</name>
+	<resource>ak-47</resource>
+	<id>ak47</id>
+	<cost>750</cost>
+	<ammoType>_7_62mm</ammoType>
+	<fireSound>AK47_1</fireSound>
+	<rolls>5</rolls>
+	<minLevel>5</minLevel>
+	<semiAutomatic>true</semiAutomatic>
+</com.blastedstudios.freeboot.world.weapon.Gun>

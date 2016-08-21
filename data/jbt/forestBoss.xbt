@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Tree>
+  <Node id="Node_0" name="Root" type="Root">
+    <Children>
+      <Node id="Node_1" type="Repeat">
+        <Children>
+          <Node id="Node_2" type="Selector">
+            <Children>
+              <Node id="Node_3" type="Sequence">
+                <Children>
+                  <Node id="Node_4" type="Limit">
+                    <Parameters>
+                      <Parameter name="runs" fromcontext="false">1</Parameter>
+                    </Parameters>
+                    <Children>
+                      <Node id="Node_5" name="ForestInit" type="Action" />
+                    </Children>
+                  </Node>
+                </Children>
+              </Node>
+              <Node id="Node_6" type="Sequence">
+                <Children>
+                  <Node id="Node_7" name="Jump" type="Action">
+                    <Parameters>
+                      <Parameter name="towardPlayer" fromcontext="false">true</Parameter>
+                    </Parameters>
+                  </Node>
+                  <Node id="Node_8" type="Parallel">
+                    <Parameters>
+                      <Parameter name="policy" fromcontext="false">selector</Parameter>
+                    </Parameters>
+                    <Children>
+                      <Node id="Node_18" type="Selector">
+                        <Children>
+                          <Node id="Node_16" type="Sequence">
+                            <Children>
+                              <Node id="Node_9" type="Wait">
+                                <Parameters>
+                                  <Parameter name="duration" fromcontext="false">1000</Parameter>
+                                </Parameters>
+                              </Node>
+                            </Children>
+                          </Node>
+                          <Node id="Node_17" type="Sequence">
+                            <Children>
+                              <Node id="Node_32" type="Wait">
+                                <Parameters>
+                                  <Parameter name="duration" fromcontext="false">200</Parameter>
+                                </Parameters>
+                              </Node>
+                              <Node id="Node_10" name="PlayerUnder" type="Condition" />
+                            </Children>
+                          </Node>
+                        </Children>
+                      </Node>
+                    </Children>
+                  </Node>
+                  <Node id="Node_11" name="Drop" type="Action" />
+                  <Node id="Node_12" name="Land" type="Action" />
+                  <Node id="Node_13" name="Action" type="Action">
+                    <Parameters>
+                      <Parameter name="type" fromcontext="false">lunge</Parameter>
+                    </Parameters>
+                  </Node>
+                  <Node id="Node_35" type="Wait">
+                    <Parameters>
+                      <Parameter name="duration" fromcontext="false">350</Parameter>
+                    </Parameters>
+                  </Node>
+                  <Node id="Node_14" name="Action" type="Action">
+                    <Parameters>
+                      <Parameter name="type" fromcontext="false">lunge</Parameter>
+                    </Parameters>
+                  </Node>
+                  <Node id="Node_34" type="Wait">
+                    <Parameters>
+                      <Parameter name="duration" fromcontext="false">350</Parameter>
+                    </Parameters>
+                  </Node>
+                  <Node id="Node_15" name="Action" type="Action">
+                    <Parameters>
+                      <Parameter name="type" fromcontext="false">lunge</Parameter>
+                    </Parameters>
+                  </Node>
+                  <Node id="Node_33" type="Wait">
+                    <Parameters>
+                      <Parameter name="duration" fromcontext="false">350</Parameter>
+                    </Parameters>
+                  </Node>
+                  <Node id="Node_37" name="Land" type="Action" />
+                  <Node id="Node_19" name="CooldownStart" type="Action">
+                    <Parameters>
+                      <Parameter name="identifier" fromcontext="false">forestBossCooldown</Parameter>
+                      <Parameter name="duration" fromcontext="false">3500</Parameter>
+                    </Parameters>
+                  </Node>
+                  <Node id="Node_20" name="Jump" type="Action">
+                    <Parameters>
+                      <Parameter name="towardPlayer" fromcontext="false">false</Parameter>
+                    </Parameters>
+                  </Node>
+                  <Node id="Node_24" type="Parallel">
+                    <Parameters>
+                      <Parameter name="policy" fromcontext="false">sequence</Parameter>
+                    </Parameters>
+                    <Children>
+                      <Node id="Node_25" type="Sequence">
+                        <Children>
+                          <Node id="Node_22" name="RunAway" type="Action" />
+                          <Node id="Node_23" name="CooldownEnd" type="Action">
+                            <Parameters>
+                              <Parameter name="identifier" fromcontext="false">forestBossCooldown</Parameter>
+                            </Parameters>
+                          </Node>
+                          <Node id="Node_36" name="Stop" type="Action" />
+                        </Children>
+                      </Node>
+                    </Children>
+                  </Node>
+                </Children>
+              </Node>
+            </Children>
+          </Node>
+        </Children>
+      </Node>
+    </Children>
+  </Node>
+</Tree>
+

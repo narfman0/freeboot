@@ -1,0 +1,46 @@
+womanWhiteDress.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+head
+  rotate: false
+  xy: 0, 0
+  size: 26, 21
+  orig: 26, 21
+  offset: 0, 0
+  index: -1
+torso
+  rotate: false
+  xy: 0, 25
+  size: 29, 39
+  orig: 29, 39
+  offset: 0, 0
+  index: -1
+larm
+  rotate: false
+  xy: 32, 21
+  size: 32, 12
+  orig: 32, 12
+  offset: 0, 0
+  index: -1
+rarm
+  rotate: false
+  xy: 32, 10
+  size: 32, 12
+  orig: 32, 12
+  offset: 0, 0
+  index: -1
+lleg
+  rotate: false
+  xy: 36, 31
+  size: 24, 33
+  orig: 24, 33
+  offset: 0, 0
+  index: -1
+rleg
+  rotate: false
+  xy: 36, 31
+  size: 24, 33
+  orig: 24, 33
+  offset: 0, 0
+  index: -1

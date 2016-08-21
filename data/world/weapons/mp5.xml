@@ -1,0 +1,22 @@
+<com.blastedstudios.freeboot.world.weapon.Gun>
+	<stats>
+		<accuracy>.72</accuracy>
+		<damage>23</damage>
+		<muzzleVelocity>400</muzzleVelocity>
+		<rateOfFire>13</rateOfFire>
+		<recoil>7.5</recoil>
+		<reloadSpeed>3000</reloadSpeed>
+		<roundsPerClip>30</roundsPerClip>
+		<projectileCount>1</projectileCount>
+	</stats>
+	<currentRounds>30</currentRounds>
+	<name>MP5</name>
+	<resource>smg</resource>
+	<id>mp5</id>
+	<cost>1200</cost>
+	<ammoType>_9mm</ammoType>
+	<fireSound>MP5_1</fireSound>
+	<rolls>5</rolls>
+	<minLevel>3</minLevel>
+	<semiAutomatic>true</semiAutomatic>
+</com.blastedstudios.freeboot.world.weapon.Gun>
