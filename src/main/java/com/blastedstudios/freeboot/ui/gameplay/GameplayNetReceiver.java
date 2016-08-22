@@ -111,7 +111,7 @@ public class GameplayNetReceiver implements IMessageListener{
 		}case PLAYER_STATE:{
 			PlayerState message = (PlayerState)object;
 			for(NetBeing netBeing : message.getPlayersList()){
-				if(netBeing.getName().equals(worldManager.getPlayer().getName()))
+				if(worldManager.getPlayer() != null && netBeing.getName().equals(worldManager.getPlayer().getName()))
 					// don't want to make a new player with my name! should refactor to use ids somehow in future
 					break;
 				UUID uuid = UUIDConvert.convert(netBeing.getUuid());
@@ -121,7 +121,7 @@ public class GameplayNetReceiver implements IMessageListener{
 					worldManager.getRemotePlayers().add(remotePlayer);
 					remotePlayer.respawn(worldManager.getWorld(), netBeing.getPosX(), netBeing.getPosY());
 					Log.log("GameplayScreen.receive", "Received first player update: " + netBeing.getName());
-				}else if(remotePlayer.getPosition() != null && netBeing.hasPosX())
+				}else if(remotePlayer.getPosition() != null)
 					remotePlayer.updateFromMessage(netBeing);
 			}
 			if(type == MultiplayerType.Host || type == MultiplayerType.DedicatedServer)

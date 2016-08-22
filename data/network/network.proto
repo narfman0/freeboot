@@ -1,9 +1,11 @@
+syntax = "proto3";
 package proto;
 
 option java_package = "com.blastedstudios.freeboot.network";
 option java_outer_classname = "Messages";
 
 enum MessageType {
+  UNDEFINED = 0;
   ATTACK = 1;
   CONNECTED = 2;
   DEAD = 3;
@@ -20,33 +22,35 @@ enum MessageType {
 }
 
 message UUID {
-  required sint64 least_significant_bits = 1;
-  required sint64 most_significant_bits = 2;
+  sint64 least_significant_bits = 1;
+  sint64 most_significant_bits = 2;
 }
 
 message NetBeing {
-  optional UUID uuid = 1;
-  optional string name = 2;
-  optional float pos_x = 3;
-  optional float pos_y = 4;
-  optional float vel_x = 5;
-  optional float vel_y = 6;
-  optional float max_hp = 7;
-  optional float hp = 8;
-  optional int32 currentWeapon = 9;
+  UUID uuid = 1;
+  string name = 2;
+  float pos_x = 3;
+  float pos_y = 4;
+  float vel_x = 5;
+  float vel_y = 6;
+  float max_hp = 7;
+  float hp = 8;
+  int32 currentWeapon = 9;
   repeated NetWeapon weapons = 10;
-  optional string resource = 11;
-  optional string ragdoll_resource = 12;
-  optional FactionEnum faction = 13;
-  optional float aim = 14;
-  optional ClassEnum player_class = 15;
+  string resource = 11;
+  string ragdoll_resource = 12;
+  FactionEnum faction = 13;
+  float aim = 14;
+  ClassEnum player_class = 15;
 
   enum FactionEnum {
+    UNDEFINED = 0;
   	FRIEND = 1;
   	ENEMY = 2;
   }
 
   enum ClassEnum {
+    Undefined = 0;
   	Soldier = 1;
   	Medic = 2;
   	Brawler = 3;
@@ -56,35 +60,35 @@ message NetBeing {
 }
 
 message NetWeapon {
-  required string id = 1;
+  string id = 1;
 }
 
 message Attack {
-  optional string name = 1;
-  optional UUID uuid = 2;
-  optional float pos_x = 3;
-  optional float pos_y = 4;
+  string name = 1;
+  UUID uuid = 2;
+  float pos_x = 3;
+  float pos_y = 4;
 }
 
 message Dead {
-  optional string name = 1;
-  optional UUID uuid = 2;
+  string name = 1;
+  UUID uuid = 2;
 }
 
 message ExitGameplay {
-  required bool success = 1;
+  bool success = 1;
 }
 
 message NPCState {
-	repeated NetBeing npcs = 1;
+  repeated NetBeing npcs = 1;
 }
 
 message NameUpdate {
-  required string name = 1;
+  string name = 1;
 }
 
 message Pause {
-  required bool pause = 1;
+  bool pause = 1;
 }
 
 message PlayerState {
@@ -92,21 +96,21 @@ message PlayerState {
 }
 
 message Reload {
-  optional UUID uuid = 1;
+  UUID uuid = 1;
 }
 
 message Respawn {
-  optional UUID uuid = 1;
-  optional string name = 2;
-  optional float pos_x = 3;
-  optional float pos_y = 4;
+  UUID uuid = 1;
+  string name = 2;
+  float pos_x = 3;
+  float pos_y = 4;
 }
 
 message Text {
-  required string content = 1;
-  required string origin = 2;
+  string content = 1;
+  string origin = 2;
 }
 
 message TextRequest {
-  required string content = 1;
+  string content = 1;
 }

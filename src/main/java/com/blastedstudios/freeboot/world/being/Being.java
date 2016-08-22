@@ -317,8 +317,12 @@ public class Being implements Serializable{
 		FileHandle atlasHandle = FileUtil.find(Gdx.files.internal("data/textures/characters"), resource);
 		if(atlasHandle == null)
 			atlasHandle = FileUtil.find(Gdx.files.internal("data/textures/characters"), resource + ".atlas");
-		TextureAtlas atlas = new TextureAtlas(atlasHandle != null ? atlasHandle : 
-			Gdx.files.internal("data/textures/characters/dummy.atlas"));
+		TextureAtlas atlas = null;
+		try{
+			atlas = new TextureAtlas(atlasHandle != null ? atlasHandle : Gdx.files.internal("data/textures/characters/dummy.atlas"));
+		}catch(Exception e){
+			// Unable to load, possibly this is a headless app?
+		}
 		for(IRagdollPlugin plugin : PluginUtil.getPlugins(IRagdollPlugin.class))
 			if(plugin.canCreate(ragdollResource))
 				ragdoll = plugin.create(world, x, y, this, atlas, Gdx.files.internal("data/world/npc/ragdoll/" + ragdollResource));

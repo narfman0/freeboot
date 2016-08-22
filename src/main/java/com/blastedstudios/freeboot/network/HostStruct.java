@@ -22,6 +22,6 @@ public class HostStruct {
 	}
 	
 	public String toString(){
-		return player != null && player.hasName() ? player.getName() : socket.getRemoteAddress();
+		return socket.getRemoteAddress();
 	}
 }

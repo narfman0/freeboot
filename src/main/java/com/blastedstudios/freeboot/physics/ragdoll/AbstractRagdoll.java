@@ -83,7 +83,8 @@ public abstract class AbstractRagdoll implements IRagdoll {
 		lHandFixture.setUserData(being);
 		rHandFixture.setUserData(being);
 
-		setTextureAtlas(atlas);
+		if(atlas != null)
+			setTextureAtlas(atlas);
 	}
 	
 	public void setTextureAtlas(final TextureAtlas atlas){

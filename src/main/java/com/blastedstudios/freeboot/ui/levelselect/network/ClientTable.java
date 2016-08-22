@@ -12,6 +12,7 @@ import com.blastedstudios.freeboot.network.Client;
 import com.blastedstudios.freeboot.network.IMessageListener;
 import com.blastedstudios.freeboot.network.Messages.MessageType;
 import com.blastedstudios.freeboot.network.Messages.NameUpdate;
+import com.blastedstudios.freeboot.util.SaveHelper;
 import com.blastedstudios.freeboot.util.ui.FreebootTextButton;
 import com.blastedstudios.freeboot.world.being.Being;
 
@@ -25,6 +26,7 @@ public class ClientTable extends Table {
 		TextButton connectButton = new FreebootTextButton("Connect", skin, new ClickListener() {
 			@Override public void clicked(InputEvent event, float x, float y) {
 				Properties.set("host.default", hostnameText.getText());
+				SaveHelper.saveProperties();
 				if(client.isConnected()){
 					Log.error("ClientTable.<init>", "Already connected to a host, aborting");
 					return;

@@ -121,9 +121,14 @@ public class JetpackComponent extends AbstractComponent {
 	}
 
 	@Override public IComponent initialize(Being being){
-		jetpackEffect = new ParticleEffect();
-		jetpackEffect.load(Gdx.files.internal("data/particles/jetpack.p"), Gdx.files.internal("data/particles"));
-		jetpackEffect.setDuration(0);
+		try{
+			jetpackEffect = new ParticleEffect();
+			jetpackEffect.load(Gdx.files.internal("data/particles/jetpack.p"), Gdx.files.internal("data/particles"));
+			jetpackEffect.setDuration(0);
+		}catch(Exception e){
+			Log.debug("JetpackComponent.initialize", "Failed to initialize jetpack: " + e.getMessage());
+			jetpackEffect = null;
+		}
 		return super.initialize(being);
 	}
 

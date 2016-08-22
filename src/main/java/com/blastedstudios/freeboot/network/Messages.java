@@ -6,7 +6,13 @@ package com.blastedstudios.freeboot.network;
 public final class Messages {
   private Messages() {}
   public static void registerAllExtensions(
+      com.google.protobuf.ExtensionRegistryLite registry) {
+  }
+
+  public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
+    registerAllExtensions(
+        (com.google.protobuf.ExtensionRegistryLite) registry);
   }
   /**
    * Protobuf enum {@code proto.MessageType}
@@ -14,59 +20,68 @@ public final class Messages {
   public enum MessageType
       implements com.google.protobuf.ProtocolMessageEnum {
     /**
+     * <code>UNDEFINED = 0;</code>
+     */
+    UNDEFINED(0),
+    /**
      * <code>ATTACK = 1;</code>
      */
-    ATTACK(0, 1),
+    ATTACK(1),
     /**
      * <code>CONNECTED = 2;</code>
      */
-    CONNECTED(1, 2),
+    CONNECTED(2),
     /**
      * <code>DEAD = 3;</code>
      */
-    DEAD(2, 3),
+    DEAD(3),
     /**
      * <code>DISCONNECTED = 4;</code>
      */
-    DISCONNECTED(3, 4),
+    DISCONNECTED(4),
     /**
      * <code>EXIT_GAMEPLAY = 5;</code>
      */
-    EXIT_GAMEPLAY(4, 5),
+    EXIT_GAMEPLAY(5),
     /**
      * <code>NAME_UPDATE = 7;</code>
      */
-    NAME_UPDATE(5, 7),
+    NAME_UPDATE(7),
     /**
      * <code>NPC_STATE = 8;</code>
      */
-    NPC_STATE(6, 8),
+    NPC_STATE(8),
     /**
      * <code>PAUSE = 9;</code>
      */
-    PAUSE(7, 9),
+    PAUSE(9),
     /**
      * <code>PLAYER_STATE = 10;</code>
      */
-    PLAYER_STATE(8, 10),
+    PLAYER_STATE(10),
     /**
      * <code>RELOAD = 11;</code>
      */
-    RELOAD(9, 11),
+    RELOAD(11),
     /**
      * <code>RESPAWN = 12;</code>
      */
-    RESPAWN(10, 12),
+    RESPAWN(12),
     /**
      * <code>TEXT = 13;</code>
      */
-    TEXT(11, 13),
+    TEXT(13),
     /**
      * <code>TEXT_REQUEST = 14;</code>
      */
-    TEXT_REQUEST(12, 14),
+    TEXT_REQUEST(14),
+    UNRECOGNIZED(-1),
     ;
 
+    /**
+     * <code>UNDEFINED = 0;</code>
+     */
+    public static final int UNDEFINED_VALUE = 0;
     /**
      * <code>ATTACK = 1;</code>
      */
@@ -121,10 +136,25 @@ public final class Messages {
     public static final int TEXT_REQUEST_VALUE = 14;
 
 
-    public final int getNumber() { return value; }
+    public final int getNumber() {
+      if (this == UNRECOGNIZED) {
+        throw new java.lang.IllegalArgumentException(
+            "Can't get the number of an unknown enum value.");
+      }
+      return value;
+    }
 
+    /**
+     * @deprecated Use {@link #forNumber(int)} instead.
+     */
+    @java.lang.Deprecated
     public static MessageType valueOf(int value) {
+      return forNumber(value);
+    }
+
+    public static MessageType forNumber(int value) {
       switch (value) {
+        case 0: return UNDEFINED;
         case 1: return ATTACK;
         case 2: return CONNECTED;
         case 3: return DEAD;
@@ -146,17 +176,17 @@ public final class Messages {
         internalGetValueMap() {
       return internalValueMap;
     }
-    private static com.google.protobuf.Internal.EnumLiteMap<MessageType>
-        internalValueMap =
+    private static final com.google.protobuf.Internal.EnumLiteMap<
+        MessageType> internalValueMap =
           new com.google.protobuf.Internal.EnumLiteMap<MessageType>() {
             public MessageType findValueByNumber(int number) {
-              return MessageType.valueOf(number);
+              return MessageType.forNumber(number);
             }
           };
 
     public final com.google.protobuf.Descriptors.EnumValueDescriptor
         getValueDescriptor() {
-      return getDescriptor().getValues().get(index);
+      return getDescriptor().getValues().get(ordinal());
     }
     public final com.google.protobuf.Descriptors.EnumDescriptor
         getDescriptorForType() {
@@ -175,14 +205,15 @@ public final class Messages {
         throw new java.lang.IllegalArgumentException(
           "EnumValueDescriptor is not for this type.");
       }
+      if (desc.getIndex() == -1) {
+        return UNRECOGNIZED;
+      }
       return VALUES[desc.getIndex()];
     }
 
-    private final int index;
     private final int value;
 
-    private MessageType(int index, int value) {
-      this.index = index;
+    private MessageType(int value) {
       this.value = value;
     }
 
@@ -194,60 +225,42 @@ public final class Messages {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required sint64 least_significant_bits = 1;</code>
-     */
-    boolean hasLeastSignificantBits();
-    /**
-     * <code>required sint64 least_significant_bits = 1;</code>
+     * <code>optional sint64 least_significant_bits = 1;</code>
      */
     long getLeastSignificantBits();
 
     /**
-     * <code>required sint64 most_significant_bits = 2;</code>
-     */
-    boolean hasMostSignificantBits();
-    /**
-     * <code>required sint64 most_significant_bits = 2;</code>
+     * <code>optional sint64 most_significant_bits = 2;</code>
      */
     long getMostSignificantBits();
   }
   /**
    * Protobuf type {@code proto.UUID}
    */
-  public static final class UUID extends
-      com.google.protobuf.GeneratedMessage implements
+  public  static final class UUID extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:proto.UUID)
       UUIDOrBuilder {
     // Use UUID.newBuilder() to construct.
-    private UUID(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private UUID(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private UUID(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final UUID defaultInstance;
-    public static UUID getDefaultInstance() {
-      return defaultInstance;
+    private UUID() {
+      leastSignificantBits_ = 0L;
+      mostSignificantBits_ = 0L;
     }
 
-    public UUID getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private UUID(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -257,19 +270,18 @@ public final class Messages {
               done = true;
               break;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+              if (!input.skipField(tag)) {
                 done = true;
               }
               break;
             }
             case 8: {
-              bitField0_ |= 0x00000001;
+
               leastSignificantBits_ = input.readSInt64();
               break;
             }
             case 16: {
-              bitField0_ |= 0x00000002;
+
               mostSignificantBits_ = input.readSInt64();
               break;
             }
@@ -279,9 +291,8 @@ public final class Messages {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -290,39 +301,17 @@ public final class Messages {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_UUID_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_UUID_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.blastedstudios.freeboot.network.Messages.UUID.class, com.blastedstudios.freeboot.network.Messages.UUID.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<UUID> PARSER =
-        new com.google.protobuf.AbstractParser<UUID>() {
-      public UUID parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new UUID(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<UUID> getParserForType() {
-      return PARSER;
-    }
-
-    private int bitField0_;
     public static final int LEAST_SIGNIFICANT_BITS_FIELD_NUMBER = 1;
     private long leastSignificantBits_;
     /**
-     * <code>required sint64 least_significant_bits = 1;</code>
-     */
-    public boolean hasLeastSignificantBits() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    /**
-     * <code>required sint64 least_significant_bits = 1;</code>
+     * <code>optional sint64 least_significant_bits = 1;</code>
      */
     public long getLeastSignificantBits() {
       return leastSignificantBits_;
@@ -331,76 +320,84 @@ public final class Messages {
     public static final int MOST_SIGNIFICANT_BITS_FIELD_NUMBER = 2;
     private long mostSignificantBits_;
     /**
-     * <code>required sint64 most_significant_bits = 2;</code>
-     */
-    public boolean hasMostSignificantBits() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    /**
-     * <code>required sint64 most_significant_bits = 2;</code>
+     * <code>optional sint64 most_significant_bits = 2;</code>
      */
     public long getMostSignificantBits() {
       return mostSignificantBits_;
     }
 
-    private void initFields() {
-      leastSignificantBits_ = 0L;
-      mostSignificantBits_ = 0L;
-    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasLeastSignificantBits()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasMostSignificantBits()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (leastSignificantBits_ != 0L) {
         output.writeSInt64(1, leastSignificantBits_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (mostSignificantBits_ != 0L) {
         output.writeSInt64(2, mostSignificantBits_);
       }
-      getUnknownFields().writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (leastSignificantBits_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
           .computeSInt64Size(1, leastSignificantBits_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (mostSignificantBits_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
           .computeSInt64Size(2, mostSignificantBits_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blastedstudios.freeboot.network.Messages.UUID)) {
+        return super.equals(obj);
+      }
+      com.blastedstudios.freeboot.network.Messages.UUID other = (com.blastedstudios.freeboot.network.Messages.UUID) obj;
+
+      boolean result = true;
+      result = result && (getLeastSignificantBits()
+          == other.getLeastSignificantBits());
+      result = result && (getMostSignificantBits()
+          == other.getMostSignificantBits());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + LEAST_SIGNIFICANT_BITS_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getLeastSignificantBits());
+      hash = (37 * hash) + MOST_SIGNIFICANT_BITS_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getMostSignificantBits());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blastedstudios.freeboot.network.Messages.UUID parseFrom(
@@ -426,46 +423,57 @@ public final class Messages {
     }
     public static com.blastedstudios.freeboot.network.Messages.UUID parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.UUID parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.UUID parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.UUID parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.UUID parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.UUID parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.UUID prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.UUID prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -473,7 +481,7 @@ public final class Messages {
      * Protobuf type {@code proto.UUID}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:proto.UUID)
         com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
@@ -481,7 +489,7 @@ public final class Messages {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_UUID_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_UUID_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -494,29 +502,22 @@ public final class Messages {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         leastSignificantBits_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00000001);
-        mostSignificantBits_ = 0L;
-        bitField0_ = (bitField0_ & ~0x00000002);
-        return this;
-      }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
+        mostSignificantBits_ = 0L;
+
+        return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
@@ -538,21 +539,38 @@ public final class Messages {
 
       public com.blastedstudios.freeboot.network.Messages.UUID buildPartial() {
         com.blastedstudios.freeboot.network.Messages.UUID result = new com.blastedstudios.freeboot.network.Messages.UUID(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
         result.leastSignificantBits_ = leastSignificantBits_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
         result.mostSignificantBits_ = mostSignificantBits_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.blastedstudios.freeboot.network.Messages.UUID) {
           return mergeFrom((com.blastedstudios.freeboot.network.Messages.UUID)other);
@@ -564,25 +582,17 @@ public final class Messages {
 
       public Builder mergeFrom(com.blastedstudios.freeboot.network.Messages.UUID other) {
         if (other == com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance()) return this;
-        if (other.hasLeastSignificantBits()) {
+        if (other.getLeastSignificantBits() != 0L) {
           setLeastSignificantBits(other.getLeastSignificantBits());
         }
-        if (other.hasMostSignificantBits()) {
+        if (other.getMostSignificantBits() != 0L) {
           setMostSignificantBits(other.getMostSignificantBits());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
         return this;
       }
 
       public final boolean isInitialized() {
-        if (!hasLeastSignificantBits()) {
-          
-          return false;
-        }
-        if (!hasMostSignificantBits()) {
-          
-          return false;
-        }
         return true;
       }
 
@@ -595,7 +605,7 @@ public final class Messages {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (com.blastedstudios.freeboot.network.Messages.UUID) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -603,35 +613,28 @@ public final class Messages {
         }
         return this;
       }
-      private int bitField0_;
 
       private long leastSignificantBits_ ;
       /**
-       * <code>required sint64 least_significant_bits = 1;</code>
-       */
-      public boolean hasLeastSignificantBits() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>required sint64 least_significant_bits = 1;</code>
+       * <code>optional sint64 least_significant_bits = 1;</code>
        */
       public long getLeastSignificantBits() {
         return leastSignificantBits_;
       }
       /**
-       * <code>required sint64 least_significant_bits = 1;</code>
+       * <code>optional sint64 least_significant_bits = 1;</code>
        */
       public Builder setLeastSignificantBits(long value) {
-        bitField0_ |= 0x00000001;
+        
         leastSignificantBits_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required sint64 least_significant_bits = 1;</code>
+       * <code>optional sint64 least_significant_bits = 1;</code>
        */
       public Builder clearLeastSignificantBits() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        
         leastSignificantBits_ = 0L;
         onChanged();
         return this;
@@ -639,45 +642,76 @@ public final class Messages {
 
       private long mostSignificantBits_ ;
       /**
-       * <code>required sint64 most_significant_bits = 2;</code>
-       */
-      public boolean hasMostSignificantBits() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      /**
-       * <code>required sint64 most_significant_bits = 2;</code>
+       * <code>optional sint64 most_significant_bits = 2;</code>
        */
       public long getMostSignificantBits() {
         return mostSignificantBits_;
       }
       /**
-       * <code>required sint64 most_significant_bits = 2;</code>
+       * <code>optional sint64 most_significant_bits = 2;</code>
        */
       public Builder setMostSignificantBits(long value) {
-        bitField0_ |= 0x00000002;
+        
         mostSignificantBits_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required sint64 most_significant_bits = 2;</code>
+       * <code>optional sint64 most_significant_bits = 2;</code>
        */
       public Builder clearMostSignificantBits() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        
         mostSignificantBits_ = 0L;
         onChanged();
         return this;
       }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
 
       // @@protoc_insertion_point(builder_scope:proto.UUID)
     }
 
+    // @@protoc_insertion_point(class_scope:proto.UUID)
+    private static final com.blastedstudios.freeboot.network.Messages.UUID DEFAULT_INSTANCE;
     static {
-      defaultInstance = new UUID(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new com.blastedstudios.freeboot.network.Messages.UUID();
     }
 
-    // @@protoc_insertion_point(class_scope:proto.UUID)
+    public static com.blastedstudios.freeboot.network.Messages.UUID getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<UUID>
+        PARSER = new com.google.protobuf.AbstractParser<UUID>() {
+      public UUID parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new UUID(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<UUID> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<UUID> getParserForType() {
+      return PARSER;
+    }
+
+    public com.blastedstudios.freeboot.network.Messages.UUID getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface NetBeingOrBuilder extends
@@ -700,10 +734,6 @@ public final class Messages {
     /**
      * <code>optional string name = 2;</code>
      */
-    boolean hasName();
-    /**
-     * <code>optional string name = 2;</code>
-     */
     java.lang.String getName();
     /**
      * <code>optional string name = 2;</code>
@@ -714,16 +744,8 @@ public final class Messages {
     /**
      * <code>optional float pos_x = 3;</code>
      */
-    boolean hasPosX();
-    /**
-     * <code>optional float pos_x = 3;</code>
-     */
     float getPosX();
 
-    /**
-     * <code>optional float pos_y = 4;</code>
-     */
-    boolean hasPosY();
     /**
      * <code>optional float pos_y = 4;</code>
      */
@@ -732,16 +754,8 @@ public final class Messages {
     /**
      * <code>optional float vel_x = 5;</code>
      */
-    boolean hasVelX();
-    /**
-     * <code>optional float vel_x = 5;</code>
-     */
     float getVelX();
 
-    /**
-     * <code>optional float vel_y = 6;</code>
-     */
-    boolean hasVelY();
     /**
      * <code>optional float vel_y = 6;</code>
      */
@@ -750,25 +764,13 @@ public final class Messages {
     /**
      * <code>optional float max_hp = 7;</code>
      */
-    boolean hasMaxHp();
-    /**
-     * <code>optional float max_hp = 7;</code>
-     */
     float getMaxHp();
 
     /**
      * <code>optional float hp = 8;</code>
      */
-    boolean hasHp();
-    /**
-     * <code>optional float hp = 8;</code>
-     */
     float getHp();
 
-    /**
-     * <code>optional int32 currentWeapon = 9;</code>
-     */
-    boolean hasCurrentWeapon();
     /**
      * <code>optional int32 currentWeapon = 9;</code>
      */
@@ -801,10 +803,6 @@ public final class Messages {
     /**
      * <code>optional string resource = 11;</code>
      */
-    boolean hasResource();
-    /**
-     * <code>optional string resource = 11;</code>
-     */
     java.lang.String getResource();
     /**
      * <code>optional string resource = 11;</code>
@@ -812,10 +810,6 @@ public final class Messages {
     com.google.protobuf.ByteString
         getResourceBytes();
 
-    /**
-     * <code>optional string ragdoll_resource = 12;</code>
-     */
-    boolean hasRagdollResource();
     /**
      * <code>optional string ragdoll_resource = 12;</code>
      */
@@ -829,7 +823,7 @@ public final class Messages {
     /**
      * <code>optional .proto.NetBeing.FactionEnum faction = 13;</code>
      */
-    boolean hasFaction();
+    int getFactionValue();
     /**
      * <code>optional .proto.NetBeing.FactionEnum faction = 13;</code>
      */
@@ -838,16 +832,12 @@ public final class Messages {
     /**
      * <code>optional float aim = 14;</code>
      */
-    boolean hasAim();
-    /**
-     * <code>optional float aim = 14;</code>
-     */
     float getAim();
 
     /**
      * <code>optional .proto.NetBeing.ClassEnum player_class = 15;</code>
      */
-    boolean hasPlayerClass();
+    int getPlayerClassValue();
     /**
      * <code>optional .proto.NetBeing.ClassEnum player_class = 15;</code>
      */
@@ -856,40 +846,42 @@ public final class Messages {
   /**
    * Protobuf type {@code proto.NetBeing}
    */
-  public static final class NetBeing extends
-      com.google.protobuf.GeneratedMessage implements
+  public  static final class NetBeing extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:proto.NetBeing)
       NetBeingOrBuilder {
     // Use NetBeing.newBuilder() to construct.
-    private NetBeing(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private NetBeing(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private NetBeing(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final NetBeing defaultInstance;
-    public static NetBeing getDefaultInstance() {
-      return defaultInstance;
+    private NetBeing() {
+      name_ = "";
+      posX_ = 0F;
+      posY_ = 0F;
+      velX_ = 0F;
+      velY_ = 0F;
+      maxHp_ = 0F;
+      hp_ = 0F;
+      currentWeapon_ = 0;
+      weapons_ = java.util.Collections.emptyList();
+      resource_ = "";
+      ragdollResource_ = "";
+      faction_ = 0;
+      aim_ = 0F;
+      playerClass_ = 0;
     }
 
-    public NetBeing getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private NetBeing(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -899,63 +891,62 @@ public final class Messages {
               done = true;
               break;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+              if (!input.skipField(tag)) {
                 done = true;
               }
               break;
             }
             case 10: {
               com.blastedstudios.freeboot.network.Messages.UUID.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              if (uuid_ != null) {
                 subBuilder = uuid_.toBuilder();
               }
-              uuid_ = input.readMessage(com.blastedstudios.freeboot.network.Messages.UUID.PARSER, extensionRegistry);
+              uuid_ = input.readMessage(com.blastedstudios.freeboot.network.Messages.UUID.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(uuid_);
                 uuid_ = subBuilder.buildPartial();
               }
-              bitField0_ |= 0x00000001;
+
               break;
             }
             case 18: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000002;
-              name_ = bs;
+              java.lang.String s = input.readStringRequireUtf8();
+
+              name_ = s;
               break;
             }
             case 29: {
-              bitField0_ |= 0x00000004;
+
               posX_ = input.readFloat();
               break;
             }
             case 37: {
-              bitField0_ |= 0x00000008;
+
               posY_ = input.readFloat();
               break;
             }
             case 45: {
-              bitField0_ |= 0x00000010;
+
               velX_ = input.readFloat();
               break;
             }
             case 53: {
-              bitField0_ |= 0x00000020;
+
               velY_ = input.readFloat();
               break;
             }
             case 61: {
-              bitField0_ |= 0x00000040;
+
               maxHp_ = input.readFloat();
               break;
             }
             case 69: {
-              bitField0_ |= 0x00000080;
+
               hp_ = input.readFloat();
               break;
             }
             case 72: {
-              bitField0_ |= 0x00000100;
+
               currentWeapon_ = input.readInt32();
               break;
             }
@@ -964,46 +955,37 @@ public final class Messages {
                 weapons_ = new java.util.ArrayList<com.blastedstudios.freeboot.network.Messages.NetWeapon>();
                 mutable_bitField0_ |= 0x00000200;
               }
-              weapons_.add(input.readMessage(com.blastedstudios.freeboot.network.Messages.NetWeapon.PARSER, extensionRegistry));
+              weapons_.add(
+                  input.readMessage(com.blastedstudios.freeboot.network.Messages.NetWeapon.parser(), extensionRegistry));
               break;
             }
             case 90: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000200;
-              resource_ = bs;
+              java.lang.String s = input.readStringRequireUtf8();
+
+              resource_ = s;
               break;
             }
             case 98: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000400;
-              ragdollResource_ = bs;
+              java.lang.String s = input.readStringRequireUtf8();
+
+              ragdollResource_ = s;
               break;
             }
             case 104: {
               int rawValue = input.readEnum();
-              com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum value = com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum.valueOf(rawValue);
-              if (value == null) {
-                unknownFields.mergeVarintField(13, rawValue);
-              } else {
-                bitField0_ |= 0x00000800;
-                faction_ = value;
-              }
+
+              faction_ = rawValue;
               break;
             }
             case 117: {
-              bitField0_ |= 0x00001000;
+
               aim_ = input.readFloat();
               break;
             }
             case 120: {
               int rawValue = input.readEnum();
-              com.blastedstudios.freeboot.network.Messages.NetBeing.ClassEnum value = com.blastedstudios.freeboot.network.Messages.NetBeing.ClassEnum.valueOf(rawValue);
-              if (value == null) {
-                unknownFields.mergeVarintField(15, rawValue);
-              } else {
-                bitField0_ |= 0x00002000;
-                playerClass_ = value;
-              }
+
+              playerClass_ = rawValue;
               break;
             }
           }
@@ -1012,12 +994,11 @@ public final class Messages {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         if (((mutable_bitField0_ & 0x00000200) == 0x00000200)) {
           weapons_ = java.util.Collections.unmodifiableList(weapons_);
         }
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -1026,26 +1007,11 @@ public final class Messages {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_NetBeing_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_NetBeing_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.blastedstudios.freeboot.network.Messages.NetBeing.class, com.blastedstudios.freeboot.network.Messages.NetBeing.Builder.class);
-    }
-
-    public static com.google.protobuf.Parser<NetBeing> PARSER =
-        new com.google.protobuf.AbstractParser<NetBeing>() {
-      public NetBeing parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new NetBeing(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<NetBeing> getParserForType() {
-      return PARSER;
     }
 
     /**
@@ -1054,15 +1020,24 @@ public final class Messages {
     public enum FactionEnum
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
+       * <code>UNDEFINED = 0;</code>
+       */
+      UNDEFINED(0),
+      /**
        * <code>FRIEND = 1;</code>
        */
-      FRIEND(0, 1),
+      FRIEND(1),
       /**
        * <code>ENEMY = 2;</code>
        */
-      ENEMY(1, 2),
+      ENEMY(2),
+      UNRECOGNIZED(-1),
       ;
 
+      /**
+       * <code>UNDEFINED = 0;</code>
+       */
+      public static final int UNDEFINED_VALUE = 0;
       /**
        * <code>FRIEND = 1;</code>
        */
@@ -1073,10 +1048,25 @@ public final class Messages {
       public static final int ENEMY_VALUE = 2;
 
 
-      public final int getNumber() { return value; }
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
 
+      /**
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
       public static FactionEnum valueOf(int value) {
+        return forNumber(value);
+      }
+
+      public static FactionEnum forNumber(int value) {
         switch (value) {
+          case 0: return UNDEFINED;
           case 1: return FRIEND;
           case 2: return ENEMY;
           default: return null;
@@ -1087,17 +1077,17 @@ public final class Messages {
           internalGetValueMap() {
         return internalValueMap;
       }
-      private static com.google.protobuf.Internal.EnumLiteMap<FactionEnum>
-          internalValueMap =
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          FactionEnum> internalValueMap =
             new com.google.protobuf.Internal.EnumLiteMap<FactionEnum>() {
               public FactionEnum findValueByNumber(int number) {
-                return FactionEnum.valueOf(number);
+                return FactionEnum.forNumber(number);
               }
             };
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
-        return getDescriptor().getValues().get(index);
+        return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
           getDescriptorForType() {
@@ -1116,14 +1106,15 @@ public final class Messages {
           throw new java.lang.IllegalArgumentException(
             "EnumValueDescriptor is not for this type.");
         }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
         return VALUES[desc.getIndex()];
       }
 
-      private final int index;
       private final int value;
 
-      private FactionEnum(int index, int value) {
-        this.index = index;
+      private FactionEnum(int value) {
         this.value = value;
       }
 
@@ -1136,27 +1127,36 @@ public final class Messages {
     public enum ClassEnum
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
+       * <code>Undefined = 0;</code>
+       */
+      Undefined(0),
+      /**
        * <code>Soldier = 1;</code>
        */
-      Soldier(0, 1),
+      Soldier(1),
       /**
        * <code>Medic = 2;</code>
        */
-      Medic(1, 2),
+      Medic(2),
       /**
        * <code>Brawler = 3;</code>
        */
-      Brawler(2, 3),
+      Brawler(3),
       /**
        * <code>Demo = 4;</code>
        */
-      Demo(3, 4),
+      Demo(4),
       /**
        * <code>Sniper = 5;</code>
        */
-      Sniper(4, 5),
+      Sniper(5),
+      UNRECOGNIZED(-1),
       ;
 
+      /**
+       * <code>Undefined = 0;</code>
+       */
+      public static final int Undefined_VALUE = 0;
       /**
        * <code>Soldier = 1;</code>
        */
@@ -1179,10 +1179,25 @@ public final class Messages {
       public static final int Sniper_VALUE = 5;
 
 
-      public final int getNumber() { return value; }
+      public final int getNumber() {
+        if (this == UNRECOGNIZED) {
+          throw new java.lang.IllegalArgumentException(
+              "Can't get the number of an unknown enum value.");
+        }
+        return value;
+      }
 
+      /**
+       * @deprecated Use {@link #forNumber(int)} instead.
+       */
+      @java.lang.Deprecated
       public static ClassEnum valueOf(int value) {
+        return forNumber(value);
+      }
+
+      public static ClassEnum forNumber(int value) {
         switch (value) {
+          case 0: return Undefined;
           case 1: return Soldier;
           case 2: return Medic;
           case 3: return Brawler;
@@ -1196,17 +1211,17 @@ public final class Messages {
           internalGetValueMap() {
         return internalValueMap;
       }
-      private static com.google.protobuf.Internal.EnumLiteMap<ClassEnum>
-          internalValueMap =
+      private static final com.google.protobuf.Internal.EnumLiteMap<
+          ClassEnum> internalValueMap =
             new com.google.protobuf.Internal.EnumLiteMap<ClassEnum>() {
               public ClassEnum findValueByNumber(int number) {
-                return ClassEnum.valueOf(number);
+                return ClassEnum.forNumber(number);
               }
             };
 
       public final com.google.protobuf.Descriptors.EnumValueDescriptor
           getValueDescriptor() {
-        return getDescriptor().getValues().get(index);
+        return getDescriptor().getValues().get(ordinal());
       }
       public final com.google.protobuf.Descriptors.EnumDescriptor
           getDescriptorForType() {
@@ -1225,14 +1240,15 @@ public final class Messages {
           throw new java.lang.IllegalArgumentException(
             "EnumValueDescriptor is not for this type.");
         }
+        if (desc.getIndex() == -1) {
+          return UNRECOGNIZED;
+        }
         return VALUES[desc.getIndex()];
       }
 
-      private final int index;
       private final int value;
 
-      private ClassEnum(int index, int value) {
-        this.index = index;
+      private ClassEnum(int value) {
         this.value = value;
       }
 
@@ -1246,29 +1262,23 @@ public final class Messages {
      * <code>optional .proto.UUID uuid = 1;</code>
      */
     public boolean hasUuid() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return uuid_ != null;
     }
     /**
      * <code>optional .proto.UUID uuid = 1;</code>
      */
     public com.blastedstudios.freeboot.network.Messages.UUID getUuid() {
-      return uuid_;
+      return uuid_ == null ? com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance() : uuid_;
     }
     /**
      * <code>optional .proto.UUID uuid = 1;</code>
      */
     public com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder getUuidOrBuilder() {
-      return uuid_;
+      return getUuid();
     }
 
     public static final int NAME_FIELD_NUMBER = 2;
-    private java.lang.Object name_;
-    /**
-     * <code>optional string name = 2;</code>
-     */
-    public boolean hasName() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
+    private volatile java.lang.Object name_;
     /**
      * <code>optional string name = 2;</code>
      */
@@ -1280,9 +1290,7 @@ public final class Messages {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          name_ = s;
-        }
+        name_ = s;
         return s;
       }
     }
@@ -1308,24 +1316,12 @@ public final class Messages {
     /**
      * <code>optional float pos_x = 3;</code>
      */
-    public boolean hasPosX() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
-    }
-    /**
-     * <code>optional float pos_x = 3;</code>
-     */
     public float getPosX() {
       return posX_;
     }
 
     public static final int POS_Y_FIELD_NUMBER = 4;
     private float posY_;
-    /**
-     * <code>optional float pos_y = 4;</code>
-     */
-    public boolean hasPosY() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
-    }
     /**
      * <code>optional float pos_y = 4;</code>
      */
@@ -1338,24 +1334,12 @@ public final class Messages {
     /**
      * <code>optional float vel_x = 5;</code>
      */
-    public boolean hasVelX() {
-      return ((bitField0_ & 0x00000010) == 0x00000010);
-    }
-    /**
-     * <code>optional float vel_x = 5;</code>
-     */
     public float getVelX() {
       return velX_;
     }
 
     public static final int VEL_Y_FIELD_NUMBER = 6;
     private float velY_;
-    /**
-     * <code>optional float vel_y = 6;</code>
-     */
-    public boolean hasVelY() {
-      return ((bitField0_ & 0x00000020) == 0x00000020);
-    }
     /**
      * <code>optional float vel_y = 6;</code>
      */
@@ -1368,12 +1352,6 @@ public final class Messages {
     /**
      * <code>optional float max_hp = 7;</code>
      */
-    public boolean hasMaxHp() {
-      return ((bitField0_ & 0x00000040) == 0x00000040);
-    }
-    /**
-     * <code>optional float max_hp = 7;</code>
-     */
     public float getMaxHp() {
       return maxHp_;
     }
@@ -1383,24 +1361,12 @@ public final class Messages {
     /**
      * <code>optional float hp = 8;</code>
      */
-    public boolean hasHp() {
-      return ((bitField0_ & 0x00000080) == 0x00000080);
-    }
-    /**
-     * <code>optional float hp = 8;</code>
-     */
     public float getHp() {
       return hp_;
     }
 
     public static final int CURRENTWEAPON_FIELD_NUMBER = 9;
     private int currentWeapon_;
-    /**
-     * <code>optional int32 currentWeapon = 9;</code>
-     */
-    public boolean hasCurrentWeapon() {
-      return ((bitField0_ & 0x00000100) == 0x00000100);
-    }
     /**
      * <code>optional int32 currentWeapon = 9;</code>
      */
@@ -1444,13 +1410,7 @@ public final class Messages {
     }
 
     public static final int RESOURCE_FIELD_NUMBER = 11;
-    private java.lang.Object resource_;
-    /**
-     * <code>optional string resource = 11;</code>
-     */
-    public boolean hasResource() {
-      return ((bitField0_ & 0x00000200) == 0x00000200);
-    }
+    private volatile java.lang.Object resource_;
     /**
      * <code>optional string resource = 11;</code>
      */
@@ -1462,9 +1422,7 @@ public final class Messages {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          resource_ = s;
-        }
+        resource_ = s;
         return s;
       }
     }
@@ -1486,13 +1444,7 @@ public final class Messages {
     }
 
     public static final int RAGDOLL_RESOURCE_FIELD_NUMBER = 12;
-    private java.lang.Object ragdollResource_;
-    /**
-     * <code>optional string ragdoll_resource = 12;</code>
-     */
-    public boolean hasRagdollResource() {
-      return ((bitField0_ & 0x00000400) == 0x00000400);
-    }
+    private volatile java.lang.Object ragdollResource_;
     /**
      * <code>optional string ragdoll_resource = 12;</code>
      */
@@ -1504,9 +1456,7 @@ public final class Messages {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          ragdollResource_ = s;
-        }
+        ragdollResource_ = s;
         return s;
       }
     }
@@ -1528,28 +1478,23 @@ public final class Messages {
     }
 
     public static final int FACTION_FIELD_NUMBER = 13;
-    private com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum faction_;
+    private int faction_;
     /**
      * <code>optional .proto.NetBeing.FactionEnum faction = 13;</code>
      */
-    public boolean hasFaction() {
-      return ((bitField0_ & 0x00000800) == 0x00000800);
+    public int getFactionValue() {
+      return faction_;
     }
     /**
      * <code>optional .proto.NetBeing.FactionEnum faction = 13;</code>
      */
     public com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum getFaction() {
-      return faction_;
+      com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum result = com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum.valueOf(faction_);
+      return result == null ? com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum.UNRECOGNIZED : result;
     }
 
     public static final int AIM_FIELD_NUMBER = 14;
     private float aim_;
-    /**
-     * <code>optional float aim = 14;</code>
-     */
-    public boolean hasAim() {
-      return ((bitField0_ & 0x00001000) == 0x00001000);
-    }
     /**
      * <code>optional float aim = 14;</code>
      */
@@ -1558,149 +1503,117 @@ public final class Messages {
     }
 
     public static final int PLAYER_CLASS_FIELD_NUMBER = 15;
-    private com.blastedstudios.freeboot.network.Messages.NetBeing.ClassEnum playerClass_;
+    private int playerClass_;
     /**
      * <code>optional .proto.NetBeing.ClassEnum player_class = 15;</code>
      */
-    public boolean hasPlayerClass() {
-      return ((bitField0_ & 0x00002000) == 0x00002000);
+    public int getPlayerClassValue() {
+      return playerClass_;
     }
     /**
      * <code>optional .proto.NetBeing.ClassEnum player_class = 15;</code>
      */
     public com.blastedstudios.freeboot.network.Messages.NetBeing.ClassEnum getPlayerClass() {
-      return playerClass_;
+      com.blastedstudios.freeboot.network.Messages.NetBeing.ClassEnum result = com.blastedstudios.freeboot.network.Messages.NetBeing.ClassEnum.valueOf(playerClass_);
+      return result == null ? com.blastedstudios.freeboot.network.Messages.NetBeing.ClassEnum.UNRECOGNIZED : result;
     }
 
-    private void initFields() {
-      uuid_ = com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance();
-      name_ = "";
-      posX_ = 0F;
-      posY_ = 0F;
-      velX_ = 0F;
-      velY_ = 0F;
-      maxHp_ = 0F;
-      hp_ = 0F;
-      currentWeapon_ = 0;
-      weapons_ = java.util.Collections.emptyList();
-      resource_ = "";
-      ragdollResource_ = "";
-      faction_ = com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum.FRIEND;
-      aim_ = 0F;
-      playerClass_ = com.blastedstudios.freeboot.network.Messages.NetBeing.ClassEnum.Soldier;
-    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (hasUuid()) {
-        if (!getUuid().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      for (int i = 0; i < getWeaponsCount(); i++) {
-        if (!getWeapons(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, uuid_);
+      if (uuid_ != null) {
+        output.writeMessage(1, getUuid());
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getNameBytes());
+      if (!getNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, name_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (posX_ != 0F) {
         output.writeFloat(3, posX_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (posY_ != 0F) {
         output.writeFloat(4, posY_);
       }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+      if (velX_ != 0F) {
         output.writeFloat(5, velX_);
       }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+      if (velY_ != 0F) {
         output.writeFloat(6, velY_);
       }
-      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+      if (maxHp_ != 0F) {
         output.writeFloat(7, maxHp_);
       }
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+      if (hp_ != 0F) {
         output.writeFloat(8, hp_);
       }
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+      if (currentWeapon_ != 0) {
         output.writeInt32(9, currentWeapon_);
       }
       for (int i = 0; i < weapons_.size(); i++) {
         output.writeMessage(10, weapons_.get(i));
       }
-      if (((bitField0_ & 0x00000200) == 0x00000200)) {
-        output.writeBytes(11, getResourceBytes());
+      if (!getResourceBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 11, resource_);
       }
-      if (((bitField0_ & 0x00000400) == 0x00000400)) {
-        output.writeBytes(12, getRagdollResourceBytes());
+      if (!getRagdollResourceBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 12, ragdollResource_);
       }
-      if (((bitField0_ & 0x00000800) == 0x00000800)) {
-        output.writeEnum(13, faction_.getNumber());
+      if (faction_ != com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum.UNDEFINED.getNumber()) {
+        output.writeEnum(13, faction_);
       }
-      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+      if (aim_ != 0F) {
         output.writeFloat(14, aim_);
       }
-      if (((bitField0_ & 0x00002000) == 0x00002000)) {
-        output.writeEnum(15, playerClass_.getNumber());
+      if (playerClass_ != com.blastedstudios.freeboot.network.Messages.NetBeing.ClassEnum.Undefined.getNumber()) {
+        output.writeEnum(15, playerClass_);
       }
-      getUnknownFields().writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (uuid_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, uuid_);
+          .computeMessageSize(1, getUuid());
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getNameBytes());
+      if (!getNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, name_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (posX_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(3, posX_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (posY_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(4, posY_);
       }
-      if (((bitField0_ & 0x00000010) == 0x00000010)) {
+      if (velX_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(5, velX_);
       }
-      if (((bitField0_ & 0x00000020) == 0x00000020)) {
+      if (velY_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(6, velY_);
       }
-      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+      if (maxHp_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(7, maxHp_);
       }
-      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+      if (hp_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(8, hp_);
       }
-      if (((bitField0_ & 0x00000100) == 0x00000100)) {
+      if (currentWeapon_ != 0) {
         size += com.google.protobuf.CodedOutputStream
           .computeInt32Size(9, currentWeapon_);
       }
@@ -1708,36 +1621,139 @@ public final class Messages {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(10, weapons_.get(i));
       }
-      if (((bitField0_ & 0x00000200) == 0x00000200)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(11, getResourceBytes());
+      if (!getResourceBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(11, resource_);
       }
-      if (((bitField0_ & 0x00000400) == 0x00000400)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(12, getRagdollResourceBytes());
+      if (!getRagdollResourceBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, ragdollResource_);
       }
-      if (((bitField0_ & 0x00000800) == 0x00000800)) {
+      if (faction_ != com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum.UNDEFINED.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(13, faction_.getNumber());
+          .computeEnumSize(13, faction_);
       }
-      if (((bitField0_ & 0x00001000) == 0x00001000)) {
+      if (aim_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(14, aim_);
       }
-      if (((bitField0_ & 0x00002000) == 0x00002000)) {
+      if (playerClass_ != com.blastedstudios.freeboot.network.Messages.NetBeing.ClassEnum.Undefined.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(15, playerClass_.getNumber());
+          .computeEnumSize(15, playerClass_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blastedstudios.freeboot.network.Messages.NetBeing)) {
+        return super.equals(obj);
+      }
+      com.blastedstudios.freeboot.network.Messages.NetBeing other = (com.blastedstudios.freeboot.network.Messages.NetBeing) obj;
+
+      boolean result = true;
+      result = result && (hasUuid() == other.hasUuid());
+      if (hasUuid()) {
+        result = result && getUuid()
+            .equals(other.getUuid());
+      }
+      result = result && getName()
+          .equals(other.getName());
+      result = result && (
+          java.lang.Float.floatToIntBits(getPosX())
+          == java.lang.Float.floatToIntBits(
+              other.getPosX()));
+      result = result && (
+          java.lang.Float.floatToIntBits(getPosY())
+          == java.lang.Float.floatToIntBits(
+              other.getPosY()));
+      result = result && (
+          java.lang.Float.floatToIntBits(getVelX())
+          == java.lang.Float.floatToIntBits(
+              other.getVelX()));
+      result = result && (
+          java.lang.Float.floatToIntBits(getVelY())
+          == java.lang.Float.floatToIntBits(
+              other.getVelY()));
+      result = result && (
+          java.lang.Float.floatToIntBits(getMaxHp())
+          == java.lang.Float.floatToIntBits(
+              other.getMaxHp()));
+      result = result && (
+          java.lang.Float.floatToIntBits(getHp())
+          == java.lang.Float.floatToIntBits(
+              other.getHp()));
+      result = result && (getCurrentWeapon()
+          == other.getCurrentWeapon());
+      result = result && getWeaponsList()
+          .equals(other.getWeaponsList());
+      result = result && getResource()
+          .equals(other.getResource());
+      result = result && getRagdollResource()
+          .equals(other.getRagdollResource());
+      result = result && faction_ == other.faction_;
+      result = result && (
+          java.lang.Float.floatToIntBits(getAim())
+          == java.lang.Float.floatToIntBits(
+              other.getAim()));
+      result = result && playerClass_ == other.playerClass_;
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      if (hasUuid()) {
+        hash = (37 * hash) + UUID_FIELD_NUMBER;
+        hash = (53 * hash) + getUuid().hashCode();
+      }
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
+      hash = (37 * hash) + POS_X_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getPosX());
+      hash = (37 * hash) + POS_Y_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getPosY());
+      hash = (37 * hash) + VEL_X_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getVelX());
+      hash = (37 * hash) + VEL_Y_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getVelY());
+      hash = (37 * hash) + MAX_HP_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getMaxHp());
+      hash = (37 * hash) + HP_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getHp());
+      hash = (37 * hash) + CURRENTWEAPON_FIELD_NUMBER;
+      hash = (53 * hash) + getCurrentWeapon();
+      if (getWeaponsCount() > 0) {
+        hash = (37 * hash) + WEAPONS_FIELD_NUMBER;
+        hash = (53 * hash) + getWeaponsList().hashCode();
+      }
+      hash = (37 * hash) + RESOURCE_FIELD_NUMBER;
+      hash = (53 * hash) + getResource().hashCode();
+      hash = (37 * hash) + RAGDOLL_RESOURCE_FIELD_NUMBER;
+      hash = (53 * hash) + getRagdollResource().hashCode();
+      hash = (37 * hash) + FACTION_FIELD_NUMBER;
+      hash = (53 * hash) + faction_;
+      hash = (37 * hash) + AIM_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getAim());
+      hash = (37 * hash) + PLAYER_CLASS_FIELD_NUMBER;
+      hash = (53 * hash) + playerClass_;
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blastedstudios.freeboot.network.Messages.NetBeing parseFrom(
@@ -1763,46 +1779,57 @@ public final class Messages {
     }
     public static com.blastedstudios.freeboot.network.Messages.NetBeing parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.NetBeing parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.NetBeing parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.NetBeing parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.NetBeing parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.NetBeing parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.NetBeing prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.NetBeing prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -1810,7 +1837,7 @@ public final class Messages {
      * Protobuf type {@code proto.NetBeing}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:proto.NetBeing)
         com.blastedstudios.freeboot.network.Messages.NetBeingOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
@@ -1818,7 +1845,7 @@ public final class Messages {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_NetBeing_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_NetBeing_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -1831,44 +1858,40 @@ public final class Messages {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getUuidFieldBuilder();
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getWeaponsFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         if (uuidBuilder_ == null) {
-          uuid_ = com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance();
+          uuid_ = null;
         } else {
-          uuidBuilder_.clear();
+          uuid_ = null;
+          uuidBuilder_ = null;
         }
-        bitField0_ = (bitField0_ & ~0x00000001);
         name_ = "";
-        bitField0_ = (bitField0_ & ~0x00000002);
+
         posX_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00000004);
+
         posY_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00000008);
+
         velX_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00000010);
+
         velY_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00000020);
+
         maxHp_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00000040);
+
         hp_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00000080);
+
         currentWeapon_ = 0;
-        bitField0_ = (bitField0_ & ~0x00000100);
+
         if (weaponsBuilder_ == null) {
           weapons_ = java.util.Collections.emptyList();
           bitField0_ = (bitField0_ & ~0x00000200);
@@ -1876,20 +1899,16 @@ public final class Messages {
           weaponsBuilder_.clear();
         }
         resource_ = "";
-        bitField0_ = (bitField0_ & ~0x00000400);
-        ragdollResource_ = "";
-        bitField0_ = (bitField0_ & ~0x00000800);
-        faction_ = com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum.FRIEND;
-        bitField0_ = (bitField0_ & ~0x00001000);
-        aim_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00002000);
-        playerClass_ = com.blastedstudios.freeboot.network.Messages.NetBeing.ClassEnum.Soldier;
-        bitField0_ = (bitField0_ & ~0x00004000);
-        return this;
-      }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
+        ragdollResource_ = "";
+
+        faction_ = 0;
+
+        aim_ = 0F;
+
+        playerClass_ = 0;
+
+        return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
@@ -1913,45 +1932,18 @@ public final class Messages {
         com.blastedstudios.freeboot.network.Messages.NetBeing result = new com.blastedstudios.freeboot.network.Messages.NetBeing(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
         if (uuidBuilder_ == null) {
           result.uuid_ = uuid_;
         } else {
           result.uuid_ = uuidBuilder_.build();
         }
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
         result.name_ = name_;
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-          to_bitField0_ |= 0x00000004;
-        }
         result.posX_ = posX_;
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
-          to_bitField0_ |= 0x00000008;
-        }
         result.posY_ = posY_;
-        if (((from_bitField0_ & 0x00000010) == 0x00000010)) {
-          to_bitField0_ |= 0x00000010;
-        }
         result.velX_ = velX_;
-        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
-          to_bitField0_ |= 0x00000020;
-        }
         result.velY_ = velY_;
-        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
-          to_bitField0_ |= 0x00000040;
-        }
         result.maxHp_ = maxHp_;
-        if (((from_bitField0_ & 0x00000080) == 0x00000080)) {
-          to_bitField0_ |= 0x00000080;
-        }
         result.hp_ = hp_;
-        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
-          to_bitField0_ |= 0x00000100;
-        }
         result.currentWeapon_ = currentWeapon_;
         if (weaponsBuilder_ == null) {
           if (((bitField0_ & 0x00000200) == 0x00000200)) {
@@ -1962,31 +1954,42 @@ public final class Messages {
         } else {
           result.weapons_ = weaponsBuilder_.build();
         }
-        if (((from_bitField0_ & 0x00000400) == 0x00000400)) {
-          to_bitField0_ |= 0x00000200;
-        }
         result.resource_ = resource_;
-        if (((from_bitField0_ & 0x00000800) == 0x00000800)) {
-          to_bitField0_ |= 0x00000400;
-        }
         result.ragdollResource_ = ragdollResource_;
-        if (((from_bitField0_ & 0x00001000) == 0x00001000)) {
-          to_bitField0_ |= 0x00000800;
-        }
         result.faction_ = faction_;
-        if (((from_bitField0_ & 0x00002000) == 0x00002000)) {
-          to_bitField0_ |= 0x00001000;
-        }
         result.aim_ = aim_;
-        if (((from_bitField0_ & 0x00004000) == 0x00004000)) {
-          to_bitField0_ |= 0x00002000;
-        }
         result.playerClass_ = playerClass_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.blastedstudios.freeboot.network.Messages.NetBeing) {
           return mergeFrom((com.blastedstudios.freeboot.network.Messages.NetBeing)other);
@@ -2001,30 +2004,29 @@ public final class Messages {
         if (other.hasUuid()) {
           mergeUuid(other.getUuid());
         }
-        if (other.hasName()) {
-          bitField0_ |= 0x00000002;
+        if (!other.getName().isEmpty()) {
           name_ = other.name_;
           onChanged();
         }
-        if (other.hasPosX()) {
+        if (other.getPosX() != 0F) {
           setPosX(other.getPosX());
         }
-        if (other.hasPosY()) {
+        if (other.getPosY() != 0F) {
           setPosY(other.getPosY());
         }
-        if (other.hasVelX()) {
+        if (other.getVelX() != 0F) {
           setVelX(other.getVelX());
         }
-        if (other.hasVelY()) {
+        if (other.getVelY() != 0F) {
           setVelY(other.getVelY());
         }
-        if (other.hasMaxHp()) {
+        if (other.getMaxHp() != 0F) {
           setMaxHp(other.getMaxHp());
         }
-        if (other.hasHp()) {
+        if (other.getHp() != 0F) {
           setHp(other.getHp());
         }
-        if (other.hasCurrentWeapon()) {
+        if (other.getCurrentWeapon() != 0) {
           setCurrentWeapon(other.getCurrentWeapon());
         }
         if (weaponsBuilder_ == null) {
@@ -2046,49 +2048,35 @@ public final class Messages {
               weapons_ = other.weapons_;
               bitField0_ = (bitField0_ & ~0x00000200);
               weaponsBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getWeaponsFieldBuilder() : null;
             } else {
               weaponsBuilder_.addAllMessages(other.weapons_);
             }
           }
         }
-        if (other.hasResource()) {
-          bitField0_ |= 0x00000400;
+        if (!other.getResource().isEmpty()) {
           resource_ = other.resource_;
           onChanged();
         }
-        if (other.hasRagdollResource()) {
-          bitField0_ |= 0x00000800;
+        if (!other.getRagdollResource().isEmpty()) {
           ragdollResource_ = other.ragdollResource_;
           onChanged();
         }
-        if (other.hasFaction()) {
-          setFaction(other.getFaction());
+        if (other.faction_ != 0) {
+          setFactionValue(other.getFactionValue());
         }
-        if (other.hasAim()) {
+        if (other.getAim() != 0F) {
           setAim(other.getAim());
         }
-        if (other.hasPlayerClass()) {
-          setPlayerClass(other.getPlayerClass());
+        if (other.playerClass_ != 0) {
+          setPlayerClassValue(other.getPlayerClassValue());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
         return this;
       }
 
       public final boolean isInitialized() {
-        if (hasUuid()) {
-          if (!getUuid().isInitialized()) {
-            
-            return false;
-          }
-        }
-        for (int i = 0; i < getWeaponsCount(); i++) {
-          if (!getWeapons(i).isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
 
@@ -2101,7 +2089,7 @@ public final class Messages {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (com.blastedstudios.freeboot.network.Messages.NetBeing) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -2111,21 +2099,21 @@ public final class Messages {
       }
       private int bitField0_;
 
-      private com.blastedstudios.freeboot.network.Messages.UUID uuid_ = com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.blastedstudios.freeboot.network.Messages.UUID uuid_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
           com.blastedstudios.freeboot.network.Messages.UUID, com.blastedstudios.freeboot.network.Messages.UUID.Builder, com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder> uuidBuilder_;
       /**
        * <code>optional .proto.UUID uuid = 1;</code>
        */
       public boolean hasUuid() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return uuidBuilder_ != null || uuid_ != null;
       }
       /**
        * <code>optional .proto.UUID uuid = 1;</code>
        */
       public com.blastedstudios.freeboot.network.Messages.UUID getUuid() {
         if (uuidBuilder_ == null) {
-          return uuid_;
+          return uuid_ == null ? com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance() : uuid_;
         } else {
           return uuidBuilder_.getMessage();
         }
@@ -2143,7 +2131,7 @@ public final class Messages {
         } else {
           uuidBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000001;
+
         return this;
       }
       /**
@@ -2157,7 +2145,7 @@ public final class Messages {
         } else {
           uuidBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000001;
+
         return this;
       }
       /**
@@ -2165,8 +2153,7 @@ public final class Messages {
        */
       public Builder mergeUuid(com.blastedstudios.freeboot.network.Messages.UUID value) {
         if (uuidBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
-              uuid_ != com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance()) {
+          if (uuid_ != null) {
             uuid_ =
               com.blastedstudios.freeboot.network.Messages.UUID.newBuilder(uuid_).mergeFrom(value).buildPartial();
           } else {
@@ -2176,7 +2163,7 @@ public final class Messages {
         } else {
           uuidBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000001;
+
         return this;
       }
       /**
@@ -2184,19 +2171,20 @@ public final class Messages {
        */
       public Builder clearUuid() {
         if (uuidBuilder_ == null) {
-          uuid_ = com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance();
+          uuid_ = null;
           onChanged();
         } else {
-          uuidBuilder_.clear();
+          uuid_ = null;
+          uuidBuilder_ = null;
         }
-        bitField0_ = (bitField0_ & ~0x00000001);
+
         return this;
       }
       /**
        * <code>optional .proto.UUID uuid = 1;</code>
        */
       public com.blastedstudios.freeboot.network.Messages.UUID.Builder getUuidBuilder() {
-        bitField0_ |= 0x00000001;
+        
         onChanged();
         return getUuidFieldBuilder().getBuilder();
       }
@@ -2207,17 +2195,18 @@ public final class Messages {
         if (uuidBuilder_ != null) {
           return uuidBuilder_.getMessageOrBuilder();
         } else {
-          return uuid_;
+          return uuid_ == null ?
+              com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance() : uuid_;
         }
       }
       /**
        * <code>optional .proto.UUID uuid = 1;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           com.blastedstudios.freeboot.network.Messages.UUID, com.blastedstudios.freeboot.network.Messages.UUID.Builder, com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder> 
           getUuidFieldBuilder() {
         if (uuidBuilder_ == null) {
-          uuidBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          uuidBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               com.blastedstudios.freeboot.network.Messages.UUID, com.blastedstudios.freeboot.network.Messages.UUID.Builder, com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder>(
                   getUuid(),
                   getParentForChildren(),
@@ -2231,21 +2220,13 @@ public final class Messages {
       /**
        * <code>optional string name = 2;</code>
        */
-      public boolean hasName() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      /**
-       * <code>optional string name = 2;</code>
-       */
       public java.lang.String getName() {
         java.lang.Object ref = name_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            name_ = s;
-          }
+          name_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
@@ -2275,7 +2256,7 @@ public final class Messages {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  
         name_ = value;
         onChanged();
         return this;
@@ -2284,7 +2265,7 @@ public final class Messages {
        * <code>optional string name = 2;</code>
        */
       public Builder clearName() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        
         name_ = getDefaultInstance().getName();
         onChanged();
         return this;
@@ -2297,19 +2278,14 @@ public final class Messages {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  checkByteStringIsUtf8(value);
+        
         name_ = value;
         onChanged();
         return this;
       }
 
       private float posX_ ;
-      /**
-       * <code>optional float pos_x = 3;</code>
-       */
-      public boolean hasPosX() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
-      }
       /**
        * <code>optional float pos_x = 3;</code>
        */
@@ -2320,7 +2296,7 @@ public final class Messages {
        * <code>optional float pos_x = 3;</code>
        */
       public Builder setPosX(float value) {
-        bitField0_ |= 0x00000004;
+        
         posX_ = value;
         onChanged();
         return this;
@@ -2329,19 +2305,13 @@ public final class Messages {
        * <code>optional float pos_x = 3;</code>
        */
       public Builder clearPosX() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        
         posX_ = 0F;
         onChanged();
         return this;
       }
 
       private float posY_ ;
-      /**
-       * <code>optional float pos_y = 4;</code>
-       */
-      public boolean hasPosY() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
-      }
       /**
        * <code>optional float pos_y = 4;</code>
        */
@@ -2352,7 +2322,7 @@ public final class Messages {
        * <code>optional float pos_y = 4;</code>
        */
       public Builder setPosY(float value) {
-        bitField0_ |= 0x00000008;
+        
         posY_ = value;
         onChanged();
         return this;
@@ -2361,19 +2331,13 @@ public final class Messages {
        * <code>optional float pos_y = 4;</code>
        */
       public Builder clearPosY() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        
         posY_ = 0F;
         onChanged();
         return this;
       }
 
       private float velX_ ;
-      /**
-       * <code>optional float vel_x = 5;</code>
-       */
-      public boolean hasVelX() {
-        return ((bitField0_ & 0x00000010) == 0x00000010);
-      }
       /**
        * <code>optional float vel_x = 5;</code>
        */
@@ -2384,7 +2348,7 @@ public final class Messages {
        * <code>optional float vel_x = 5;</code>
        */
       public Builder setVelX(float value) {
-        bitField0_ |= 0x00000010;
+        
         velX_ = value;
         onChanged();
         return this;
@@ -2393,19 +2357,13 @@ public final class Messages {
        * <code>optional float vel_x = 5;</code>
        */
       public Builder clearVelX() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        
         velX_ = 0F;
         onChanged();
         return this;
       }
 
       private float velY_ ;
-      /**
-       * <code>optional float vel_y = 6;</code>
-       */
-      public boolean hasVelY() {
-        return ((bitField0_ & 0x00000020) == 0x00000020);
-      }
       /**
        * <code>optional float vel_y = 6;</code>
        */
@@ -2416,7 +2374,7 @@ public final class Messages {
        * <code>optional float vel_y = 6;</code>
        */
       public Builder setVelY(float value) {
-        bitField0_ |= 0x00000020;
+        
         velY_ = value;
         onChanged();
         return this;
@@ -2425,19 +2383,13 @@ public final class Messages {
        * <code>optional float vel_y = 6;</code>
        */
       public Builder clearVelY() {
-        bitField0_ = (bitField0_ & ~0x00000020);
+        
         velY_ = 0F;
         onChanged();
         return this;
       }
 
       private float maxHp_ ;
-      /**
-       * <code>optional float max_hp = 7;</code>
-       */
-      public boolean hasMaxHp() {
-        return ((bitField0_ & 0x00000040) == 0x00000040);
-      }
       /**
        * <code>optional float max_hp = 7;</code>
        */
@@ -2448,7 +2400,7 @@ public final class Messages {
        * <code>optional float max_hp = 7;</code>
        */
       public Builder setMaxHp(float value) {
-        bitField0_ |= 0x00000040;
+        
         maxHp_ = value;
         onChanged();
         return this;
@@ -2457,19 +2409,13 @@ public final class Messages {
        * <code>optional float max_hp = 7;</code>
        */
       public Builder clearMaxHp() {
-        bitField0_ = (bitField0_ & ~0x00000040);
+        
         maxHp_ = 0F;
         onChanged();
         return this;
       }
 
       private float hp_ ;
-      /**
-       * <code>optional float hp = 8;</code>
-       */
-      public boolean hasHp() {
-        return ((bitField0_ & 0x00000080) == 0x00000080);
-      }
       /**
        * <code>optional float hp = 8;</code>
        */
@@ -2480,7 +2426,7 @@ public final class Messages {
        * <code>optional float hp = 8;</code>
        */
       public Builder setHp(float value) {
-        bitField0_ |= 0x00000080;
+        
         hp_ = value;
         onChanged();
         return this;
@@ -2489,19 +2435,13 @@ public final class Messages {
        * <code>optional float hp = 8;</code>
        */
       public Builder clearHp() {
-        bitField0_ = (bitField0_ & ~0x00000080);
+        
         hp_ = 0F;
         onChanged();
         return this;
       }
 
       private int currentWeapon_ ;
-      /**
-       * <code>optional int32 currentWeapon = 9;</code>
-       */
-      public boolean hasCurrentWeapon() {
-        return ((bitField0_ & 0x00000100) == 0x00000100);
-      }
       /**
        * <code>optional int32 currentWeapon = 9;</code>
        */
@@ -2512,7 +2452,7 @@ public final class Messages {
        * <code>optional int32 currentWeapon = 9;</code>
        */
       public Builder setCurrentWeapon(int value) {
-        bitField0_ |= 0x00000100;
+        
         currentWeapon_ = value;
         onChanged();
         return this;
@@ -2521,7 +2461,7 @@ public final class Messages {
        * <code>optional int32 currentWeapon = 9;</code>
        */
       public Builder clearCurrentWeapon() {
-        bitField0_ = (bitField0_ & ~0x00000100);
+        
         currentWeapon_ = 0;
         onChanged();
         return this;
@@ -2536,7 +2476,7 @@ public final class Messages {
          }
       }
 
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           com.blastedstudios.freeboot.network.Messages.NetWeapon, com.blastedstudios.freeboot.network.Messages.NetWeapon.Builder, com.blastedstudios.freeboot.network.Messages.NetWeaponOrBuilder> weaponsBuilder_;
 
       /**
@@ -2752,11 +2692,11 @@ public final class Messages {
            getWeaponsBuilderList() {
         return getWeaponsFieldBuilder().getBuilderList();
       }
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           com.blastedstudios.freeboot.network.Messages.NetWeapon, com.blastedstudios.freeboot.network.Messages.NetWeapon.Builder, com.blastedstudios.freeboot.network.Messages.NetWeaponOrBuilder> 
           getWeaponsFieldBuilder() {
         if (weaponsBuilder_ == null) {
-          weaponsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+          weaponsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               com.blastedstudios.freeboot.network.Messages.NetWeapon, com.blastedstudios.freeboot.network.Messages.NetWeapon.Builder, com.blastedstudios.freeboot.network.Messages.NetWeaponOrBuilder>(
                   weapons_,
                   ((bitField0_ & 0x00000200) == 0x00000200),
@@ -2771,21 +2711,13 @@ public final class Messages {
       /**
        * <code>optional string resource = 11;</code>
        */
-      public boolean hasResource() {
-        return ((bitField0_ & 0x00000400) == 0x00000400);
-      }
-      /**
-       * <code>optional string resource = 11;</code>
-       */
       public java.lang.String getResource() {
         java.lang.Object ref = resource_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            resource_ = s;
-          }
+          resource_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
@@ -2815,7 +2747,7 @@ public final class Messages {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000400;
+  
         resource_ = value;
         onChanged();
         return this;
@@ -2824,7 +2756,7 @@ public final class Messages {
        * <code>optional string resource = 11;</code>
        */
       public Builder clearResource() {
-        bitField0_ = (bitField0_ & ~0x00000400);
+        
         resource_ = getDefaultInstance().getResource();
         onChanged();
         return this;
@@ -2837,7 +2769,8 @@ public final class Messages {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000400;
+  checkByteStringIsUtf8(value);
+        
         resource_ = value;
         onChanged();
         return this;
@@ -2847,21 +2780,13 @@ public final class Messages {
       /**
        * <code>optional string ragdoll_resource = 12;</code>
        */
-      public boolean hasRagdollResource() {
-        return ((bitField0_ & 0x00000800) == 0x00000800);
-      }
-      /**
-       * <code>optional string ragdoll_resource = 12;</code>
-       */
       public java.lang.String getRagdollResource() {
         java.lang.Object ref = ragdollResource_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            ragdollResource_ = s;
-          }
+          ragdollResource_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
@@ -2891,7 +2816,7 @@ public final class Messages {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000800;
+  
         ragdollResource_ = value;
         onChanged();
         return this;
@@ -2900,7 +2825,7 @@ public final class Messages {
        * <code>optional string ragdoll_resource = 12;</code>
        */
       public Builder clearRagdollResource() {
-        bitField0_ = (bitField0_ & ~0x00000800);
+        
         ragdollResource_ = getDefaultInstance().getRagdollResource();
         onChanged();
         return this;
@@ -2913,24 +2838,34 @@ public final class Messages {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000800;
+  checkByteStringIsUtf8(value);
+        
         ragdollResource_ = value;
         onChanged();
         return this;
       }
 
-      private com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum faction_ = com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum.FRIEND;
+      private int faction_ = 0;
       /**
        * <code>optional .proto.NetBeing.FactionEnum faction = 13;</code>
        */
-      public boolean hasFaction() {
-        return ((bitField0_ & 0x00001000) == 0x00001000);
+      public int getFactionValue() {
+        return faction_;
+      }
+      /**
+       * <code>optional .proto.NetBeing.FactionEnum faction = 13;</code>
+       */
+      public Builder setFactionValue(int value) {
+        faction_ = value;
+        onChanged();
+        return this;
       }
       /**
        * <code>optional .proto.NetBeing.FactionEnum faction = 13;</code>
        */
       public com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum getFaction() {
-        return faction_;
+        com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum result = com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum.valueOf(faction_);
+        return result == null ? com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum.UNRECOGNIZED : result;
       }
       /**
        * <code>optional .proto.NetBeing.FactionEnum faction = 13;</code>
@@ -2939,8 +2874,8 @@ public final class Messages {
         if (value == null) {
           throw new NullPointerException();
         }
-        bitField0_ |= 0x00001000;
-        faction_ = value;
+        
+        faction_ = value.getNumber();
         onChanged();
         return this;
       }
@@ -2948,19 +2883,13 @@ public final class Messages {
        * <code>optional .proto.NetBeing.FactionEnum faction = 13;</code>
        */
       public Builder clearFaction() {
-        bitField0_ = (bitField0_ & ~0x00001000);
-        faction_ = com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum.FRIEND;
+        
+        faction_ = 0;
         onChanged();
         return this;
       }
 
       private float aim_ ;
-      /**
-       * <code>optional float aim = 14;</code>
-       */
-      public boolean hasAim() {
-        return ((bitField0_ & 0x00002000) == 0x00002000);
-      }
       /**
        * <code>optional float aim = 14;</code>
        */
@@ -2971,7 +2900,7 @@ public final class Messages {
        * <code>optional float aim = 14;</code>
        */
       public Builder setAim(float value) {
-        bitField0_ |= 0x00002000;
+        
         aim_ = value;
         onChanged();
         return this;
@@ -2980,24 +2909,33 @@ public final class Messages {
        * <code>optional float aim = 14;</code>
        */
       public Builder clearAim() {
-        bitField0_ = (bitField0_ & ~0x00002000);
+        
         aim_ = 0F;
         onChanged();
         return this;
       }
 
-      private com.blastedstudios.freeboot.network.Messages.NetBeing.ClassEnum playerClass_ = com.blastedstudios.freeboot.network.Messages.NetBeing.ClassEnum.Soldier;
+      private int playerClass_ = 0;
       /**
        * <code>optional .proto.NetBeing.ClassEnum player_class = 15;</code>
        */
-      public boolean hasPlayerClass() {
-        return ((bitField0_ & 0x00004000) == 0x00004000);
+      public int getPlayerClassValue() {
+        return playerClass_;
+      }
+      /**
+       * <code>optional .proto.NetBeing.ClassEnum player_class = 15;</code>
+       */
+      public Builder setPlayerClassValue(int value) {
+        playerClass_ = value;
+        onChanged();
+        return this;
       }
       /**
        * <code>optional .proto.NetBeing.ClassEnum player_class = 15;</code>
        */
       public com.blastedstudios.freeboot.network.Messages.NetBeing.ClassEnum getPlayerClass() {
-        return playerClass_;
+        com.blastedstudios.freeboot.network.Messages.NetBeing.ClassEnum result = com.blastedstudios.freeboot.network.Messages.NetBeing.ClassEnum.valueOf(playerClass_);
+        return result == null ? com.blastedstudios.freeboot.network.Messages.NetBeing.ClassEnum.UNRECOGNIZED : result;
       }
       /**
        * <code>optional .proto.NetBeing.ClassEnum player_class = 15;</code>
@@ -3006,8 +2944,8 @@ public final class Messages {
         if (value == null) {
           throw new NullPointerException();
         }
-        bitField0_ |= 0x00004000;
-        playerClass_ = value;
+        
+        playerClass_ = value.getNumber();
         onChanged();
         return this;
       }
@@ -3015,21 +2953,58 @@ public final class Messages {
        * <code>optional .proto.NetBeing.ClassEnum player_class = 15;</code>
        */
       public Builder clearPlayerClass() {
-        bitField0_ = (bitField0_ & ~0x00004000);
-        playerClass_ = com.blastedstudios.freeboot.network.Messages.NetBeing.ClassEnum.Soldier;
+        
+        playerClass_ = 0;
         onChanged();
         return this;
       }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
 
       // @@protoc_insertion_point(builder_scope:proto.NetBeing)
     }
 
+    // @@protoc_insertion_point(class_scope:proto.NetBeing)
+    private static final com.blastedstudios.freeboot.network.Messages.NetBeing DEFAULT_INSTANCE;
     static {
-      defaultInstance = new NetBeing(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new com.blastedstudios.freeboot.network.Messages.NetBeing();
     }
 
-    // @@protoc_insertion_point(class_scope:proto.NetBeing)
+    public static com.blastedstudios.freeboot.network.Messages.NetBeing getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<NetBeing>
+        PARSER = new com.google.protobuf.AbstractParser<NetBeing>() {
+      public NetBeing parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new NetBeing(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<NetBeing> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<NetBeing> getParserForType() {
+      return PARSER;
+    }
+
+    public com.blastedstudios.freeboot.network.Messages.NetBeing getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface NetWeaponOrBuilder extends
@@ -3037,15 +3012,11 @@ public final class Messages {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string id = 1;</code>
-     */
-    boolean hasId();
-    /**
-     * <code>required string id = 1;</code>
+     * <code>optional string id = 1;</code>
      */
     java.lang.String getId();
     /**
-     * <code>required string id = 1;</code>
+     * <code>optional string id = 1;</code>
      */
     com.google.protobuf.ByteString
         getIdBytes();
@@ -3053,40 +3024,29 @@ public final class Messages {
   /**
    * Protobuf type {@code proto.NetWeapon}
    */
-  public static final class NetWeapon extends
-      com.google.protobuf.GeneratedMessage implements
+  public  static final class NetWeapon extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:proto.NetWeapon)
       NetWeaponOrBuilder {
     // Use NetWeapon.newBuilder() to construct.
-    private NetWeapon(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private NetWeapon(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private NetWeapon(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final NetWeapon defaultInstance;
-    public static NetWeapon getDefaultInstance() {
-      return defaultInstance;
+    private NetWeapon() {
+      id_ = "";
     }
 
-    public NetWeapon getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private NetWeapon(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -3096,16 +3056,15 @@ public final class Messages {
               done = true;
               break;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+              if (!input.skipField(tag)) {
                 done = true;
               }
               break;
             }
             case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000001;
-              id_ = bs;
+              java.lang.String s = input.readStringRequireUtf8();
+
+              id_ = s;
               break;
             }
           }
@@ -3114,9 +3073,8 @@ public final class Messages {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -3125,39 +3083,17 @@ public final class Messages {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_NetWeapon_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_NetWeapon_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.blastedstudios.freeboot.network.Messages.NetWeapon.class, com.blastedstudios.freeboot.network.Messages.NetWeapon.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<NetWeapon> PARSER =
-        new com.google.protobuf.AbstractParser<NetWeapon>() {
-      public NetWeapon parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new NetWeapon(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<NetWeapon> getParserForType() {
-      return PARSER;
-    }
-
-    private int bitField0_;
     public static final int ID_FIELD_NUMBER = 1;
-    private java.lang.Object id_;
+    private volatile java.lang.Object id_;
     /**
-     * <code>required string id = 1;</code>
-     */
-    public boolean hasId() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    /**
-     * <code>required string id = 1;</code>
+     * <code>optional string id = 1;</code>
      */
     public java.lang.String getId() {
       java.lang.Object ref = id_;
@@ -3167,14 +3103,12 @@ public final class Messages {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          id_ = s;
-        }
+        id_ = s;
         return s;
       }
     }
     /**
-     * <code>required string id = 1;</code>
+     * <code>optional string id = 1;</code>
      */
     public com.google.protobuf.ByteString
         getIdBytes() {
@@ -3190,52 +3124,64 @@ public final class Messages {
       }
     }
 
-    private void initFields() {
-      id_ = "";
-    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getIdBytes());
+      if (!getIdBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, id_);
       }
-      getUnknownFields().writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getIdBytes());
+      if (!getIdBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, id_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blastedstudios.freeboot.network.Messages.NetWeapon)) {
+        return super.equals(obj);
+      }
+      com.blastedstudios.freeboot.network.Messages.NetWeapon other = (com.blastedstudios.freeboot.network.Messages.NetWeapon) obj;
+
+      boolean result = true;
+      result = result && getId()
+          .equals(other.getId());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + getId().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blastedstudios.freeboot.network.Messages.NetWeapon parseFrom(
@@ -3261,46 +3207,57 @@ public final class Messages {
     }
     public static com.blastedstudios.freeboot.network.Messages.NetWeapon parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.NetWeapon parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.NetWeapon parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.NetWeapon parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.NetWeapon parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.NetWeapon parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.NetWeapon prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.NetWeapon prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -3308,7 +3265,7 @@ public final class Messages {
      * Protobuf type {@code proto.NetWeapon}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:proto.NetWeapon)
         com.blastedstudios.freeboot.network.Messages.NetWeaponOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
@@ -3316,7 +3273,7 @@ public final class Messages {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_NetWeapon_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_NetWeapon_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -3329,27 +3286,20 @@ public final class Messages {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         id_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
-        return this;
-      }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
+        return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
@@ -3371,17 +3321,37 @@ public final class Messages {
 
       public com.blastedstudios.freeboot.network.Messages.NetWeapon buildPartial() {
         com.blastedstudios.freeboot.network.Messages.NetWeapon result = new com.blastedstudios.freeboot.network.Messages.NetWeapon(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
         result.id_ = id_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.blastedstudios.freeboot.network.Messages.NetWeapon) {
           return mergeFrom((com.blastedstudios.freeboot.network.Messages.NetWeapon)other);
@@ -3393,20 +3363,15 @@ public final class Messages {
 
       public Builder mergeFrom(com.blastedstudios.freeboot.network.Messages.NetWeapon other) {
         if (other == com.blastedstudios.freeboot.network.Messages.NetWeapon.getDefaultInstance()) return this;
-        if (other.hasId()) {
-          bitField0_ |= 0x00000001;
+        if (!other.getId().isEmpty()) {
           id_ = other.id_;
           onChanged();
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
         return this;
       }
 
       public final boolean isInitialized() {
-        if (!hasId()) {
-          
-          return false;
-        }
         return true;
       }
 
@@ -3419,7 +3384,7 @@ public final class Messages {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (com.blastedstudios.freeboot.network.Messages.NetWeapon) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -3427,17 +3392,10 @@ public final class Messages {
         }
         return this;
       }
-      private int bitField0_;
 
       private java.lang.Object id_ = "";
       /**
-       * <code>required string id = 1;</code>
-       */
-      public boolean hasId() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>required string id = 1;</code>
+       * <code>optional string id = 1;</code>
        */
       public java.lang.String getId() {
         java.lang.Object ref = id_;
@@ -3445,16 +3403,14 @@ public final class Messages {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            id_ = s;
-          }
+          id_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>required string id = 1;</code>
+       * <code>optional string id = 1;</code>
        */
       public com.google.protobuf.ByteString
           getIdBytes() {
@@ -3470,60 +3426,94 @@ public final class Messages {
         }
       }
       /**
-       * <code>required string id = 1;</code>
+       * <code>optional string id = 1;</code>
        */
       public Builder setId(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  
         id_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string id = 1;</code>
+       * <code>optional string id = 1;</code>
        */
       public Builder clearId() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        
         id_ = getDefaultInstance().getId();
         onChanged();
         return this;
       }
       /**
-       * <code>required string id = 1;</code>
+       * <code>optional string id = 1;</code>
        */
       public Builder setIdBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  checkByteStringIsUtf8(value);
+        
         id_ = value;
         onChanged();
         return this;
       }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
 
       // @@protoc_insertion_point(builder_scope:proto.NetWeapon)
     }
 
+    // @@protoc_insertion_point(class_scope:proto.NetWeapon)
+    private static final com.blastedstudios.freeboot.network.Messages.NetWeapon DEFAULT_INSTANCE;
     static {
-      defaultInstance = new NetWeapon(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new com.blastedstudios.freeboot.network.Messages.NetWeapon();
     }
 
-    // @@protoc_insertion_point(class_scope:proto.NetWeapon)
+    public static com.blastedstudios.freeboot.network.Messages.NetWeapon getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<NetWeapon>
+        PARSER = new com.google.protobuf.AbstractParser<NetWeapon>() {
+      public NetWeapon parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new NetWeapon(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<NetWeapon> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<NetWeapon> getParserForType() {
+      return PARSER;
+    }
+
+    public com.blastedstudios.freeboot.network.Messages.NetWeapon getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface AttackOrBuilder extends
       // @@protoc_insertion_point(interface_extends:proto.Attack)
       com.google.protobuf.MessageOrBuilder {
 
-    /**
-     * <code>optional string name = 1;</code>
-     */
-    boolean hasName();
     /**
      * <code>optional string name = 1;</code>
      */
@@ -3550,16 +3540,8 @@ public final class Messages {
     /**
      * <code>optional float pos_x = 3;</code>
      */
-    boolean hasPosX();
-    /**
-     * <code>optional float pos_x = 3;</code>
-     */
     float getPosX();
 
-    /**
-     * <code>optional float pos_y = 4;</code>
-     */
-    boolean hasPosY();
     /**
      * <code>optional float pos_y = 4;</code>
      */
@@ -3568,40 +3550,31 @@ public final class Messages {
   /**
    * Protobuf type {@code proto.Attack}
    */
-  public static final class Attack extends
-      com.google.protobuf.GeneratedMessage implements
+  public  static final class Attack extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:proto.Attack)
       AttackOrBuilder {
     // Use Attack.newBuilder() to construct.
-    private Attack(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private Attack(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private Attack(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final Attack defaultInstance;
-    public static Attack getDefaultInstance() {
-      return defaultInstance;
+    private Attack() {
+      name_ = "";
+      posX_ = 0F;
+      posY_ = 0F;
     }
 
-    public Attack getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private Attack(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -3611,38 +3584,37 @@ public final class Messages {
               done = true;
               break;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+              if (!input.skipField(tag)) {
                 done = true;
               }
               break;
             }
             case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000001;
-              name_ = bs;
+              java.lang.String s = input.readStringRequireUtf8();
+
+              name_ = s;
               break;
             }
             case 18: {
               com.blastedstudios.freeboot.network.Messages.UUID.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000002) == 0x00000002)) {
+              if (uuid_ != null) {
                 subBuilder = uuid_.toBuilder();
               }
-              uuid_ = input.readMessage(com.blastedstudios.freeboot.network.Messages.UUID.PARSER, extensionRegistry);
+              uuid_ = input.readMessage(com.blastedstudios.freeboot.network.Messages.UUID.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(uuid_);
                 uuid_ = subBuilder.buildPartial();
               }
-              bitField0_ |= 0x00000002;
+
               break;
             }
             case 29: {
-              bitField0_ |= 0x00000004;
+
               posX_ = input.readFloat();
               break;
             }
             case 37: {
-              bitField0_ |= 0x00000008;
+
               posY_ = input.readFloat();
               break;
             }
@@ -3652,9 +3624,8 @@ public final class Messages {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -3663,37 +3634,15 @@ public final class Messages {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Attack_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Attack_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.blastedstudios.freeboot.network.Messages.Attack.class, com.blastedstudios.freeboot.network.Messages.Attack.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<Attack> PARSER =
-        new com.google.protobuf.AbstractParser<Attack>() {
-      public Attack parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Attack(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<Attack> getParserForType() {
-      return PARSER;
-    }
-
-    private int bitField0_;
     public static final int NAME_FIELD_NUMBER = 1;
-    private java.lang.Object name_;
-    /**
-     * <code>optional string name = 1;</code>
-     */
-    public boolean hasName() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
+    private volatile java.lang.Object name_;
     /**
      * <code>optional string name = 1;</code>
      */
@@ -3705,9 +3654,7 @@ public final class Messages {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          name_ = s;
-        }
+        name_ = s;
         return s;
       }
     }
@@ -3734,29 +3681,23 @@ public final class Messages {
      * <code>optional .proto.UUID uuid = 2;</code>
      */
     public boolean hasUuid() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return uuid_ != null;
     }
     /**
      * <code>optional .proto.UUID uuid = 2;</code>
      */
     public com.blastedstudios.freeboot.network.Messages.UUID getUuid() {
-      return uuid_;
+      return uuid_ == null ? com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance() : uuid_;
     }
     /**
      * <code>optional .proto.UUID uuid = 2;</code>
      */
     public com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder getUuidOrBuilder() {
-      return uuid_;
+      return getUuid();
     }
 
     public static final int POS_X_FIELD_NUMBER = 3;
     private float posX_;
-    /**
-     * <code>optional float pos_x = 3;</code>
-     */
-    public boolean hasPosX() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
-    }
     /**
      * <code>optional float pos_x = 3;</code>
      */
@@ -3769,88 +3710,112 @@ public final class Messages {
     /**
      * <code>optional float pos_y = 4;</code>
      */
-    public boolean hasPosY() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
-    }
-    /**
-     * <code>optional float pos_y = 4;</code>
-     */
     public float getPosY() {
       return posY_;
     }
 
-    private void initFields() {
-      name_ = "";
-      uuid_ = com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance();
-      posX_ = 0F;
-      posY_ = 0F;
-    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (hasUuid()) {
-        if (!getUuid().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getNameBytes());
+      if (!getNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeMessage(2, uuid_);
+      if (uuid_ != null) {
+        output.writeMessage(2, getUuid());
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (posX_ != 0F) {
         output.writeFloat(3, posX_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (posY_ != 0F) {
         output.writeFloat(4, posY_);
       }
-      getUnknownFields().writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getNameBytes());
+      if (!getNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (uuid_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, uuid_);
+          .computeMessageSize(2, getUuid());
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (posX_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(3, posX_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (posY_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(4, posY_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blastedstudios.freeboot.network.Messages.Attack)) {
+        return super.equals(obj);
+      }
+      com.blastedstudios.freeboot.network.Messages.Attack other = (com.blastedstudios.freeboot.network.Messages.Attack) obj;
+
+      boolean result = true;
+      result = result && getName()
+          .equals(other.getName());
+      result = result && (hasUuid() == other.hasUuid());
+      if (hasUuid()) {
+        result = result && getUuid()
+            .equals(other.getUuid());
+      }
+      result = result && (
+          java.lang.Float.floatToIntBits(getPosX())
+          == java.lang.Float.floatToIntBits(
+              other.getPosX()));
+      result = result && (
+          java.lang.Float.floatToIntBits(getPosY())
+          == java.lang.Float.floatToIntBits(
+              other.getPosY()));
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
+      if (hasUuid()) {
+        hash = (37 * hash) + UUID_FIELD_NUMBER;
+        hash = (53 * hash) + getUuid().hashCode();
+      }
+      hash = (37 * hash) + POS_X_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getPosX());
+      hash = (37 * hash) + POS_Y_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getPosY());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blastedstudios.freeboot.network.Messages.Attack parseFrom(
@@ -3876,46 +3841,57 @@ public final class Messages {
     }
     public static com.blastedstudios.freeboot.network.Messages.Attack parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.Attack parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.Attack parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.Attack parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.Attack parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.Attack parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.Attack prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.Attack prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -3923,7 +3899,7 @@ public final class Messages {
      * Protobuf type {@code proto.Attack}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:proto.Attack)
         com.blastedstudios.freeboot.network.Messages.AttackOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
@@ -3931,7 +3907,7 @@ public final class Messages {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Attack_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Attack_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -3944,38 +3920,30 @@ public final class Messages {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getUuidFieldBuilder();
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         name_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
-        if (uuidBuilder_ == null) {
-          uuid_ = com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance();
-        } else {
-          uuidBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000002);
-        posX_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00000004);
-        posY_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00000008);
-        return this;
-      }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
+        if (uuidBuilder_ == null) {
+          uuid_ = null;
+        } else {
+          uuid_ = null;
+          uuidBuilder_ = null;
+        }
+        posX_ = 0F;
+
+        posY_ = 0F;
+
+        return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
@@ -3997,33 +3965,44 @@ public final class Messages {
 
       public com.blastedstudios.freeboot.network.Messages.Attack buildPartial() {
         com.blastedstudios.freeboot.network.Messages.Attack result = new com.blastedstudios.freeboot.network.Messages.Attack(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
         result.name_ = name_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
         if (uuidBuilder_ == null) {
           result.uuid_ = uuid_;
         } else {
           result.uuid_ = uuidBuilder_.build();
         }
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-          to_bitField0_ |= 0x00000004;
-        }
         result.posX_ = posX_;
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
-          to_bitField0_ |= 0x00000008;
-        }
         result.posY_ = posY_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.blastedstudios.freeboot.network.Messages.Attack) {
           return mergeFrom((com.blastedstudios.freeboot.network.Messages.Attack)other);
@@ -4035,31 +4014,24 @@ public final class Messages {
 
       public Builder mergeFrom(com.blastedstudios.freeboot.network.Messages.Attack other) {
         if (other == com.blastedstudios.freeboot.network.Messages.Attack.getDefaultInstance()) return this;
-        if (other.hasName()) {
-          bitField0_ |= 0x00000001;
+        if (!other.getName().isEmpty()) {
           name_ = other.name_;
           onChanged();
         }
         if (other.hasUuid()) {
           mergeUuid(other.getUuid());
         }
-        if (other.hasPosX()) {
+        if (other.getPosX() != 0F) {
           setPosX(other.getPosX());
         }
-        if (other.hasPosY()) {
+        if (other.getPosY() != 0F) {
           setPosY(other.getPosY());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
         return this;
       }
 
       public final boolean isInitialized() {
-        if (hasUuid()) {
-          if (!getUuid().isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
 
@@ -4072,7 +4044,7 @@ public final class Messages {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (com.blastedstudios.freeboot.network.Messages.Attack) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -4080,15 +4052,8 @@ public final class Messages {
         }
         return this;
       }
-      private int bitField0_;
 
       private java.lang.Object name_ = "";
-      /**
-       * <code>optional string name = 1;</code>
-       */
-      public boolean hasName() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
       /**
        * <code>optional string name = 1;</code>
        */
@@ -4098,9 +4063,7 @@ public final class Messages {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            name_ = s;
-          }
+          name_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
@@ -4130,7 +4093,7 @@ public final class Messages {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  
         name_ = value;
         onChanged();
         return this;
@@ -4139,7 +4102,7 @@ public final class Messages {
        * <code>optional string name = 1;</code>
        */
       public Builder clearName() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        
         name_ = getDefaultInstance().getName();
         onChanged();
         return this;
@@ -4152,27 +4115,28 @@ public final class Messages {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  checkByteStringIsUtf8(value);
+        
         name_ = value;
         onChanged();
         return this;
       }
 
-      private com.blastedstudios.freeboot.network.Messages.UUID uuid_ = com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.blastedstudios.freeboot.network.Messages.UUID uuid_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
           com.blastedstudios.freeboot.network.Messages.UUID, com.blastedstudios.freeboot.network.Messages.UUID.Builder, com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder> uuidBuilder_;
       /**
        * <code>optional .proto.UUID uuid = 2;</code>
        */
       public boolean hasUuid() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return uuidBuilder_ != null || uuid_ != null;
       }
       /**
        * <code>optional .proto.UUID uuid = 2;</code>
        */
       public com.blastedstudios.freeboot.network.Messages.UUID getUuid() {
         if (uuidBuilder_ == null) {
-          return uuid_;
+          return uuid_ == null ? com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance() : uuid_;
         } else {
           return uuidBuilder_.getMessage();
         }
@@ -4190,7 +4154,7 @@ public final class Messages {
         } else {
           uuidBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000002;
+
         return this;
       }
       /**
@@ -4204,7 +4168,7 @@ public final class Messages {
         } else {
           uuidBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000002;
+
         return this;
       }
       /**
@@ -4212,8 +4176,7 @@ public final class Messages {
        */
       public Builder mergeUuid(com.blastedstudios.freeboot.network.Messages.UUID value) {
         if (uuidBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) == 0x00000002) &&
-              uuid_ != com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance()) {
+          if (uuid_ != null) {
             uuid_ =
               com.blastedstudios.freeboot.network.Messages.UUID.newBuilder(uuid_).mergeFrom(value).buildPartial();
           } else {
@@ -4223,7 +4186,7 @@ public final class Messages {
         } else {
           uuidBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000002;
+
         return this;
       }
       /**
@@ -4231,19 +4194,20 @@ public final class Messages {
        */
       public Builder clearUuid() {
         if (uuidBuilder_ == null) {
-          uuid_ = com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance();
+          uuid_ = null;
           onChanged();
         } else {
-          uuidBuilder_.clear();
+          uuid_ = null;
+          uuidBuilder_ = null;
         }
-        bitField0_ = (bitField0_ & ~0x00000002);
+
         return this;
       }
       /**
        * <code>optional .proto.UUID uuid = 2;</code>
        */
       public com.blastedstudios.freeboot.network.Messages.UUID.Builder getUuidBuilder() {
-        bitField0_ |= 0x00000002;
+        
         onChanged();
         return getUuidFieldBuilder().getBuilder();
       }
@@ -4254,17 +4218,18 @@ public final class Messages {
         if (uuidBuilder_ != null) {
           return uuidBuilder_.getMessageOrBuilder();
         } else {
-          return uuid_;
+          return uuid_ == null ?
+              com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance() : uuid_;
         }
       }
       /**
        * <code>optional .proto.UUID uuid = 2;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           com.blastedstudios.freeboot.network.Messages.UUID, com.blastedstudios.freeboot.network.Messages.UUID.Builder, com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder> 
           getUuidFieldBuilder() {
         if (uuidBuilder_ == null) {
-          uuidBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          uuidBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               com.blastedstudios.freeboot.network.Messages.UUID, com.blastedstudios.freeboot.network.Messages.UUID.Builder, com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder>(
                   getUuid(),
                   getParentForChildren(),
@@ -4278,12 +4243,6 @@ public final class Messages {
       /**
        * <code>optional float pos_x = 3;</code>
        */
-      public boolean hasPosX() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
-      }
-      /**
-       * <code>optional float pos_x = 3;</code>
-       */
       public float getPosX() {
         return posX_;
       }
@@ -4291,7 +4250,7 @@ public final class Messages {
        * <code>optional float pos_x = 3;</code>
        */
       public Builder setPosX(float value) {
-        bitField0_ |= 0x00000004;
+        
         posX_ = value;
         onChanged();
         return this;
@@ -4300,19 +4259,13 @@ public final class Messages {
        * <code>optional float pos_x = 3;</code>
        */
       public Builder clearPosX() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        
         posX_ = 0F;
         onChanged();
         return this;
       }
 
       private float posY_ ;
-      /**
-       * <code>optional float pos_y = 4;</code>
-       */
-      public boolean hasPosY() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
-      }
       /**
        * <code>optional float pos_y = 4;</code>
        */
@@ -4323,7 +4276,7 @@ public final class Messages {
        * <code>optional float pos_y = 4;</code>
        */
       public Builder setPosY(float value) {
-        bitField0_ |= 0x00000008;
+        
         posY_ = value;
         onChanged();
         return this;
@@ -4332,31 +4285,64 @@ public final class Messages {
        * <code>optional float pos_y = 4;</code>
        */
       public Builder clearPosY() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        
         posY_ = 0F;
         onChanged();
         return this;
       }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
 
       // @@protoc_insertion_point(builder_scope:proto.Attack)
     }
 
+    // @@protoc_insertion_point(class_scope:proto.Attack)
+    private static final com.blastedstudios.freeboot.network.Messages.Attack DEFAULT_INSTANCE;
     static {
-      defaultInstance = new Attack(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new com.blastedstudios.freeboot.network.Messages.Attack();
     }
 
-    // @@protoc_insertion_point(class_scope:proto.Attack)
+    public static com.blastedstudios.freeboot.network.Messages.Attack getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Attack>
+        PARSER = new com.google.protobuf.AbstractParser<Attack>() {
+      public Attack parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Attack(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Attack> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Attack> getParserForType() {
+      return PARSER;
+    }
+
+    public com.blastedstudios.freeboot.network.Messages.Attack getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface DeadOrBuilder extends
       // @@protoc_insertion_point(interface_extends:proto.Dead)
       com.google.protobuf.MessageOrBuilder {
 
-    /**
-     * <code>optional string name = 1;</code>
-     */
-    boolean hasName();
     /**
      * <code>optional string name = 1;</code>
      */
@@ -4383,40 +4369,29 @@ public final class Messages {
   /**
    * Protobuf type {@code proto.Dead}
    */
-  public static final class Dead extends
-      com.google.protobuf.GeneratedMessage implements
+  public  static final class Dead extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:proto.Dead)
       DeadOrBuilder {
     // Use Dead.newBuilder() to construct.
-    private Dead(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private Dead(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private Dead(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final Dead defaultInstance;
-    public static Dead getDefaultInstance() {
-      return defaultInstance;
+    private Dead() {
+      name_ = "";
     }
 
-    public Dead getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private Dead(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -4426,29 +4401,28 @@ public final class Messages {
               done = true;
               break;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+              if (!input.skipField(tag)) {
                 done = true;
               }
               break;
             }
             case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000001;
-              name_ = bs;
+              java.lang.String s = input.readStringRequireUtf8();
+
+              name_ = s;
               break;
             }
             case 18: {
               com.blastedstudios.freeboot.network.Messages.UUID.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000002) == 0x00000002)) {
+              if (uuid_ != null) {
                 subBuilder = uuid_.toBuilder();
               }
-              uuid_ = input.readMessage(com.blastedstudios.freeboot.network.Messages.UUID.PARSER, extensionRegistry);
+              uuid_ = input.readMessage(com.blastedstudios.freeboot.network.Messages.UUID.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(uuid_);
                 uuid_ = subBuilder.buildPartial();
               }
-              bitField0_ |= 0x00000002;
+
               break;
             }
           }
@@ -4457,9 +4431,8 @@ public final class Messages {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -4468,37 +4441,15 @@ public final class Messages {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Dead_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Dead_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.blastedstudios.freeboot.network.Messages.Dead.class, com.blastedstudios.freeboot.network.Messages.Dead.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<Dead> PARSER =
-        new com.google.protobuf.AbstractParser<Dead>() {
-      public Dead parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Dead(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<Dead> getParserForType() {
-      return PARSER;
-    }
-
-    private int bitField0_;
     public static final int NAME_FIELD_NUMBER = 1;
-    private java.lang.Object name_;
-    /**
-     * <code>optional string name = 1;</code>
-     */
-    public boolean hasName() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
+    private volatile java.lang.Object name_;
     /**
      * <code>optional string name = 1;</code>
      */
@@ -4510,9 +4461,7 @@ public final class Messages {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          name_ = s;
-        }
+        name_ = s;
         return s;
       }
     }
@@ -4539,77 +4488,95 @@ public final class Messages {
      * <code>optional .proto.UUID uuid = 2;</code>
      */
     public boolean hasUuid() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
+      return uuid_ != null;
     }
     /**
      * <code>optional .proto.UUID uuid = 2;</code>
      */
     public com.blastedstudios.freeboot.network.Messages.UUID getUuid() {
-      return uuid_;
+      return uuid_ == null ? com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance() : uuid_;
     }
     /**
      * <code>optional .proto.UUID uuid = 2;</code>
      */
     public com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder getUuidOrBuilder() {
-      return uuid_;
+      return getUuid();
     }
 
-    private void initFields() {
-      name_ = "";
-      uuid_ = com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance();
-    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (hasUuid()) {
-        if (!getUuid().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getNameBytes());
+      if (!getNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeMessage(2, uuid_);
+      if (uuid_ != null) {
+        output.writeMessage(2, getUuid());
       }
-      getUnknownFields().writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getNameBytes());
+      if (!getNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+      if (uuid_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, uuid_);
+          .computeMessageSize(2, getUuid());
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blastedstudios.freeboot.network.Messages.Dead)) {
+        return super.equals(obj);
+      }
+      com.blastedstudios.freeboot.network.Messages.Dead other = (com.blastedstudios.freeboot.network.Messages.Dead) obj;
+
+      boolean result = true;
+      result = result && getName()
+          .equals(other.getName());
+      result = result && (hasUuid() == other.hasUuid());
+      if (hasUuid()) {
+        result = result && getUuid()
+            .equals(other.getUuid());
+      }
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
+      if (hasUuid()) {
+        hash = (37 * hash) + UUID_FIELD_NUMBER;
+        hash = (53 * hash) + getUuid().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blastedstudios.freeboot.network.Messages.Dead parseFrom(
@@ -4635,46 +4602,57 @@ public final class Messages {
     }
     public static com.blastedstudios.freeboot.network.Messages.Dead parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.Dead parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.Dead parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.Dead parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.Dead parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.Dead parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.Dead prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.Dead prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -4682,7 +4660,7 @@ public final class Messages {
      * Protobuf type {@code proto.Dead}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:proto.Dead)
         com.blastedstudios.freeboot.network.Messages.DeadOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
@@ -4690,7 +4668,7 @@ public final class Messages {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Dead_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Dead_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -4703,34 +4681,26 @@ public final class Messages {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getUuidFieldBuilder();
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         name_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
-        if (uuidBuilder_ == null) {
-          uuid_ = com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance();
-        } else {
-          uuidBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000002);
-        return this;
-      }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
+        if (uuidBuilder_ == null) {
+          uuid_ = null;
+        } else {
+          uuid_ = null;
+          uuidBuilder_ = null;
+        }
+        return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
@@ -4752,25 +4722,42 @@ public final class Messages {
 
       public com.blastedstudios.freeboot.network.Messages.Dead buildPartial() {
         com.blastedstudios.freeboot.network.Messages.Dead result = new com.blastedstudios.freeboot.network.Messages.Dead(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
         result.name_ = name_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
         if (uuidBuilder_ == null) {
           result.uuid_ = uuid_;
         } else {
           result.uuid_ = uuidBuilder_.build();
         }
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.blastedstudios.freeboot.network.Messages.Dead) {
           return mergeFrom((com.blastedstudios.freeboot.network.Messages.Dead)other);
@@ -4782,25 +4769,18 @@ public final class Messages {
 
       public Builder mergeFrom(com.blastedstudios.freeboot.network.Messages.Dead other) {
         if (other == com.blastedstudios.freeboot.network.Messages.Dead.getDefaultInstance()) return this;
-        if (other.hasName()) {
-          bitField0_ |= 0x00000001;
+        if (!other.getName().isEmpty()) {
           name_ = other.name_;
           onChanged();
         }
         if (other.hasUuid()) {
           mergeUuid(other.getUuid());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
         return this;
       }
 
       public final boolean isInitialized() {
-        if (hasUuid()) {
-          if (!getUuid().isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
 
@@ -4813,7 +4793,7 @@ public final class Messages {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (com.blastedstudios.freeboot.network.Messages.Dead) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -4821,15 +4801,8 @@ public final class Messages {
         }
         return this;
       }
-      private int bitField0_;
 
       private java.lang.Object name_ = "";
-      /**
-       * <code>optional string name = 1;</code>
-       */
-      public boolean hasName() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
       /**
        * <code>optional string name = 1;</code>
        */
@@ -4839,9 +4812,7 @@ public final class Messages {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            name_ = s;
-          }
+          name_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
@@ -4871,7 +4842,7 @@ public final class Messages {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  
         name_ = value;
         onChanged();
         return this;
@@ -4880,7 +4851,7 @@ public final class Messages {
        * <code>optional string name = 1;</code>
        */
       public Builder clearName() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        
         name_ = getDefaultInstance().getName();
         onChanged();
         return this;
@@ -4893,27 +4864,28 @@ public final class Messages {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  checkByteStringIsUtf8(value);
+        
         name_ = value;
         onChanged();
         return this;
       }
 
-      private com.blastedstudios.freeboot.network.Messages.UUID uuid_ = com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.blastedstudios.freeboot.network.Messages.UUID uuid_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
           com.blastedstudios.freeboot.network.Messages.UUID, com.blastedstudios.freeboot.network.Messages.UUID.Builder, com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder> uuidBuilder_;
       /**
        * <code>optional .proto.UUID uuid = 2;</code>
        */
       public boolean hasUuid() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
+        return uuidBuilder_ != null || uuid_ != null;
       }
       /**
        * <code>optional .proto.UUID uuid = 2;</code>
        */
       public com.blastedstudios.freeboot.network.Messages.UUID getUuid() {
         if (uuidBuilder_ == null) {
-          return uuid_;
+          return uuid_ == null ? com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance() : uuid_;
         } else {
           return uuidBuilder_.getMessage();
         }
@@ -4931,7 +4903,7 @@ public final class Messages {
         } else {
           uuidBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000002;
+
         return this;
       }
       /**
@@ -4945,7 +4917,7 @@ public final class Messages {
         } else {
           uuidBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000002;
+
         return this;
       }
       /**
@@ -4953,8 +4925,7 @@ public final class Messages {
        */
       public Builder mergeUuid(com.blastedstudios.freeboot.network.Messages.UUID value) {
         if (uuidBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) == 0x00000002) &&
-              uuid_ != com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance()) {
+          if (uuid_ != null) {
             uuid_ =
               com.blastedstudios.freeboot.network.Messages.UUID.newBuilder(uuid_).mergeFrom(value).buildPartial();
           } else {
@@ -4964,7 +4935,7 @@ public final class Messages {
         } else {
           uuidBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000002;
+
         return this;
       }
       /**
@@ -4972,19 +4943,20 @@ public final class Messages {
        */
       public Builder clearUuid() {
         if (uuidBuilder_ == null) {
-          uuid_ = com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance();
+          uuid_ = null;
           onChanged();
         } else {
-          uuidBuilder_.clear();
+          uuid_ = null;
+          uuidBuilder_ = null;
         }
-        bitField0_ = (bitField0_ & ~0x00000002);
+
         return this;
       }
       /**
        * <code>optional .proto.UUID uuid = 2;</code>
        */
       public com.blastedstudios.freeboot.network.Messages.UUID.Builder getUuidBuilder() {
-        bitField0_ |= 0x00000002;
+        
         onChanged();
         return getUuidFieldBuilder().getBuilder();
       }
@@ -4995,17 +4967,18 @@ public final class Messages {
         if (uuidBuilder_ != null) {
           return uuidBuilder_.getMessageOrBuilder();
         } else {
-          return uuid_;
+          return uuid_ == null ?
+              com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance() : uuid_;
         }
       }
       /**
        * <code>optional .proto.UUID uuid = 2;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           com.blastedstudios.freeboot.network.Messages.UUID, com.blastedstudios.freeboot.network.Messages.UUID.Builder, com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder> 
           getUuidFieldBuilder() {
         if (uuidBuilder_ == null) {
-          uuidBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          uuidBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               com.blastedstudios.freeboot.network.Messages.UUID, com.blastedstudios.freeboot.network.Messages.UUID.Builder, com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder>(
                   getUuid(),
                   getParentForChildren(),
@@ -5014,16 +4987,53 @@ public final class Messages {
         }
         return uuidBuilder_;
       }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
 
       // @@protoc_insertion_point(builder_scope:proto.Dead)
     }
 
+    // @@protoc_insertion_point(class_scope:proto.Dead)
+    private static final com.blastedstudios.freeboot.network.Messages.Dead DEFAULT_INSTANCE;
     static {
-      defaultInstance = new Dead(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new com.blastedstudios.freeboot.network.Messages.Dead();
     }
 
-    // @@protoc_insertion_point(class_scope:proto.Dead)
+    public static com.blastedstudios.freeboot.network.Messages.Dead getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Dead>
+        PARSER = new com.google.protobuf.AbstractParser<Dead>() {
+      public Dead parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Dead(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Dead> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Dead> getParserForType() {
+      return PARSER;
+    }
+
+    public com.blastedstudios.freeboot.network.Messages.Dead getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface ExitGameplayOrBuilder extends
@@ -5031,51 +5041,36 @@ public final class Messages {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required bool success = 1;</code>
-     */
-    boolean hasSuccess();
-    /**
-     * <code>required bool success = 1;</code>
+     * <code>optional bool success = 1;</code>
      */
     boolean getSuccess();
   }
   /**
    * Protobuf type {@code proto.ExitGameplay}
    */
-  public static final class ExitGameplay extends
-      com.google.protobuf.GeneratedMessage implements
+  public  static final class ExitGameplay extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:proto.ExitGameplay)
       ExitGameplayOrBuilder {
     // Use ExitGameplay.newBuilder() to construct.
-    private ExitGameplay(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private ExitGameplay(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private ExitGameplay(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final ExitGameplay defaultInstance;
-    public static ExitGameplay getDefaultInstance() {
-      return defaultInstance;
+    private ExitGameplay() {
+      success_ = false;
     }
 
-    public ExitGameplay getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private ExitGameplay(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -5085,14 +5080,13 @@ public final class Messages {
               done = true;
               break;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+              if (!input.skipField(tag)) {
                 done = true;
               }
               break;
             }
             case 8: {
-              bitField0_ |= 0x00000001;
+
               success_ = input.readBool();
               break;
             }
@@ -5102,9 +5096,8 @@ public final class Messages {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -5113,90 +5106,82 @@ public final class Messages {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_ExitGameplay_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_ExitGameplay_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.blastedstudios.freeboot.network.Messages.ExitGameplay.class, com.blastedstudios.freeboot.network.Messages.ExitGameplay.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<ExitGameplay> PARSER =
-        new com.google.protobuf.AbstractParser<ExitGameplay>() {
-      public ExitGameplay parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ExitGameplay(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ExitGameplay> getParserForType() {
-      return PARSER;
-    }
-
-    private int bitField0_;
     public static final int SUCCESS_FIELD_NUMBER = 1;
     private boolean success_;
     /**
-     * <code>required bool success = 1;</code>
-     */
-    public boolean hasSuccess() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    /**
-     * <code>required bool success = 1;</code>
+     * <code>optional bool success = 1;</code>
      */
     public boolean getSuccess() {
       return success_;
     }
 
-    private void initFields() {
-      success_ = false;
-    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasSuccess()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (success_ != false) {
         output.writeBool(1, success_);
       }
-      getUnknownFields().writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (success_ != false) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(1, success_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blastedstudios.freeboot.network.Messages.ExitGameplay)) {
+        return super.equals(obj);
+      }
+      com.blastedstudios.freeboot.network.Messages.ExitGameplay other = (com.blastedstudios.freeboot.network.Messages.ExitGameplay) obj;
+
+      boolean result = true;
+      result = result && (getSuccess()
+          == other.getSuccess());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + SUCCESS_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getSuccess());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blastedstudios.freeboot.network.Messages.ExitGameplay parseFrom(
@@ -5222,46 +5207,57 @@ public final class Messages {
     }
     public static com.blastedstudios.freeboot.network.Messages.ExitGameplay parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.ExitGameplay parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.ExitGameplay parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.ExitGameplay parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.ExitGameplay parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.ExitGameplay parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.ExitGameplay prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.ExitGameplay prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -5269,7 +5265,7 @@ public final class Messages {
      * Protobuf type {@code proto.ExitGameplay}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:proto.ExitGameplay)
         com.blastedstudios.freeboot.network.Messages.ExitGameplayOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
@@ -5277,7 +5273,7 @@ public final class Messages {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_ExitGameplay_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_ExitGameplay_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -5290,27 +5286,20 @@ public final class Messages {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         success_ = false;
-        bitField0_ = (bitField0_ & ~0x00000001);
-        return this;
-      }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
+        return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
@@ -5332,17 +5321,37 @@ public final class Messages {
 
       public com.blastedstudios.freeboot.network.Messages.ExitGameplay buildPartial() {
         com.blastedstudios.freeboot.network.Messages.ExitGameplay result = new com.blastedstudios.freeboot.network.Messages.ExitGameplay(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
         result.success_ = success_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.blastedstudios.freeboot.network.Messages.ExitGameplay) {
           return mergeFrom((com.blastedstudios.freeboot.network.Messages.ExitGameplay)other);
@@ -5354,18 +5363,14 @@ public final class Messages {
 
       public Builder mergeFrom(com.blastedstudios.freeboot.network.Messages.ExitGameplay other) {
         if (other == com.blastedstudios.freeboot.network.Messages.ExitGameplay.getDefaultInstance()) return this;
-        if (other.hasSuccess()) {
+        if (other.getSuccess() != false) {
           setSuccess(other.getSuccess());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
         return this;
       }
 
       public final boolean isInitialized() {
-        if (!hasSuccess()) {
-          
-          return false;
-        }
         return true;
       }
 
@@ -5378,7 +5383,7 @@ public final class Messages {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (com.blastedstudios.freeboot.network.Messages.ExitGameplay) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -5386,49 +5391,79 @@ public final class Messages {
         }
         return this;
       }
-      private int bitField0_;
 
       private boolean success_ ;
       /**
-       * <code>required bool success = 1;</code>
-       */
-      public boolean hasSuccess() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>required bool success = 1;</code>
+       * <code>optional bool success = 1;</code>
        */
       public boolean getSuccess() {
         return success_;
       }
       /**
-       * <code>required bool success = 1;</code>
+       * <code>optional bool success = 1;</code>
        */
       public Builder setSuccess(boolean value) {
-        bitField0_ |= 0x00000001;
+        
         success_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required bool success = 1;</code>
+       * <code>optional bool success = 1;</code>
        */
       public Builder clearSuccess() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        
         success_ = false;
         onChanged();
         return this;
       }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
 
       // @@protoc_insertion_point(builder_scope:proto.ExitGameplay)
     }
 
+    // @@protoc_insertion_point(class_scope:proto.ExitGameplay)
+    private static final com.blastedstudios.freeboot.network.Messages.ExitGameplay DEFAULT_INSTANCE;
     static {
-      defaultInstance = new ExitGameplay(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new com.blastedstudios.freeboot.network.Messages.ExitGameplay();
     }
 
-    // @@protoc_insertion_point(class_scope:proto.ExitGameplay)
+    public static com.blastedstudios.freeboot.network.Messages.ExitGameplay getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<ExitGameplay>
+        PARSER = new com.google.protobuf.AbstractParser<ExitGameplay>() {
+      public ExitGameplay parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new ExitGameplay(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<ExitGameplay> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<ExitGameplay> getParserForType() {
+      return PARSER;
+    }
+
+    public com.blastedstudios.freeboot.network.Messages.ExitGameplay getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface NPCStateOrBuilder extends
@@ -5462,40 +5497,29 @@ public final class Messages {
   /**
    * Protobuf type {@code proto.NPCState}
    */
-  public static final class NPCState extends
-      com.google.protobuf.GeneratedMessage implements
+  public  static final class NPCState extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:proto.NPCState)
       NPCStateOrBuilder {
     // Use NPCState.newBuilder() to construct.
-    private NPCState(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private NPCState(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private NPCState(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final NPCState defaultInstance;
-    public static NPCState getDefaultInstance() {
-      return defaultInstance;
+    private NPCState() {
+      npcs_ = java.util.Collections.emptyList();
     }
 
-    public NPCState getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private NPCState(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -5505,8 +5529,7 @@ public final class Messages {
               done = true;
               break;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+              if (!input.skipField(tag)) {
                 done = true;
               }
               break;
@@ -5516,7 +5539,8 @@ public final class Messages {
                 npcs_ = new java.util.ArrayList<com.blastedstudios.freeboot.network.Messages.NetBeing>();
                 mutable_bitField0_ |= 0x00000001;
               }
-              npcs_.add(input.readMessage(com.blastedstudios.freeboot.network.Messages.NetBeing.PARSER, extensionRegistry));
+              npcs_.add(
+                  input.readMessage(com.blastedstudios.freeboot.network.Messages.NetBeing.parser(), extensionRegistry));
               break;
             }
           }
@@ -5525,12 +5549,11 @@ public final class Messages {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
           npcs_ = java.util.Collections.unmodifiableList(npcs_);
         }
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -5539,26 +5562,11 @@ public final class Messages {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_NPCState_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_NPCState_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.blastedstudios.freeboot.network.Messages.NPCState.class, com.blastedstudios.freeboot.network.Messages.NPCState.Builder.class);
-    }
-
-    public static com.google.protobuf.Parser<NPCState> PARSER =
-        new com.google.protobuf.AbstractParser<NPCState>() {
-      public NPCState parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new NPCState(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<NPCState> getParserForType() {
-      return PARSER;
     }
 
     public static final int NPCS_FIELD_NUMBER = 1;
@@ -5596,37 +5604,25 @@ public final class Messages {
       return npcs_.get(index);
     }
 
-    private void initFields() {
-      npcs_ = java.util.Collections.emptyList();
-    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      for (int i = 0; i < getNpcsCount(); i++) {
-        if (!getNpcs(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
       for (int i = 0; i < npcs_.size(); i++) {
         output.writeMessage(1, npcs_.get(i));
       }
-      getUnknownFields().writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
@@ -5634,16 +5630,41 @@ public final class Messages {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, npcs_.get(i));
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blastedstudios.freeboot.network.Messages.NPCState)) {
+        return super.equals(obj);
+      }
+      com.blastedstudios.freeboot.network.Messages.NPCState other = (com.blastedstudios.freeboot.network.Messages.NPCState) obj;
+
+      boolean result = true;
+      result = result && getNpcsList()
+          .equals(other.getNpcsList());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      if (getNpcsCount() > 0) {
+        hash = (37 * hash) + NPCS_FIELD_NUMBER;
+        hash = (53 * hash) + getNpcsList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blastedstudios.freeboot.network.Messages.NPCState parseFrom(
@@ -5669,46 +5690,57 @@ public final class Messages {
     }
     public static com.blastedstudios.freeboot.network.Messages.NPCState parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.NPCState parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.NPCState parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.NPCState parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.NPCState parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.NPCState parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.NPCState prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.NPCState prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -5716,7 +5748,7 @@ public final class Messages {
      * Protobuf type {@code proto.NPCState}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:proto.NPCState)
         com.blastedstudios.freeboot.network.Messages.NPCStateOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
@@ -5724,7 +5756,7 @@ public final class Messages {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_NPCState_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_NPCState_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -5737,19 +5769,16 @@ public final class Messages {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getNpcsFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         if (npcsBuilder_ == null) {
@@ -5759,10 +5788,6 @@ public final class Messages {
           npcsBuilder_.clear();
         }
         return this;
-      }
-
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
       }
 
       public com.google.protobuf.Descriptors.Descriptor
@@ -5798,6 +5823,32 @@ public final class Messages {
         return result;
       }
 
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.blastedstudios.freeboot.network.Messages.NPCState) {
           return mergeFrom((com.blastedstudios.freeboot.network.Messages.NPCState)other);
@@ -5828,24 +5879,18 @@ public final class Messages {
               npcs_ = other.npcs_;
               bitField0_ = (bitField0_ & ~0x00000001);
               npcsBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getNpcsFieldBuilder() : null;
             } else {
               npcsBuilder_.addAllMessages(other.npcs_);
             }
           }
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
         return this;
       }
 
       public final boolean isInitialized() {
-        for (int i = 0; i < getNpcsCount(); i++) {
-          if (!getNpcs(i).isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
 
@@ -5858,7 +5903,7 @@ public final class Messages {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (com.blastedstudios.freeboot.network.Messages.NPCState) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -5877,7 +5922,7 @@ public final class Messages {
          }
       }
 
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           com.blastedstudios.freeboot.network.Messages.NetBeing, com.blastedstudios.freeboot.network.Messages.NetBeing.Builder, com.blastedstudios.freeboot.network.Messages.NetBeingOrBuilder> npcsBuilder_;
 
       /**
@@ -6093,11 +6138,11 @@ public final class Messages {
            getNpcsBuilderList() {
         return getNpcsFieldBuilder().getBuilderList();
       }
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           com.blastedstudios.freeboot.network.Messages.NetBeing, com.blastedstudios.freeboot.network.Messages.NetBeing.Builder, com.blastedstudios.freeboot.network.Messages.NetBeingOrBuilder> 
           getNpcsFieldBuilder() {
         if (npcsBuilder_ == null) {
-          npcsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+          npcsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               com.blastedstudios.freeboot.network.Messages.NetBeing, com.blastedstudios.freeboot.network.Messages.NetBeing.Builder, com.blastedstudios.freeboot.network.Messages.NetBeingOrBuilder>(
                   npcs_,
                   ((bitField0_ & 0x00000001) == 0x00000001),
@@ -6107,16 +6152,53 @@ public final class Messages {
         }
         return npcsBuilder_;
       }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
 
       // @@protoc_insertion_point(builder_scope:proto.NPCState)
     }
 
+    // @@protoc_insertion_point(class_scope:proto.NPCState)
+    private static final com.blastedstudios.freeboot.network.Messages.NPCState DEFAULT_INSTANCE;
     static {
-      defaultInstance = new NPCState(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new com.blastedstudios.freeboot.network.Messages.NPCState();
     }
 
-    // @@protoc_insertion_point(class_scope:proto.NPCState)
+    public static com.blastedstudios.freeboot.network.Messages.NPCState getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<NPCState>
+        PARSER = new com.google.protobuf.AbstractParser<NPCState>() {
+      public NPCState parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new NPCState(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<NPCState> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<NPCState> getParserForType() {
+      return PARSER;
+    }
+
+    public com.blastedstudios.freeboot.network.Messages.NPCState getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface NameUpdateOrBuilder extends
@@ -6124,15 +6206,11 @@ public final class Messages {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string name = 1;</code>
-     */
-    boolean hasName();
-    /**
-     * <code>required string name = 1;</code>
+     * <code>optional string name = 1;</code>
      */
     java.lang.String getName();
     /**
-     * <code>required string name = 1;</code>
+     * <code>optional string name = 1;</code>
      */
     com.google.protobuf.ByteString
         getNameBytes();
@@ -6140,40 +6218,29 @@ public final class Messages {
   /**
    * Protobuf type {@code proto.NameUpdate}
    */
-  public static final class NameUpdate extends
-      com.google.protobuf.GeneratedMessage implements
+  public  static final class NameUpdate extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:proto.NameUpdate)
       NameUpdateOrBuilder {
     // Use NameUpdate.newBuilder() to construct.
-    private NameUpdate(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private NameUpdate(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private NameUpdate(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final NameUpdate defaultInstance;
-    public static NameUpdate getDefaultInstance() {
-      return defaultInstance;
+    private NameUpdate() {
+      name_ = "";
     }
 
-    public NameUpdate getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private NameUpdate(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -6183,16 +6250,15 @@ public final class Messages {
               done = true;
               break;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+              if (!input.skipField(tag)) {
                 done = true;
               }
               break;
             }
             case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000001;
-              name_ = bs;
+              java.lang.String s = input.readStringRequireUtf8();
+
+              name_ = s;
               break;
             }
           }
@@ -6201,9 +6267,8 @@ public final class Messages {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -6212,39 +6277,17 @@ public final class Messages {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_NameUpdate_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_NameUpdate_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.blastedstudios.freeboot.network.Messages.NameUpdate.class, com.blastedstudios.freeboot.network.Messages.NameUpdate.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<NameUpdate> PARSER =
-        new com.google.protobuf.AbstractParser<NameUpdate>() {
-      public NameUpdate parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new NameUpdate(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<NameUpdate> getParserForType() {
-      return PARSER;
-    }
-
-    private int bitField0_;
     public static final int NAME_FIELD_NUMBER = 1;
-    private java.lang.Object name_;
+    private volatile java.lang.Object name_;
     /**
-     * <code>required string name = 1;</code>
-     */
-    public boolean hasName() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    /**
-     * <code>required string name = 1;</code>
+     * <code>optional string name = 1;</code>
      */
     public java.lang.String getName() {
       java.lang.Object ref = name_;
@@ -6254,14 +6297,12 @@ public final class Messages {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          name_ = s;
-        }
+        name_ = s;
         return s;
       }
     }
     /**
-     * <code>required string name = 1;</code>
+     * <code>optional string name = 1;</code>
      */
     public com.google.protobuf.ByteString
         getNameBytes() {
@@ -6277,52 +6318,64 @@ public final class Messages {
       }
     }
 
-    private void initFields() {
-      name_ = "";
-    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasName()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getNameBytes());
+      if (!getNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
       }
-      getUnknownFields().writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getNameBytes());
+      if (!getNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blastedstudios.freeboot.network.Messages.NameUpdate)) {
+        return super.equals(obj);
+      }
+      com.blastedstudios.freeboot.network.Messages.NameUpdate other = (com.blastedstudios.freeboot.network.Messages.NameUpdate) obj;
+
+      boolean result = true;
+      result = result && getName()
+          .equals(other.getName());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blastedstudios.freeboot.network.Messages.NameUpdate parseFrom(
@@ -6348,46 +6401,57 @@ public final class Messages {
     }
     public static com.blastedstudios.freeboot.network.Messages.NameUpdate parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.NameUpdate parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.NameUpdate parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.NameUpdate parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.NameUpdate parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.NameUpdate parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.NameUpdate prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.NameUpdate prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -6395,7 +6459,7 @@ public final class Messages {
      * Protobuf type {@code proto.NameUpdate}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:proto.NameUpdate)
         com.blastedstudios.freeboot.network.Messages.NameUpdateOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
@@ -6403,7 +6467,7 @@ public final class Messages {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_NameUpdate_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_NameUpdate_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -6416,27 +6480,20 @@ public final class Messages {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         name_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
-        return this;
-      }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
+        return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
@@ -6458,17 +6515,37 @@ public final class Messages {
 
       public com.blastedstudios.freeboot.network.Messages.NameUpdate buildPartial() {
         com.blastedstudios.freeboot.network.Messages.NameUpdate result = new com.blastedstudios.freeboot.network.Messages.NameUpdate(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
         result.name_ = name_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.blastedstudios.freeboot.network.Messages.NameUpdate) {
           return mergeFrom((com.blastedstudios.freeboot.network.Messages.NameUpdate)other);
@@ -6480,20 +6557,15 @@ public final class Messages {
 
       public Builder mergeFrom(com.blastedstudios.freeboot.network.Messages.NameUpdate other) {
         if (other == com.blastedstudios.freeboot.network.Messages.NameUpdate.getDefaultInstance()) return this;
-        if (other.hasName()) {
-          bitField0_ |= 0x00000001;
+        if (!other.getName().isEmpty()) {
           name_ = other.name_;
           onChanged();
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
         return this;
       }
 
       public final boolean isInitialized() {
-        if (!hasName()) {
-          
-          return false;
-        }
         return true;
       }
 
@@ -6506,7 +6578,7 @@ public final class Messages {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (com.blastedstudios.freeboot.network.Messages.NameUpdate) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -6514,17 +6586,10 @@ public final class Messages {
         }
         return this;
       }
-      private int bitField0_;
 
       private java.lang.Object name_ = "";
       /**
-       * <code>required string name = 1;</code>
-       */
-      public boolean hasName() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>required string name = 1;</code>
+       * <code>optional string name = 1;</code>
        */
       public java.lang.String getName() {
         java.lang.Object ref = name_;
@@ -6532,16 +6597,14 @@ public final class Messages {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            name_ = s;
-          }
+          name_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>optional string name = 1;</code>
        */
       public com.google.protobuf.ByteString
           getNameBytes() {
@@ -6557,50 +6620,88 @@ public final class Messages {
         }
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>optional string name = 1;</code>
        */
       public Builder setName(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  
         name_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>optional string name = 1;</code>
        */
       public Builder clearName() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        
         name_ = getDefaultInstance().getName();
         onChanged();
         return this;
       }
       /**
-       * <code>required string name = 1;</code>
+       * <code>optional string name = 1;</code>
        */
       public Builder setNameBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  checkByteStringIsUtf8(value);
+        
         name_ = value;
         onChanged();
         return this;
       }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
 
       // @@protoc_insertion_point(builder_scope:proto.NameUpdate)
     }
 
+    // @@protoc_insertion_point(class_scope:proto.NameUpdate)
+    private static final com.blastedstudios.freeboot.network.Messages.NameUpdate DEFAULT_INSTANCE;
     static {
-      defaultInstance = new NameUpdate(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new com.blastedstudios.freeboot.network.Messages.NameUpdate();
     }
 
-    // @@protoc_insertion_point(class_scope:proto.NameUpdate)
+    public static com.blastedstudios.freeboot.network.Messages.NameUpdate getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<NameUpdate>
+        PARSER = new com.google.protobuf.AbstractParser<NameUpdate>() {
+      public NameUpdate parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new NameUpdate(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<NameUpdate> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<NameUpdate> getParserForType() {
+      return PARSER;
+    }
+
+    public com.blastedstudios.freeboot.network.Messages.NameUpdate getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface PauseOrBuilder extends
@@ -6608,51 +6709,36 @@ public final class Messages {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required bool pause = 1;</code>
-     */
-    boolean hasPause();
-    /**
-     * <code>required bool pause = 1;</code>
+     * <code>optional bool pause = 1;</code>
      */
     boolean getPause();
   }
   /**
    * Protobuf type {@code proto.Pause}
    */
-  public static final class Pause extends
-      com.google.protobuf.GeneratedMessage implements
+  public  static final class Pause extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:proto.Pause)
       PauseOrBuilder {
     // Use Pause.newBuilder() to construct.
-    private Pause(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private Pause(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private Pause(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final Pause defaultInstance;
-    public static Pause getDefaultInstance() {
-      return defaultInstance;
+    private Pause() {
+      pause_ = false;
     }
 
-    public Pause getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private Pause(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -6662,14 +6748,13 @@ public final class Messages {
               done = true;
               break;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+              if (!input.skipField(tag)) {
                 done = true;
               }
               break;
             }
             case 8: {
-              bitField0_ |= 0x00000001;
+
               pause_ = input.readBool();
               break;
             }
@@ -6679,9 +6764,8 @@ public final class Messages {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -6690,90 +6774,82 @@ public final class Messages {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Pause_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Pause_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.blastedstudios.freeboot.network.Messages.Pause.class, com.blastedstudios.freeboot.network.Messages.Pause.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<Pause> PARSER =
-        new com.google.protobuf.AbstractParser<Pause>() {
-      public Pause parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Pause(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<Pause> getParserForType() {
-      return PARSER;
-    }
-
-    private int bitField0_;
     public static final int PAUSE_FIELD_NUMBER = 1;
     private boolean pause_;
     /**
-     * <code>required bool pause = 1;</code>
-     */
-    public boolean hasPause() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    /**
-     * <code>required bool pause = 1;</code>
+     * <code>optional bool pause = 1;</code>
      */
     public boolean getPause() {
       return pause_;
     }
 
-    private void initFields() {
-      pause_ = false;
-    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasPause()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (pause_ != false) {
         output.writeBool(1, pause_);
       }
-      getUnknownFields().writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (pause_ != false) {
         size += com.google.protobuf.CodedOutputStream
           .computeBoolSize(1, pause_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blastedstudios.freeboot.network.Messages.Pause)) {
+        return super.equals(obj);
+      }
+      com.blastedstudios.freeboot.network.Messages.Pause other = (com.blastedstudios.freeboot.network.Messages.Pause) obj;
+
+      boolean result = true;
+      result = result && (getPause()
+          == other.getPause());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + PAUSE_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getPause());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blastedstudios.freeboot.network.Messages.Pause parseFrom(
@@ -6799,46 +6875,57 @@ public final class Messages {
     }
     public static com.blastedstudios.freeboot.network.Messages.Pause parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.Pause parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.Pause parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.Pause parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.Pause parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.Pause parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.Pause prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.Pause prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -6846,7 +6933,7 @@ public final class Messages {
      * Protobuf type {@code proto.Pause}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:proto.Pause)
         com.blastedstudios.freeboot.network.Messages.PauseOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
@@ -6854,7 +6941,7 @@ public final class Messages {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Pause_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Pause_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -6867,27 +6954,20 @@ public final class Messages {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         pause_ = false;
-        bitField0_ = (bitField0_ & ~0x00000001);
-        return this;
-      }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
+        return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
@@ -6909,17 +6989,37 @@ public final class Messages {
 
       public com.blastedstudios.freeboot.network.Messages.Pause buildPartial() {
         com.blastedstudios.freeboot.network.Messages.Pause result = new com.blastedstudios.freeboot.network.Messages.Pause(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
         result.pause_ = pause_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.blastedstudios.freeboot.network.Messages.Pause) {
           return mergeFrom((com.blastedstudios.freeboot.network.Messages.Pause)other);
@@ -6931,18 +7031,14 @@ public final class Messages {
 
       public Builder mergeFrom(com.blastedstudios.freeboot.network.Messages.Pause other) {
         if (other == com.blastedstudios.freeboot.network.Messages.Pause.getDefaultInstance()) return this;
-        if (other.hasPause()) {
+        if (other.getPause() != false) {
           setPause(other.getPause());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
         return this;
       }
 
       public final boolean isInitialized() {
-        if (!hasPause()) {
-          
-          return false;
-        }
         return true;
       }
 
@@ -6955,7 +7051,7 @@ public final class Messages {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (com.blastedstudios.freeboot.network.Messages.Pause) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -6963,49 +7059,79 @@ public final class Messages {
         }
         return this;
       }
-      private int bitField0_;
 
       private boolean pause_ ;
       /**
-       * <code>required bool pause = 1;</code>
-       */
-      public boolean hasPause() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>required bool pause = 1;</code>
+       * <code>optional bool pause = 1;</code>
        */
       public boolean getPause() {
         return pause_;
       }
       /**
-       * <code>required bool pause = 1;</code>
+       * <code>optional bool pause = 1;</code>
        */
       public Builder setPause(boolean value) {
-        bitField0_ |= 0x00000001;
+        
         pause_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required bool pause = 1;</code>
+       * <code>optional bool pause = 1;</code>
        */
       public Builder clearPause() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        
         pause_ = false;
         onChanged();
         return this;
       }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
 
       // @@protoc_insertion_point(builder_scope:proto.Pause)
     }
 
+    // @@protoc_insertion_point(class_scope:proto.Pause)
+    private static final com.blastedstudios.freeboot.network.Messages.Pause DEFAULT_INSTANCE;
     static {
-      defaultInstance = new Pause(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new com.blastedstudios.freeboot.network.Messages.Pause();
     }
 
-    // @@protoc_insertion_point(class_scope:proto.Pause)
+    public static com.blastedstudios.freeboot.network.Messages.Pause getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Pause>
+        PARSER = new com.google.protobuf.AbstractParser<Pause>() {
+      public Pause parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Pause(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Pause> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Pause> getParserForType() {
+      return PARSER;
+    }
+
+    public com.blastedstudios.freeboot.network.Messages.Pause getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface PlayerStateOrBuilder extends
@@ -7039,40 +7165,29 @@ public final class Messages {
   /**
    * Protobuf type {@code proto.PlayerState}
    */
-  public static final class PlayerState extends
-      com.google.protobuf.GeneratedMessage implements
+  public  static final class PlayerState extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:proto.PlayerState)
       PlayerStateOrBuilder {
     // Use PlayerState.newBuilder() to construct.
-    private PlayerState(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private PlayerState(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private PlayerState(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final PlayerState defaultInstance;
-    public static PlayerState getDefaultInstance() {
-      return defaultInstance;
+    private PlayerState() {
+      players_ = java.util.Collections.emptyList();
     }
 
-    public PlayerState getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private PlayerState(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -7082,8 +7197,7 @@ public final class Messages {
               done = true;
               break;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+              if (!input.skipField(tag)) {
                 done = true;
               }
               break;
@@ -7093,7 +7207,8 @@ public final class Messages {
                 players_ = new java.util.ArrayList<com.blastedstudios.freeboot.network.Messages.NetBeing>();
                 mutable_bitField0_ |= 0x00000001;
               }
-              players_.add(input.readMessage(com.blastedstudios.freeboot.network.Messages.NetBeing.PARSER, extensionRegistry));
+              players_.add(
+                  input.readMessage(com.blastedstudios.freeboot.network.Messages.NetBeing.parser(), extensionRegistry));
               break;
             }
           }
@@ -7102,12 +7217,11 @@ public final class Messages {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
         if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
           players_ = java.util.Collections.unmodifiableList(players_);
         }
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -7116,26 +7230,11 @@ public final class Messages {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_PlayerState_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_PlayerState_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.blastedstudios.freeboot.network.Messages.PlayerState.class, com.blastedstudios.freeboot.network.Messages.PlayerState.Builder.class);
-    }
-
-    public static com.google.protobuf.Parser<PlayerState> PARSER =
-        new com.google.protobuf.AbstractParser<PlayerState>() {
-      public PlayerState parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new PlayerState(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<PlayerState> getParserForType() {
-      return PARSER;
     }
 
     public static final int PLAYERS_FIELD_NUMBER = 1;
@@ -7173,37 +7272,25 @@ public final class Messages {
       return players_.get(index);
     }
 
-    private void initFields() {
-      players_ = java.util.Collections.emptyList();
-    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      for (int i = 0; i < getPlayersCount(); i++) {
-        if (!getPlayers(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
       for (int i = 0; i < players_.size(); i++) {
         output.writeMessage(1, players_.get(i));
       }
-      getUnknownFields().writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
@@ -7211,16 +7298,41 @@ public final class Messages {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, players_.get(i));
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blastedstudios.freeboot.network.Messages.PlayerState)) {
+        return super.equals(obj);
+      }
+      com.blastedstudios.freeboot.network.Messages.PlayerState other = (com.blastedstudios.freeboot.network.Messages.PlayerState) obj;
+
+      boolean result = true;
+      result = result && getPlayersList()
+          .equals(other.getPlayersList());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      if (getPlayersCount() > 0) {
+        hash = (37 * hash) + PLAYERS_FIELD_NUMBER;
+        hash = (53 * hash) + getPlayersList().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blastedstudios.freeboot.network.Messages.PlayerState parseFrom(
@@ -7246,46 +7358,57 @@ public final class Messages {
     }
     public static com.blastedstudios.freeboot.network.Messages.PlayerState parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.PlayerState parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.PlayerState parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.PlayerState parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.PlayerState parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.PlayerState parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.PlayerState prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.PlayerState prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -7293,7 +7416,7 @@ public final class Messages {
      * Protobuf type {@code proto.PlayerState}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:proto.PlayerState)
         com.blastedstudios.freeboot.network.Messages.PlayerStateOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
@@ -7301,7 +7424,7 @@ public final class Messages {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_PlayerState_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_PlayerState_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -7314,19 +7437,16 @@ public final class Messages {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
           getPlayersFieldBuilder();
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         if (playersBuilder_ == null) {
@@ -7336,10 +7456,6 @@ public final class Messages {
           playersBuilder_.clear();
         }
         return this;
-      }
-
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
       }
 
       public com.google.protobuf.Descriptors.Descriptor
@@ -7375,6 +7491,32 @@ public final class Messages {
         return result;
       }
 
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.blastedstudios.freeboot.network.Messages.PlayerState) {
           return mergeFrom((com.blastedstudios.freeboot.network.Messages.PlayerState)other);
@@ -7405,24 +7547,18 @@ public final class Messages {
               players_ = other.players_;
               bitField0_ = (bitField0_ & ~0x00000001);
               playersBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getPlayersFieldBuilder() : null;
             } else {
               playersBuilder_.addAllMessages(other.players_);
             }
           }
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
         return this;
       }
 
       public final boolean isInitialized() {
-        for (int i = 0; i < getPlayersCount(); i++) {
-          if (!getPlayers(i).isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
 
@@ -7435,7 +7571,7 @@ public final class Messages {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (com.blastedstudios.freeboot.network.Messages.PlayerState) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -7454,7 +7590,7 @@ public final class Messages {
          }
       }
 
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           com.blastedstudios.freeboot.network.Messages.NetBeing, com.blastedstudios.freeboot.network.Messages.NetBeing.Builder, com.blastedstudios.freeboot.network.Messages.NetBeingOrBuilder> playersBuilder_;
 
       /**
@@ -7670,11 +7806,11 @@ public final class Messages {
            getPlayersBuilderList() {
         return getPlayersFieldBuilder().getBuilderList();
       }
-      private com.google.protobuf.RepeatedFieldBuilder<
+      private com.google.protobuf.RepeatedFieldBuilderV3<
           com.blastedstudios.freeboot.network.Messages.NetBeing, com.blastedstudios.freeboot.network.Messages.NetBeing.Builder, com.blastedstudios.freeboot.network.Messages.NetBeingOrBuilder> 
           getPlayersFieldBuilder() {
         if (playersBuilder_ == null) {
-          playersBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+          playersBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               com.blastedstudios.freeboot.network.Messages.NetBeing, com.blastedstudios.freeboot.network.Messages.NetBeing.Builder, com.blastedstudios.freeboot.network.Messages.NetBeingOrBuilder>(
                   players_,
                   ((bitField0_ & 0x00000001) == 0x00000001),
@@ -7684,16 +7820,53 @@ public final class Messages {
         }
         return playersBuilder_;
       }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
 
       // @@protoc_insertion_point(builder_scope:proto.PlayerState)
     }
 
+    // @@protoc_insertion_point(class_scope:proto.PlayerState)
+    private static final com.blastedstudios.freeboot.network.Messages.PlayerState DEFAULT_INSTANCE;
     static {
-      defaultInstance = new PlayerState(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new com.blastedstudios.freeboot.network.Messages.PlayerState();
     }
 
-    // @@protoc_insertion_point(class_scope:proto.PlayerState)
+    public static com.blastedstudios.freeboot.network.Messages.PlayerState getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<PlayerState>
+        PARSER = new com.google.protobuf.AbstractParser<PlayerState>() {
+      public PlayerState parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new PlayerState(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<PlayerState> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PlayerState> getParserForType() {
+      return PARSER;
+    }
+
+    public com.blastedstudios.freeboot.network.Messages.PlayerState getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface ReloadOrBuilder extends
@@ -7716,40 +7889,28 @@ public final class Messages {
   /**
    * Protobuf type {@code proto.Reload}
    */
-  public static final class Reload extends
-      com.google.protobuf.GeneratedMessage implements
+  public  static final class Reload extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:proto.Reload)
       ReloadOrBuilder {
     // Use Reload.newBuilder() to construct.
-    private Reload(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private Reload(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private Reload(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final Reload defaultInstance;
-    public static Reload getDefaultInstance() {
-      return defaultInstance;
+    private Reload() {
     }
 
-    public Reload getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private Reload(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -7759,23 +7920,22 @@ public final class Messages {
               done = true;
               break;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+              if (!input.skipField(tag)) {
                 done = true;
               }
               break;
             }
             case 10: {
               com.blastedstudios.freeboot.network.Messages.UUID.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              if (uuid_ != null) {
                 subBuilder = uuid_.toBuilder();
               }
-              uuid_ = input.readMessage(com.blastedstudios.freeboot.network.Messages.UUID.PARSER, extensionRegistry);
+              uuid_ = input.readMessage(com.blastedstudios.freeboot.network.Messages.UUID.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(uuid_);
                 uuid_ = subBuilder.buildPartial();
               }
-              bitField0_ |= 0x00000001;
+
               break;
             }
           }
@@ -7784,9 +7944,8 @@ public final class Messages {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -7795,98 +7954,98 @@ public final class Messages {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Reload_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Reload_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.blastedstudios.freeboot.network.Messages.Reload.class, com.blastedstudios.freeboot.network.Messages.Reload.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<Reload> PARSER =
-        new com.google.protobuf.AbstractParser<Reload>() {
-      public Reload parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Reload(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<Reload> getParserForType() {
-      return PARSER;
-    }
-
-    private int bitField0_;
     public static final int UUID_FIELD_NUMBER = 1;
     private com.blastedstudios.freeboot.network.Messages.UUID uuid_;
     /**
      * <code>optional .proto.UUID uuid = 1;</code>
      */
     public boolean hasUuid() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return uuid_ != null;
     }
     /**
      * <code>optional .proto.UUID uuid = 1;</code>
      */
     public com.blastedstudios.freeboot.network.Messages.UUID getUuid() {
-      return uuid_;
+      return uuid_ == null ? com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance() : uuid_;
     }
     /**
      * <code>optional .proto.UUID uuid = 1;</code>
      */
     public com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder getUuidOrBuilder() {
-      return uuid_;
+      return getUuid();
     }
 
-    private void initFields() {
-      uuid_ = com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance();
-    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (hasUuid()) {
-        if (!getUuid().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, uuid_);
+      if (uuid_ != null) {
+        output.writeMessage(1, getUuid());
       }
-      getUnknownFields().writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (uuid_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, uuid_);
+          .computeMessageSize(1, getUuid());
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blastedstudios.freeboot.network.Messages.Reload)) {
+        return super.equals(obj);
+      }
+      com.blastedstudios.freeboot.network.Messages.Reload other = (com.blastedstudios.freeboot.network.Messages.Reload) obj;
+
+      boolean result = true;
+      result = result && (hasUuid() == other.hasUuid());
+      if (hasUuid()) {
+        result = result && getUuid()
+            .equals(other.getUuid());
+      }
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      if (hasUuid()) {
+        hash = (37 * hash) + UUID_FIELD_NUMBER;
+        hash = (53 * hash) + getUuid().hashCode();
+      }
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blastedstudios.freeboot.network.Messages.Reload parseFrom(
@@ -7912,46 +8071,57 @@ public final class Messages {
     }
     public static com.blastedstudios.freeboot.network.Messages.Reload parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.Reload parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.Reload parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.Reload parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.Reload parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.Reload parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.Reload prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.Reload prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -7959,7 +8129,7 @@ public final class Messages {
      * Protobuf type {@code proto.Reload}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:proto.Reload)
         com.blastedstudios.freeboot.network.Messages.ReloadOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
@@ -7967,7 +8137,7 @@ public final class Messages {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Reload_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Reload_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -7980,32 +8150,24 @@ public final class Messages {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getUuidFieldBuilder();
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         if (uuidBuilder_ == null) {
-          uuid_ = com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance();
+          uuid_ = null;
         } else {
-          uuidBuilder_.clear();
+          uuid_ = null;
+          uuidBuilder_ = null;
         }
-        bitField0_ = (bitField0_ & ~0x00000001);
         return this;
-      }
-
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
       }
 
       public com.google.protobuf.Descriptors.Descriptor
@@ -8027,21 +8189,41 @@ public final class Messages {
 
       public com.blastedstudios.freeboot.network.Messages.Reload buildPartial() {
         com.blastedstudios.freeboot.network.Messages.Reload result = new com.blastedstudios.freeboot.network.Messages.Reload(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
         if (uuidBuilder_ == null) {
           result.uuid_ = uuid_;
         } else {
           result.uuid_ = uuidBuilder_.build();
         }
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.blastedstudios.freeboot.network.Messages.Reload) {
           return mergeFrom((com.blastedstudios.freeboot.network.Messages.Reload)other);
@@ -8056,17 +8238,11 @@ public final class Messages {
         if (other.hasUuid()) {
           mergeUuid(other.getUuid());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
         return this;
       }
 
       public final boolean isInitialized() {
-        if (hasUuid()) {
-          if (!getUuid().isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
 
@@ -8079,7 +8255,7 @@ public final class Messages {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (com.blastedstudios.freeboot.network.Messages.Reload) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -8087,23 +8263,22 @@ public final class Messages {
         }
         return this;
       }
-      private int bitField0_;
 
-      private com.blastedstudios.freeboot.network.Messages.UUID uuid_ = com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.blastedstudios.freeboot.network.Messages.UUID uuid_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
           com.blastedstudios.freeboot.network.Messages.UUID, com.blastedstudios.freeboot.network.Messages.UUID.Builder, com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder> uuidBuilder_;
       /**
        * <code>optional .proto.UUID uuid = 1;</code>
        */
       public boolean hasUuid() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return uuidBuilder_ != null || uuid_ != null;
       }
       /**
        * <code>optional .proto.UUID uuid = 1;</code>
        */
       public com.blastedstudios.freeboot.network.Messages.UUID getUuid() {
         if (uuidBuilder_ == null) {
-          return uuid_;
+          return uuid_ == null ? com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance() : uuid_;
         } else {
           return uuidBuilder_.getMessage();
         }
@@ -8121,7 +8296,7 @@ public final class Messages {
         } else {
           uuidBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000001;
+
         return this;
       }
       /**
@@ -8135,7 +8310,7 @@ public final class Messages {
         } else {
           uuidBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000001;
+
         return this;
       }
       /**
@@ -8143,8 +8318,7 @@ public final class Messages {
        */
       public Builder mergeUuid(com.blastedstudios.freeboot.network.Messages.UUID value) {
         if (uuidBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
-              uuid_ != com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance()) {
+          if (uuid_ != null) {
             uuid_ =
               com.blastedstudios.freeboot.network.Messages.UUID.newBuilder(uuid_).mergeFrom(value).buildPartial();
           } else {
@@ -8154,7 +8328,7 @@ public final class Messages {
         } else {
           uuidBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000001;
+
         return this;
       }
       /**
@@ -8162,19 +8336,20 @@ public final class Messages {
        */
       public Builder clearUuid() {
         if (uuidBuilder_ == null) {
-          uuid_ = com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance();
+          uuid_ = null;
           onChanged();
         } else {
-          uuidBuilder_.clear();
+          uuid_ = null;
+          uuidBuilder_ = null;
         }
-        bitField0_ = (bitField0_ & ~0x00000001);
+
         return this;
       }
       /**
        * <code>optional .proto.UUID uuid = 1;</code>
        */
       public com.blastedstudios.freeboot.network.Messages.UUID.Builder getUuidBuilder() {
-        bitField0_ |= 0x00000001;
+        
         onChanged();
         return getUuidFieldBuilder().getBuilder();
       }
@@ -8185,17 +8360,18 @@ public final class Messages {
         if (uuidBuilder_ != null) {
           return uuidBuilder_.getMessageOrBuilder();
         } else {
-          return uuid_;
+          return uuid_ == null ?
+              com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance() : uuid_;
         }
       }
       /**
        * <code>optional .proto.UUID uuid = 1;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           com.blastedstudios.freeboot.network.Messages.UUID, com.blastedstudios.freeboot.network.Messages.UUID.Builder, com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder> 
           getUuidFieldBuilder() {
         if (uuidBuilder_ == null) {
-          uuidBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          uuidBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               com.blastedstudios.freeboot.network.Messages.UUID, com.blastedstudios.freeboot.network.Messages.UUID.Builder, com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder>(
                   getUuid(),
                   getParentForChildren(),
@@ -8204,16 +8380,53 @@ public final class Messages {
         }
         return uuidBuilder_;
       }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
 
       // @@protoc_insertion_point(builder_scope:proto.Reload)
     }
 
+    // @@protoc_insertion_point(class_scope:proto.Reload)
+    private static final com.blastedstudios.freeboot.network.Messages.Reload DEFAULT_INSTANCE;
     static {
-      defaultInstance = new Reload(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new com.blastedstudios.freeboot.network.Messages.Reload();
     }
 
-    // @@protoc_insertion_point(class_scope:proto.Reload)
+    public static com.blastedstudios.freeboot.network.Messages.Reload getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Reload>
+        PARSER = new com.google.protobuf.AbstractParser<Reload>() {
+      public Reload parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Reload(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Reload> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Reload> getParserForType() {
+      return PARSER;
+    }
+
+    public com.blastedstudios.freeboot.network.Messages.Reload getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface RespawnOrBuilder extends
@@ -8236,10 +8449,6 @@ public final class Messages {
     /**
      * <code>optional string name = 2;</code>
      */
-    boolean hasName();
-    /**
-     * <code>optional string name = 2;</code>
-     */
     java.lang.String getName();
     /**
      * <code>optional string name = 2;</code>
@@ -8250,16 +8459,8 @@ public final class Messages {
     /**
      * <code>optional float pos_x = 3;</code>
      */
-    boolean hasPosX();
-    /**
-     * <code>optional float pos_x = 3;</code>
-     */
     float getPosX();
 
-    /**
-     * <code>optional float pos_y = 4;</code>
-     */
-    boolean hasPosY();
     /**
      * <code>optional float pos_y = 4;</code>
      */
@@ -8268,40 +8469,31 @@ public final class Messages {
   /**
    * Protobuf type {@code proto.Respawn}
    */
-  public static final class Respawn extends
-      com.google.protobuf.GeneratedMessage implements
+  public  static final class Respawn extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:proto.Respawn)
       RespawnOrBuilder {
     // Use Respawn.newBuilder() to construct.
-    private Respawn(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private Respawn(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private Respawn(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final Respawn defaultInstance;
-    public static Respawn getDefaultInstance() {
-      return defaultInstance;
+    private Respawn() {
+      name_ = "";
+      posX_ = 0F;
+      posY_ = 0F;
     }
 
-    public Respawn getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private Respawn(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -8311,38 +8503,37 @@ public final class Messages {
               done = true;
               break;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+              if (!input.skipField(tag)) {
                 done = true;
               }
               break;
             }
             case 10: {
               com.blastedstudios.freeboot.network.Messages.UUID.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+              if (uuid_ != null) {
                 subBuilder = uuid_.toBuilder();
               }
-              uuid_ = input.readMessage(com.blastedstudios.freeboot.network.Messages.UUID.PARSER, extensionRegistry);
+              uuid_ = input.readMessage(com.blastedstudios.freeboot.network.Messages.UUID.parser(), extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(uuid_);
                 uuid_ = subBuilder.buildPartial();
               }
-              bitField0_ |= 0x00000001;
+
               break;
             }
             case 18: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000002;
-              name_ = bs;
+              java.lang.String s = input.readStringRequireUtf8();
+
+              name_ = s;
               break;
             }
             case 29: {
-              bitField0_ |= 0x00000004;
+
               posX_ = input.readFloat();
               break;
             }
             case 37: {
-              bitField0_ |= 0x00000008;
+
               posY_ = input.readFloat();
               break;
             }
@@ -8352,9 +8543,8 @@ public final class Messages {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -8363,58 +8553,36 @@ public final class Messages {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Respawn_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Respawn_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.blastedstudios.freeboot.network.Messages.Respawn.class, com.blastedstudios.freeboot.network.Messages.Respawn.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<Respawn> PARSER =
-        new com.google.protobuf.AbstractParser<Respawn>() {
-      public Respawn parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Respawn(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<Respawn> getParserForType() {
-      return PARSER;
-    }
-
-    private int bitField0_;
     public static final int UUID_FIELD_NUMBER = 1;
     private com.blastedstudios.freeboot.network.Messages.UUID uuid_;
     /**
      * <code>optional .proto.UUID uuid = 1;</code>
      */
     public boolean hasUuid() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
+      return uuid_ != null;
     }
     /**
      * <code>optional .proto.UUID uuid = 1;</code>
      */
     public com.blastedstudios.freeboot.network.Messages.UUID getUuid() {
-      return uuid_;
+      return uuid_ == null ? com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance() : uuid_;
     }
     /**
      * <code>optional .proto.UUID uuid = 1;</code>
      */
     public com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder getUuidOrBuilder() {
-      return uuid_;
+      return getUuid();
     }
 
     public static final int NAME_FIELD_NUMBER = 2;
-    private java.lang.Object name_;
-    /**
-     * <code>optional string name = 2;</code>
-     */
-    public boolean hasName() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
+    private volatile java.lang.Object name_;
     /**
      * <code>optional string name = 2;</code>
      */
@@ -8426,9 +8594,7 @@ public final class Messages {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          name_ = s;
-        }
+        name_ = s;
         return s;
       }
     }
@@ -8454,12 +8620,6 @@ public final class Messages {
     /**
      * <code>optional float pos_x = 3;</code>
      */
-    public boolean hasPosX() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
-    }
-    /**
-     * <code>optional float pos_x = 3;</code>
-     */
     public float getPosX() {
       return posX_;
     }
@@ -8469,88 +8629,112 @@ public final class Messages {
     /**
      * <code>optional float pos_y = 4;</code>
      */
-    public boolean hasPosY() {
-      return ((bitField0_ & 0x00000008) == 0x00000008);
-    }
-    /**
-     * <code>optional float pos_y = 4;</code>
-     */
     public float getPosY() {
       return posY_;
     }
 
-    private void initFields() {
-      uuid_ = com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance();
-      name_ = "";
-      posX_ = 0F;
-      posY_ = 0F;
-    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (hasUuid()) {
-        if (!getUuid().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
       memoizedIsInitialized = 1;
       return true;
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, uuid_);
+      if (uuid_ != null) {
+        output.writeMessage(1, getUuid());
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getNameBytes());
+      if (!getNameBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, name_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (posX_ != 0F) {
         output.writeFloat(3, posX_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (posY_ != 0F) {
         output.writeFloat(4, posY_);
       }
-      getUnknownFields().writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+      if (uuid_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, uuid_);
+          .computeMessageSize(1, getUuid());
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getNameBytes());
+      if (!getNameBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, name_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (posX_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(3, posX_);
       }
-      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+      if (posY_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(4, posY_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blastedstudios.freeboot.network.Messages.Respawn)) {
+        return super.equals(obj);
+      }
+      com.blastedstudios.freeboot.network.Messages.Respawn other = (com.blastedstudios.freeboot.network.Messages.Respawn) obj;
+
+      boolean result = true;
+      result = result && (hasUuid() == other.hasUuid());
+      if (hasUuid()) {
+        result = result && getUuid()
+            .equals(other.getUuid());
+      }
+      result = result && getName()
+          .equals(other.getName());
+      result = result && (
+          java.lang.Float.floatToIntBits(getPosX())
+          == java.lang.Float.floatToIntBits(
+              other.getPosX()));
+      result = result && (
+          java.lang.Float.floatToIntBits(getPosY())
+          == java.lang.Float.floatToIntBits(
+              other.getPosY()));
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      if (hasUuid()) {
+        hash = (37 * hash) + UUID_FIELD_NUMBER;
+        hash = (53 * hash) + getUuid().hashCode();
+      }
+      hash = (37 * hash) + NAME_FIELD_NUMBER;
+      hash = (53 * hash) + getName().hashCode();
+      hash = (37 * hash) + POS_X_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getPosX());
+      hash = (37 * hash) + POS_Y_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getPosY());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blastedstudios.freeboot.network.Messages.Respawn parseFrom(
@@ -8576,46 +8760,57 @@ public final class Messages {
     }
     public static com.blastedstudios.freeboot.network.Messages.Respawn parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.Respawn parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.Respawn parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.Respawn parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.Respawn parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.Respawn parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.Respawn prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.Respawn prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -8623,7 +8818,7 @@ public final class Messages {
      * Protobuf type {@code proto.Respawn}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:proto.Respawn)
         com.blastedstudios.freeboot.network.Messages.RespawnOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
@@ -8631,7 +8826,7 @@ public final class Messages {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Respawn_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Respawn_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -8644,38 +8839,30 @@ public final class Messages {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getUuidFieldBuilder();
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         if (uuidBuilder_ == null) {
-          uuid_ = com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance();
+          uuid_ = null;
         } else {
-          uuidBuilder_.clear();
+          uuid_ = null;
+          uuidBuilder_ = null;
         }
-        bitField0_ = (bitField0_ & ~0x00000001);
         name_ = "";
-        bitField0_ = (bitField0_ & ~0x00000002);
-        posX_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00000004);
-        posY_ = 0F;
-        bitField0_ = (bitField0_ & ~0x00000008);
-        return this;
-      }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
+        posX_ = 0F;
+
+        posY_ = 0F;
+
+        return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
@@ -8697,33 +8884,44 @@ public final class Messages {
 
       public com.blastedstudios.freeboot.network.Messages.Respawn buildPartial() {
         com.blastedstudios.freeboot.network.Messages.Respawn result = new com.blastedstudios.freeboot.network.Messages.Respawn(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
         if (uuidBuilder_ == null) {
           result.uuid_ = uuid_;
         } else {
           result.uuid_ = uuidBuilder_.build();
         }
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
         result.name_ = name_;
-        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-          to_bitField0_ |= 0x00000004;
-        }
         result.posX_ = posX_;
-        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
-          to_bitField0_ |= 0x00000008;
-        }
         result.posY_ = posY_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.blastedstudios.freeboot.network.Messages.Respawn) {
           return mergeFrom((com.blastedstudios.freeboot.network.Messages.Respawn)other);
@@ -8738,28 +8936,21 @@ public final class Messages {
         if (other.hasUuid()) {
           mergeUuid(other.getUuid());
         }
-        if (other.hasName()) {
-          bitField0_ |= 0x00000002;
+        if (!other.getName().isEmpty()) {
           name_ = other.name_;
           onChanged();
         }
-        if (other.hasPosX()) {
+        if (other.getPosX() != 0F) {
           setPosX(other.getPosX());
         }
-        if (other.hasPosY()) {
+        if (other.getPosY() != 0F) {
           setPosY(other.getPosY());
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
         return this;
       }
 
       public final boolean isInitialized() {
-        if (hasUuid()) {
-          if (!getUuid().isInitialized()) {
-            
-            return false;
-          }
-        }
         return true;
       }
 
@@ -8772,7 +8963,7 @@ public final class Messages {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (com.blastedstudios.freeboot.network.Messages.Respawn) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -8780,23 +8971,22 @@ public final class Messages {
         }
         return this;
       }
-      private int bitField0_;
 
-      private com.blastedstudios.freeboot.network.Messages.UUID uuid_ = com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.blastedstudios.freeboot.network.Messages.UUID uuid_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
           com.blastedstudios.freeboot.network.Messages.UUID, com.blastedstudios.freeboot.network.Messages.UUID.Builder, com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder> uuidBuilder_;
       /**
        * <code>optional .proto.UUID uuid = 1;</code>
        */
       public boolean hasUuid() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
+        return uuidBuilder_ != null || uuid_ != null;
       }
       /**
        * <code>optional .proto.UUID uuid = 1;</code>
        */
       public com.blastedstudios.freeboot.network.Messages.UUID getUuid() {
         if (uuidBuilder_ == null) {
-          return uuid_;
+          return uuid_ == null ? com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance() : uuid_;
         } else {
           return uuidBuilder_.getMessage();
         }
@@ -8814,7 +9004,7 @@ public final class Messages {
         } else {
           uuidBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000001;
+
         return this;
       }
       /**
@@ -8828,7 +9018,7 @@ public final class Messages {
         } else {
           uuidBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000001;
+
         return this;
       }
       /**
@@ -8836,8 +9026,7 @@ public final class Messages {
        */
       public Builder mergeUuid(com.blastedstudios.freeboot.network.Messages.UUID value) {
         if (uuidBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
-              uuid_ != com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance()) {
+          if (uuid_ != null) {
             uuid_ =
               com.blastedstudios.freeboot.network.Messages.UUID.newBuilder(uuid_).mergeFrom(value).buildPartial();
           } else {
@@ -8847,7 +9036,7 @@ public final class Messages {
         } else {
           uuidBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000001;
+
         return this;
       }
       /**
@@ -8855,19 +9044,20 @@ public final class Messages {
        */
       public Builder clearUuid() {
         if (uuidBuilder_ == null) {
-          uuid_ = com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance();
+          uuid_ = null;
           onChanged();
         } else {
-          uuidBuilder_.clear();
+          uuid_ = null;
+          uuidBuilder_ = null;
         }
-        bitField0_ = (bitField0_ & ~0x00000001);
+
         return this;
       }
       /**
        * <code>optional .proto.UUID uuid = 1;</code>
        */
       public com.blastedstudios.freeboot.network.Messages.UUID.Builder getUuidBuilder() {
-        bitField0_ |= 0x00000001;
+        
         onChanged();
         return getUuidFieldBuilder().getBuilder();
       }
@@ -8878,17 +9068,18 @@ public final class Messages {
         if (uuidBuilder_ != null) {
           return uuidBuilder_.getMessageOrBuilder();
         } else {
-          return uuid_;
+          return uuid_ == null ?
+              com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance() : uuid_;
         }
       }
       /**
        * <code>optional .proto.UUID uuid = 1;</code>
        */
-      private com.google.protobuf.SingleFieldBuilder<
+      private com.google.protobuf.SingleFieldBuilderV3<
           com.blastedstudios.freeboot.network.Messages.UUID, com.blastedstudios.freeboot.network.Messages.UUID.Builder, com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder> 
           getUuidFieldBuilder() {
         if (uuidBuilder_ == null) {
-          uuidBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+          uuidBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
               com.blastedstudios.freeboot.network.Messages.UUID, com.blastedstudios.freeboot.network.Messages.UUID.Builder, com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder>(
                   getUuid(),
                   getParentForChildren(),
@@ -8902,21 +9093,13 @@ public final class Messages {
       /**
        * <code>optional string name = 2;</code>
        */
-      public boolean hasName() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      /**
-       * <code>optional string name = 2;</code>
-       */
       public java.lang.String getName() {
         java.lang.Object ref = name_;
         if (!(ref instanceof java.lang.String)) {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            name_ = s;
-          }
+          name_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
@@ -8946,7 +9129,7 @@ public final class Messages {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  
         name_ = value;
         onChanged();
         return this;
@@ -8955,7 +9138,7 @@ public final class Messages {
        * <code>optional string name = 2;</code>
        */
       public Builder clearName() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        
         name_ = getDefaultInstance().getName();
         onChanged();
         return this;
@@ -8968,19 +9151,14 @@ public final class Messages {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  checkByteStringIsUtf8(value);
+        
         name_ = value;
         onChanged();
         return this;
       }
 
       private float posX_ ;
-      /**
-       * <code>optional float pos_x = 3;</code>
-       */
-      public boolean hasPosX() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
-      }
       /**
        * <code>optional float pos_x = 3;</code>
        */
@@ -8991,7 +9169,7 @@ public final class Messages {
        * <code>optional float pos_x = 3;</code>
        */
       public Builder setPosX(float value) {
-        bitField0_ |= 0x00000004;
+        
         posX_ = value;
         onChanged();
         return this;
@@ -9000,19 +9178,13 @@ public final class Messages {
        * <code>optional float pos_x = 3;</code>
        */
       public Builder clearPosX() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        
         posX_ = 0F;
         onChanged();
         return this;
       }
 
       private float posY_ ;
-      /**
-       * <code>optional float pos_y = 4;</code>
-       */
-      public boolean hasPosY() {
-        return ((bitField0_ & 0x00000008) == 0x00000008);
-      }
       /**
        * <code>optional float pos_y = 4;</code>
        */
@@ -9023,7 +9195,7 @@ public final class Messages {
        * <code>optional float pos_y = 4;</code>
        */
       public Builder setPosY(float value) {
-        bitField0_ |= 0x00000008;
+        
         posY_ = value;
         onChanged();
         return this;
@@ -9032,21 +9204,58 @@ public final class Messages {
        * <code>optional float pos_y = 4;</code>
        */
       public Builder clearPosY() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        
         posY_ = 0F;
         onChanged();
         return this;
       }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
 
       // @@protoc_insertion_point(builder_scope:proto.Respawn)
     }
 
+    // @@protoc_insertion_point(class_scope:proto.Respawn)
+    private static final com.blastedstudios.freeboot.network.Messages.Respawn DEFAULT_INSTANCE;
     static {
-      defaultInstance = new Respawn(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new com.blastedstudios.freeboot.network.Messages.Respawn();
     }
 
-    // @@protoc_insertion_point(class_scope:proto.Respawn)
+    public static com.blastedstudios.freeboot.network.Messages.Respawn getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Respawn>
+        PARSER = new com.google.protobuf.AbstractParser<Respawn>() {
+      public Respawn parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Respawn(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Respawn> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Respawn> getParserForType() {
+      return PARSER;
+    }
+
+    public com.blastedstudios.freeboot.network.Messages.Respawn getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface TextOrBuilder extends
@@ -9054,29 +9263,21 @@ public final class Messages {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string content = 1;</code>
-     */
-    boolean hasContent();
-    /**
-     * <code>required string content = 1;</code>
+     * <code>optional string content = 1;</code>
      */
     java.lang.String getContent();
     /**
-     * <code>required string content = 1;</code>
+     * <code>optional string content = 1;</code>
      */
     com.google.protobuf.ByteString
         getContentBytes();
 
     /**
-     * <code>required string origin = 2;</code>
-     */
-    boolean hasOrigin();
-    /**
-     * <code>required string origin = 2;</code>
+     * <code>optional string origin = 2;</code>
      */
     java.lang.String getOrigin();
     /**
-     * <code>required string origin = 2;</code>
+     * <code>optional string origin = 2;</code>
      */
     com.google.protobuf.ByteString
         getOriginBytes();
@@ -9084,40 +9285,30 @@ public final class Messages {
   /**
    * Protobuf type {@code proto.Text}
    */
-  public static final class Text extends
-      com.google.protobuf.GeneratedMessage implements
+  public  static final class Text extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:proto.Text)
       TextOrBuilder {
     // Use Text.newBuilder() to construct.
-    private Text(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private Text(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private Text(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final Text defaultInstance;
-    public static Text getDefaultInstance() {
-      return defaultInstance;
+    private Text() {
+      content_ = "";
+      origin_ = "";
     }
 
-    public Text getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private Text(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -9127,22 +9318,21 @@ public final class Messages {
               done = true;
               break;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+              if (!input.skipField(tag)) {
                 done = true;
               }
               break;
             }
             case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000001;
-              content_ = bs;
+              java.lang.String s = input.readStringRequireUtf8();
+
+              content_ = s;
               break;
             }
             case 18: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000002;
-              origin_ = bs;
+              java.lang.String s = input.readStringRequireUtf8();
+
+              origin_ = s;
               break;
             }
           }
@@ -9151,9 +9341,8 @@ public final class Messages {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -9162,39 +9351,17 @@ public final class Messages {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Text_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Text_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.blastedstudios.freeboot.network.Messages.Text.class, com.blastedstudios.freeboot.network.Messages.Text.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<Text> PARSER =
-        new com.google.protobuf.AbstractParser<Text>() {
-      public Text parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new Text(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<Text> getParserForType() {
-      return PARSER;
-    }
-
-    private int bitField0_;
     public static final int CONTENT_FIELD_NUMBER = 1;
-    private java.lang.Object content_;
+    private volatile java.lang.Object content_;
     /**
-     * <code>required string content = 1;</code>
-     */
-    public boolean hasContent() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    /**
-     * <code>required string content = 1;</code>
+     * <code>optional string content = 1;</code>
      */
     public java.lang.String getContent() {
       java.lang.Object ref = content_;
@@ -9204,14 +9371,12 @@ public final class Messages {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          content_ = s;
-        }
+        content_ = s;
         return s;
       }
     }
     /**
-     * <code>required string content = 1;</code>
+     * <code>optional string content = 1;</code>
      */
     public com.google.protobuf.ByteString
         getContentBytes() {
@@ -9228,15 +9393,9 @@ public final class Messages {
     }
 
     public static final int ORIGIN_FIELD_NUMBER = 2;
-    private java.lang.Object origin_;
+    private volatile java.lang.Object origin_;
     /**
-     * <code>required string origin = 2;</code>
-     */
-    public boolean hasOrigin() {
-      return ((bitField0_ & 0x00000002) == 0x00000002);
-    }
-    /**
-     * <code>required string origin = 2;</code>
+     * <code>optional string origin = 2;</code>
      */
     public java.lang.String getOrigin() {
       java.lang.Object ref = origin_;
@@ -9246,14 +9405,12 @@ public final class Messages {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          origin_ = s;
-        }
+        origin_ = s;
         return s;
       }
     }
     /**
-     * <code>required string origin = 2;</code>
+     * <code>optional string origin = 2;</code>
      */
     public com.google.protobuf.ByteString
         getOriginBytes() {
@@ -9269,64 +9426,74 @@ public final class Messages {
       }
     }
 
-    private void initFields() {
-      content_ = "";
-      origin_ = "";
-    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasContent()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!hasOrigin()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getContentBytes());
+      if (!getContentBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, content_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getOriginBytes());
+      if (!getOriginBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, origin_);
       }
-      getUnknownFields().writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getContentBytes());
+      if (!getContentBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, content_);
       }
-      if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getOriginBytes());
+      if (!getOriginBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, origin_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blastedstudios.freeboot.network.Messages.Text)) {
+        return super.equals(obj);
+      }
+      com.blastedstudios.freeboot.network.Messages.Text other = (com.blastedstudios.freeboot.network.Messages.Text) obj;
+
+      boolean result = true;
+      result = result && getContent()
+          .equals(other.getContent());
+      result = result && getOrigin()
+          .equals(other.getOrigin());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + CONTENT_FIELD_NUMBER;
+      hash = (53 * hash) + getContent().hashCode();
+      hash = (37 * hash) + ORIGIN_FIELD_NUMBER;
+      hash = (53 * hash) + getOrigin().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blastedstudios.freeboot.network.Messages.Text parseFrom(
@@ -9352,46 +9519,57 @@ public final class Messages {
     }
     public static com.blastedstudios.freeboot.network.Messages.Text parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.Text parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.Text parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.Text parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.Text parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.Text parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.Text prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.Text prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -9399,7 +9577,7 @@ public final class Messages {
      * Protobuf type {@code proto.Text}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:proto.Text)
         com.blastedstudios.freeboot.network.Messages.TextOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
@@ -9407,7 +9585,7 @@ public final class Messages {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Text_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Text_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -9420,29 +9598,22 @@ public final class Messages {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         content_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
-        origin_ = "";
-        bitField0_ = (bitField0_ & ~0x00000002);
-        return this;
-      }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
+        origin_ = "";
+
+        return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
@@ -9464,21 +9635,38 @@ public final class Messages {
 
       public com.blastedstudios.freeboot.network.Messages.Text buildPartial() {
         com.blastedstudios.freeboot.network.Messages.Text result = new com.blastedstudios.freeboot.network.Messages.Text(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
         result.content_ = content_;
-        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-          to_bitField0_ |= 0x00000002;
-        }
         result.origin_ = origin_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.blastedstudios.freeboot.network.Messages.Text) {
           return mergeFrom((com.blastedstudios.freeboot.network.Messages.Text)other);
@@ -9490,29 +9678,19 @@ public final class Messages {
 
       public Builder mergeFrom(com.blastedstudios.freeboot.network.Messages.Text other) {
         if (other == com.blastedstudios.freeboot.network.Messages.Text.getDefaultInstance()) return this;
-        if (other.hasContent()) {
-          bitField0_ |= 0x00000001;
+        if (!other.getContent().isEmpty()) {
           content_ = other.content_;
           onChanged();
         }
-        if (other.hasOrigin()) {
-          bitField0_ |= 0x00000002;
+        if (!other.getOrigin().isEmpty()) {
           origin_ = other.origin_;
           onChanged();
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
         return this;
       }
 
       public final boolean isInitialized() {
-        if (!hasContent()) {
-          
-          return false;
-        }
-        if (!hasOrigin()) {
-          
-          return false;
-        }
         return true;
       }
 
@@ -9525,7 +9703,7 @@ public final class Messages {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (com.blastedstudios.freeboot.network.Messages.Text) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -9533,17 +9711,10 @@ public final class Messages {
         }
         return this;
       }
-      private int bitField0_;
 
       private java.lang.Object content_ = "";
       /**
-       * <code>required string content = 1;</code>
-       */
-      public boolean hasContent() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>required string content = 1;</code>
+       * <code>optional string content = 1;</code>
        */
       public java.lang.String getContent() {
         java.lang.Object ref = content_;
@@ -9551,16 +9722,14 @@ public final class Messages {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            content_ = s;
-          }
+          content_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>required string content = 1;</code>
+       * <code>optional string content = 1;</code>
        */
       public com.google.protobuf.ByteString
           getContentBytes() {
@@ -9576,36 +9745,37 @@ public final class Messages {
         }
       }
       /**
-       * <code>required string content = 1;</code>
+       * <code>optional string content = 1;</code>
        */
       public Builder setContent(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  
         content_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string content = 1;</code>
+       * <code>optional string content = 1;</code>
        */
       public Builder clearContent() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        
         content_ = getDefaultInstance().getContent();
         onChanged();
         return this;
       }
       /**
-       * <code>required string content = 1;</code>
+       * <code>optional string content = 1;</code>
        */
       public Builder setContentBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  checkByteStringIsUtf8(value);
+        
         content_ = value;
         onChanged();
         return this;
@@ -9613,13 +9783,7 @@ public final class Messages {
 
       private java.lang.Object origin_ = "";
       /**
-       * <code>required string origin = 2;</code>
-       */
-      public boolean hasOrigin() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      /**
-       * <code>required string origin = 2;</code>
+       * <code>optional string origin = 2;</code>
        */
       public java.lang.String getOrigin() {
         java.lang.Object ref = origin_;
@@ -9627,16 +9791,14 @@ public final class Messages {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            origin_ = s;
-          }
+          origin_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>required string origin = 2;</code>
+       * <code>optional string origin = 2;</code>
        */
       public com.google.protobuf.ByteString
           getOriginBytes() {
@@ -9652,50 +9814,88 @@ public final class Messages {
         }
       }
       /**
-       * <code>required string origin = 2;</code>
+       * <code>optional string origin = 2;</code>
        */
       public Builder setOrigin(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  
         origin_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string origin = 2;</code>
+       * <code>optional string origin = 2;</code>
        */
       public Builder clearOrigin() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        
         origin_ = getDefaultInstance().getOrigin();
         onChanged();
         return this;
       }
       /**
-       * <code>required string origin = 2;</code>
+       * <code>optional string origin = 2;</code>
        */
       public Builder setOriginBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  checkByteStringIsUtf8(value);
+        
         origin_ = value;
         onChanged();
         return this;
       }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
 
       // @@protoc_insertion_point(builder_scope:proto.Text)
     }
 
+    // @@protoc_insertion_point(class_scope:proto.Text)
+    private static final com.blastedstudios.freeboot.network.Messages.Text DEFAULT_INSTANCE;
     static {
-      defaultInstance = new Text(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new com.blastedstudios.freeboot.network.Messages.Text();
     }
 
-    // @@protoc_insertion_point(class_scope:proto.Text)
+    public static com.blastedstudios.freeboot.network.Messages.Text getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<Text>
+        PARSER = new com.google.protobuf.AbstractParser<Text>() {
+      public Text parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Text(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<Text> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Text> getParserForType() {
+      return PARSER;
+    }
+
+    public com.blastedstudios.freeboot.network.Messages.Text getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface TextRequestOrBuilder extends
@@ -9703,15 +9903,11 @@ public final class Messages {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>required string content = 1;</code>
-     */
-    boolean hasContent();
-    /**
-     * <code>required string content = 1;</code>
+     * <code>optional string content = 1;</code>
      */
     java.lang.String getContent();
     /**
-     * <code>required string content = 1;</code>
+     * <code>optional string content = 1;</code>
      */
     com.google.protobuf.ByteString
         getContentBytes();
@@ -9719,40 +9915,29 @@ public final class Messages {
   /**
    * Protobuf type {@code proto.TextRequest}
    */
-  public static final class TextRequest extends
-      com.google.protobuf.GeneratedMessage implements
+  public  static final class TextRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
       // @@protoc_insertion_point(message_implements:proto.TextRequest)
       TextRequestOrBuilder {
     // Use TextRequest.newBuilder() to construct.
-    private TextRequest(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+    private TextRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
       super(builder);
-      this.unknownFields = builder.getUnknownFields();
     }
-    private TextRequest(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final TextRequest defaultInstance;
-    public static TextRequest getDefaultInstance() {
-      return defaultInstance;
+    private TextRequest() {
+      content_ = "";
     }
 
-    public TextRequest getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
     @java.lang.Override
     public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
     }
     private TextRequest(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
+      this();
       int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
       try {
         boolean done = false;
         while (!done) {
@@ -9762,16 +9947,15 @@ public final class Messages {
               done = true;
               break;
             default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
+              if (!input.skipField(tag)) {
                 done = true;
               }
               break;
             }
             case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000001;
-              content_ = bs;
+              java.lang.String s = input.readStringRequireUtf8();
+
+              content_ = s;
               break;
             }
           }
@@ -9780,9 +9964,8 @@ public final class Messages {
         throw e.setUnfinishedMessage(this);
       } catch (java.io.IOException e) {
         throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
+            e).setUnfinishedMessage(this);
       } finally {
-        this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
     }
@@ -9791,39 +9974,17 @@ public final class Messages {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_TextRequest_descriptor;
     }
 
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
         internalGetFieldAccessorTable() {
       return com.blastedstudios.freeboot.network.Messages.internal_static_proto_TextRequest_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
               com.blastedstudios.freeboot.network.Messages.TextRequest.class, com.blastedstudios.freeboot.network.Messages.TextRequest.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<TextRequest> PARSER =
-        new com.google.protobuf.AbstractParser<TextRequest>() {
-      public TextRequest parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new TextRequest(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<TextRequest> getParserForType() {
-      return PARSER;
-    }
-
-    private int bitField0_;
     public static final int CONTENT_FIELD_NUMBER = 1;
-    private java.lang.Object content_;
+    private volatile java.lang.Object content_;
     /**
-     * <code>required string content = 1;</code>
-     */
-    public boolean hasContent() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    /**
-     * <code>required string content = 1;</code>
+     * <code>optional string content = 1;</code>
      */
     public java.lang.String getContent() {
       java.lang.Object ref = content_;
@@ -9833,14 +9994,12 @@ public final class Messages {
         com.google.protobuf.ByteString bs = 
             (com.google.protobuf.ByteString) ref;
         java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          content_ = s;
-        }
+        content_ = s;
         return s;
       }
     }
     /**
-     * <code>required string content = 1;</code>
+     * <code>optional string content = 1;</code>
      */
     public com.google.protobuf.ByteString
         getContentBytes() {
@@ -9856,52 +10015,64 @@ public final class Messages {
       }
     }
 
-    private void initFields() {
-      content_ = "";
-    }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized == 1) return true;
       if (isInitialized == 0) return false;
 
-      if (!hasContent()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       memoizedIsInitialized = 1;
       return true;
     }
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getContentBytes());
+      if (!getContentBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, content_);
       }
-      getUnknownFields().writeTo(output);
     }
 
-    private int memoizedSerializedSize = -1;
     public int getSerializedSize() {
-      int size = memoizedSerializedSize;
+      int size = memoizedSize;
       if (size != -1) return size;
 
       size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getContentBytes());
+      if (!getContentBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, content_);
       }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
+      memoizedSize = size;
       return size;
     }
 
     private static final long serialVersionUID = 0L;
     @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blastedstudios.freeboot.network.Messages.TextRequest)) {
+        return super.equals(obj);
+      }
+      com.blastedstudios.freeboot.network.Messages.TextRequest other = (com.blastedstudios.freeboot.network.Messages.TextRequest) obj;
+
+      boolean result = true;
+      result = result && getContent()
+          .equals(other.getContent());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + CONTENT_FIELD_NUMBER;
+      hash = (53 * hash) + getContent().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
     }
 
     public static com.blastedstudios.freeboot.network.Messages.TextRequest parseFrom(
@@ -9927,46 +10098,57 @@ public final class Messages {
     }
     public static com.blastedstudios.freeboot.network.Messages.TextRequest parseFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.TextRequest parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.TextRequest parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.TextRequest parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
     }
     public static com.blastedstudios.freeboot.network.Messages.TextRequest parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
-      return PARSER.parseFrom(input);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
     }
     public static com.blastedstudios.freeboot.network.Messages.TextRequest parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
     }
 
-    public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.TextRequest prototype) {
-      return newBuilder().mergeFrom(prototype);
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
     }
-    public Builder toBuilder() { return newBuilder(this); }
+    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.TextRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
 
     @java.lang.Override
     protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
       Builder builder = new Builder(parent);
       return builder;
     }
@@ -9974,7 +10156,7 @@ public final class Messages {
      * Protobuf type {@code proto.TextRequest}
      */
     public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
         // @@protoc_insertion_point(builder_implements:proto.TextRequest)
         com.blastedstudios.freeboot.network.Messages.TextRequestOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
@@ -9982,7 +10164,7 @@ public final class Messages {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_TextRequest_descriptor;
       }
 
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
           internalGetFieldAccessorTable() {
         return com.blastedstudios.freeboot.network.Messages.internal_static_proto_TextRequest_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
@@ -9995,27 +10177,20 @@ public final class Messages {
       }
 
       private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
         super(parent);
         maybeForceBuilderInitialization();
       }
       private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
         }
       }
-      private static Builder create() {
-        return new Builder();
-      }
-
       public Builder clear() {
         super.clear();
         content_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
-        return this;
-      }
 
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
+        return this;
       }
 
       public com.google.protobuf.Descriptors.Descriptor
@@ -10037,17 +10212,37 @@ public final class Messages {
 
       public com.blastedstudios.freeboot.network.Messages.TextRequest buildPartial() {
         com.blastedstudios.freeboot.network.Messages.TextRequest result = new com.blastedstudios.freeboot.network.Messages.TextRequest(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
         result.content_ = content_;
-        result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
       public Builder mergeFrom(com.google.protobuf.Message other) {
         if (other instanceof com.blastedstudios.freeboot.network.Messages.TextRequest) {
           return mergeFrom((com.blastedstudios.freeboot.network.Messages.TextRequest)other);
@@ -10059,20 +10254,15 @@ public final class Messages {
 
       public Builder mergeFrom(com.blastedstudios.freeboot.network.Messages.TextRequest other) {
         if (other == com.blastedstudios.freeboot.network.Messages.TextRequest.getDefaultInstance()) return this;
-        if (other.hasContent()) {
-          bitField0_ |= 0x00000001;
+        if (!other.getContent().isEmpty()) {
           content_ = other.content_;
           onChanged();
         }
-        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
         return this;
       }
 
       public final boolean isInitialized() {
-        if (!hasContent()) {
-          
-          return false;
-        }
         return true;
       }
 
@@ -10085,7 +10275,7 @@ public final class Messages {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
           parsedMessage = (com.blastedstudios.freeboot.network.Messages.TextRequest) e.getUnfinishedMessage();
-          throw e;
+          throw e.unwrapIOException();
         } finally {
           if (parsedMessage != null) {
             mergeFrom(parsedMessage);
@@ -10093,17 +10283,10 @@ public final class Messages {
         }
         return this;
       }
-      private int bitField0_;
 
       private java.lang.Object content_ = "";
       /**
-       * <code>required string content = 1;</code>
-       */
-      public boolean hasContent() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>required string content = 1;</code>
+       * <code>optional string content = 1;</code>
        */
       public java.lang.String getContent() {
         java.lang.Object ref = content_;
@@ -10111,16 +10294,14 @@ public final class Messages {
           com.google.protobuf.ByteString bs =
               (com.google.protobuf.ByteString) ref;
           java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            content_ = s;
-          }
+          content_ = s;
           return s;
         } else {
           return (java.lang.String) ref;
         }
       }
       /**
-       * <code>required string content = 1;</code>
+       * <code>optional string content = 1;</code>
        */
       public com.google.protobuf.ByteString
           getContentBytes() {
@@ -10136,134 +10317,172 @@ public final class Messages {
         }
       }
       /**
-       * <code>required string content = 1;</code>
+       * <code>optional string content = 1;</code>
        */
       public Builder setContent(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  
         content_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string content = 1;</code>
+       * <code>optional string content = 1;</code>
        */
       public Builder clearContent() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        
         content_ = getDefaultInstance().getContent();
         onChanged();
         return this;
       }
       /**
-       * <code>required string content = 1;</code>
+       * <code>optional string content = 1;</code>
        */
       public Builder setContentBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000001;
+  checkByteStringIsUtf8(value);
+        
         content_ = value;
         onChanged();
         return this;
       }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
 
       // @@protoc_insertion_point(builder_scope:proto.TextRequest)
     }
 
+    // @@protoc_insertion_point(class_scope:proto.TextRequest)
+    private static final com.blastedstudios.freeboot.network.Messages.TextRequest DEFAULT_INSTANCE;
     static {
-      defaultInstance = new TextRequest(true);
-      defaultInstance.initFields();
+      DEFAULT_INSTANCE = new com.blastedstudios.freeboot.network.Messages.TextRequest();
     }
 
-    // @@protoc_insertion_point(class_scope:proto.TextRequest)
+    public static com.blastedstudios.freeboot.network.Messages.TextRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<TextRequest>
+        PARSER = new com.google.protobuf.AbstractParser<TextRequest>() {
+      public TextRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new TextRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<TextRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<TextRequest> getParserForType() {
+      return PARSER;
+    }
+
+    public com.blastedstudios.freeboot.network.Messages.TextRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_UUID_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_UUID_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_NetBeing_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_NetBeing_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_NetWeapon_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_NetWeapon_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_Attack_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_Attack_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_Dead_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_Dead_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_ExitGameplay_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_ExitGameplay_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_NPCState_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_NPCState_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_NameUpdate_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_NameUpdate_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_Pause_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_Pause_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_PlayerState_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_PlayerState_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_Reload_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_Reload_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_Respawn_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_Respawn_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_Text_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_Text_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_TextRequest_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_TextRequest_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
     return descriptor;
   }
-  private static com.google.protobuf.Descriptors.FileDescriptor
+  private static  com.google.protobuf.Descriptors.FileDescriptor
       descriptor;
   static {
     java.lang.String[] descriptorData = {
       "\n\025network/network.proto\022\005proto\"E\n\004UUID\022\036" +
-      "\n\026least_significant_bits\030\001 \002(\022\022\035\n\025most_s" +
-      "ignificant_bits\030\002 \002(\022\"\313\003\n\010NetBeing\022\031\n\004uu" +
+      "\n\026least_significant_bits\030\001 \001(\022\022\035\n\025most_s" +
+      "ignificant_bits\030\002 \001(\022\"\351\003\n\010NetBeing\022\031\n\004uu" +
       "id\030\001 \001(\0132\013.proto.UUID\022\014\n\004name\030\002 \001(\t\022\r\n\005p" +
       "os_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\022\r\n\005vel_x\030\005 \001(\002" +
       "\022\r\n\005vel_y\030\006 \001(\002\022\016\n\006max_hp\030\007 \001(\002\022\n\n\002hp\030\010 " +
@@ -10272,29 +10491,30 @@ public final class Messages {
       "\030\n\020ragdoll_resource\030\014 \001(\t\022,\n\007faction\030\r \001" +
       "(\0162\033.proto.NetBeing.FactionEnum\022\013\n\003aim\030\016",
       " \001(\002\022/\n\014player_class\030\017 \001(\0162\031.proto.NetBe" +
-      "ing.ClassEnum\"$\n\013FactionEnum\022\n\n\006FRIEND\020\001" +
-      "\022\t\n\005ENEMY\020\002\"F\n\tClassEnum\022\013\n\007Soldier\020\001\022\t\n" +
-      "\005Medic\020\002\022\013\n\007Brawler\020\003\022\010\n\004Demo\020\004\022\n\n\006Snipe" +
-      "r\020\005\"\027\n\tNetWeapon\022\n\n\002id\030\001 \002(\t\"O\n\006Attack\022\014" +
-      "\n\004name\030\001 \001(\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\022" +
-      "\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\"/\n\004Dead\022\014\n" +
-      "\004name\030\001 \001(\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\"\037" +
-      "\n\014ExitGameplay\022\017\n\007success\030\001 \002(\010\")\n\010NPCSt" +
-      "ate\022\035\n\004npcs\030\001 \003(\0132\017.proto.NetBeing\"\032\n\nNa",
-      "meUpdate\022\014\n\004name\030\001 \002(\t\"\026\n\005Pause\022\r\n\005pause" +
-      "\030\001 \002(\010\"/\n\013PlayerState\022 \n\007players\030\001 \003(\0132\017" +
-      ".proto.NetBeing\"#\n\006Reload\022\031\n\004uuid\030\001 \001(\0132" +
-      "\013.proto.UUID\"P\n\007Respawn\022\031\n\004uuid\030\001 \001(\0132\013." +
-      "proto.UUID\022\014\n\004name\030\002 \001(\t\022\r\n\005pos_x\030\003 \001(\002\022" +
-      "\r\n\005pos_y\030\004 \001(\002\"\'\n\004Text\022\017\n\007content\030\001 \002(\t\022" +
-      "\016\n\006origin\030\002 \002(\t\"\036\n\013TextRequest\022\017\n\007conten" +
-      "t\030\001 \002(\t*\311\001\n\013MessageType\022\n\n\006ATTACK\020\001\022\r\n\tC" +
-      "ONNECTED\020\002\022\010\n\004DEAD\020\003\022\020\n\014DISCONNECTED\020\004\022\021" +
-      "\n\rEXIT_GAMEPLAY\020\005\022\017\n\013NAME_UPDATE\020\007\022\r\n\tNP",
-      "C_STATE\020\010\022\t\n\005PAUSE\020\t\022\020\n\014PLAYER_STATE\020\n\022\n" +
-      "\n\006RELOAD\020\013\022\013\n\007RESPAWN\020\014\022\010\n\004TEXT\020\r\022\020\n\014TEX" +
-      "T_REQUEST\020\016B/\n#com.blastedstudios.freebo" +
-      "ot.networkB\010Messages"
+      "ing.ClassEnum\"3\n\013FactionEnum\022\r\n\tUNDEFINE" +
+      "D\020\000\022\n\n\006FRIEND\020\001\022\t\n\005ENEMY\020\002\"U\n\tClassEnum\022" +
+      "\r\n\tUndefined\020\000\022\013\n\007Soldier\020\001\022\t\n\005Medic\020\002\022\013" +
+      "\n\007Brawler\020\003\022\010\n\004Demo\020\004\022\n\n\006Sniper\020\005\"\027\n\tNet" +
+      "Weapon\022\n\n\002id\030\001 \001(\t\"O\n\006Attack\022\014\n\004name\030\001 \001" +
+      "(\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\022\r\n\005pos_x\030\003" +
+      " \001(\002\022\r\n\005pos_y\030\004 \001(\002\"/\n\004Dead\022\014\n\004name\030\001 \001(" +
+      "\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\"\037\n\014ExitGame" +
+      "play\022\017\n\007success\030\001 \001(\010\")\n\010NPCState\022\035\n\004npc",
+      "s\030\001 \003(\0132\017.proto.NetBeing\"\032\n\nNameUpdate\022\014" +
+      "\n\004name\030\001 \001(\t\"\026\n\005Pause\022\r\n\005pause\030\001 \001(\010\"/\n\013" +
+      "PlayerState\022 \n\007players\030\001 \003(\0132\017.proto.Net" +
+      "Being\"#\n\006Reload\022\031\n\004uuid\030\001 \001(\0132\013.proto.UU" +
+      "ID\"P\n\007Respawn\022\031\n\004uuid\030\001 \001(\0132\013.proto.UUID" +
+      "\022\014\n\004name\030\002 \001(\t\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004" +
+      " \001(\002\"\'\n\004Text\022\017\n\007content\030\001 \001(\t\022\016\n\006origin\030" +
+      "\002 \001(\t\"\036\n\013TextRequest\022\017\n\007content\030\001 \001(\t*\330\001" +
+      "\n\013MessageType\022\r\n\tUNDEFINED\020\000\022\n\n\006ATTACK\020\001" +
+      "\022\r\n\tCONNECTED\020\002\022\010\n\004DEAD\020\003\022\020\n\014DISCONNECTE",
+      "D\020\004\022\021\n\rEXIT_GAMEPLAY\020\005\022\017\n\013NAME_UPDATE\020\007\022" +
+      "\r\n\tNPC_STATE\020\010\022\t\n\005PAUSE\020\t\022\020\n\014PLAYER_STAT" +
+      "E\020\n\022\n\n\006RELOAD\020\013\022\013\n\007RESPAWN\020\014\022\010\n\004TEXT\020\r\022\020" +
+      "\n\014TEXT_REQUEST\020\016B/\n#com.blastedstudios.f" +
+      "reeboot.networkB\010Messagesb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -10311,85 +10531,85 @@ public final class Messages {
     internal_static_proto_UUID_descriptor =
       getDescriptor().getMessageTypes().get(0);
     internal_static_proto_UUID_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_UUID_descriptor,
         new java.lang.String[] { "LeastSignificantBits", "MostSignificantBits", });
     internal_static_proto_NetBeing_descriptor =
       getDescriptor().getMessageTypes().get(1);
     internal_static_proto_NetBeing_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_NetBeing_descriptor,
         new java.lang.String[] { "Uuid", "Name", "PosX", "PosY", "VelX", "VelY", "MaxHp", "Hp", "CurrentWeapon", "Weapons", "Resource", "RagdollResource", "Faction", "Aim", "PlayerClass", });
     internal_static_proto_NetWeapon_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_proto_NetWeapon_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_NetWeapon_descriptor,
         new java.lang.String[] { "Id", });
     internal_static_proto_Attack_descriptor =
       getDescriptor().getMessageTypes().get(3);
     internal_static_proto_Attack_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Attack_descriptor,
         new java.lang.String[] { "Name", "Uuid", "PosX", "PosY", });
     internal_static_proto_Dead_descriptor =
       getDescriptor().getMessageTypes().get(4);
     internal_static_proto_Dead_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Dead_descriptor,
         new java.lang.String[] { "Name", "Uuid", });
     internal_static_proto_ExitGameplay_descriptor =
       getDescriptor().getMessageTypes().get(5);
     internal_static_proto_ExitGameplay_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_ExitGameplay_descriptor,
         new java.lang.String[] { "Success", });
     internal_static_proto_NPCState_descriptor =
       getDescriptor().getMessageTypes().get(6);
     internal_static_proto_NPCState_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_NPCState_descriptor,
         new java.lang.String[] { "Npcs", });
     internal_static_proto_NameUpdate_descriptor =
       getDescriptor().getMessageTypes().get(7);
     internal_static_proto_NameUpdate_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_NameUpdate_descriptor,
         new java.lang.String[] { "Name", });
     internal_static_proto_Pause_descriptor =
       getDescriptor().getMessageTypes().get(8);
     internal_static_proto_Pause_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Pause_descriptor,
         new java.lang.String[] { "Pause", });
     internal_static_proto_PlayerState_descriptor =
       getDescriptor().getMessageTypes().get(9);
     internal_static_proto_PlayerState_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_PlayerState_descriptor,
         new java.lang.String[] { "Players", });
     internal_static_proto_Reload_descriptor =
       getDescriptor().getMessageTypes().get(10);
     internal_static_proto_Reload_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Reload_descriptor,
         new java.lang.String[] { "Uuid", });
     internal_static_proto_Respawn_descriptor =
       getDescriptor().getMessageTypes().get(11);
     internal_static_proto_Respawn_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Respawn_descriptor,
         new java.lang.String[] { "Uuid", "Name", "PosX", "PosY", });
     internal_static_proto_Text_descriptor =
       getDescriptor().getMessageTypes().get(12);
     internal_static_proto_Text_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Text_descriptor,
         new java.lang.String[] { "Content", "Origin", });
     internal_static_proto_TextRequest_descriptor =
       getDescriptor().getMessageTypes().get(13);
     internal_static_proto_TextRequest_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_TextRequest_descriptor,
         new java.lang.String[] { "Content", });
   }
