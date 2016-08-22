@@ -9,7 +9,6 @@ enum MessageType {
   DEAD = 3;
   DISCONNECTED = 4;
   EXIT_GAMEPLAY = 5;
-  LEVEL_LOAD = 6;
   NAME_UPDATE = 7;
   NPC_STATE = 8;
   PAUSE = 9;
@@ -74,10 +73,6 @@ message Dead {
 
 message ExitGameplay {
   required bool success = 1;
-}
-
-message LevelLoad {
-  required string name = 1;
 }
 
 message NPCState {

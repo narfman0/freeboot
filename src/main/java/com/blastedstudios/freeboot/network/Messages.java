@@ -34,41 +34,37 @@ public final class Messages {
      */
     EXIT_GAMEPLAY(4, 5),
     /**
-     * <code>LEVEL_LOAD = 6;</code>
-     */
-    LEVEL_LOAD(5, 6),
-    /**
      * <code>NAME_UPDATE = 7;</code>
      */
-    NAME_UPDATE(6, 7),
+    NAME_UPDATE(5, 7),
     /**
      * <code>NPC_STATE = 8;</code>
      */
-    NPC_STATE(7, 8),
+    NPC_STATE(6, 8),
     /**
      * <code>PAUSE = 9;</code>
      */
-    PAUSE(8, 9),
+    PAUSE(7, 9),
     /**
      * <code>PLAYER_STATE = 10;</code>
      */
-    PLAYER_STATE(9, 10),
+    PLAYER_STATE(8, 10),
     /**
      * <code>RELOAD = 11;</code>
      */
-    RELOAD(10, 11),
+    RELOAD(9, 11),
     /**
      * <code>RESPAWN = 12;</code>
      */
-    RESPAWN(11, 12),
+    RESPAWN(10, 12),
     /**
      * <code>TEXT = 13;</code>
      */
-    TEXT(12, 13),
+    TEXT(11, 13),
     /**
      * <code>TEXT_REQUEST = 14;</code>
      */
-    TEXT_REQUEST(13, 14),
+    TEXT_REQUEST(12, 14),
     ;
 
     /**
@@ -91,10 +87,6 @@ public final class Messages {
      * <code>EXIT_GAMEPLAY = 5;</code>
      */
     public static final int EXIT_GAMEPLAY_VALUE = 5;
-    /**
-     * <code>LEVEL_LOAD = 6;</code>
-     */
-    public static final int LEVEL_LOAD_VALUE = 6;
     /**
      * <code>NAME_UPDATE = 7;</code>
      */
@@ -138,7 +130,6 @@ public final class Messages {
         case 3: return DEAD;
         case 4: return DISCONNECTED;
         case 5: return EXIT_GAMEPLAY;
-        case 6: return LEVEL_LOAD;
         case 7: return NAME_UPDATE;
         case 8: return NPC_STATE;
         case 9: return PAUSE;
@@ -5440,490 +5431,6 @@ public final class Messages {
     // @@protoc_insertion_point(class_scope:proto.ExitGameplay)
   }
 
-  public interface LevelLoadOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:proto.LevelLoad)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>required string name = 1;</code>
-     */
-    boolean hasName();
-    /**
-     * <code>required string name = 1;</code>
-     */
-    java.lang.String getName();
-    /**
-     * <code>required string name = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getNameBytes();
-  }
-  /**
-   * Protobuf type {@code proto.LevelLoad}
-   */
-  public static final class LevelLoad extends
-      com.google.protobuf.GeneratedMessage implements
-      // @@protoc_insertion_point(message_implements:proto.LevelLoad)
-      LevelLoadOrBuilder {
-    // Use LevelLoad.newBuilder() to construct.
-    private LevelLoad(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-      this.unknownFields = builder.getUnknownFields();
-    }
-    private LevelLoad(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final LevelLoad defaultInstance;
-    public static LevelLoad getDefaultInstance() {
-      return defaultInstance;
-    }
-
-    public LevelLoad getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
-    }
-    private LevelLoad(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              com.google.protobuf.ByteString bs = input.readBytes();
-              bitField0_ |= 0x00000001;
-              name_ = bs;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.blastedstudios.freeboot.network.Messages.internal_static_proto_LevelLoad_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.blastedstudios.freeboot.network.Messages.internal_static_proto_LevelLoad_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.blastedstudios.freeboot.network.Messages.LevelLoad.class, com.blastedstudios.freeboot.network.Messages.LevelLoad.Builder.class);
-    }
-
-    public static com.google.protobuf.Parser<LevelLoad> PARSER =
-        new com.google.protobuf.AbstractParser<LevelLoad>() {
-      public LevelLoad parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new LevelLoad(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<LevelLoad> getParserForType() {
-      return PARSER;
-    }
-
-    private int bitField0_;
-    public static final int NAME_FIELD_NUMBER = 1;
-    private java.lang.Object name_;
-    /**
-     * <code>required string name = 1;</code>
-     */
-    public boolean hasName() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    /**
-     * <code>required string name = 1;</code>
-     */
-    public java.lang.String getName() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          name_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>required string name = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getNameBytes() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        name_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private void initFields() {
-      name_ = "";
-    }
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      if (!hasName()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getNameBytes());
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getNameBytes());
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
-    }
-
-    public static com.blastedstudios.freeboot.network.Messages.LevelLoad parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.LevelLoad parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.LevelLoad parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.LevelLoad parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.LevelLoad parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.LevelLoad parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.LevelLoad parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.LevelLoad parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.LevelLoad parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.LevelLoad parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
-    }
-
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.LevelLoad prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() { return newBuilder(this); }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code proto.LevelLoad}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:proto.LevelLoad)
-        com.blastedstudios.freeboot.network.Messages.LevelLoadOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_LevelLoad_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_LevelLoad_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.blastedstudios.freeboot.network.Messages.LevelLoad.class, com.blastedstudios.freeboot.network.Messages.LevelLoad.Builder.class);
-      }
-
-      // Construct using com.blastedstudios.freeboot.network.Messages.LevelLoad.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-        }
-      }
-      private static Builder create() {
-        return new Builder();
-      }
-
-      public Builder clear() {
-        super.clear();
-        name_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
-        return this;
-      }
-
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_LevelLoad_descriptor;
-      }
-
-      public com.blastedstudios.freeboot.network.Messages.LevelLoad getDefaultInstanceForType() {
-        return com.blastedstudios.freeboot.network.Messages.LevelLoad.getDefaultInstance();
-      }
-
-      public com.blastedstudios.freeboot.network.Messages.LevelLoad build() {
-        com.blastedstudios.freeboot.network.Messages.LevelLoad result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public com.blastedstudios.freeboot.network.Messages.LevelLoad buildPartial() {
-        com.blastedstudios.freeboot.network.Messages.LevelLoad result = new com.blastedstudios.freeboot.network.Messages.LevelLoad(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
-        result.name_ = name_;
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.blastedstudios.freeboot.network.Messages.LevelLoad) {
-          return mergeFrom((com.blastedstudios.freeboot.network.Messages.LevelLoad)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(com.blastedstudios.freeboot.network.Messages.LevelLoad other) {
-        if (other == com.blastedstudios.freeboot.network.Messages.LevelLoad.getDefaultInstance()) return this;
-        if (other.hasName()) {
-          bitField0_ |= 0x00000001;
-          name_ = other.name_;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        if (!hasName()) {
-          
-          return false;
-        }
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.blastedstudios.freeboot.network.Messages.LevelLoad parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.blastedstudios.freeboot.network.Messages.LevelLoad) e.getUnfinishedMessage();
-          throw e;
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      private java.lang.Object name_ = "";
-      /**
-       * <code>required string name = 1;</code>
-       */
-      public boolean hasName() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>required string name = 1;</code>
-       */
-      public java.lang.String getName() {
-        java.lang.Object ref = name_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            name_ = s;
-          }
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>required string name = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getNameBytes() {
-        java.lang.Object ref = name_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          name_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string name = 1;</code>
-       */
-      public Builder setName(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        name_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string name = 1;</code>
-       */
-      public Builder clearName() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        name_ = getDefaultInstance().getName();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string name = 1;</code>
-       */
-      public Builder setNameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        name_ = value;
-        onChanged();
-        return this;
-      }
-
-      // @@protoc_insertion_point(builder_scope:proto.LevelLoad)
-    }
-
-    static {
-      defaultInstance = new LevelLoad(true);
-      defaultInstance.initFields();
-    }
-
-    // @@protoc_insertion_point(class_scope:proto.LevelLoad)
-  }
-
   public interface NPCStateOrBuilder extends
       // @@protoc_insertion_point(interface_extends:proto.NPCState)
       com.google.protobuf.MessageOrBuilder {
@@ -10706,11 +10213,6 @@ public final class Messages {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_proto_ExitGameplay_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_proto_LevelLoad_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_proto_LevelLoad_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_NPCState_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -10777,23 +10279,22 @@ public final class Messages {
       "\n\004name\030\001 \001(\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\022" +
       "\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\"/\n\004Dead\022\014\n" +
       "\004name\030\001 \001(\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\"\037" +
-      "\n\014ExitGameplay\022\017\n\007success\030\001 \002(\010\"\031\n\tLevel" +
-      "Load\022\014\n\004name\030\001 \002(\t\")\n\010NPCState\022\035\n\004npcs\030\001",
-      " \003(\0132\017.proto.NetBeing\"\032\n\nNameUpdate\022\014\n\004n" +
-      "ame\030\001 \002(\t\"\026\n\005Pause\022\r\n\005pause\030\001 \002(\010\"/\n\013Pla" +
-      "yerState\022 \n\007players\030\001 \003(\0132\017.proto.NetBei" +
-      "ng\"#\n\006Reload\022\031\n\004uuid\030\001 \001(\0132\013.proto.UUID\"" +
-      "P\n\007Respawn\022\031\n\004uuid\030\001 \001(\0132\013.proto.UUID\022\014\n" +
-      "\004name\030\002 \001(\t\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(" +
-      "\002\"\'\n\004Text\022\017\n\007content\030\001 \002(\t\022\016\n\006origin\030\002 \002" +
-      "(\t\"\036\n\013TextRequest\022\017\n\007content\030\001 \002(\t*\331\001\n\013M" +
-      "essageType\022\n\n\006ATTACK\020\001\022\r\n\tCONNECTED\020\002\022\010\n" +
-      "\004DEAD\020\003\022\020\n\014DISCONNECTED\020\004\022\021\n\rEXIT_GAMEPL",
-      "AY\020\005\022\016\n\nLEVEL_LOAD\020\006\022\017\n\013NAME_UPDATE\020\007\022\r\n" +
-      "\tNPC_STATE\020\010\022\t\n\005PAUSE\020\t\022\020\n\014PLAYER_STATE\020" +
-      "\n\022\n\n\006RELOAD\020\013\022\013\n\007RESPAWN\020\014\022\010\n\004TEXT\020\r\022\020\n\014" +
-      "TEXT_REQUEST\020\016B/\n#com.blastedstudios.fre" +
-      "eboot.networkB\010Messages"
+      "\n\014ExitGameplay\022\017\n\007success\030\001 \002(\010\")\n\010NPCSt" +
+      "ate\022\035\n\004npcs\030\001 \003(\0132\017.proto.NetBeing\"\032\n\nNa",
+      "meUpdate\022\014\n\004name\030\001 \002(\t\"\026\n\005Pause\022\r\n\005pause" +
+      "\030\001 \002(\010\"/\n\013PlayerState\022 \n\007players\030\001 \003(\0132\017" +
+      ".proto.NetBeing\"#\n\006Reload\022\031\n\004uuid\030\001 \001(\0132" +
+      "\013.proto.UUID\"P\n\007Respawn\022\031\n\004uuid\030\001 \001(\0132\013." +
+      "proto.UUID\022\014\n\004name\030\002 \001(\t\022\r\n\005pos_x\030\003 \001(\002\022" +
+      "\r\n\005pos_y\030\004 \001(\002\"\'\n\004Text\022\017\n\007content\030\001 \002(\t\022" +
+      "\016\n\006origin\030\002 \002(\t\"\036\n\013TextRequest\022\017\n\007conten" +
+      "t\030\001 \002(\t*\311\001\n\013MessageType\022\n\n\006ATTACK\020\001\022\r\n\tC" +
+      "ONNECTED\020\002\022\010\n\004DEAD\020\003\022\020\n\014DISCONNECTED\020\004\022\021" +
+      "\n\rEXIT_GAMEPLAY\020\005\022\017\n\013NAME_UPDATE\020\007\022\r\n\tNP",
+      "C_STATE\020\010\022\t\n\005PAUSE\020\t\022\020\n\014PLAYER_STATE\020\n\022\n" +
+      "\n\006RELOAD\020\013\022\013\n\007RESPAWN\020\014\022\010\n\004TEXT\020\r\022\020\n\014TEX" +
+      "T_REQUEST\020\016B/\n#com.blastedstudios.freebo" +
+      "ot.networkB\010Messages"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -10843,56 +10344,50 @@ public final class Messages {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_ExitGameplay_descriptor,
         new java.lang.String[] { "Success", });
-    internal_static_proto_LevelLoad_descriptor =
-      getDescriptor().getMessageTypes().get(6);
-    internal_static_proto_LevelLoad_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-        internal_static_proto_LevelLoad_descriptor,
-        new java.lang.String[] { "Name", });
     internal_static_proto_NPCState_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_proto_NPCState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_NPCState_descriptor,
         new java.lang.String[] { "Npcs", });
     internal_static_proto_NameUpdate_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_proto_NameUpdate_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_NameUpdate_descriptor,
         new java.lang.String[] { "Name", });
     internal_static_proto_Pause_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_proto_Pause_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_Pause_descriptor,
         new java.lang.String[] { "Pause", });
     internal_static_proto_PlayerState_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_proto_PlayerState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_PlayerState_descriptor,
         new java.lang.String[] { "Players", });
     internal_static_proto_Reload_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_proto_Reload_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_Reload_descriptor,
         new java.lang.String[] { "Uuid", });
     internal_static_proto_Respawn_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_proto_Respawn_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_Respawn_descriptor,
         new java.lang.String[] { "Uuid", "Name", "PosX", "PosY", });
     internal_static_proto_Text_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_proto_Text_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_Text_descriptor,
         new java.lang.String[] { "Content", "Origin", });
     internal_static_proto_TextRequest_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_proto_TextRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_proto_TextRequest_descriptor,

@@ -13,13 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.blastedstudios.gdxworld.ui.GDXRenderer;
-import com.blastedstudios.gdxworld.util.GDXGame;
-import com.blastedstudios.gdxworld.util.panner.PannerManager;
-import com.blastedstudios.gdxworld.world.GDXWorld;
 import com.blastedstudios.freeboot.network.Messages.NetBeing.ClassEnum;
 import com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum;
-import com.blastedstudios.freeboot.ui.levelselect.LevelSelectScreen;
+import com.blastedstudios.freeboot.util.SaveHelper;
 import com.blastedstudios.freeboot.util.ui.FreebootTextButton;
 import com.blastedstudios.freeboot.util.ui.FreebootWindow;
 import com.blastedstudios.freeboot.util.ui.UIHelper;
@@ -28,6 +24,10 @@ import com.blastedstudios.freeboot.world.being.NPCData;
 import com.blastedstudios.freeboot.world.being.Player;
 import com.blastedstudios.freeboot.world.weapon.Weapon;
 import com.blastedstudios.freeboot.world.weapon.WeaponFactory;
+import com.blastedstudios.gdxworld.ui.GDXRenderer;
+import com.blastedstudios.gdxworld.util.GDXGame;
+import com.blastedstudios.gdxworld.util.panner.PannerManager;
+import com.blastedstudios.gdxworld.world.GDXWorld;
 
 class NewCharacterWindow extends FreebootWindow{
 	public NewCharacterWindow(final Skin skin, final GDXGame game, 
@@ -53,9 +53,8 @@ class NewCharacterWindow extends FreebootWindow{
 						Stats.parseNPCData(npcData),
 						0,0,1,0, FactionEnum.FRIEND, EnumSet.of(FactionEnum.FRIEND), 
 						npcData.get("Resource"), classList.getSelected());
-				LevelSelectScreen screen = new LevelSelectScreen(game, player, 
-						gdxWorld, worldFile, gdxRenderer, sharedAssets, panner);
-				game.pushScreen(screen);
+				SaveHelper.save(player);
+				listener.backButtonClicked();
 			}
 		});
 		final Button backButton = new FreebootTextButton("Back", skin, new ClickListener() {
