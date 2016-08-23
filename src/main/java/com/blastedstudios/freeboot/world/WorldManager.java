@@ -180,7 +180,8 @@ public class WorldManager implements IDeathCallback{
 		float defenseModifier = 100f / (100f + target.getDefense());
 		damage.setDamage(damageBase * bodypartDmgModifier * 
 				attackModifier * defenseModifier);
-		getProvider().beingHit(damage);
+		if(player != null) // side hack for client/server - this need not happen on the server at this time
+			getProvider().beingHit(damage);
 		if( (!Properties.getBool("character.godmode", false) || target != player) && !target.isInvulnerable() ){
 			if(Properties.getBool("being.appendage.break.dead", false) && target.isDead())
 				target.getRagdoll().breakAppendage(damage.getBodyPart(), world, damage.getDir());
