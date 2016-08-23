@@ -1,4 +1,4 @@
-package com.blastedstudios.freeboot.ui.levelselect.network;
+package com.blastedstudios.freeboot.ui.network.network;
 
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;

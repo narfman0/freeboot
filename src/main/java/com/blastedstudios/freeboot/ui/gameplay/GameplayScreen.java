@@ -52,7 +52,7 @@ import com.blastedstudios.freeboot.ui.gameplay.console.ConsoleWindow;
 import com.blastedstudios.freeboot.ui.gameplay.hud.HUD;
 import com.blastedstudios.freeboot.ui.gameplay.inventory.InventoryWindow;
 import com.blastedstudios.freeboot.ui.gameplay.particles.ParticleManager;
-import com.blastedstudios.freeboot.ui.levelselect.network.NetworkWindow.MultiplayerType;
+import com.blastedstudios.freeboot.ui.network.network.NetworkWindow.MultiplayerType;
 import com.blastedstudios.freeboot.util.UUIDConvert;
 import com.blastedstudios.freeboot.util.ui.FreebootWindow;
 import com.blastedstudios.freeboot.world.DialogBubble;

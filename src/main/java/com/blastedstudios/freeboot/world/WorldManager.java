@@ -42,7 +42,7 @@ import com.blastedstudios.freeboot.network.Messages.MessageType;
 import com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum;
 import com.blastedstudios.freeboot.physics.ContactListener;
 import com.blastedstudios.freeboot.ui.gameplay.GameplayNetReceiver;
-import com.blastedstudios.freeboot.ui.levelselect.network.NetworkWindow.MultiplayerType;
+import com.blastedstudios.freeboot.ui.network.network.NetworkWindow.MultiplayerType;
 import com.blastedstudios.freeboot.util.UUIDConvert;
 import com.blastedstudios.freeboot.util.VisibilityReturnStruct;
 import com.blastedstudios.freeboot.world.being.Being;

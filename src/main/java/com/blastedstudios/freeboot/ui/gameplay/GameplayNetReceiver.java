@@ -19,7 +19,7 @@ import com.blastedstudios.freeboot.network.Messages.NetBeing;
 import com.blastedstudios.freeboot.network.Messages.PlayerState;
 import com.blastedstudios.freeboot.network.Messages.Text;
 import com.blastedstudios.freeboot.ui.gameplay.console.History;
-import com.blastedstudios.freeboot.ui.levelselect.network.NetworkWindow.MultiplayerType;
+import com.blastedstudios.freeboot.ui.network.network.NetworkWindow.MultiplayerType;
 import com.blastedstudios.freeboot.util.UUIDConvert;
 import com.blastedstudios.freeboot.world.WorldManager;
 import com.blastedstudios.freeboot.world.being.Being;

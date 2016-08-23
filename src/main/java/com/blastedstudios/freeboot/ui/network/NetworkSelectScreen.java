@@ -1,4 +1,4 @@
-package com.blastedstudios.freeboot.ui.levelselect;
+package com.blastedstudios.freeboot.ui.network;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.files.FileHandle;
@@ -12,21 +12,21 @@ import com.blastedstudios.gdxworld.world.GDXWorld;
 import com.blastedstudios.freeboot.input.ActionEnum;
 import com.blastedstudios.freeboot.plugin.quest.handler.manifestation.SoundThematicHandlerPlugin;
 import com.blastedstudios.freeboot.ui.FreebootScreen;
-import com.blastedstudios.freeboot.ui.levelselect.network.ChatWindow;
-import com.blastedstudios.freeboot.ui.levelselect.network.NetworkWindow;
-import com.blastedstudios.freeboot.ui.levelselect.network.NetworkWindow.INetworkWindowListener;
-import com.blastedstudios.freeboot.ui.levelselect.network.NetworkWindow.MultiplayerType;
+import com.blastedstudios.freeboot.ui.network.network.ChatWindow;
+import com.blastedstudios.freeboot.ui.network.network.NetworkWindow;
+import com.blastedstudios.freeboot.ui.network.network.NetworkWindow.INetworkWindowListener;
+import com.blastedstudios.freeboot.ui.network.network.NetworkWindow.MultiplayerType;
 import com.blastedstudios.freeboot.ui.loading.GameplayLoadingWindowExecutor;
 import com.blastedstudios.freeboot.ui.loading.LoadingWindow;
 import com.blastedstudios.freeboot.world.being.Player;
 
-public class LevelSelectScreen extends FreebootScreen{
+public class NetworkSelectScreen extends FreebootScreen{
 	private final AssetManager sharedAssets;
 	private final PannerManager panner;
 	private final NetworkWindow networkWindow;
 	private ChatWindow chat;
 
-	public LevelSelectScreen(final GDXGame game, final Player player, final GDXWorld gdxWorld, final FileHandle worldFile,
+	public NetworkSelectScreen(final GDXGame game, final Player player, final GDXWorld gdxWorld, final FileHandle worldFile,
 			final GDXRenderer gdxRenderer, final AssetManager sharedAssets, final PannerManager panner){
 		super(game);
 		this.sharedAssets = sharedAssets;

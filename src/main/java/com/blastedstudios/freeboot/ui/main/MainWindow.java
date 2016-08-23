@@ -12,7 +12,7 @@ import com.blastedstudios.gdxworld.ui.GDXRenderer;
 import com.blastedstudios.gdxworld.util.GDXGame;
 import com.blastedstudios.gdxworld.util.panner.PannerManager;
 import com.blastedstudios.gdxworld.world.GDXWorld;
-import com.blastedstudios.freeboot.ui.levelselect.LevelSelectScreen;
+import com.blastedstudios.freeboot.ui.network.NetworkSelectScreen;
 import com.blastedstudios.freeboot.util.SaveHelper;
 import com.blastedstudios.freeboot.util.ui.FreebootTextButton;
 import com.blastedstudios.freeboot.util.ui.FreebootWindow;
@@ -45,7 +45,7 @@ class MainWindow extends FreebootWindow{
 		for(final Player being : SaveHelper.load()){
 			final Button savedCharacterButton = new FreebootTextButton(being.getName(), skin, new ClickListener() {
 				@Override public void clicked(InputEvent event, float x, float y) {
-					LevelSelectScreen screen = new LevelSelectScreen(game, being, 
+					NetworkSelectScreen screen = new NetworkSelectScreen(game, being, 
 							gdxWorld, worldFile, gdxRenderer, sharedAssets, panner); 
 					game.pushScreen(screen);
 				}

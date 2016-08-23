@@ -8,7 +8,7 @@ import com.blastedstudios.gdxworld.util.PluginUtil;
 import com.blastedstudios.gdxworld.world.GDXWorld;
 import com.blastedstudios.freeboot.network.Host;
 import com.blastedstudios.freeboot.ui.gameplay.GameplayNetReceiver;
-import com.blastedstudios.freeboot.ui.levelselect.network.NetworkWindow.MultiplayerType;
+import com.blastedstudios.freeboot.ui.network.network.NetworkWindow.MultiplayerType;
 import com.blastedstudios.freeboot.ui.main.MainScreen;
 import com.blastedstudios.freeboot.util.SaveHelper;
 import com.blastedstudios.freeboot.world.WorldManager;
