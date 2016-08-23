@@ -10,10 +10,8 @@ enum MessageType {
   CONNECTED = 2;
   DEAD = 3;
   DISCONNECTED = 4;
-  EXIT_GAMEPLAY = 5;
   NAME_UPDATE = 7;
   NPC_STATE = 8;
-  PAUSE = 9;
   PLAYER_STATE = 10;
   RELOAD = 11;
   RESPAWN = 12;
@@ -75,20 +73,12 @@ message Dead {
   UUID uuid = 2;
 }
 
-message ExitGameplay {
-  bool success = 1;
-}
-
 message NPCState {
   repeated NetBeing npcs = 1;
 }
 
 message NameUpdate {
   string name = 1;
-}
-
-message Pause {
-  bool pause = 1;
 }
 
 message PlayerState {

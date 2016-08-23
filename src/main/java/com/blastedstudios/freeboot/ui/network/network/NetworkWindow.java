@@ -64,7 +64,7 @@ public class NetworkWindow extends FreebootWindow{
 		row();
 		add(multiplayerTypeParentTable).colspan(2).fillX().expandX();
 		row();
-		add(startButton);
+		add(startButton).colspan(2).fillX().expandX();
 		setSize(Gdx.graphics.getWidth()/4, Gdx.graphics.getHeight()/3f);
 		setX(Gdx.graphics.getWidth()/2 - getWidth()/2);
 		setY(Gdx.graphics.getHeight()/2 - getHeight()/2);

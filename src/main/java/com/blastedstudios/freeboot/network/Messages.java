@@ -40,10 +40,6 @@ public final class Messages {
      */
     DISCONNECTED(4),
     /**
-     * <code>EXIT_GAMEPLAY = 5;</code>
-     */
-    EXIT_GAMEPLAY(5),
-    /**
      * <code>NAME_UPDATE = 7;</code>
      */
     NAME_UPDATE(7),
@@ -51,10 +47,6 @@ public final class Messages {
      * <code>NPC_STATE = 8;</code>
      */
     NPC_STATE(8),
-    /**
-     * <code>PAUSE = 9;</code>
-     */
-    PAUSE(9),
     /**
      * <code>PLAYER_STATE = 10;</code>
      */
@@ -99,10 +91,6 @@ public final class Messages {
      */
     public static final int DISCONNECTED_VALUE = 4;
     /**
-     * <code>EXIT_GAMEPLAY = 5;</code>
-     */
-    public static final int EXIT_GAMEPLAY_VALUE = 5;
-    /**
      * <code>NAME_UPDATE = 7;</code>
      */
     public static final int NAME_UPDATE_VALUE = 7;
@@ -110,10 +98,6 @@ public final class Messages {
      * <code>NPC_STATE = 8;</code>
      */
     public static final int NPC_STATE_VALUE = 8;
-    /**
-     * <code>PAUSE = 9;</code>
-     */
-    public static final int PAUSE_VALUE = 9;
     /**
      * <code>PLAYER_STATE = 10;</code>
      */
@@ -159,10 +143,8 @@ public final class Messages {
         case 2: return CONNECTED;
         case 3: return DEAD;
         case 4: return DISCONNECTED;
-        case 5: return EXIT_GAMEPLAY;
         case 7: return NAME_UPDATE;
         case 8: return NPC_STATE;
-        case 9: return PAUSE;
         case 10: return PLAYER_STATE;
         case 11: return RELOAD;
         case 12: return RESPAWN;
@@ -5036,436 +5018,6 @@ public final class Messages {
 
   }
 
-  public interface ExitGameplayOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:proto.ExitGameplay)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional bool success = 1;</code>
-     */
-    boolean getSuccess();
-  }
-  /**
-   * Protobuf type {@code proto.ExitGameplay}
-   */
-  public  static final class ExitGameplay extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:proto.ExitGameplay)
-      ExitGameplayOrBuilder {
-    // Use ExitGameplay.newBuilder() to construct.
-    private ExitGameplay(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private ExitGameplay() {
-      success_ = false;
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private ExitGameplay(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 8: {
-
-              success_ = input.readBool();
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.blastedstudios.freeboot.network.Messages.internal_static_proto_ExitGameplay_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.blastedstudios.freeboot.network.Messages.internal_static_proto_ExitGameplay_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.blastedstudios.freeboot.network.Messages.ExitGameplay.class, com.blastedstudios.freeboot.network.Messages.ExitGameplay.Builder.class);
-    }
-
-    public static final int SUCCESS_FIELD_NUMBER = 1;
-    private boolean success_;
-    /**
-     * <code>optional bool success = 1;</code>
-     */
-    public boolean getSuccess() {
-      return success_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (success_ != false) {
-        output.writeBool(1, success_);
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (success_ != false) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(1, success_);
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.blastedstudios.freeboot.network.Messages.ExitGameplay)) {
-        return super.equals(obj);
-      }
-      com.blastedstudios.freeboot.network.Messages.ExitGameplay other = (com.blastedstudios.freeboot.network.Messages.ExitGameplay) obj;
-
-      boolean result = true;
-      result = result && (getSuccess()
-          == other.getSuccess());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + SUCCESS_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getSuccess());
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.blastedstudios.freeboot.network.Messages.ExitGameplay parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.ExitGameplay parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.ExitGameplay parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.ExitGameplay parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.ExitGameplay parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.ExitGameplay parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.ExitGameplay parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.ExitGameplay parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.ExitGameplay parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.ExitGameplay parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.ExitGameplay prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code proto.ExitGameplay}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:proto.ExitGameplay)
-        com.blastedstudios.freeboot.network.Messages.ExitGameplayOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_ExitGameplay_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_ExitGameplay_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.blastedstudios.freeboot.network.Messages.ExitGameplay.class, com.blastedstudios.freeboot.network.Messages.ExitGameplay.Builder.class);
-      }
-
-      // Construct using com.blastedstudios.freeboot.network.Messages.ExitGameplay.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        success_ = false;
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_ExitGameplay_descriptor;
-      }
-
-      public com.blastedstudios.freeboot.network.Messages.ExitGameplay getDefaultInstanceForType() {
-        return com.blastedstudios.freeboot.network.Messages.ExitGameplay.getDefaultInstance();
-      }
-
-      public com.blastedstudios.freeboot.network.Messages.ExitGameplay build() {
-        com.blastedstudios.freeboot.network.Messages.ExitGameplay result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public com.blastedstudios.freeboot.network.Messages.ExitGameplay buildPartial() {
-        com.blastedstudios.freeboot.network.Messages.ExitGameplay result = new com.blastedstudios.freeboot.network.Messages.ExitGameplay(this);
-        result.success_ = success_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.blastedstudios.freeboot.network.Messages.ExitGameplay) {
-          return mergeFrom((com.blastedstudios.freeboot.network.Messages.ExitGameplay)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(com.blastedstudios.freeboot.network.Messages.ExitGameplay other) {
-        if (other == com.blastedstudios.freeboot.network.Messages.ExitGameplay.getDefaultInstance()) return this;
-        if (other.getSuccess() != false) {
-          setSuccess(other.getSuccess());
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.blastedstudios.freeboot.network.Messages.ExitGameplay parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.blastedstudios.freeboot.network.Messages.ExitGameplay) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private boolean success_ ;
-      /**
-       * <code>optional bool success = 1;</code>
-       */
-      public boolean getSuccess() {
-        return success_;
-      }
-      /**
-       * <code>optional bool success = 1;</code>
-       */
-      public Builder setSuccess(boolean value) {
-        
-        success_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional bool success = 1;</code>
-       */
-      public Builder clearSuccess() {
-        
-        success_ = false;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:proto.ExitGameplay)
-    }
-
-    // @@protoc_insertion_point(class_scope:proto.ExitGameplay)
-    private static final com.blastedstudios.freeboot.network.Messages.ExitGameplay DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.blastedstudios.freeboot.network.Messages.ExitGameplay();
-    }
-
-    public static com.blastedstudios.freeboot.network.Messages.ExitGameplay getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<ExitGameplay>
-        PARSER = new com.google.protobuf.AbstractParser<ExitGameplay>() {
-      public ExitGameplay parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new ExitGameplay(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<ExitGameplay> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ExitGameplay> getParserForType() {
-      return PARSER;
-    }
-
-    public com.blastedstudios.freeboot.network.Messages.ExitGameplay getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   public interface NPCStateOrBuilder extends
       // @@protoc_insertion_point(interface_extends:proto.NPCState)
       com.google.protobuf.MessageOrBuilder {
@@ -6699,436 +6251,6 @@ public final class Messages {
     }
 
     public com.blastedstudios.freeboot.network.Messages.NameUpdate getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface PauseOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:proto.Pause)
-      com.google.protobuf.MessageOrBuilder {
-
-    /**
-     * <code>optional bool pause = 1;</code>
-     */
-    boolean getPause();
-  }
-  /**
-   * Protobuf type {@code proto.Pause}
-   */
-  public  static final class Pause extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:proto.Pause)
-      PauseOrBuilder {
-    // Use Pause.newBuilder() to construct.
-    private Pause(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private Pause() {
-      pause_ = false;
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private Pause(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      int mutable_bitField0_ = 0;
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 8: {
-
-              pause_ = input.readBool();
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Pause_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Pause_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.blastedstudios.freeboot.network.Messages.Pause.class, com.blastedstudios.freeboot.network.Messages.Pause.Builder.class);
-    }
-
-    public static final int PAUSE_FIELD_NUMBER = 1;
-    private boolean pause_;
-    /**
-     * <code>optional bool pause = 1;</code>
-     */
-    public boolean getPause() {
-      return pause_;
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      if (pause_ != false) {
-        output.writeBool(1, pause_);
-      }
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (pause_ != false) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBoolSize(1, pause_);
-      }
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.blastedstudios.freeboot.network.Messages.Pause)) {
-        return super.equals(obj);
-      }
-      com.blastedstudios.freeboot.network.Messages.Pause other = (com.blastedstudios.freeboot.network.Messages.Pause) obj;
-
-      boolean result = true;
-      result = result && (getPause()
-          == other.getPause());
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + PAUSE_FIELD_NUMBER;
-      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
-          getPause());
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.blastedstudios.freeboot.network.Messages.Pause parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Pause parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Pause parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Pause parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Pause parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Pause parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Pause parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Pause parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Pause parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Pause parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.Pause prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code proto.Pause}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:proto.Pause)
-        com.blastedstudios.freeboot.network.Messages.PauseOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Pause_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Pause_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.blastedstudios.freeboot.network.Messages.Pause.class, com.blastedstudios.freeboot.network.Messages.Pause.Builder.class);
-      }
-
-      // Construct using com.blastedstudios.freeboot.network.Messages.Pause.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        pause_ = false;
-
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Pause_descriptor;
-      }
-
-      public com.blastedstudios.freeboot.network.Messages.Pause getDefaultInstanceForType() {
-        return com.blastedstudios.freeboot.network.Messages.Pause.getDefaultInstance();
-      }
-
-      public com.blastedstudios.freeboot.network.Messages.Pause build() {
-        com.blastedstudios.freeboot.network.Messages.Pause result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public com.blastedstudios.freeboot.network.Messages.Pause buildPartial() {
-        com.blastedstudios.freeboot.network.Messages.Pause result = new com.blastedstudios.freeboot.network.Messages.Pause(this);
-        result.pause_ = pause_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.blastedstudios.freeboot.network.Messages.Pause) {
-          return mergeFrom((com.blastedstudios.freeboot.network.Messages.Pause)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(com.blastedstudios.freeboot.network.Messages.Pause other) {
-        if (other == com.blastedstudios.freeboot.network.Messages.Pause.getDefaultInstance()) return this;
-        if (other.getPause() != false) {
-          setPause(other.getPause());
-        }
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.blastedstudios.freeboot.network.Messages.Pause parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.blastedstudios.freeboot.network.Messages.Pause) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-
-      private boolean pause_ ;
-      /**
-       * <code>optional bool pause = 1;</code>
-       */
-      public boolean getPause() {
-        return pause_;
-      }
-      /**
-       * <code>optional bool pause = 1;</code>
-       */
-      public Builder setPause(boolean value) {
-        
-        pause_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional bool pause = 1;</code>
-       */
-      public Builder clearPause() {
-        
-        pause_ = false;
-        onChanged();
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:proto.Pause)
-    }
-
-    // @@protoc_insertion_point(class_scope:proto.Pause)
-    private static final com.blastedstudios.freeboot.network.Messages.Pause DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.blastedstudios.freeboot.network.Messages.Pause();
-    }
-
-    public static com.blastedstudios.freeboot.network.Messages.Pause getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<Pause>
-        PARSER = new com.google.protobuf.AbstractParser<Pause>() {
-      public Pause parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new Pause(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<Pause> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<Pause> getParserForType() {
-      return PARSER;
-    }
-
-    public com.blastedstudios.freeboot.network.Messages.Pause getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -10427,11 +9549,6 @@ public final class Messages {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_Dead_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_proto_ExitGameplay_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_proto_ExitGameplay_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_NPCState_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -10441,11 +9558,6 @@ public final class Messages {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_NameUpdate_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_proto_Pause_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_proto_Pause_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_PlayerState_descriptor;
   private static final 
@@ -10498,23 +9610,21 @@ public final class Messages {
       "Weapon\022\n\n\002id\030\001 \001(\t\"O\n\006Attack\022\014\n\004name\030\001 \001" +
       "(\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\022\r\n\005pos_x\030\003" +
       " \001(\002\022\r\n\005pos_y\030\004 \001(\002\"/\n\004Dead\022\014\n\004name\030\001 \001(" +
-      "\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\"\037\n\014ExitGame" +
-      "play\022\017\n\007success\030\001 \001(\010\")\n\010NPCState\022\035\n\004npc",
-      "s\030\001 \003(\0132\017.proto.NetBeing\"\032\n\nNameUpdate\022\014" +
-      "\n\004name\030\001 \001(\t\"\026\n\005Pause\022\r\n\005pause\030\001 \001(\010\"/\n\013" +
-      "PlayerState\022 \n\007players\030\001 \003(\0132\017.proto.Net" +
-      "Being\"#\n\006Reload\022\031\n\004uuid\030\001 \001(\0132\013.proto.UU" +
-      "ID\"P\n\007Respawn\022\031\n\004uuid\030\001 \001(\0132\013.proto.UUID" +
-      "\022\014\n\004name\030\002 \001(\t\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004" +
-      " \001(\002\"\'\n\004Text\022\017\n\007content\030\001 \001(\t\022\016\n\006origin\030" +
-      "\002 \001(\t\"\036\n\013TextRequest\022\017\n\007content\030\001 \001(\t*\330\001" +
-      "\n\013MessageType\022\r\n\tUNDEFINED\020\000\022\n\n\006ATTACK\020\001" +
-      "\022\r\n\tCONNECTED\020\002\022\010\n\004DEAD\020\003\022\020\n\014DISCONNECTE",
-      "D\020\004\022\021\n\rEXIT_GAMEPLAY\020\005\022\017\n\013NAME_UPDATE\020\007\022" +
-      "\r\n\tNPC_STATE\020\010\022\t\n\005PAUSE\020\t\022\020\n\014PLAYER_STAT" +
-      "E\020\n\022\n\n\006RELOAD\020\013\022\013\n\007RESPAWN\020\014\022\010\n\004TEXT\020\r\022\020" +
-      "\n\014TEXT_REQUEST\020\016B/\n#com.blastedstudios.f" +
-      "reeboot.networkB\010Messagesb\006proto3"
+      "\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\")\n\010NPCState" +
+      "\022\035\n\004npcs\030\001 \003(\0132\017.proto.NetBeing\"\032\n\nNameU",
+      "pdate\022\014\n\004name\030\001 \001(\t\"/\n\013PlayerState\022 \n\007pl" +
+      "ayers\030\001 \003(\0132\017.proto.NetBeing\"#\n\006Reload\022\031" +
+      "\n\004uuid\030\001 \001(\0132\013.proto.UUID\"P\n\007Respawn\022\031\n\004" +
+      "uuid\030\001 \001(\0132\013.proto.UUID\022\014\n\004name\030\002 \001(\t\022\r\n" +
+      "\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\"\'\n\004Text\022\017\n\007c" +
+      "ontent\030\001 \001(\t\022\016\n\006origin\030\002 \001(\t\"\036\n\013TextRequ" +
+      "est\022\017\n\007content\030\001 \001(\t*\272\001\n\013MessageType\022\r\n\t" +
+      "UNDEFINED\020\000\022\n\n\006ATTACK\020\001\022\r\n\tCONNECTED\020\002\022\010" +
+      "\n\004DEAD\020\003\022\020\n\014DISCONNECTED\020\004\022\017\n\013NAME_UPDAT" +
+      "E\020\007\022\r\n\tNPC_STATE\020\010\022\020\n\014PLAYER_STATE\020\n\022\n\n\006",
+      "RELOAD\020\013\022\013\n\007RESPAWN\020\014\022\010\n\004TEXT\020\r\022\020\n\014TEXT_" +
+      "REQUEST\020\016B/\n#com.blastedstudios.freeboot" +
+      ".networkB\010Messagesb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -10558,56 +9668,44 @@ public final class Messages {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Dead_descriptor,
         new java.lang.String[] { "Name", "Uuid", });
-    internal_static_proto_ExitGameplay_descriptor =
-      getDescriptor().getMessageTypes().get(5);
-    internal_static_proto_ExitGameplay_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_proto_ExitGameplay_descriptor,
-        new java.lang.String[] { "Success", });
     internal_static_proto_NPCState_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_proto_NPCState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_NPCState_descriptor,
         new java.lang.String[] { "Npcs", });
     internal_static_proto_NameUpdate_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_proto_NameUpdate_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_NameUpdate_descriptor,
         new java.lang.String[] { "Name", });
-    internal_static_proto_Pause_descriptor =
-      getDescriptor().getMessageTypes().get(8);
-    internal_static_proto_Pause_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_proto_Pause_descriptor,
-        new java.lang.String[] { "Pause", });
     internal_static_proto_PlayerState_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_proto_PlayerState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_PlayerState_descriptor,
         new java.lang.String[] { "Players", });
     internal_static_proto_Reload_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_proto_Reload_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Reload_descriptor,
         new java.lang.String[] { "Uuid", });
     internal_static_proto_Respawn_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_proto_Respawn_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Respawn_descriptor,
         new java.lang.String[] { "Uuid", "Name", "PosX", "PosY", });
     internal_static_proto_Text_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_proto_Text_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Text_descriptor,
         new java.lang.String[] { "Content", "Origin", });
     internal_static_proto_TextRequest_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_proto_TextRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_TextRequest_descriptor,

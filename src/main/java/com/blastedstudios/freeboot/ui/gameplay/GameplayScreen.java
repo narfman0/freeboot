@@ -40,9 +40,7 @@ import com.blastedstudios.gdxworld.world.quest.QuestStatus;
 import com.blastedstudios.gdxworld.world.quest.QuestStatus.CompletionEnum;
 import com.blastedstudios.freeboot.input.ActionEnum;
 import com.blastedstudios.freeboot.network.BaseNetwork;
-import com.blastedstudios.freeboot.network.Messages.ExitGameplay;
 import com.blastedstudios.freeboot.network.Messages.MessageType;
-import com.blastedstudios.freeboot.network.Messages.Pause;
 import com.blastedstudios.freeboot.network.Messages.Reload;
 import com.blastedstudios.freeboot.plugin.level.ILevelCompletedListener;
 import com.blastedstudios.freeboot.ui.FreebootScreen;
@@ -145,12 +143,8 @@ public class GameplayScreen extends FreebootScreen {
 		final Player player = worldManager.getPlayer();
 		AbstractInputHandler pauseHandler = new AbstractInputHandler() {
 			public void down(){
-				if(!worldManager.isPause()){
+				if(!worldManager.isPause())
 					handlePause(true);
-					Pause.Builder builder = Pause.newBuilder();
-					builder.setPause(true);
-					receiver.send(MessageType.PAUSE, builder.build());
-				}
 			}
 		};
 		register(ActionEnum.BACK, pauseHandler);
@@ -243,9 +237,6 @@ public class GameplayScreen extends FreebootScreen {
 					@Override public boolean handle(Event event) {
 						cleanCharacterWindows();
 						worldManager.pause(false);
-						Pause.Builder builder = Pause.newBuilder();
-						builder.setPause(false);
-						receiver.send(MessageType.PAUSE, builder.build());
 						return false;
 					}
 				};
@@ -301,9 +292,6 @@ public class GameplayScreen extends FreebootScreen {
 	}
 	
 	public void levelComplete(final boolean success){
-		ExitGameplay.Builder builder = ExitGameplay.newBuilder();
-		builder.setSuccess(success);
-		receiver.send(MessageType.EXIT_GAMEPLAY, builder.build());
 		receiver.dispose();
 		for(ILevelCompletedListener listener : PluginUtil.getPlugins(ILevelCompletedListener.class))
 			listener.levelComplete(success, worldManager, level);

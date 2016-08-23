@@ -8,6 +8,7 @@ import net.xeoh.plugins.base.annotations.PluginImplementation;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.backends.headless.HeadlessApplication;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.ParticleEffect;
 import com.badlogic.gdx.graphics.g2d.ParticleEmitter;
@@ -35,6 +36,8 @@ public class BloodComponent extends AbstractComponent {
 	}
 
 	@Override public void receivedDamage(DamageStruct damage){
+		if(Gdx.app instanceof HeadlessApplication)
+			return;
 		ParticleEffect effect = new ParticleEffect();
 		effect.load(Gdx.files.internal("data/particles/blood.p"), Gdx.files.internal("data/particles"));
 		effect.setPosition(damage.getDamagePosition().x, damage.getDamagePosition().y);
