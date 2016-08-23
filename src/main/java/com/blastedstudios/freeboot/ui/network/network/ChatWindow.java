@@ -15,6 +15,7 @@ import com.blastedstudios.freeboot.network.Messages.Text;
 import com.blastedstudios.freeboot.network.Messages.TextRequest;
 import com.blastedstudios.freeboot.util.ui.FreebootTextButton;
 import com.blastedstudios.freeboot.util.ui.FreebootWindow;
+import com.google.protobuf.Message;
 
 public class ChatWindow extends FreebootWindow implements IMessageListener {
 	private final TextArea chatText;
@@ -32,7 +33,7 @@ public class ChatWindow extends FreebootWindow implements IMessageListener {
 			network.addListener(MessageType.TEXT, this);
 		}else
 			network.addListener(MessageType.CONNECTED, new IMessageListener() {
-				@Override public void receive(MessageType messageType, Object object) {
+				@Override public void receive(MessageType messageType, Message object) {
 					network.removeListener(MessageType.CONNECTED, this);
 					network.addListener(MessageType.TEXT, ChatWindow.this);
 				}
@@ -66,7 +67,7 @@ public class ChatWindow extends FreebootWindow implements IMessageListener {
 		return super.remove();
 	}
 
-	@Override public void receive(MessageType messageType, Object object) {
+	@Override public void receive(MessageType messageType, Message object) {
 		Text text = (Text) object;
 		String appended = chatText.getText().isEmpty() ? "" : "\n";
 		appended += text.getOrigin() + ": " + text.getContent();

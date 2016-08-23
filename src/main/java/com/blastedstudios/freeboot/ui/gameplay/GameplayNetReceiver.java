@@ -5,6 +5,7 @@ import java.util.UUID;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.blastedstudios.gdxworld.util.Log;
+import com.blastedstudios.gdxworld.util.PluginUtil;
 import com.blastedstudios.freeboot.network.BaseNetwork;
 import com.blastedstudios.freeboot.network.IMessageListener;
 import com.blastedstudios.freeboot.network.Messages.Attack;
@@ -18,6 +19,7 @@ import com.blastedstudios.freeboot.network.Messages.NPCState;
 import com.blastedstudios.freeboot.network.Messages.NetBeing;
 import com.blastedstudios.freeboot.network.Messages.PlayerState;
 import com.blastedstudios.freeboot.network.Messages.Text;
+import com.blastedstudios.freeboot.plugin.network.IMessageReceive;
 import com.blastedstudios.freeboot.ui.gameplay.console.History;
 import com.blastedstudios.freeboot.ui.network.network.NetworkWindow.MultiplayerType;
 import com.blastedstudios.freeboot.util.UUIDConvert;
@@ -54,7 +56,9 @@ public class GameplayNetReceiver implements IMessageListener{
 		worldManager.setSimulate(type != MultiplayerType.Client);
 	}
 
-	@Override public void receive(MessageType messageType, Object object) {
+	@Override public void receive(MessageType messageType, Message object) {
+		//TODO for(IMessageReceive messageReceiver : PluginUtil.getPlugins(IMessageReceive.class))
+		//	messageReceiver.receive(messageType, object);
 		switch(messageType){
 		case ATTACK:{
 			Attack message = (Attack) object;

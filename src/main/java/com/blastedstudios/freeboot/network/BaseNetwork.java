@@ -49,7 +49,7 @@ public abstract class BaseNetwork {
 	 * Distribute message to all listeners
 	 * a.k.a. receive, heed, execute, send
 	 */
-	public void receiveMessage(MessageType messageType, Object message){
+	public void receiveMessage(MessageType messageType, Message message){
 		for(IMessageListener listener : new ArrayList<>(listeners.get(messageType)))
 			listener.receive(messageType, message);
 	}
@@ -88,7 +88,7 @@ public abstract class BaseNetwork {
 		return uuid;
 	}
 
-	protected static void sendMessages(List<MessageStruct> messages, CodedOutputStream stream){
+	protected static void sendMessages(List<MessageStruct> messages, CodedOutputStream stream) throws IOException{
 		for(MessageStruct sendStruct : messages){
 			try {
 				stream.writeSInt32NoTag(sendStruct.messageType.ordinal());
@@ -99,11 +99,7 @@ public abstract class BaseNetwork {
 				e.printStackTrace();
 			}
 		}
-		try {
-			stream.flush();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		stream.flush();
 	}
 	
 	protected static List<MessageStruct> receiveMessages(CodedInputStream stream, Socket socket){

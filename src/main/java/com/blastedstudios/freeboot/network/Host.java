@@ -1,5 +1,7 @@
 package com.blastedstudios.freeboot.network;
 
+import java.io.IOException;
+import java.net.SocketException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -15,8 +17,6 @@ import com.badlogic.gdx.net.Socket;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.Properties;
 import com.blastedstudios.freeboot.network.Messages.MessageType;
-import com.blastedstudios.freeboot.network.Messages.NameUpdate;
-import com.blastedstudios.freeboot.network.Messages.NetBeing;
 import com.blastedstudios.freeboot.network.Messages.Text;
 import com.blastedstudios.freeboot.network.Messages.TextRequest;
 import com.blastedstudios.freeboot.world.being.Being;
@@ -40,7 +40,7 @@ public class Host extends BaseNetwork{
 					HostStruct client = new HostStruct(socket); 
 					clients.add(client);
 					Log.debug("Host.<init>", "Added client: " + socket.getRemoteAddress());
-					receiveMessage(MessageType.CONNECTED, client);
+					receiveMessage(MessageType.CONNECTED, null);
 				}catch(Exception e){
 					Log.error("Host.<init> timer.tick", "Exception received, aborting host thread. Message: " + e.getMessage());
 					this.cancel();
@@ -62,7 +62,6 @@ public class Host extends BaseNetwork{
 		for(Iterator<HostStruct> iter = clients.iterator(); iter.hasNext();){
 			HostStruct client = iter.next();
 			if(!client.socket.isConnected()){
-				receiveMessage(MessageType.DISCONNECTED, client);
 				Log.debug("Host.render", "Disconnecting client: " + client.socket.getRemoteAddress());
 				iter.remove();
 			}else{
@@ -75,15 +74,9 @@ public class Host extends BaseNetwork{
 					case PAUSE:
 					case RELOAD:
 					case RESPAWN:
+					case NAME_UPDATE:
 						send(struct.messageType, struct.message);
 						receiveMessage(struct.messageType, struct.message);
-						break;
-					case NAME_UPDATE:
-						NameUpdate message = (NameUpdate) struct.message;
-						if(client.player == null)
-							client.player = NetBeing.newBuilder();
-						client.player.setName(message.getName());
-						receiveMessage(MessageType.NAME_UPDATE, client);
 						break;
 					case TEXT_REQUEST:
 						TextRequest request = (TextRequest) struct.message;
@@ -100,7 +93,14 @@ public class Host extends BaseNetwork{
 					Log.debug("Host.render", "Message received: " + struct.messageType + " contents: " +
 							struct.message + " from " + client.socket.getRemoteAddress());
 				}
-				sendMessages(currentQueue, client.outStream);
+				try{
+					sendMessages(currentQueue, client.outStream);
+				} catch (SocketException e1) {
+					Log.error("BaseNetwork.sendMessages", "Disconnected from server, removing client: " + client);
+					iter.remove();
+				} catch (IOException e) {
+					Log.error("BaseNetwork.sendMessages", "Disconnected from server?");
+				}
 			}
 		}
 	}

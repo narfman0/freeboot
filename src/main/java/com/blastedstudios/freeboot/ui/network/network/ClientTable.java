@@ -8,6 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.Properties;
+import com.google.protobuf.Message;
 import com.blastedstudios.freeboot.network.Client;
 import com.blastedstudios.freeboot.network.IMessageListener;
 import com.blastedstudios.freeboot.network.Messages.MessageType;
@@ -32,7 +33,7 @@ public class ClientTable extends Table {
 					return;
 				}
 				client.addListener(MessageType.CONNECTED, new IMessageListener() {
-					@Override public void receive(MessageType messageType, Object object) {
+					@Override public void receive(MessageType messageType, Message object) {
 						// send minimal information - name!
 						NameUpdate.Builder builder = NameUpdate.newBuilder();
 						builder.setName(player.getName());
@@ -40,7 +41,7 @@ public class ClientTable extends Table {
 					}
 				});
 				client.addListener(MessageType.DISCONNECTED, new IMessageListener() {
-					@Override public void receive(MessageType messageType, Object object) {
+					@Override public void receive(MessageType messageType, Message object) {
 						client.dispose();
 					}
 				});

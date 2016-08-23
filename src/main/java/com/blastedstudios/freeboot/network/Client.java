@@ -1,5 +1,6 @@
 package com.blastedstudios.freeboot.network;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.badlogic.gdx.Gdx;
@@ -22,7 +23,7 @@ public class Client extends BaseNetwork {
 		Socket socket = Gdx.net.newClientSocket(Protocol.TCP, host, port, null);
 		hostStruct = new HostStruct(socket);
 		Log.debug("Client.<init>", "Connected to server: " + socket.getRemoteAddress());
-		receiveMessage(MessageType.CONNECTED, hostStruct);
+		receiveMessage(MessageType.CONNECTED, null);
 	}
 	
 	@Override public void render(){
@@ -33,7 +34,11 @@ public class Client extends BaseNetwork {
 			receiveMessage(message.messageType, message.message);
 			Log.debug("Client.render", "Message received: " + message.messageType + " contents: " + message.message);
 		}
-		sendMessages(sendQueue, hostStruct.outStream);
+		try{
+			sendMessages(sendQueue, hostStruct.outStream);
+		}catch(IOException e){
+			e.printStackTrace();
+		}
 		sendQueue.clear();
 	}
 	

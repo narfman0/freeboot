@@ -8,6 +8,7 @@ import com.blastedstudios.freeboot.network.Host;
 import com.blastedstudios.freeboot.network.IMessageListener;
 import com.blastedstudios.freeboot.network.Messages.MessageType;
 import com.blastedstudios.freeboot.world.being.Being;
+import com.google.protobuf.Message;
 
 public class HostTable extends Table {
 	private final Host host;
@@ -17,7 +18,7 @@ public class HostTable extends Table {
 		List<String> clients = new List<String>(skin);
 		host = new Host(player);
 		host.addListener(MessageType.CONNECTED, new IMessageListener() {
-			@Override public void receive(MessageType messageType, Object object) {
+			@Override public void receive(MessageType messageType, Message object) {
 				if(object != null){
 					HostStruct struct = (HostStruct) object;
 					clients.getItems().add(struct.socket.getRemoteAddress());
@@ -25,7 +26,7 @@ public class HostTable extends Table {
 			}
 		});
 		host.addListener(MessageType.DISCONNECTED, new IMessageListener() {
-			@Override public void receive(MessageType messageType, Object object) {
+			@Override public void receive(MessageType messageType, Message object) {
 				HostStruct struct = (HostStruct) object;
 				if(struct.player != null)
 					clients.getItems().removeValue(struct.player.getName(), false);
@@ -34,7 +35,7 @@ public class HostTable extends Table {
 			}
 		});
 		host.addListener(MessageType.NAME_UPDATE, new IMessageListener() {
-			@Override public void receive(MessageType messageType, Object object) {
+			@Override public void receive(MessageType messageType, Message object) {
 				HostStruct struct = (HostStruct) object;
 				// got name, append to ip
 				for(int i=0; i<clients.getItems().size; i++)
