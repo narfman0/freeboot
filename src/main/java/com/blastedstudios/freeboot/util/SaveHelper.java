@@ -10,6 +10,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.blastedstudios.gdxworld.util.FileUtil;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.Properties;
+import com.blastedstudios.gdxworld.world.GDXWorld;
 import com.blastedstudios.freeboot.world.being.Player;
 
 public class SaveHelper {
@@ -57,5 +58,19 @@ public class SaveHelper {
 		}catch(Exception e){
 			System.err.println("SaveHelper.loadProperties: Error loading properties: " + e.getMessage());
 		}
+	}
+
+	public static GDXWorld loadWorld(String name) {
+		Log.log("SaveHelper.loadWorld","Loading world");
+		Gdx.files.external(".freeboot/worlds").mkdirs();
+		for(FileHandle file : Gdx.files.external(".freeboot/worlds").list())
+			if(file.nameWithoutExtension().equalsIgnoreCase(name))
+				return GDXWorld.load(file);
+		return null;
+	}
+
+	public static void saveWorld(GDXWorld world, String name){
+		Gdx.files.external(".freeboot/worlds").mkdirs();
+		world.save(Gdx.files.external(".freeboot/worlds").child(name + "." + Properties.get("save.extenstion", "xml")));
 	}
 }

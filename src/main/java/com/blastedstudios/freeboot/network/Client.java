@@ -23,7 +23,7 @@ public class Client extends BaseNetwork {
 		Socket socket = Gdx.net.newClientSocket(Protocol.TCP, host, port, null);
 		hostStruct = new HostStruct(socket);
 		Log.debug("Client.<init>", "Connected to server: " + socket.getRemoteAddress());
-		receiveMessage(MessageType.CONNECTED, null);
+		receiveMessage(MessageType.CONNECTED, null, socket);
 	}
 	
 	@Override public void render(){
@@ -31,13 +31,14 @@ public class Client extends BaseNetwork {
 			return;
 		List<MessageStruct> messages = receiveMessages(hostStruct.inStream, hostStruct.socket);
 		for(MessageStruct message : messages){
-			receiveMessage(message.messageType, message.message);
+			receiveMessage(message.messageType, message.message, hostStruct.socket);
 			Log.debug("Client.render", "Message received: " + message.messageType + " contents: " + message.message);
 		}
 		try{
-			sendMessages(sendQueue, hostStruct.outStream);
+			sendMessages(sendQueue, hostStruct);
 		}catch(IOException e){
 			e.printStackTrace();
+			dispose(); //TODO send message internally telling client we disconnected. :(
 		}
 		sendQueue.clear();
 	}

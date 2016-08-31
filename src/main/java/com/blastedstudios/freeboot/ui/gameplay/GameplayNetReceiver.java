@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.badlogic.gdx.net.Socket;
 import com.blastedstudios.freeboot.network.BaseNetwork;
 import com.blastedstudios.freeboot.network.IMessageListener;
 import com.blastedstudios.freeboot.network.Messages.MessageType;
@@ -31,7 +32,8 @@ public class GameplayNetReceiver implements IMessageListener{
 		if(type != MultiplayerType.Local){
 			if(type != MultiplayerType.DedicatedServer)
 				worldManager.getPlayer().setUuid(network.getUUID());
-			network.addListener(MessageType.TEXT, this);
+			for(MessageType messageType : MessageType.values())
+				network.addListener(messageType, this);
 		}
 		worldManager.setSimulate(type != MultiplayerType.Client);
 		
@@ -45,9 +47,9 @@ public class GameplayNetReceiver implements IMessageListener{
 	}
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
-	@Override public void receive(MessageType messageType, Message object) {
+	@Override public void receive(MessageType messageType, Message object, Socket origin) {
 		for(IMessageReceive messageReceiver : messageMap.get(messageType))
-			messageReceiver.receive(messageType, object);
+			messageReceiver.receive(messageType, object, origin);
 		switch(messageType){
 		case TEXT:{
 			screen.handlePause(true);
@@ -63,14 +65,14 @@ public class GameplayNetReceiver implements IMessageListener{
 			if(type != MultiplayerType.DedicatedServer && !worldManager.getPlayer().isDead()){
 				PlayerState.Builder builder = PlayerState.newBuilder();
 				builder.addPlayers(worldManager.getPlayer().buildMessage(true));
-				network.send(MessageType.PLAYER_STATE, builder.build());
+				network.send(MessageType.PLAYER_STATE, builder.build(), null);
 			}
 		}
 		if(type == MultiplayerType.Host || type == MultiplayerType.DedicatedServer){
 			NPCState.Builder builder = NPCState.newBuilder(); 
 			for(NPC npc : worldManager.getNpcs())
 				builder.addNpcs(npc.buildMessage(false));
-			network.send(MessageType.NPC_STATE, builder.build());
+			network.send(MessageType.NPC_STATE, builder.build(), null);
 		}
 	}
 	
@@ -79,8 +81,12 @@ public class GameplayNetReceiver implements IMessageListener{
 			network.removeListener(this);
 	}
 
-	public void send(MessageType messageType, Message message) {
+	public void send(MessageType messageType, Message message, List<Socket> destinations) {
 		if(network != null)
-			network.send(messageType, message);
+			network.send(messageType, message, destinations);
+	}
+	
+	public void send(MessageType messageType, Message message){
+		send(messageType, message, null);
 	}
 }

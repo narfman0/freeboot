@@ -20,6 +20,7 @@ import com.blastedstudios.freeboot.util.SaveHelper;
 
 public class MainScreen extends FreebootScreen implements IMainWindowListener, INewCharacterWindowListener, IOptionsWindowListener {
 	public static final String SKIN_PATH = Properties.get("screen.skin","data/ui/uiskinGame.json");
+	/** This must exist in part to the initial panning screens. Any world file may be used after that, however. */
 	public static final FileHandle WORLD_FILE = Gdx.files.internal("data/world/" + Properties.get("world.path", "world.xml"));
 	private final GDXWorld gdxWorld;
 	private final GDXRenderer gdxRenderer;
@@ -56,7 +57,7 @@ public class MainScreen extends FreebootScreen implements IMainWindowListener, I
 
 	@Override public void newCharacterButtonClicked() {
 		mainWindow.remove();
-		newCharacterWindow = new NewCharacterWindow(skin, game, this, gdxWorld, WORLD_FILE,	gdxRenderer, sharedAssets, panner);
+		newCharacterWindow = new NewCharacterWindow(skin, game, this, gdxRenderer, sharedAssets, panner);
 		stage.addActor(newCharacterWindow);
 	}
 

@@ -1,5 +1,6 @@
 package com.blastedstudios.freeboot.ui.network.network;
 
+import com.badlogic.gdx.net.Socket;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -18,7 +19,7 @@ public class HostTable extends Table {
 		List<String> clients = new List<String>(skin);
 		host = new Host(player);
 		host.addListener(MessageType.CONNECTED, new IMessageListener() {
-			@Override public void receive(MessageType messageType, Message object) {
+			@Override public void receive(MessageType messageType, Message object, Socket origin) {
 				if(object != null){
 					HostStruct struct = (HostStruct) object;
 					clients.getItems().add(struct.socket.getRemoteAddress());
@@ -26,7 +27,7 @@ public class HostTable extends Table {
 			}
 		});
 		host.addListener(MessageType.DISCONNECTED, new IMessageListener() {
-			@Override public void receive(MessageType messageType, Message object) {
+			@Override public void receive(MessageType messageType, Message object, Socket origin) {
 				HostStruct struct = (HostStruct) object;
 				if(struct.player != null)
 					clients.getItems().removeValue(struct.player.getName(), false);
@@ -35,7 +36,7 @@ public class HostTable extends Table {
 			}
 		});
 		host.addListener(MessageType.NAME_UPDATE, new IMessageListener() {
-			@Override public void receive(MessageType messageType, Message object) {
+			@Override public void receive(MessageType messageType, Message object, Socket origin) {
 				HostStruct struct = (HostStruct) object;
 				// got name, append to ip
 				for(int i=0; i<clients.getItems().size; i++)

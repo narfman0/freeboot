@@ -5,6 +5,7 @@ import gatech.mmpm.util.Pair;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -15,7 +16,6 @@ import com.badlogic.gdx.net.Socket;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.freeboot.network.Messages.MessageType;
 import com.google.protobuf.CodedInputStream;
-import com.google.protobuf.CodedOutputStream;
 import com.google.protobuf.Message;
 
 public abstract class BaseNetwork {
@@ -49,16 +49,20 @@ public abstract class BaseNetwork {
 	 * Distribute message to all listeners
 	 * a.k.a. receive, heed, execute, send
 	 */
-	public void receiveMessage(MessageType messageType, Message message){
+	public void receiveMessage(MessageType messageType, Message message, Socket origin){
 		for(IMessageListener listener : new ArrayList<>(listeners.get(messageType)))
-			listener.receive(messageType, message);
+			listener.receive(messageType, message, origin);
 	}
 
 	/**
 	 * Send a network message of the given type to connected host(s)
 	 */
+	public void send(MessageType messageType, Message message, List<Socket> destinations) {
+		sendQueue.add(new MessageStruct(messageType, message, destinations));
+	}
+
 	public void send(MessageType messageType, Message message) {
-		sendQueue.add(new MessageStruct(messageType, message));
+		sendQueue.add(new MessageStruct(messageType, message, null));
 	}
 	
 	public void addListener(MessageType messageType, IMessageListener listener){
@@ -88,18 +92,22 @@ public abstract class BaseNetwork {
 		return uuid;
 	}
 
-	protected static void sendMessages(List<MessageStruct> messages, CodedOutputStream stream) throws IOException{
+	protected static void sendMessages(List<MessageStruct> messages, HostStruct target) throws IOException{
 		for(MessageStruct sendStruct : messages){
-			try {
-				stream.writeSInt32NoTag(sendStruct.messageType.ordinal());
-				stream.writeSInt32NoTag(sendStruct.message.getSerializedSize());
-				sendStruct.message.writeTo(stream);
-				Log.debug("BaseNetwork.render", "Sent message successfully: " + sendStruct.messageType.name());
-			} catch (Exception e) {
-				e.printStackTrace();
+			if(sendStruct.messageType == MessageType.WORLD_HASH_REQUEST) // TODO remove
+				System.out.println("");
+			if(sendStruct.destinations == null || sendStruct.destinations.contains(target.socket)){
+				try {
+					target.outStream.writeSInt32NoTag(sendStruct.messageType.ordinal());
+					target.outStream.writeSInt32NoTag(sendStruct.message.getSerializedSize());
+					sendStruct.message.writeTo(target.outStream);
+					Log.debug("BaseNetwork.render", "Sent message successfully: " + sendStruct.messageType.name());
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 		}
-		stream.flush();
+		target.outStream.flush();
 	}
 	
 	protected static List<MessageStruct> receiveMessages(CodedInputStream stream, Socket socket){
@@ -107,6 +115,8 @@ public abstract class BaseNetwork {
 		try {
 			while(socket.getInputStream().available() > 0 && socket.isConnected()){
 				MessageType messageType = MessageType.values()[stream.readSInt32()];
+				if(messageType == MessageType.WORLD_HASH_REQUEST) // TODO remove
+					System.out.println("");
 				byte[] buffer =  stream.readRawBytes(stream.readSInt32());
 				switch(messageType){
 				case CONNECTED:
@@ -116,7 +126,7 @@ public abstract class BaseNetwork {
 				default:
 					Pair<Class<?>, Method> pair = DESERIALIZERS.get(messageType);
 					Message message = (Message)pair.getSecond().invoke(pair.getFirst(), buffer);
-					messages.add(new MessageStruct(messageType, message));
+					messages.add(new MessageStruct(messageType, message, Arrays.asList(socket)));
 					break;
 				}
 				Log.debug("Host.render", "Received " + messageType.name() + " from " + socket.getRemoteAddress());

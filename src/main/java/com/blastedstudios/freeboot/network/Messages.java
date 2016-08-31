@@ -67,6 +67,22 @@ public final class Messages {
      * <code>TEXT_REQUEST = 14;</code>
      */
     TEXT_REQUEST(14),
+    /**
+     * <code>WORLD_HASH_REQUEST = 20;</code>
+     */
+    WORLD_HASH_REQUEST(20),
+    /**
+     * <code>WORLD_HASH_RESPONSE = 21;</code>
+     */
+    WORLD_HASH_RESPONSE(21),
+    /**
+     * <code>WORLD_FILE_REQUEST = 22;</code>
+     */
+    WORLD_FILE_REQUEST(22),
+    /**
+     * <code>WORLD_FILE_RESPONSE = 25;</code>
+     */
+    WORLD_FILE_RESPONSE(25),
     UNRECOGNIZED(-1),
     ;
 
@@ -118,6 +134,22 @@ public final class Messages {
      * <code>TEXT_REQUEST = 14;</code>
      */
     public static final int TEXT_REQUEST_VALUE = 14;
+    /**
+     * <code>WORLD_HASH_REQUEST = 20;</code>
+     */
+    public static final int WORLD_HASH_REQUEST_VALUE = 20;
+    /**
+     * <code>WORLD_HASH_RESPONSE = 21;</code>
+     */
+    public static final int WORLD_HASH_RESPONSE_VALUE = 21;
+    /**
+     * <code>WORLD_FILE_REQUEST = 22;</code>
+     */
+    public static final int WORLD_FILE_REQUEST_VALUE = 22;
+    /**
+     * <code>WORLD_FILE_RESPONSE = 25;</code>
+     */
+    public static final int WORLD_FILE_RESPONSE_VALUE = 25;
 
 
     public final int getNumber() {
@@ -150,6 +182,10 @@ public final class Messages {
         case 12: return RESPAWN;
         case 13: return TEXT;
         case 14: return TEXT_REQUEST;
+        case 20: return WORLD_HASH_REQUEST;
+        case 21: return WORLD_HASH_RESPONSE;
+        case 22: return WORLD_FILE_REQUEST;
+        case 25: return WORLD_FILE_RESPONSE;
         default: return null;
       }
     }
@@ -200,6 +236,1808 @@ public final class Messages {
     }
 
     // @@protoc_insertion_point(enum_scope:proto.MessageType)
+  }
+
+  public interface WorldHashRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proto.WorldHashRequest)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code proto.WorldHashRequest}
+   */
+  public  static final class WorldHashRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:proto.WorldHashRequest)
+      WorldHashRequestOrBuilder {
+    // Use WorldHashRequest.newBuilder() to construct.
+    private WorldHashRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private WorldHashRequest() {
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private WorldHashRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blastedstudios.freeboot.network.Messages.internal_static_proto_WorldHashRequest_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blastedstudios.freeboot.network.Messages.internal_static_proto_WorldHashRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blastedstudios.freeboot.network.Messages.WorldHashRequest.class, com.blastedstudios.freeboot.network.Messages.WorldHashRequest.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blastedstudios.freeboot.network.Messages.WorldHashRequest)) {
+        return super.equals(obj);
+      }
+      com.blastedstudios.freeboot.network.Messages.WorldHashRequest other = (com.blastedstudios.freeboot.network.Messages.WorldHashRequest) obj;
+
+      boolean result = true;
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.blastedstudios.freeboot.network.Messages.WorldHashRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldHashRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldHashRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldHashRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldHashRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldHashRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldHashRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldHashRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldHashRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldHashRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.WorldHashRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code proto.WorldHashRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proto.WorldHashRequest)
+        com.blastedstudios.freeboot.network.Messages.WorldHashRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_WorldHashRequest_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_WorldHashRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blastedstudios.freeboot.network.Messages.WorldHashRequest.class, com.blastedstudios.freeboot.network.Messages.WorldHashRequest.Builder.class);
+      }
+
+      // Construct using com.blastedstudios.freeboot.network.Messages.WorldHashRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_WorldHashRequest_descriptor;
+      }
+
+      public com.blastedstudios.freeboot.network.Messages.WorldHashRequest getDefaultInstanceForType() {
+        return com.blastedstudios.freeboot.network.Messages.WorldHashRequest.getDefaultInstance();
+      }
+
+      public com.blastedstudios.freeboot.network.Messages.WorldHashRequest build() {
+        com.blastedstudios.freeboot.network.Messages.WorldHashRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.blastedstudios.freeboot.network.Messages.WorldHashRequest buildPartial() {
+        com.blastedstudios.freeboot.network.Messages.WorldHashRequest result = new com.blastedstudios.freeboot.network.Messages.WorldHashRequest(this);
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blastedstudios.freeboot.network.Messages.WorldHashRequest) {
+          return mergeFrom((com.blastedstudios.freeboot.network.Messages.WorldHashRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blastedstudios.freeboot.network.Messages.WorldHashRequest other) {
+        if (other == com.blastedstudios.freeboot.network.Messages.WorldHashRequest.getDefaultInstance()) return this;
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blastedstudios.freeboot.network.Messages.WorldHashRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blastedstudios.freeboot.network.Messages.WorldHashRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:proto.WorldHashRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:proto.WorldHashRequest)
+    private static final com.blastedstudios.freeboot.network.Messages.WorldHashRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.blastedstudios.freeboot.network.Messages.WorldHashRequest();
+    }
+
+    public static com.blastedstudios.freeboot.network.Messages.WorldHashRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<WorldHashRequest>
+        PARSER = new com.google.protobuf.AbstractParser<WorldHashRequest>() {
+      public WorldHashRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new WorldHashRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<WorldHashRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<WorldHashRequest> getParserForType() {
+      return PARSER;
+    }
+
+    public com.blastedstudios.freeboot.network.Messages.WorldHashRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface WorldHashResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proto.WorldHashResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string md5 = 1;</code>
+     */
+    java.lang.String getMd5();
+    /**
+     * <code>optional string md5 = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getMd5Bytes();
+  }
+  /**
+   * Protobuf type {@code proto.WorldHashResponse}
+   */
+  public  static final class WorldHashResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:proto.WorldHashResponse)
+      WorldHashResponseOrBuilder {
+    // Use WorldHashResponse.newBuilder() to construct.
+    private WorldHashResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private WorldHashResponse() {
+      md5_ = "";
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private WorldHashResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              md5_ = s;
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blastedstudios.freeboot.network.Messages.internal_static_proto_WorldHashResponse_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blastedstudios.freeboot.network.Messages.internal_static_proto_WorldHashResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blastedstudios.freeboot.network.Messages.WorldHashResponse.class, com.blastedstudios.freeboot.network.Messages.WorldHashResponse.Builder.class);
+    }
+
+    public static final int MD5_FIELD_NUMBER = 1;
+    private volatile java.lang.Object md5_;
+    /**
+     * <code>optional string md5 = 1;</code>
+     */
+    public java.lang.String getMd5() {
+      java.lang.Object ref = md5_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        md5_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string md5 = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getMd5Bytes() {
+      java.lang.Object ref = md5_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        md5_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getMd5Bytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, md5_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getMd5Bytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, md5_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blastedstudios.freeboot.network.Messages.WorldHashResponse)) {
+        return super.equals(obj);
+      }
+      com.blastedstudios.freeboot.network.Messages.WorldHashResponse other = (com.blastedstudios.freeboot.network.Messages.WorldHashResponse) obj;
+
+      boolean result = true;
+      result = result && getMd5()
+          .equals(other.getMd5());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + MD5_FIELD_NUMBER;
+      hash = (53 * hash) + getMd5().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.blastedstudios.freeboot.network.Messages.WorldHashResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldHashResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldHashResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldHashResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldHashResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldHashResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldHashResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldHashResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldHashResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldHashResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.WorldHashResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code proto.WorldHashResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proto.WorldHashResponse)
+        com.blastedstudios.freeboot.network.Messages.WorldHashResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_WorldHashResponse_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_WorldHashResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blastedstudios.freeboot.network.Messages.WorldHashResponse.class, com.blastedstudios.freeboot.network.Messages.WorldHashResponse.Builder.class);
+      }
+
+      // Construct using com.blastedstudios.freeboot.network.Messages.WorldHashResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        md5_ = "";
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_WorldHashResponse_descriptor;
+      }
+
+      public com.blastedstudios.freeboot.network.Messages.WorldHashResponse getDefaultInstanceForType() {
+        return com.blastedstudios.freeboot.network.Messages.WorldHashResponse.getDefaultInstance();
+      }
+
+      public com.blastedstudios.freeboot.network.Messages.WorldHashResponse build() {
+        com.blastedstudios.freeboot.network.Messages.WorldHashResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.blastedstudios.freeboot.network.Messages.WorldHashResponse buildPartial() {
+        com.blastedstudios.freeboot.network.Messages.WorldHashResponse result = new com.blastedstudios.freeboot.network.Messages.WorldHashResponse(this);
+        result.md5_ = md5_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blastedstudios.freeboot.network.Messages.WorldHashResponse) {
+          return mergeFrom((com.blastedstudios.freeboot.network.Messages.WorldHashResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blastedstudios.freeboot.network.Messages.WorldHashResponse other) {
+        if (other == com.blastedstudios.freeboot.network.Messages.WorldHashResponse.getDefaultInstance()) return this;
+        if (!other.getMd5().isEmpty()) {
+          md5_ = other.md5_;
+          onChanged();
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blastedstudios.freeboot.network.Messages.WorldHashResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blastedstudios.freeboot.network.Messages.WorldHashResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object md5_ = "";
+      /**
+       * <code>optional string md5 = 1;</code>
+       */
+      public java.lang.String getMd5() {
+        java.lang.Object ref = md5_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          md5_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string md5 = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getMd5Bytes() {
+        java.lang.Object ref = md5_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          md5_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string md5 = 1;</code>
+       */
+      public Builder setMd5(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        md5_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string md5 = 1;</code>
+       */
+      public Builder clearMd5() {
+        
+        md5_ = getDefaultInstance().getMd5();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string md5 = 1;</code>
+       */
+      public Builder setMd5Bytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        md5_ = value;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:proto.WorldHashResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:proto.WorldHashResponse)
+    private static final com.blastedstudios.freeboot.network.Messages.WorldHashResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.blastedstudios.freeboot.network.Messages.WorldHashResponse();
+    }
+
+    public static com.blastedstudios.freeboot.network.Messages.WorldHashResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<WorldHashResponse>
+        PARSER = new com.google.protobuf.AbstractParser<WorldHashResponse>() {
+      public WorldHashResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new WorldHashResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<WorldHashResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<WorldHashResponse> getParserForType() {
+      return PARSER;
+    }
+
+    public com.blastedstudios.freeboot.network.Messages.WorldHashResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface WorldFileRequestOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proto.WorldFileRequest)
+      com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code proto.WorldFileRequest}
+   */
+  public  static final class WorldFileRequest extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:proto.WorldFileRequest)
+      WorldFileRequestOrBuilder {
+    // Use WorldFileRequest.newBuilder() to construct.
+    private WorldFileRequest(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private WorldFileRequest() {
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private WorldFileRequest(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blastedstudios.freeboot.network.Messages.internal_static_proto_WorldFileRequest_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blastedstudios.freeboot.network.Messages.internal_static_proto_WorldFileRequest_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blastedstudios.freeboot.network.Messages.WorldFileRequest.class, com.blastedstudios.freeboot.network.Messages.WorldFileRequest.Builder.class);
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blastedstudios.freeboot.network.Messages.WorldFileRequest)) {
+        return super.equals(obj);
+      }
+      com.blastedstudios.freeboot.network.Messages.WorldFileRequest other = (com.blastedstudios.freeboot.network.Messages.WorldFileRequest) obj;
+
+      boolean result = true;
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.blastedstudios.freeboot.network.Messages.WorldFileRequest parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldFileRequest parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldFileRequest parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldFileRequest parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldFileRequest parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldFileRequest parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldFileRequest parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldFileRequest parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldFileRequest parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldFileRequest parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.WorldFileRequest prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code proto.WorldFileRequest}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proto.WorldFileRequest)
+        com.blastedstudios.freeboot.network.Messages.WorldFileRequestOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_WorldFileRequest_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_WorldFileRequest_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blastedstudios.freeboot.network.Messages.WorldFileRequest.class, com.blastedstudios.freeboot.network.Messages.WorldFileRequest.Builder.class);
+      }
+
+      // Construct using com.blastedstudios.freeboot.network.Messages.WorldFileRequest.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_WorldFileRequest_descriptor;
+      }
+
+      public com.blastedstudios.freeboot.network.Messages.WorldFileRequest getDefaultInstanceForType() {
+        return com.blastedstudios.freeboot.network.Messages.WorldFileRequest.getDefaultInstance();
+      }
+
+      public com.blastedstudios.freeboot.network.Messages.WorldFileRequest build() {
+        com.blastedstudios.freeboot.network.Messages.WorldFileRequest result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.blastedstudios.freeboot.network.Messages.WorldFileRequest buildPartial() {
+        com.blastedstudios.freeboot.network.Messages.WorldFileRequest result = new com.blastedstudios.freeboot.network.Messages.WorldFileRequest(this);
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blastedstudios.freeboot.network.Messages.WorldFileRequest) {
+          return mergeFrom((com.blastedstudios.freeboot.network.Messages.WorldFileRequest)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blastedstudios.freeboot.network.Messages.WorldFileRequest other) {
+        if (other == com.blastedstudios.freeboot.network.Messages.WorldFileRequest.getDefaultInstance()) return this;
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blastedstudios.freeboot.network.Messages.WorldFileRequest parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blastedstudios.freeboot.network.Messages.WorldFileRequest) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:proto.WorldFileRequest)
+    }
+
+    // @@protoc_insertion_point(class_scope:proto.WorldFileRequest)
+    private static final com.blastedstudios.freeboot.network.Messages.WorldFileRequest DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.blastedstudios.freeboot.network.Messages.WorldFileRequest();
+    }
+
+    public static com.blastedstudios.freeboot.network.Messages.WorldFileRequest getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<WorldFileRequest>
+        PARSER = new com.google.protobuf.AbstractParser<WorldFileRequest>() {
+      public WorldFileRequest parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new WorldFileRequest(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<WorldFileRequest> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<WorldFileRequest> getParserForType() {
+      return PARSER;
+    }
+
+    public com.blastedstudios.freeboot.network.Messages.WorldFileRequest getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface WorldFileResponseOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proto.WorldFileResponse)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional string md5 = 1;</code>
+     */
+    java.lang.String getMd5();
+    /**
+     * <code>optional string md5 = 1;</code>
+     */
+    com.google.protobuf.ByteString
+        getMd5Bytes();
+
+    /**
+     * <code>optional bytes file = 2;</code>
+     */
+    com.google.protobuf.ByteString getFile();
+  }
+  /**
+   * Protobuf type {@code proto.WorldFileResponse}
+   */
+  public  static final class WorldFileResponse extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:proto.WorldFileResponse)
+      WorldFileResponseOrBuilder {
+    // Use WorldFileResponse.newBuilder() to construct.
+    private WorldFileResponse(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private WorldFileResponse() {
+      md5_ = "";
+      file_ = com.google.protobuf.ByteString.EMPTY;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private WorldFileResponse(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              md5_ = s;
+              break;
+            }
+            case 18: {
+
+              file_ = input.readBytes();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blastedstudios.freeboot.network.Messages.internal_static_proto_WorldFileResponse_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blastedstudios.freeboot.network.Messages.internal_static_proto_WorldFileResponse_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blastedstudios.freeboot.network.Messages.WorldFileResponse.class, com.blastedstudios.freeboot.network.Messages.WorldFileResponse.Builder.class);
+    }
+
+    public static final int MD5_FIELD_NUMBER = 1;
+    private volatile java.lang.Object md5_;
+    /**
+     * <code>optional string md5 = 1;</code>
+     */
+    public java.lang.String getMd5() {
+      java.lang.Object ref = md5_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        md5_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string md5 = 1;</code>
+     */
+    public com.google.protobuf.ByteString
+        getMd5Bytes() {
+      java.lang.Object ref = md5_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        md5_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int FILE_FIELD_NUMBER = 2;
+    private com.google.protobuf.ByteString file_;
+    /**
+     * <code>optional bytes file = 2;</code>
+     */
+    public com.google.protobuf.ByteString getFile() {
+      return file_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (!getMd5Bytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, md5_);
+      }
+      if (!file_.isEmpty()) {
+        output.writeBytes(2, file_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (!getMd5Bytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, md5_);
+      }
+      if (!file_.isEmpty()) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, file_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blastedstudios.freeboot.network.Messages.WorldFileResponse)) {
+        return super.equals(obj);
+      }
+      com.blastedstudios.freeboot.network.Messages.WorldFileResponse other = (com.blastedstudios.freeboot.network.Messages.WorldFileResponse) obj;
+
+      boolean result = true;
+      result = result && getMd5()
+          .equals(other.getMd5());
+      result = result && getFile()
+          .equals(other.getFile());
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + MD5_FIELD_NUMBER;
+      hash = (53 * hash) + getMd5().hashCode();
+      hash = (37 * hash) + FILE_FIELD_NUMBER;
+      hash = (53 * hash) + getFile().hashCode();
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.blastedstudios.freeboot.network.Messages.WorldFileResponse parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldFileResponse parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldFileResponse parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldFileResponse parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldFileResponse parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldFileResponse parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldFileResponse parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldFileResponse parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldFileResponse parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.WorldFileResponse parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.WorldFileResponse prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code proto.WorldFileResponse}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proto.WorldFileResponse)
+        com.blastedstudios.freeboot.network.Messages.WorldFileResponseOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_WorldFileResponse_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_WorldFileResponse_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blastedstudios.freeboot.network.Messages.WorldFileResponse.class, com.blastedstudios.freeboot.network.Messages.WorldFileResponse.Builder.class);
+      }
+
+      // Construct using com.blastedstudios.freeboot.network.Messages.WorldFileResponse.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        md5_ = "";
+
+        file_ = com.google.protobuf.ByteString.EMPTY;
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_WorldFileResponse_descriptor;
+      }
+
+      public com.blastedstudios.freeboot.network.Messages.WorldFileResponse getDefaultInstanceForType() {
+        return com.blastedstudios.freeboot.network.Messages.WorldFileResponse.getDefaultInstance();
+      }
+
+      public com.blastedstudios.freeboot.network.Messages.WorldFileResponse build() {
+        com.blastedstudios.freeboot.network.Messages.WorldFileResponse result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.blastedstudios.freeboot.network.Messages.WorldFileResponse buildPartial() {
+        com.blastedstudios.freeboot.network.Messages.WorldFileResponse result = new com.blastedstudios.freeboot.network.Messages.WorldFileResponse(this);
+        result.md5_ = md5_;
+        result.file_ = file_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blastedstudios.freeboot.network.Messages.WorldFileResponse) {
+          return mergeFrom((com.blastedstudios.freeboot.network.Messages.WorldFileResponse)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blastedstudios.freeboot.network.Messages.WorldFileResponse other) {
+        if (other == com.blastedstudios.freeboot.network.Messages.WorldFileResponse.getDefaultInstance()) return this;
+        if (!other.getMd5().isEmpty()) {
+          md5_ = other.md5_;
+          onChanged();
+        }
+        if (other.getFile() != com.google.protobuf.ByteString.EMPTY) {
+          setFile(other.getFile());
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blastedstudios.freeboot.network.Messages.WorldFileResponse parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blastedstudios.freeboot.network.Messages.WorldFileResponse) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private java.lang.Object md5_ = "";
+      /**
+       * <code>optional string md5 = 1;</code>
+       */
+      public java.lang.String getMd5() {
+        java.lang.Object ref = md5_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          md5_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string md5 = 1;</code>
+       */
+      public com.google.protobuf.ByteString
+          getMd5Bytes() {
+        java.lang.Object ref = md5_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          md5_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string md5 = 1;</code>
+       */
+      public Builder setMd5(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        md5_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string md5 = 1;</code>
+       */
+      public Builder clearMd5() {
+        
+        md5_ = getDefaultInstance().getMd5();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string md5 = 1;</code>
+       */
+      public Builder setMd5Bytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        md5_ = value;
+        onChanged();
+        return this;
+      }
+
+      private com.google.protobuf.ByteString file_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>optional bytes file = 2;</code>
+       */
+      public com.google.protobuf.ByteString getFile() {
+        return file_;
+      }
+      /**
+       * <code>optional bytes file = 2;</code>
+       */
+      public Builder setFile(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        file_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bytes file = 2;</code>
+       */
+      public Builder clearFile() {
+        
+        file_ = getDefaultInstance().getFile();
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:proto.WorldFileResponse)
+    }
+
+    // @@protoc_insertion_point(class_scope:proto.WorldFileResponse)
+    private static final com.blastedstudios.freeboot.network.Messages.WorldFileResponse DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.blastedstudios.freeboot.network.Messages.WorldFileResponse();
+    }
+
+    public static com.blastedstudios.freeboot.network.Messages.WorldFileResponse getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<WorldFileResponse>
+        PARSER = new com.google.protobuf.AbstractParser<WorldFileResponse>() {
+      public WorldFileResponse parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new WorldFileResponse(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<WorldFileResponse> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<WorldFileResponse> getParserForType() {
+      return PARSER;
+    }
+
+    public com.blastedstudios.freeboot.network.Messages.WorldFileResponse getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
   }
 
   public interface UUIDOrBuilder extends
@@ -9524,6 +11362,26 @@ public final class Messages {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proto_WorldHashRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proto_WorldHashRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proto_WorldHashResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proto_WorldHashResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proto_WorldFileRequest_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proto_WorldFileRequest_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proto_WorldFileResponse_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proto_WorldFileResponse_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_UUID_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -9592,39 +11450,45 @@ public final class Messages {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\025network/network.proto\022\005proto\"E\n\004UUID\022\036" +
-      "\n\026least_significant_bits\030\001 \001(\022\022\035\n\025most_s" +
-      "ignificant_bits\030\002 \001(\022\"\351\003\n\010NetBeing\022\031\n\004uu" +
-      "id\030\001 \001(\0132\013.proto.UUID\022\014\n\004name\030\002 \001(\t\022\r\n\005p" +
-      "os_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\022\r\n\005vel_x\030\005 \001(\002" +
-      "\022\r\n\005vel_y\030\006 \001(\002\022\016\n\006max_hp\030\007 \001(\002\022\n\n\002hp\030\010 " +
-      "\001(\002\022\025\n\rcurrentWeapon\030\t \001(\005\022!\n\007weapons\030\n " +
-      "\003(\0132\020.proto.NetWeapon\022\020\n\010resource\030\013 \001(\t\022" +
-      "\030\n\020ragdoll_resource\030\014 \001(\t\022,\n\007faction\030\r \001" +
-      "(\0162\033.proto.NetBeing.FactionEnum\022\013\n\003aim\030\016",
-      " \001(\002\022/\n\014player_class\030\017 \001(\0162\031.proto.NetBe" +
-      "ing.ClassEnum\"3\n\013FactionEnum\022\r\n\tUNDEFINE" +
-      "D\020\000\022\n\n\006FRIEND\020\001\022\t\n\005ENEMY\020\002\"U\n\tClassEnum\022" +
-      "\r\n\tUndefined\020\000\022\013\n\007Soldier\020\001\022\t\n\005Medic\020\002\022\013" +
-      "\n\007Brawler\020\003\022\010\n\004Demo\020\004\022\n\n\006Sniper\020\005\"\027\n\tNet" +
-      "Weapon\022\n\n\002id\030\001 \001(\t\"O\n\006Attack\022\014\n\004name\030\001 \001" +
-      "(\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\022\r\n\005pos_x\030\003" +
-      " \001(\002\022\r\n\005pos_y\030\004 \001(\002\"/\n\004Dead\022\014\n\004name\030\001 \001(" +
-      "\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\")\n\010NPCState" +
-      "\022\035\n\004npcs\030\001 \003(\0132\017.proto.NetBeing\"\032\n\nNameU",
-      "pdate\022\014\n\004name\030\001 \001(\t\"/\n\013PlayerState\022 \n\007pl" +
-      "ayers\030\001 \003(\0132\017.proto.NetBeing\"#\n\006Reload\022\031" +
-      "\n\004uuid\030\001 \001(\0132\013.proto.UUID\"P\n\007Respawn\022\031\n\004" +
+      "\n\025network/network.proto\022\005proto\"\022\n\020WorldH" +
+      "ashRequest\" \n\021WorldHashResponse\022\013\n\003md5\030\001" +
+      " \001(\t\"\022\n\020WorldFileRequest\".\n\021WorldFileRes" +
+      "ponse\022\013\n\003md5\030\001 \001(\t\022\014\n\004file\030\002 \001(\014\"E\n\004UUID" +
+      "\022\036\n\026least_significant_bits\030\001 \001(\022\022\035\n\025most" +
+      "_significant_bits\030\002 \001(\022\"\351\003\n\010NetBeing\022\031\n\004" +
       "uuid\030\001 \001(\0132\013.proto.UUID\022\014\n\004name\030\002 \001(\t\022\r\n" +
-      "\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\"\'\n\004Text\022\017\n\007c" +
-      "ontent\030\001 \001(\t\022\016\n\006origin\030\002 \001(\t\"\036\n\013TextRequ" +
-      "est\022\017\n\007content\030\001 \001(\t*\272\001\n\013MessageType\022\r\n\t" +
-      "UNDEFINED\020\000\022\n\n\006ATTACK\020\001\022\r\n\tCONNECTED\020\002\022\010" +
-      "\n\004DEAD\020\003\022\020\n\014DISCONNECTED\020\004\022\017\n\013NAME_UPDAT" +
-      "E\020\007\022\r\n\tNPC_STATE\020\010\022\020\n\014PLAYER_STATE\020\n\022\n\n\006",
-      "RELOAD\020\013\022\013\n\007RESPAWN\020\014\022\010\n\004TEXT\020\r\022\020\n\014TEXT_" +
-      "REQUEST\020\016B/\n#com.blastedstudios.freeboot" +
-      ".networkB\010Messagesb\006proto3"
+      "\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\022\r\n\005vel_x\030\005 \001" +
+      "(\002\022\r\n\005vel_y\030\006 \001(\002\022\016\n\006max_hp\030\007 \001(\002\022\n\n\002hp\030" +
+      "\010 \001(\002\022\025\n\rcurrentWeapon\030\t \001(\005\022!\n\007weapons\030",
+      "\n \003(\0132\020.proto.NetWeapon\022\020\n\010resource\030\013 \001(" +
+      "\t\022\030\n\020ragdoll_resource\030\014 \001(\t\022,\n\007faction\030\r" +
+      " \001(\0162\033.proto.NetBeing.FactionEnum\022\013\n\003aim" +
+      "\030\016 \001(\002\022/\n\014player_class\030\017 \001(\0162\031.proto.Net" +
+      "Being.ClassEnum\"3\n\013FactionEnum\022\r\n\tUNDEFI" +
+      "NED\020\000\022\n\n\006FRIEND\020\001\022\t\n\005ENEMY\020\002\"U\n\tClassEnu" +
+      "m\022\r\n\tUndefined\020\000\022\013\n\007Soldier\020\001\022\t\n\005Medic\020\002" +
+      "\022\013\n\007Brawler\020\003\022\010\n\004Demo\020\004\022\n\n\006Sniper\020\005\"\027\n\tN" +
+      "etWeapon\022\n\n\002id\030\001 \001(\t\"O\n\006Attack\022\014\n\004name\030\001" +
+      " \001(\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\022\r\n\005pos_x",
+      "\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\"/\n\004Dead\022\014\n\004name\030\001 " +
+      "\001(\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\")\n\010NPCSta" +
+      "te\022\035\n\004npcs\030\001 \003(\0132\017.proto.NetBeing\"\032\n\nNam" +
+      "eUpdate\022\014\n\004name\030\001 \001(\t\"/\n\013PlayerState\022 \n\007" +
+      "players\030\001 \003(\0132\017.proto.NetBeing\"#\n\006Reload" +
+      "\022\031\n\004uuid\030\001 \001(\0132\013.proto.UUID\"P\n\007Respawn\022\031" +
+      "\n\004uuid\030\001 \001(\0132\013.proto.UUID\022\014\n\004name\030\002 \001(\t\022" +
+      "\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\"\'\n\004Text\022\017\n" +
+      "\007content\030\001 \001(\t\022\016\n\006origin\030\002 \001(\t\"\036\n\013TextRe" +
+      "quest\022\017\n\007content\030\001 \001(\t*\234\002\n\013MessageType\022\r",
+      "\n\tUNDEFINED\020\000\022\n\n\006ATTACK\020\001\022\r\n\tCONNECTED\020\002" +
+      "\022\010\n\004DEAD\020\003\022\020\n\014DISCONNECTED\020\004\022\017\n\013NAME_UPD" +
+      "ATE\020\007\022\r\n\tNPC_STATE\020\010\022\020\n\014PLAYER_STATE\020\n\022\n" +
+      "\n\006RELOAD\020\013\022\013\n\007RESPAWN\020\014\022\010\n\004TEXT\020\r\022\020\n\014TEX" +
+      "T_REQUEST\020\016\022\026\n\022WORLD_HASH_REQUEST\020\024\022\027\n\023W" +
+      "ORLD_HASH_RESPONSE\020\025\022\026\n\022WORLD_FILE_REQUE" +
+      "ST\020\026\022\027\n\023WORLD_FILE_RESPONSE\020\031B/\n#com.bla" +
+      "stedstudios.freeboot.networkB\010Messagesb\006" +
+      "proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -9638,74 +11502,98 @@ public final class Messages {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_proto_UUID_descriptor =
+    internal_static_proto_WorldHashRequest_descriptor =
       getDescriptor().getMessageTypes().get(0);
+    internal_static_proto_WorldHashRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proto_WorldHashRequest_descriptor,
+        new java.lang.String[] { });
+    internal_static_proto_WorldHashResponse_descriptor =
+      getDescriptor().getMessageTypes().get(1);
+    internal_static_proto_WorldHashResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proto_WorldHashResponse_descriptor,
+        new java.lang.String[] { "Md5", });
+    internal_static_proto_WorldFileRequest_descriptor =
+      getDescriptor().getMessageTypes().get(2);
+    internal_static_proto_WorldFileRequest_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proto_WorldFileRequest_descriptor,
+        new java.lang.String[] { });
+    internal_static_proto_WorldFileResponse_descriptor =
+      getDescriptor().getMessageTypes().get(3);
+    internal_static_proto_WorldFileResponse_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proto_WorldFileResponse_descriptor,
+        new java.lang.String[] { "Md5", "File", });
+    internal_static_proto_UUID_descriptor =
+      getDescriptor().getMessageTypes().get(4);
     internal_static_proto_UUID_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_UUID_descriptor,
         new java.lang.String[] { "LeastSignificantBits", "MostSignificantBits", });
     internal_static_proto_NetBeing_descriptor =
-      getDescriptor().getMessageTypes().get(1);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_proto_NetBeing_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_NetBeing_descriptor,
         new java.lang.String[] { "Uuid", "Name", "PosX", "PosY", "VelX", "VelY", "MaxHp", "Hp", "CurrentWeapon", "Weapons", "Resource", "RagdollResource", "Faction", "Aim", "PlayerClass", });
     internal_static_proto_NetWeapon_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_proto_NetWeapon_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_NetWeapon_descriptor,
         new java.lang.String[] { "Id", });
     internal_static_proto_Attack_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_proto_Attack_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Attack_descriptor,
         new java.lang.String[] { "Name", "Uuid", "PosX", "PosY", });
     internal_static_proto_Dead_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_proto_Dead_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Dead_descriptor,
         new java.lang.String[] { "Name", "Uuid", });
     internal_static_proto_NPCState_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_proto_NPCState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_NPCState_descriptor,
         new java.lang.String[] { "Npcs", });
     internal_static_proto_NameUpdate_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_proto_NameUpdate_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_NameUpdate_descriptor,
         new java.lang.String[] { "Name", });
     internal_static_proto_PlayerState_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_proto_PlayerState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_PlayerState_descriptor,
         new java.lang.String[] { "Players", });
     internal_static_proto_Reload_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_proto_Reload_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Reload_descriptor,
         new java.lang.String[] { "Uuid", });
     internal_static_proto_Respawn_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_proto_Respawn_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Respawn_descriptor,
         new java.lang.String[] { "Uuid", "Name", "PosX", "PosY", });
     internal_static_proto_Text_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_proto_Text_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Text_descriptor,
         new java.lang.String[] { "Content", "Origin", });
     internal_static_proto_TextRequest_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_proto_TextRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_TextRequest_descriptor,

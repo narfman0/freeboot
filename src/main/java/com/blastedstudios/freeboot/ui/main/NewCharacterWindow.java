@@ -5,7 +5,6 @@ import java.util.EnumSet;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -27,12 +26,11 @@ import com.blastedstudios.freeboot.world.weapon.WeaponFactory;
 import com.blastedstudios.gdxworld.ui.GDXRenderer;
 import com.blastedstudios.gdxworld.util.GDXGame;
 import com.blastedstudios.gdxworld.util.panner.PannerManager;
-import com.blastedstudios.gdxworld.world.GDXWorld;
 
 class NewCharacterWindow extends FreebootWindow{
 	public NewCharacterWindow(final Skin skin, final GDXGame game, 
-			final INewCharacterWindowListener listener, final GDXWorld gdxWorld, 
-			final FileHandle worldFile, final GDXRenderer gdxRenderer,
+			final INewCharacterWindowListener listener, 
+			final GDXRenderer gdxRenderer,
 			final AssetManager sharedAssets, final PannerManager panner) {
 		super("", skin);
 		final TextField nameField = new TextField("", skin);

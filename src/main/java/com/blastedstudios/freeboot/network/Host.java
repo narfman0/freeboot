@@ -40,7 +40,7 @@ public class Host extends BaseNetwork{
 					HostStruct client = new HostStruct(socket); 
 					clients.add(client);
 					Log.debug("Host.<init>", "Added client: " + socket.getRemoteAddress());
-					receiveMessage(MessageType.CONNECTED, null);
+					receiveMessage(MessageType.CONNECTED, null, socket);
 				}catch(Exception e){
 					Log.error("Host.<init> timer.tick", "Exception received, aborting host thread. Message: " + e.getMessage());
 					this.cancel();
@@ -48,7 +48,6 @@ public class Host extends BaseNetwork{
 			}
 		}, 0, 100);
 		Log.debug("Host.<init>", "Network created, listening for conenctions on port: " + port);
-		receiveMessage(MessageType.CONNECTED, null);
 	}
 	
 	@Override public void render(){
@@ -74,7 +73,7 @@ public class Host extends BaseNetwork{
 					case RESPAWN:
 					case NAME_UPDATE:
 						send(struct.messageType, struct.message);
-						receiveMessage(struct.messageType, struct.message);
+						receiveMessage(struct.messageType, struct.message, client.socket);
 						break;
 					case TEXT_REQUEST:
 						TextRequest request = (TextRequest) struct.message;
@@ -85,14 +84,14 @@ public class Host extends BaseNetwork{
 						send(MessageType.TEXT, text);
 						break;
 					default:
-						receiveMessage(struct.messageType, struct.message);
+						receiveMessage(struct.messageType, struct.message, client.socket);
 						break;
 					}
 					Log.debug("Host.render", "Message received: " + struct.messageType + " contents: " +
 							struct.message + " from " + client.socket.getRemoteAddress());
 				}
 				try{
-					sendMessages(currentQueue, client.outStream);
+					sendMessages(currentQueue, client);
 				} catch (SocketException e1) {
 					Log.error("BaseNetwork.sendMessages", "Disconnected from server, removing client: " + client);
 					iter.remove();
@@ -106,7 +105,7 @@ public class Host extends BaseNetwork{
 	/**
 	 * Intercept send messages and translate as need be, e.g. textrequests can just be texts immediately
 	 */
-	@Override public void send(MessageType messageType, Message message) {
+	@Override public void send(MessageType messageType, Message message, List<Socket> destinations) {
 		switch(messageType){
 		case TEXT_REQUEST:
 			TextRequest request = (TextRequest) message;
@@ -116,15 +115,15 @@ public class Host extends BaseNetwork{
 			builder.setOrigin(player == null ? "null host player" : player.getName());
 			message = builder.build();
 			messageType = MessageType.TEXT;
-			receiveMessage(messageType, message);
+			receiveMessage(messageType, message, null);
 			break;
 		case TEXT:
-			receiveMessage(messageType, message);
+			receiveMessage(messageType, message, null);
 			break;
 		default:
 			break;
 		}
-		super.send(messageType, message);
+		super.send(messageType, message, destinations);
 	}
 	
 	@Override public void dispose(){

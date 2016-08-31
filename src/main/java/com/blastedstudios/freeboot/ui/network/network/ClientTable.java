@@ -1,5 +1,6 @@
 package com.blastedstudios.freeboot.ui.network.network;
 
+import com.badlogic.gdx.net.Socket;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
@@ -8,11 +9,16 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.Properties;
+import com.blastedstudios.gdxworld.world.GDXWorld;
 import com.google.protobuf.Message;
 import com.blastedstudios.freeboot.network.Client;
 import com.blastedstudios.freeboot.network.IMessageListener;
 import com.blastedstudios.freeboot.network.Messages.MessageType;
 import com.blastedstudios.freeboot.network.Messages.NameUpdate;
+import com.blastedstudios.freeboot.network.Messages.WorldFileRequest;
+import com.blastedstudios.freeboot.network.Messages.WorldFileResponse;
+import com.blastedstudios.freeboot.network.Messages.WorldHashRequest;
+import com.blastedstudios.freeboot.network.Messages.WorldHashResponse;
 import com.blastedstudios.freeboot.util.SaveHelper;
 import com.blastedstudios.freeboot.util.ui.FreebootTextButton;
 import com.blastedstudios.freeboot.world.being.Being;
@@ -32,16 +38,34 @@ public class ClientTable extends Table {
 					Log.error("ClientTable.<init>", "Already connected to a host, aborting");
 					return;
 				}
+				client.addListener(MessageType.WORLD_FILE_RESPONSE, new IMessageListener() {
+					@Override public void receive(MessageType messageType, Message object, Socket origin) {
+						WorldFileResponse response = (WorldFileResponse) object;
+						Log.log("ClientTable.<init>", "World file response: " + response.getMd5());
+						//TODO write bytes tow orld file with md5 filename, then load gdxworld
+					}
+				});
+				client.addListener(MessageType.WORLD_HASH_RESPONSE, new IMessageListener() {
+					@Override public void receive(MessageType messageType, Message object, Socket origin) {
+						WorldHashResponse response = (WorldHashResponse) object;
+						Log.log("ClientTable.<init>", "World hash response: " + response.getMd5());
+						GDXWorld responseWorld = SaveHelper.loadWorld(response.getMd5());
+						// TODO server must listen for file request
+						if(responseWorld == null)
+							client.send(MessageType.WORLD_FILE_REQUEST, WorldFileRequest.getDefaultInstance());
+					}
+				});
 				client.addListener(MessageType.CONNECTED, new IMessageListener() {
-					@Override public void receive(MessageType messageType, Message object) {
+					@Override public void receive(MessageType messageType, Message object, Socket origin) {
 						// send minimal information - name!
 						NameUpdate.Builder builder = NameUpdate.newBuilder();
 						builder.setName(player.getName());
 						client.send(MessageType.NAME_UPDATE, builder.build());
+						client.send(MessageType.WORLD_HASH_REQUEST, WorldHashRequest.getDefaultInstance());
 					}
 				});
 				client.addListener(MessageType.DISCONNECTED, new IMessageListener() {
-					@Override public void receive(MessageType messageType, Message object) {
+					@Override public void receive(MessageType messageType, Message object, Socket origin) {
 						client.dispose();
 					}
 				});

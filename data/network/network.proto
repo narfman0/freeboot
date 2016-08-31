@@ -3,6 +3,7 @@ package proto;
 
 option java_package = "com.blastedstudios.freeboot.network";
 option java_outer_classname = "Messages";
+// @SuppressWarnings({ "unchecked", "unused" })
 
 enum MessageType {
   UNDEFINED = 0;
@@ -17,6 +18,21 @@ enum MessageType {
   RESPAWN = 12;
   TEXT = 13;
   TEXT_REQUEST = 14;
+  WORLD_HASH_REQUEST = 20;
+  WORLD_HASH_RESPONSE = 21;
+  WORLD_FILE_REQUEST = 22;
+  WORLD_FILE_RESPONSE = 25;
+}
+
+message WorldHashRequest {}
+message WorldHashResponse {
+  string md5 = 1;
+}
+
+message WorldFileRequest {}
+message WorldFileResponse {
+  string md5 = 1;
+  bytes file = 2;
 }
 
 message UUID {

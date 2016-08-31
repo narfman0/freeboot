@@ -1,6 +1,7 @@
 package com.blastedstudios.freeboot.ui.network.network;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.net.Socket;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -33,7 +34,7 @@ public class ChatWindow extends FreebootWindow implements IMessageListener {
 			network.addListener(MessageType.TEXT, this);
 		}else
 			network.addListener(MessageType.CONNECTED, new IMessageListener() {
-				@Override public void receive(MessageType messageType, Message object) {
+				@Override public void receive(MessageType messageType, Message object, Socket origin) {
 					network.removeListener(MessageType.CONNECTED, this);
 					network.addListener(MessageType.TEXT, ChatWindow.this);
 				}
@@ -67,7 +68,7 @@ public class ChatWindow extends FreebootWindow implements IMessageListener {
 		return super.remove();
 	}
 
-	@Override public void receive(MessageType messageType, Message object) {
+	@Override public void receive(MessageType messageType, Message object, Socket origin) {
 		Text text = (Text) object;
 		String appended = chatText.getText().isEmpty() ? "" : "\n";
 		appended += text.getOrigin() + ": " + text.getContent();
