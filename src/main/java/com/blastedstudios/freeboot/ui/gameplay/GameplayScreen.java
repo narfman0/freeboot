@@ -86,7 +86,7 @@ public class GameplayScreen extends FreebootScreen {
 	private final SpriteBatch spriteBatch = new SpriteBatch();
 	private final AssetManager sharedAssets, assetManager;
 	private final LinkedList<Drawable> drawables;
-	private final GameplayNetReceiver receiver;
+	private GameplayNetReceiver receiver;
 	private Table tintTable;
 	
 	public GameplayScreen(GDXGame game, Player player, GDXLevel level, GDXWorld world,
@@ -106,8 +106,10 @@ public class GameplayScreen extends FreebootScreen {
 		for(GDXParticle particle : level.getParticles())
 			particleManager.addParticle(particle);
 		worldManager = new WorldManager(player, level, sharedAssets);
-		receiver = new GameplayNetReceiver(this, worldManager, type, network);
-		worldManager.setReceiver(receiver);
+		if(type != MultiplayerType.Local){
+			receiver = new GameplayNetReceiver(this, worldManager, type, network);
+			worldManager.setReceiver(receiver);
+		}
 		player.getQuestManager().initialize(new QuestTriggerInformationProvider(this, worldManager), 
 				new QuestManifestationExecutor(this, worldManager));
 		player.getQuestManager().setCurrentLevel(level);
@@ -165,7 +167,8 @@ public class GameplayScreen extends FreebootScreen {
 					Reload.Builder builder = Reload.newBuilder();
 					if(player.getUuid() != null)
 						builder.setUuid(UUIDConvert.convert(player.getUuid()));
-					receiver.send(MessageType.RELOAD, builder.build());
+					if(receiver != null)
+						receiver.send(MessageType.RELOAD, builder.build());
 				}
 			}
 		});
@@ -287,12 +290,13 @@ public class GameplayScreen extends FreebootScreen {
 				(characterWindow == null || !characterWindow.contains(x, y)) &&
 				(consoleWindow == null || !consoleWindow.contains(x, y)))
 			worldManager.getPlayer().attack(touchedDirection, worldManager);
-		
-		receiver.render(delta);
+		if(receiver != null)
+			receiver.render(delta);
 	}
 	
 	public void levelComplete(final boolean success){
-		receiver.dispose();
+		if(receiver != null)
+			receiver.dispose();
 		for(ILevelCompletedListener listener : PluginUtil.getPlugins(ILevelCompletedListener.class))
 			listener.levelComplete(success, worldManager, level);
 		GDXGameFade.fadeOutPopScreen(game, new IPopListener() {

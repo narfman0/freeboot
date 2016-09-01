@@ -101,7 +101,8 @@ public class ConsoleWindow extends FreebootWindow implements IHistoryListener{
 		else{
 			TextRequest.Builder builder = TextRequest.newBuilder();
 			builder.setContent(text.getText());
-			screen.getReceiver().send(MessageType.TEXT_REQUEST, builder.build());
+			if(screen.getReceiver() != null)
+				screen.getReceiver().send(MessageType.TEXT_REQUEST, builder.build());
 		}
 		text.setText("");
 		redrawHistory();

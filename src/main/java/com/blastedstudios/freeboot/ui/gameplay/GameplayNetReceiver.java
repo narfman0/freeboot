@@ -23,6 +23,7 @@ public class GameplayNetReceiver implements IMessageListener{
 	public final BaseNetwork network;
 	private final GameplayScreen screen;
 	private final HashMap<MessageType, List<IMessageReceive<?>>> messageMap = new HashMap<>();
+	private float npcStateAccumulator;
 	
 	public GameplayNetReceiver(GameplayScreen screen, WorldManager worldManager, MultiplayerType multiplayerType, BaseNetwork network){
 		this.screen = screen;
@@ -62,17 +63,19 @@ public class GameplayNetReceiver implements IMessageListener{
 	public void render(float dt){
 		if(type != MultiplayerType.Local){
 			network.render();
+			npcStateAccumulator -= dt;
 			if(type != MultiplayerType.DedicatedServer && !worldManager.getPlayer().isDead()){
 				PlayerState.Builder builder = PlayerState.newBuilder();
 				builder.addPlayers(worldManager.getPlayer().buildMessage(true));
 				network.send(MessageType.PLAYER_STATE, builder.build(), null);
 			}
-		}
-		if(type == MultiplayerType.Host || type == MultiplayerType.DedicatedServer){
-			NPCState.Builder builder = NPCState.newBuilder(); 
-			for(NPC npc : worldManager.getNpcs())
-				builder.addNpcs(npc.buildMessage(false));
-			network.send(MessageType.NPC_STATE, builder.build(), null);
+			if(type == MultiplayerType.Host || type == MultiplayerType.DedicatedServer && npcStateAccumulator < 0){
+				NPCState.Builder builder = NPCState.newBuilder(); 
+				for(NPC npc : worldManager.getNpcs())
+					builder.addNpcs(npc.buildMessage(false));
+				network.send(MessageType.NPC_STATE, builder.build(), null);
+				npcStateAccumulator = .033f; // 33ms before next update for npcs
+			}
 		}
 	}
 	

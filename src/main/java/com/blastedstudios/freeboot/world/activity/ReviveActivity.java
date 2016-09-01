@@ -31,7 +31,8 @@ public class ReviveActivity extends BaseActivity {
 			target.respawn(world, target.getPosition().x, target.getPosition().y);
 			Respawn.Builder builder = Respawn.newBuilder();
 			builder.setUuid(UUIDConvert.convert(target.getUuid()));
-			receiver.send(MessageType.RESPAWN, builder.build());
+			if(receiver != null)
+				receiver.send(MessageType.RESPAWN, builder.build());
 			return false;
 		}
 		return true;
