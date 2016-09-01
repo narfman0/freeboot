@@ -29,6 +29,7 @@ public class FreebootServer extends ApplicationAdapter{
 		gdxWorld = GDXWorld.load(MainScreen.WORLD_FILE);
 		worldManager = new WorldManager(null, gdxWorld.getLevels().get(0), null);
 		receiver = new GameplayNetReceiver(null, worldManager, MultiplayerType.DedicatedServer, host);
+		worldManager.setReceiver(receiver);
 	}
 	
 	@Override public void render() {

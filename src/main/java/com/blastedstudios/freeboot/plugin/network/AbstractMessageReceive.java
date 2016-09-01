@@ -8,11 +8,13 @@ import com.google.protobuf.Message;
 public abstract class AbstractMessageReceive<T extends Message>  implements IMessageReceive<T> {
 	protected WorldManager worldManager;
 	protected BaseNetwork network;
+	protected MultiplayerType multiplayerType;
 	
 	@Override
-	public void initialize(WorldManager worldManager, BaseNetwork network){
+	public void initialize(WorldManager worldManager, BaseNetwork network, MultiplayerType multiplayerType){
 		this.worldManager = worldManager;
 		this.network = network;
+		this.multiplayerType = multiplayerType;
 	}
 
 	@Override public boolean applies(MultiplayerType multiplayerType) {

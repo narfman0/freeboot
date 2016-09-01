@@ -24,24 +24,24 @@ public class GameplayNetReceiver implements IMessageListener{
 	private final GameplayScreen screen;
 	private final HashMap<MessageType, List<IMessageReceive<?>>> messageMap = new HashMap<>();
 	
-	public GameplayNetReceiver(GameplayScreen screen, WorldManager worldManager, MultiplayerType type, BaseNetwork network){
+	public GameplayNetReceiver(GameplayScreen screen, WorldManager worldManager, MultiplayerType multiplayerType, BaseNetwork network){
 		this.screen = screen;
 		this.worldManager = worldManager;
-		this.type = type;
+		this.type = multiplayerType;
 		this.network = network;
-		if(type != MultiplayerType.Local){
-			if(type != MultiplayerType.DedicatedServer)
+		if(multiplayerType != MultiplayerType.Local){
+			if(multiplayerType != MultiplayerType.DedicatedServer)
 				worldManager.getPlayer().setUuid(network.getUUID());
 			for(MessageType messageType : MessageType.values())
 				network.addListener(messageType, this);
 		}
-		worldManager.setSimulate(type != MultiplayerType.Client);
+		worldManager.setSimulate(multiplayerType != MultiplayerType.Client);
 		
 		for(MessageType messageType : MessageType.values())
 			messageMap.put(messageType, new LinkedList<>());
 		for(IMessageReceive<?> messageReceiver : PluginUtil.getPlugins(IMessageReceive.class))
-			if(messageReceiver.applies(type)){
-				messageReceiver.initialize(worldManager, network);
+			if(messageReceiver.applies(multiplayerType)){
+				messageReceiver.initialize(worldManager, network, multiplayerType);
 				messageMap.get(messageReceiver.getSubscription()).add(messageReceiver);
 			}
 	}

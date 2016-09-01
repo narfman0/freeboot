@@ -616,6 +616,11 @@ public final class Messages {
      */
     com.google.protobuf.ByteString
         getMd5Bytes();
+
+    /**
+     * <code>optional int32 size_bytes = 2;</code>
+     */
+    int getSizeBytes();
   }
   /**
    * Protobuf type {@code proto.WorldHashResponse}
@@ -630,6 +635,7 @@ public final class Messages {
     }
     private WorldHashResponse() {
       md5_ = "";
+      sizeBytes_ = 0;
     }
 
     @java.lang.Override
@@ -661,6 +667,11 @@ public final class Messages {
               java.lang.String s = input.readStringRequireUtf8();
 
               md5_ = s;
+              break;
+            }
+            case 16: {
+
+              sizeBytes_ = input.readInt32();
               break;
             }
           }
@@ -720,6 +731,15 @@ public final class Messages {
       }
     }
 
+    public static final int SIZE_BYTES_FIELD_NUMBER = 2;
+    private int sizeBytes_;
+    /**
+     * <code>optional int32 size_bytes = 2;</code>
+     */
+    public int getSizeBytes() {
+      return sizeBytes_;
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -735,6 +755,9 @@ public final class Messages {
       if (!getMd5Bytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 1, md5_);
       }
+      if (sizeBytes_ != 0) {
+        output.writeInt32(2, sizeBytes_);
+      }
     }
 
     public int getSerializedSize() {
@@ -744,6 +767,10 @@ public final class Messages {
       size = 0;
       if (!getMd5Bytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, md5_);
+      }
+      if (sizeBytes_ != 0) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(2, sizeBytes_);
       }
       memoizedSize = size;
       return size;
@@ -763,6 +790,8 @@ public final class Messages {
       boolean result = true;
       result = result && getMd5()
           .equals(other.getMd5());
+      result = result && (getSizeBytes()
+          == other.getSizeBytes());
       return result;
     }
 
@@ -775,6 +804,8 @@ public final class Messages {
       hash = (19 * hash) + getDescriptorForType().hashCode();
       hash = (37 * hash) + MD5_FIELD_NUMBER;
       hash = (53 * hash) + getMd5().hashCode();
+      hash = (37 * hash) + SIZE_BYTES_FIELD_NUMBER;
+      hash = (53 * hash) + getSizeBytes();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -895,6 +926,8 @@ public final class Messages {
         super.clear();
         md5_ = "";
 
+        sizeBytes_ = 0;
+
         return this;
       }
 
@@ -918,6 +951,7 @@ public final class Messages {
       public com.blastedstudios.freeboot.network.Messages.WorldHashResponse buildPartial() {
         com.blastedstudios.freeboot.network.Messages.WorldHashResponse result = new com.blastedstudios.freeboot.network.Messages.WorldHashResponse(this);
         result.md5_ = md5_;
+        result.sizeBytes_ = sizeBytes_;
         onBuilt();
         return result;
       }
@@ -962,6 +996,9 @@ public final class Messages {
         if (!other.getMd5().isEmpty()) {
           md5_ = other.md5_;
           onChanged();
+        }
+        if (other.getSizeBytes() != 0) {
+          setSizeBytes(other.getSizeBytes());
         }
         onChanged();
         return this;
@@ -1054,6 +1091,32 @@ public final class Messages {
   checkByteStringIsUtf8(value);
         
         md5_ = value;
+        onChanged();
+        return this;
+      }
+
+      private int sizeBytes_ ;
+      /**
+       * <code>optional int32 size_bytes = 2;</code>
+       */
+      public int getSizeBytes() {
+        return sizeBytes_;
+      }
+      /**
+       * <code>optional int32 size_bytes = 2;</code>
+       */
+      public Builder setSizeBytes(int value) {
+        
+        sizeBytes_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 size_bytes = 2;</code>
+       */
+      public Builder clearSizeBytes() {
+        
+        sizeBytes_ = 0;
         onChanged();
         return this;
       }
@@ -11451,44 +11514,44 @@ public final class Messages {
   static {
     java.lang.String[] descriptorData = {
       "\n\025network/network.proto\022\005proto\"\022\n\020WorldH" +
-      "ashRequest\" \n\021WorldHashResponse\022\013\n\003md5\030\001" +
-      " \001(\t\"\022\n\020WorldFileRequest\".\n\021WorldFileRes" +
-      "ponse\022\013\n\003md5\030\001 \001(\t\022\014\n\004file\030\002 \001(\014\"E\n\004UUID" +
-      "\022\036\n\026least_significant_bits\030\001 \001(\022\022\035\n\025most" +
-      "_significant_bits\030\002 \001(\022\"\351\003\n\010NetBeing\022\031\n\004" +
-      "uuid\030\001 \001(\0132\013.proto.UUID\022\014\n\004name\030\002 \001(\t\022\r\n" +
-      "\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\022\r\n\005vel_x\030\005 \001" +
-      "(\002\022\r\n\005vel_y\030\006 \001(\002\022\016\n\006max_hp\030\007 \001(\002\022\n\n\002hp\030" +
-      "\010 \001(\002\022\025\n\rcurrentWeapon\030\t \001(\005\022!\n\007weapons\030",
-      "\n \003(\0132\020.proto.NetWeapon\022\020\n\010resource\030\013 \001(" +
-      "\t\022\030\n\020ragdoll_resource\030\014 \001(\t\022,\n\007faction\030\r" +
-      " \001(\0162\033.proto.NetBeing.FactionEnum\022\013\n\003aim" +
-      "\030\016 \001(\002\022/\n\014player_class\030\017 \001(\0162\031.proto.Net" +
-      "Being.ClassEnum\"3\n\013FactionEnum\022\r\n\tUNDEFI" +
-      "NED\020\000\022\n\n\006FRIEND\020\001\022\t\n\005ENEMY\020\002\"U\n\tClassEnu" +
-      "m\022\r\n\tUndefined\020\000\022\013\n\007Soldier\020\001\022\t\n\005Medic\020\002" +
-      "\022\013\n\007Brawler\020\003\022\010\n\004Demo\020\004\022\n\n\006Sniper\020\005\"\027\n\tN" +
-      "etWeapon\022\n\n\002id\030\001 \001(\t\"O\n\006Attack\022\014\n\004name\030\001" +
-      " \001(\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\022\r\n\005pos_x",
-      "\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\"/\n\004Dead\022\014\n\004name\030\001 " +
-      "\001(\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\")\n\010NPCSta" +
-      "te\022\035\n\004npcs\030\001 \003(\0132\017.proto.NetBeing\"\032\n\nNam" +
-      "eUpdate\022\014\n\004name\030\001 \001(\t\"/\n\013PlayerState\022 \n\007" +
-      "players\030\001 \003(\0132\017.proto.NetBeing\"#\n\006Reload" +
-      "\022\031\n\004uuid\030\001 \001(\0132\013.proto.UUID\"P\n\007Respawn\022\031" +
-      "\n\004uuid\030\001 \001(\0132\013.proto.UUID\022\014\n\004name\030\002 \001(\t\022" +
-      "\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\"\'\n\004Text\022\017\n" +
-      "\007content\030\001 \001(\t\022\016\n\006origin\030\002 \001(\t\"\036\n\013TextRe" +
-      "quest\022\017\n\007content\030\001 \001(\t*\234\002\n\013MessageType\022\r",
-      "\n\tUNDEFINED\020\000\022\n\n\006ATTACK\020\001\022\r\n\tCONNECTED\020\002" +
-      "\022\010\n\004DEAD\020\003\022\020\n\014DISCONNECTED\020\004\022\017\n\013NAME_UPD" +
-      "ATE\020\007\022\r\n\tNPC_STATE\020\010\022\020\n\014PLAYER_STATE\020\n\022\n" +
-      "\n\006RELOAD\020\013\022\013\n\007RESPAWN\020\014\022\010\n\004TEXT\020\r\022\020\n\014TEX" +
-      "T_REQUEST\020\016\022\026\n\022WORLD_HASH_REQUEST\020\024\022\027\n\023W" +
-      "ORLD_HASH_RESPONSE\020\025\022\026\n\022WORLD_FILE_REQUE" +
-      "ST\020\026\022\027\n\023WORLD_FILE_RESPONSE\020\031B/\n#com.bla" +
-      "stedstudios.freeboot.networkB\010Messagesb\006" +
-      "proto3"
+      "ashRequest\"4\n\021WorldHashResponse\022\013\n\003md5\030\001" +
+      " \001(\t\022\022\n\nsize_bytes\030\002 \001(\005\"\022\n\020WorldFileReq" +
+      "uest\".\n\021WorldFileResponse\022\013\n\003md5\030\001 \001(\t\022\014" +
+      "\n\004file\030\002 \001(\014\"E\n\004UUID\022\036\n\026least_significan" +
+      "t_bits\030\001 \001(\022\022\035\n\025most_significant_bits\030\002 " +
+      "\001(\022\"\351\003\n\010NetBeing\022\031\n\004uuid\030\001 \001(\0132\013.proto.U" +
+      "UID\022\014\n\004name\030\002 \001(\t\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_" +
+      "y\030\004 \001(\002\022\r\n\005vel_x\030\005 \001(\002\022\r\n\005vel_y\030\006 \001(\002\022\016\n" +
+      "\006max_hp\030\007 \001(\002\022\n\n\002hp\030\010 \001(\002\022\025\n\rcurrentWeap",
+      "on\030\t \001(\005\022!\n\007weapons\030\n \003(\0132\020.proto.NetWea" +
+      "pon\022\020\n\010resource\030\013 \001(\t\022\030\n\020ragdoll_resourc" +
+      "e\030\014 \001(\t\022,\n\007faction\030\r \001(\0162\033.proto.NetBein" +
+      "g.FactionEnum\022\013\n\003aim\030\016 \001(\002\022/\n\014player_cla" +
+      "ss\030\017 \001(\0162\031.proto.NetBeing.ClassEnum\"3\n\013F" +
+      "actionEnum\022\r\n\tUNDEFINED\020\000\022\n\n\006FRIEND\020\001\022\t\n" +
+      "\005ENEMY\020\002\"U\n\tClassEnum\022\r\n\tUndefined\020\000\022\013\n\007" +
+      "Soldier\020\001\022\t\n\005Medic\020\002\022\013\n\007Brawler\020\003\022\010\n\004Dem" +
+      "o\020\004\022\n\n\006Sniper\020\005\"\027\n\tNetWeapon\022\n\n\002id\030\001 \001(\t" +
+      "\"O\n\006Attack\022\014\n\004name\030\001 \001(\t\022\031\n\004uuid\030\002 \001(\0132\013",
+      ".proto.UUID\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(" +
+      "\002\"/\n\004Dead\022\014\n\004name\030\001 \001(\t\022\031\n\004uuid\030\002 \001(\0132\013." +
+      "proto.UUID\")\n\010NPCState\022\035\n\004npcs\030\001 \003(\0132\017.p" +
+      "roto.NetBeing\"\032\n\nNameUpdate\022\014\n\004name\030\001 \001(" +
+      "\t\"/\n\013PlayerState\022 \n\007players\030\001 \003(\0132\017.prot" +
+      "o.NetBeing\"#\n\006Reload\022\031\n\004uuid\030\001 \001(\0132\013.pro" +
+      "to.UUID\"P\n\007Respawn\022\031\n\004uuid\030\001 \001(\0132\013.proto" +
+      ".UUID\022\014\n\004name\030\002 \001(\t\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005po" +
+      "s_y\030\004 \001(\002\"\'\n\004Text\022\017\n\007content\030\001 \001(\t\022\016\n\006or" +
+      "igin\030\002 \001(\t\"\036\n\013TextRequest\022\017\n\007content\030\001 \001",
+      "(\t*\234\002\n\013MessageType\022\r\n\tUNDEFINED\020\000\022\n\n\006ATT" +
+      "ACK\020\001\022\r\n\tCONNECTED\020\002\022\010\n\004DEAD\020\003\022\020\n\014DISCON" +
+      "NECTED\020\004\022\017\n\013NAME_UPDATE\020\007\022\r\n\tNPC_STATE\020\010" +
+      "\022\020\n\014PLAYER_STATE\020\n\022\n\n\006RELOAD\020\013\022\013\n\007RESPAW" +
+      "N\020\014\022\010\n\004TEXT\020\r\022\020\n\014TEXT_REQUEST\020\016\022\026\n\022WORLD" +
+      "_HASH_REQUEST\020\024\022\027\n\023WORLD_HASH_RESPONSE\020\025" +
+      "\022\026\n\022WORLD_FILE_REQUEST\020\026\022\027\n\023WORLD_FILE_R" +
+      "ESPONSE\020\031B/\n#com.blastedstudios.freeboot" +
+      ".networkB\010Messagesb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -11513,7 +11576,7 @@ public final class Messages {
     internal_static_proto_WorldHashResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_WorldHashResponse_descriptor,
-        new java.lang.String[] { "Md5", });
+        new java.lang.String[] { "Md5", "SizeBytes", });
     internal_static_proto_WorldFileRequest_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_proto_WorldFileRequest_fieldAccessorTable = new

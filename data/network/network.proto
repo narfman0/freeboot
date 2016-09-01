@@ -27,6 +27,7 @@ enum MessageType {
 message WorldHashRequest {}
 message WorldHashResponse {
   string md5 = 1;
+  int32 size_bytes = 2;
 }
 
 message WorldFileRequest {}

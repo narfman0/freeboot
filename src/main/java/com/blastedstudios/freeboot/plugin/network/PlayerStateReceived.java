@@ -30,7 +30,7 @@ public class PlayerStateReceived extends AbstractMessageReceive<PlayerState> {
 			}else if(remotePlayer.getPosition() != null)
 				remotePlayer.updateFromMessage(netBeing);
 		}
-		if(worldManager.getReceiver().type == MultiplayerType.Host || worldManager.getReceiver().type == MultiplayerType.DedicatedServer)
+		if(multiplayerType == MultiplayerType.Host || multiplayerType == MultiplayerType.DedicatedServer)
 			network.send(MessageType.PLAYER_STATE, message);
 	}
 

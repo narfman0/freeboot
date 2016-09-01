@@ -13,6 +13,7 @@ import com.blastedstudios.freeboot.network.BaseNetwork;
 import com.blastedstudios.freeboot.util.ui.FreebootTextButton;
 import com.blastedstudios.freeboot.util.ui.FreebootWindow;
 import com.blastedstudios.freeboot.world.being.Being;
+import com.blastedstudios.gdxworld.world.GDXWorld;
 
 public class NetworkWindow extends FreebootWindow{
 	public enum MultiplayerType{
@@ -42,7 +43,7 @@ public class NetworkWindow extends FreebootWindow{
 					multiplayerTypeParentTable.add(hostTable);
 					break;
 				case Client:
-					clientTable = new ClientTable(skin, player);
+					clientTable = new ClientTable(skin, player, listener);
 					multiplayerTypeParentTable.add(clientTable);
 					break;
 				case Local:
@@ -93,5 +94,6 @@ public class NetworkWindow extends FreebootWindow{
 	public interface INetworkWindowListener{
 		void networkSelected(MultiplayerType type);
 		void start();
+		void worldSelected(GDXWorld world);
 	}
 }

@@ -20,17 +20,24 @@ import com.blastedstudios.freeboot.ui.loading.GameplayLoadingWindowExecutor;
 import com.blastedstudios.freeboot.ui.loading.LoadingWindow;
 import com.blastedstudios.freeboot.world.being.Player;
 
-public class NetworkSelectScreen extends FreebootScreen{
+public class NetworkSelectScreen extends FreebootScreen {
 	private final AssetManager sharedAssets;
 	private final PannerManager panner;
 	private final NetworkWindow networkWindow;
 	private ChatWindow chat;
+	/**
+	 * If we are the host or dedicated server, we use the initially loaded GDXWorld saved in the preferences.
+	 * However, if we are a client, we will want to load a world via the network and set it here. So, we set
+	 * the world initially, then expect to overwrite it later.
+	 */
+	private GDXWorld gdxWorld;
 
 	public NetworkSelectScreen(final GDXGame game, final Player player, final GDXWorld gdxWorld, final FileHandle worldFile,
 			final GDXRenderer gdxRenderer, final AssetManager sharedAssets, final PannerManager panner){
 		super(game);
 		this.sharedAssets = sharedAssets;
 		this.panner = panner;
+		this.gdxWorld = gdxWorld;
 		Log.log("LevelSelect.<init>", "Loaded world successfully");
 		sharedAssets.finishLoading();
 		networkWindow = new NetworkWindow(skin, player, new INetworkWindowListener() {
@@ -51,10 +58,14 @@ public class NetworkSelectScreen extends FreebootScreen{
 					stage.addActor(chat);
 			}
 			@Override public void start(){
-				GDXLevel level = gdxWorld.getLevels().get(0);
+				GDXLevel level = NetworkSelectScreen.this.gdxWorld.getLevels().get(0);
 				stage.addActor(new LoadingWindow(skin, 
-					new GameplayLoadingWindowExecutor(game, player, level, gdxWorld, worldFile, gdxRenderer, sharedAssets, 
+					new GameplayLoadingWindowExecutor(game, player, level, NetworkSelectScreen.this.gdxWorld, worldFile, gdxRenderer, sharedAssets, 
 							networkWindow.getMultiplayerType(), networkWindow.getSource())));
+			}
+			@Override
+			public void worldSelected(GDXWorld world) {
+				NetworkSelectScreen.this.gdxWorld = world;
 			}
 		});
 		stage.addActor(networkWindow);
@@ -66,7 +77,7 @@ public class NetworkSelectScreen extends FreebootScreen{
 		register(ActionEnum.ACTION, new AbstractInputHandler() {
 			public void down(){
 				if(ActionEnum.MODIFIER.isPressed())
-					game.pushScreen(new WorldEditorScreen(game, gdxWorld, worldFile));
+					game.pushScreen(new WorldEditorScreen(game, NetworkSelectScreen.this.gdxWorld, worldFile));
 			}
 		});
 	}

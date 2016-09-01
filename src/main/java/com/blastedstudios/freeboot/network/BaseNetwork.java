@@ -94,8 +94,6 @@ public abstract class BaseNetwork {
 
 	protected static void sendMessages(List<MessageStruct> messages, HostStruct target) throws IOException{
 		for(MessageStruct sendStruct : messages){
-			if(sendStruct.messageType == MessageType.WORLD_HASH_REQUEST) // TODO remove
-				System.out.println("");
 			if(sendStruct.destinations == null || sendStruct.destinations.contains(target.socket)){
 				try {
 					target.outStream.writeSInt32NoTag(sendStruct.messageType.ordinal());
@@ -115,8 +113,6 @@ public abstract class BaseNetwork {
 		try {
 			while(socket.getInputStream().available() > 0 && socket.isConnected()){
 				MessageType messageType = MessageType.values()[stream.readSInt32()];
-				if(messageType == MessageType.WORLD_HASH_REQUEST) // TODO remove
-					System.out.println("");
 				byte[] buffer =  stream.readRawBytes(stream.readSInt32());
 				switch(messageType){
 				case CONNECTED:

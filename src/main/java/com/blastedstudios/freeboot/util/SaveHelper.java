@@ -14,10 +14,12 @@ import com.blastedstudios.gdxworld.world.GDXWorld;
 import com.blastedstudios.freeboot.world.being.Player;
 
 public class SaveHelper {
+	private static FileHandle SAVE_DIRECTORY;
+	
 	public static List<Player> load() {
 		Log.log("SaveHelper.load","Loading characters...");
 		List<Player> characters = new LinkedList<Player>();
-		for(FileHandle file : Gdx.files.external(".freeboot/save").list()){
+		for(FileHandle file : getSaveDirectory().child("save").list()){
 			try {
 				Player being = (Player) FileUtil.getSerializer(file).load(file);
 				characters.add(being);
@@ -32,8 +34,8 @@ public class SaveHelper {
 	}
 
 	public static void save(Player character){
-		Gdx.files.external(".freeboot/save").mkdirs();
-		FileHandle file = Gdx.files.external(".freeboot/save").child(character.getName() + "." + Properties.get("save.extenstion", "xml"));
+		getSaveDirectory().child("save").mkdirs();
+		FileHandle file = getSaveDirectory().child("save").child(character.getName() + "." + Properties.get("save.extenstion", "xml"));
 		try{
 			FileUtil.getSerializer(file).save(file, character);
 			Log.log("SaveHelper.save","Saved " + character.getName() + " successfully");
@@ -62,15 +64,21 @@ public class SaveHelper {
 
 	public static GDXWorld loadWorld(String name) {
 		Log.log("SaveHelper.loadWorld","Loading world");
-		Gdx.files.external(".freeboot/worlds").mkdirs();
-		for(FileHandle file : Gdx.files.external(".freeboot/worlds").list())
+		getSaveDirectory().child("worlds").mkdirs();
+		for(FileHandle file : getSaveDirectory().child("worlds").list())
 			if(file.nameWithoutExtension().equalsIgnoreCase(name))
 				return GDXWorld.load(file);
 		return null;
 	}
 
 	public static void saveWorld(GDXWorld world, String name){
-		Gdx.files.external(".freeboot/worlds").mkdirs();
-		world.save(Gdx.files.external(".freeboot/worlds").child(name + "." + Properties.get("save.extenstion", "xml")));
+		getSaveDirectory().child("worlds").mkdirs();
+		world.save(getSaveDirectory().child("worlds").child(name + "." + Properties.get("save.extenstion", "xml")));
+	}
+	
+	public static FileHandle getSaveDirectory(){
+		if(SAVE_DIRECTORY == null)
+			SAVE_DIRECTORY = Gdx.files.external(".freeboot");
+		return SAVE_DIRECTORY;
 	}
 }

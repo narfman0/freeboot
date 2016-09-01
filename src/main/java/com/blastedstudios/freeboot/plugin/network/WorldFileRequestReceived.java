@@ -7,22 +7,23 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import com.badlogic.gdx.net.Socket;
 import com.blastedstudios.freeboot.network.Messages.MessageType;
-import com.blastedstudios.freeboot.network.Messages.WorldHashRequest;
-import com.blastedstudios.freeboot.network.Messages.WorldHashResponse;
+import com.blastedstudios.freeboot.network.Messages.WorldFileRequest;
+import com.blastedstudios.freeboot.network.Messages.WorldFileResponse;
 import com.blastedstudios.freeboot.ui.main.MainScreen;
 import com.blastedstudios.freeboot.ui.network.network.NetworkWindow.MultiplayerType;
+import com.google.protobuf.ByteString;
 
 import net.xeoh.plugins.base.annotations.PluginImplementation;
 
 @PluginImplementation
-public class WorldHashRequestReceived extends AbstractMessageReceive<WorldHashRequest> {
-	@Override public void receive(MessageType type, WorldHashRequest message, Socket origin) {
+public class WorldFileRequestReceived extends AbstractMessageReceive<WorldFileRequest> {
+	@Override public void receive(MessageType type, WorldFileRequest message, Socket origin) {
 		try {
 			String md5 = DigestUtils.md5Hex(MainScreen.WORLD_FILE.read());
-			WorldHashResponse.Builder builder = WorldHashResponse.newBuilder();
+			WorldFileResponse.Builder builder = WorldFileResponse.newBuilder();
 			builder.setMd5(md5);
-			builder.setSizeBytes((int)MainScreen.WORLD_FILE.length());
-			network.send(MessageType.WORLD_HASH_RESPONSE, builder.build(), Arrays.asList(origin));
+			builder.setFile(ByteString.readFrom(MainScreen.WORLD_FILE.read()));
+			network.send(MessageType.WORLD_FILE_RESPONSE, builder.build(), Arrays.asList(origin));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -33,6 +34,6 @@ public class WorldHashRequestReceived extends AbstractMessageReceive<WorldHashRe
 	}
 
 	@Override public MessageType getSubscription() {
-		return MessageType.WORLD_HASH_REQUEST;
+		return MessageType.WORLD_FILE_REQUEST;
 	}
 }

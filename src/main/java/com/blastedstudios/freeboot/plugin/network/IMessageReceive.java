@@ -10,7 +10,7 @@ import com.google.protobuf.Message;
 import net.xeoh.plugins.base.Plugin;
 
 public interface IMessageReceive<T extends Message> extends Plugin{
-	void initialize(WorldManager worldManager, BaseNetwork network);
+	void initialize(WorldManager worldManager, BaseNetwork network, MultiplayerType multiplayerType);
 	void receive(MessageType type, T message, Socket origin);
 	MessageType getSubscription();
 	boolean applies(MultiplayerType multiplayerType);
