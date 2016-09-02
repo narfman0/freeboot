@@ -17,6 +17,8 @@ import com.blastedstudios.freeboot.world.weapon.Gun.IGunListener;
 public class GunshotSound implements IGunListener {
 	@Override public void shoot(Gun gun, Being source, Random random,
 			Vector2 direction, WorldManager world, Vector2 origin, AssetManager sharedAssets) {
+		if(sharedAssets == null)
+			return;
 		String filename = "data/sounds/guns/" + gun.getFireSound() + ".mp3";
 		if(!sharedAssets.isLoaded(filename)){
 			Log.error("GunshotSound.shoot", "Sound not loaded: " + filename);
