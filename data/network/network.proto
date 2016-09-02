@@ -24,6 +24,9 @@ enum MessageType {
   WORLD_FILE_RESPONSE = 25;
 }
 
+message Connected {}
+message Disconnected {}
+
 message WorldHashRequest {}
 message WorldHashResponse {
   string md5 = 1;

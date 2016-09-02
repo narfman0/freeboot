@@ -97,8 +97,8 @@ public abstract class BaseNetwork {
 			if(sendStruct.destinations == null || sendStruct.destinations.contains(target.socket)){
 				try {
 					target.outStream.writeUInt32NoTag(sendStruct.messageType.getNumber());
-					target.outStream.writeSInt32NoTag(sendStruct.message.getSerializedSize());
-					sendStruct.message.writeTo(target.outStream);
+					target.outStream.writeUInt32NoTag(sendStruct.message.getSerializedSize());
+					target.outStream.writeRawBytes(sendStruct.message.toByteArray());
 					Log.debug("BaseNetwork.render", "Sent message successfully: " + sendStruct.messageType.name());
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -113,18 +113,11 @@ public abstract class BaseNetwork {
 		try {
 			while(socket.getInputStream().available() > 0 && socket.isConnected()){
 				MessageType messageType = MessageType.forNumber(stream.readUInt32());
-				byte[] buffer =  stream.readRawBytes(stream.readSInt32());
-				switch(messageType){
-				case CONNECTED:
-				case DISCONNECTED:
-					//Do nothing intentionally!
-					break;
-				default:
-					Pair<Class<?>, Method> pair = DESERIALIZERS.get(messageType);
-					Message message = (Message)pair.getSecond().invoke(pair.getFirst(), buffer);
-					messages.add(new MessageStruct(messageType, message, Arrays.asList(socket)));
-					break;
-				}
+				int length = stream.readUInt32();
+				byte[] buffer = stream.readRawBytes(length);
+				Pair<Class<?>, Method> pair = DESERIALIZERS.get(messageType);
+				Message message = (Message)pair.getSecond().invoke(pair.getFirst(), buffer);
+				messages.add(new MessageStruct(messageType, message, Arrays.asList(socket)));
 				Log.debug("Host.render", "Received " + messageType.name() + " from " + socket.getRemoteAddress());
 			}
 		} catch (Exception e) {
