@@ -67,6 +67,8 @@ public class ClientTable extends Table {
 						GDXWorld responseWorld = SaveHelper.loadWorld(response.getMd5());
 						if(responseWorld == null)
 							client.send(MessageType.WORLD_FILE_REQUEST, WorldFileRequest.getDefaultInstance());
+						else
+							listener.worldSelected(responseWorld);
 					}
 				});
 				client.addListener(MessageType.CONNECTED, new IMessageListener() {

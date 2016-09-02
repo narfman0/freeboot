@@ -96,7 +96,7 @@ public abstract class BaseNetwork {
 		for(MessageStruct sendStruct : messages){
 			if(sendStruct.destinations == null || sendStruct.destinations.contains(target.socket)){
 				try {
-					target.outStream.writeSInt32NoTag(sendStruct.messageType.ordinal());
+					target.outStream.writeUInt32NoTag(sendStruct.messageType.getNumber());
 					target.outStream.writeSInt32NoTag(sendStruct.message.getSerializedSize());
 					sendStruct.message.writeTo(target.outStream);
 					Log.debug("BaseNetwork.render", "Sent message successfully: " + sendStruct.messageType.name());
@@ -112,7 +112,7 @@ public abstract class BaseNetwork {
 		List<MessageStruct> messages = new LinkedList<>();
 		try {
 			while(socket.getInputStream().available() > 0 && socket.isConnected()){
-				MessageType messageType = MessageType.values()[stream.readSInt32()];
+				MessageType messageType = MessageType.forNumber(stream.readUInt32());
 				byte[] buffer =  stream.readRawBytes(stream.readSInt32());
 				switch(messageType){
 				case CONNECTED:
