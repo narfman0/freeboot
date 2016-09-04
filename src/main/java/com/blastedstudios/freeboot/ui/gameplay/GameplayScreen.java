@@ -290,12 +290,10 @@ public class GameplayScreen extends FreebootScreen {
 				(consoleWindow == null || !consoleWindow.contains(x, y)))
 			worldManager.getPlayer().attack(touchedDirection, worldManager);
 		if(receiver != null)
-			receiver.render(delta);
+			receiver.update(delta);
 	}
 	
 	public void levelComplete(final boolean success){
-		if(receiver != null)
-			receiver.dispose();
 		for(ILevelCompletedListener listener : PluginUtil.getPlugins(ILevelCompletedListener.class))
 			listener.levelComplete(success, worldManager, level);
 		GDXGameFade.fadeOutPopScreen(game, new IPopListener() {

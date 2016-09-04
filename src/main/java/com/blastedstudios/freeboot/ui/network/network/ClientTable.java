@@ -15,7 +15,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.Properties;
 import com.blastedstudios.gdxworld.world.GDXWorld;
-import com.google.protobuf.Message;
 import com.blastedstudios.entente.Client;
 import com.blastedstudios.entente.IMessageListener;
 import com.blastedstudios.freeboot.network.Messages.NameUpdate;
@@ -50,10 +49,9 @@ public class ClientTable extends Table {
 					builder.setName(player.getName());
 					client.send(builder.build());
 					client.send(WorldHashRequest.getDefaultInstance());
-					client.subscribe(WorldFileResponse.class, new IMessageListener() {
-						@Override public void receive(Message object, Socket origin) {
+					client.subscribe(WorldFileResponse.class, new IMessageListener<WorldFileResponse>() {
+						@Override public void receive(WorldFileResponse response, Socket origin) {
 							client.unsubscribe(WorldFileResponse.class, this);
-							WorldFileResponse response = (WorldFileResponse) object;
 							Log.log("ClientTable.<init>", "World file response: " + response.getMd5());
 							File file = SaveHelper.getSaveDirectory().child("worlds").child(response.getMd5() + "." + Properties.get("save.extenstion", "xml")).file();
 							try {
@@ -65,10 +63,9 @@ public class ClientTable extends Table {
 							listener.worldSelected(world);
 						}
 					});
-					client.subscribe(WorldHashResponse.class, new IMessageListener() {
-						@Override public void receive(Message object, Socket origin) {
+					client.subscribe(WorldHashResponse.class, new IMessageListener<WorldHashResponse>() {
+						@Override public void receive(WorldHashResponse response, Socket origin) {
 							client.unsubscribe(WorldHashResponse.class, this);
-							WorldHashResponse response = (WorldHashResponse) object;
 							Log.log("ClientTable.<init>", "World hash response: " + response.getMd5());
 							GDXWorld responseWorld = SaveHelper.loadWorld(response.getMd5());
 							if(responseWorld == null)

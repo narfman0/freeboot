@@ -14,736 +14,6 @@ public final class Messages {
     registerAllExtensions(
         (com.google.protobuf.ExtensionRegistryLite) registry);
   }
-  public interface ConnectedOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:proto.Connected)
-      com.google.protobuf.MessageOrBuilder {
-  }
-  /**
-   * Protobuf type {@code proto.Connected}
-   */
-  public  static final class Connected extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:proto.Connected)
-      ConnectedOrBuilder {
-    // Use Connected.newBuilder() to construct.
-    private Connected(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private Connected() {
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private Connected(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Connected_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Connected_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.blastedstudios.freeboot.network.Messages.Connected.class, com.blastedstudios.freeboot.network.Messages.Connected.Builder.class);
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.blastedstudios.freeboot.network.Messages.Connected)) {
-        return super.equals(obj);
-      }
-      com.blastedstudios.freeboot.network.Messages.Connected other = (com.blastedstudios.freeboot.network.Messages.Connected) obj;
-
-      boolean result = true;
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.blastedstudios.freeboot.network.Messages.Connected parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Connected parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Connected parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Connected parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Connected parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Connected parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Connected parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Connected parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Connected parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Connected parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.Connected prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code proto.Connected}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:proto.Connected)
-        com.blastedstudios.freeboot.network.Messages.ConnectedOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Connected_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Connected_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.blastedstudios.freeboot.network.Messages.Connected.class, com.blastedstudios.freeboot.network.Messages.Connected.Builder.class);
-      }
-
-      // Construct using com.blastedstudios.freeboot.network.Messages.Connected.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Connected_descriptor;
-      }
-
-      public com.blastedstudios.freeboot.network.Messages.Connected getDefaultInstanceForType() {
-        return com.blastedstudios.freeboot.network.Messages.Connected.getDefaultInstance();
-      }
-
-      public com.blastedstudios.freeboot.network.Messages.Connected build() {
-        com.blastedstudios.freeboot.network.Messages.Connected result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public com.blastedstudios.freeboot.network.Messages.Connected buildPartial() {
-        com.blastedstudios.freeboot.network.Messages.Connected result = new com.blastedstudios.freeboot.network.Messages.Connected(this);
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.blastedstudios.freeboot.network.Messages.Connected) {
-          return mergeFrom((com.blastedstudios.freeboot.network.Messages.Connected)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(com.blastedstudios.freeboot.network.Messages.Connected other) {
-        if (other == com.blastedstudios.freeboot.network.Messages.Connected.getDefaultInstance()) return this;
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.blastedstudios.freeboot.network.Messages.Connected parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.blastedstudios.freeboot.network.Messages.Connected) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:proto.Connected)
-    }
-
-    // @@protoc_insertion_point(class_scope:proto.Connected)
-    private static final com.blastedstudios.freeboot.network.Messages.Connected DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.blastedstudios.freeboot.network.Messages.Connected();
-    }
-
-    public static com.blastedstudios.freeboot.network.Messages.Connected getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<Connected>
-        PARSER = new com.google.protobuf.AbstractParser<Connected>() {
-      public Connected parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new Connected(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<Connected> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<Connected> getParserForType() {
-      return PARSER;
-    }
-
-    public com.blastedstudios.freeboot.network.Messages.Connected getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
-  public interface DisconnectedOrBuilder extends
-      // @@protoc_insertion_point(interface_extends:proto.Disconnected)
-      com.google.protobuf.MessageOrBuilder {
-  }
-  /**
-   * Protobuf type {@code proto.Disconnected}
-   */
-  public  static final class Disconnected extends
-      com.google.protobuf.GeneratedMessageV3 implements
-      // @@protoc_insertion_point(message_implements:proto.Disconnected)
-      DisconnectedOrBuilder {
-    // Use Disconnected.newBuilder() to construct.
-    private Disconnected(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
-      super(builder);
-    }
-    private Disconnected() {
-    }
-
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-    getUnknownFields() {
-      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
-    }
-    private Disconnected(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      this();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!input.skipField(tag)) {
-                done = true;
-              }
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e).setUnfinishedMessage(this);
-      } finally {
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Disconnected_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Disconnected_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              com.blastedstudios.freeboot.network.Messages.Disconnected.class, com.blastedstudios.freeboot.network.Messages.Disconnected.Builder.class);
-    }
-
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized == 1) return true;
-      if (isInitialized == 0) return false;
-
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-    }
-
-    public int getSerializedSize() {
-      int size = memoizedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      memoizedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    public boolean equals(final java.lang.Object obj) {
-      if (obj == this) {
-       return true;
-      }
-      if (!(obj instanceof com.blastedstudios.freeboot.network.Messages.Disconnected)) {
-        return super.equals(obj);
-      }
-      com.blastedstudios.freeboot.network.Messages.Disconnected other = (com.blastedstudios.freeboot.network.Messages.Disconnected) obj;
-
-      boolean result = true;
-      return result;
-    }
-
-    @java.lang.Override
-    public int hashCode() {
-      if (memoizedHashCode != 0) {
-        return memoizedHashCode;
-      }
-      int hash = 41;
-      hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (29 * hash) + unknownFields.hashCode();
-      memoizedHashCode = hash;
-      return hash;
-    }
-
-    public static com.blastedstudios.freeboot.network.Messages.Disconnected parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Disconnected parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Disconnected parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Disconnected parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Disconnected parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Disconnected parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Disconnected parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Disconnected parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Disconnected parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input);
-    }
-    public static com.blastedstudios.freeboot.network.Messages.Disconnected parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return com.google.protobuf.GeneratedMessageV3
-          .parseWithIOException(PARSER, input, extensionRegistry);
-    }
-
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder() {
-      return DEFAULT_INSTANCE.toBuilder();
-    }
-    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.Disconnected prototype) {
-      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() {
-      return this == DEFAULT_INSTANCE
-          ? new Builder() : new Builder().mergeFrom(this);
-    }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code proto.Disconnected}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
-        // @@protoc_insertion_point(builder_implements:proto.Disconnected)
-        com.blastedstudios.freeboot.network.Messages.DisconnectedOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Disconnected_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Disconnected_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                com.blastedstudios.freeboot.network.Messages.Disconnected.class, com.blastedstudios.freeboot.network.Messages.Disconnected.Builder.class);
-      }
-
-      // Construct using com.blastedstudios.freeboot.network.Messages.Disconnected.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessageV3
-                .alwaysUseFieldBuilders) {
-        }
-      }
-      public Builder clear() {
-        super.clear();
-        return this;
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_Disconnected_descriptor;
-      }
-
-      public com.blastedstudios.freeboot.network.Messages.Disconnected getDefaultInstanceForType() {
-        return com.blastedstudios.freeboot.network.Messages.Disconnected.getDefaultInstance();
-      }
-
-      public com.blastedstudios.freeboot.network.Messages.Disconnected build() {
-        com.blastedstudios.freeboot.network.Messages.Disconnected result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public com.blastedstudios.freeboot.network.Messages.Disconnected buildPartial() {
-        com.blastedstudios.freeboot.network.Messages.Disconnected result = new com.blastedstudios.freeboot.network.Messages.Disconnected(this);
-        onBuilt();
-        return result;
-      }
-
-      public Builder clone() {
-        return (Builder) super.clone();
-      }
-      public Builder setField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.setField(field, value);
-      }
-      public Builder clearField(
-          com.google.protobuf.Descriptors.FieldDescriptor field) {
-        return (Builder) super.clearField(field);
-      }
-      public Builder clearOneof(
-          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
-        return (Builder) super.clearOneof(oneof);
-      }
-      public Builder setRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          int index, Object value) {
-        return (Builder) super.setRepeatedField(field, index, value);
-      }
-      public Builder addRepeatedField(
-          com.google.protobuf.Descriptors.FieldDescriptor field,
-          Object value) {
-        return (Builder) super.addRepeatedField(field, value);
-      }
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof com.blastedstudios.freeboot.network.Messages.Disconnected) {
-          return mergeFrom((com.blastedstudios.freeboot.network.Messages.Disconnected)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(com.blastedstudios.freeboot.network.Messages.Disconnected other) {
-        if (other == com.blastedstudios.freeboot.network.Messages.Disconnected.getDefaultInstance()) return this;
-        onChanged();
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        com.blastedstudios.freeboot.network.Messages.Disconnected parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (com.blastedstudios.freeboot.network.Messages.Disconnected) e.getUnfinishedMessage();
-          throw e.unwrapIOException();
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      public final Builder setUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-      public final Builder mergeUnknownFields(
-          final com.google.protobuf.UnknownFieldSet unknownFields) {
-        return this;
-      }
-
-
-      // @@protoc_insertion_point(builder_scope:proto.Disconnected)
-    }
-
-    // @@protoc_insertion_point(class_scope:proto.Disconnected)
-    private static final com.blastedstudios.freeboot.network.Messages.Disconnected DEFAULT_INSTANCE;
-    static {
-      DEFAULT_INSTANCE = new com.blastedstudios.freeboot.network.Messages.Disconnected();
-    }
-
-    public static com.blastedstudios.freeboot.network.Messages.Disconnected getDefaultInstance() {
-      return DEFAULT_INSTANCE;
-    }
-
-    private static final com.google.protobuf.Parser<Disconnected>
-        PARSER = new com.google.protobuf.AbstractParser<Disconnected>() {
-      public Disconnected parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-          return new Disconnected(input, extensionRegistry);
-      }
-    };
-
-    public static com.google.protobuf.Parser<Disconnected> parser() {
-      return PARSER;
-    }
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<Disconnected> getParserForType() {
-      return PARSER;
-    }
-
-    public com.blastedstudios.freeboot.network.Messages.Disconnected getDefaultInstanceForType() {
-      return DEFAULT_INSTANCE;
-    }
-
-  }
-
   public interface WorldHashRequestOrBuilder extends
       // @@protoc_insertion_point(interface_extends:proto.WorldHashRequest)
       com.google.protobuf.MessageOrBuilder {
@@ -11931,16 +11201,6 @@ public final class Messages {
   }
 
   private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_proto_Connected_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_proto_Connected_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
-    internal_static_proto_Disconnected_descriptor;
-  private static final 
-    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
-      internal_static_proto_Disconnected_fieldAccessorTable;
-  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_WorldHashRequest_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -12029,39 +11289,38 @@ public final class Messages {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\025network/network.proto\022\005proto\"\013\n\tConnec" +
-      "ted\"\016\n\014Disconnected\"\022\n\020WorldHashRequest\"" +
-      "4\n\021WorldHashResponse\022\013\n\003md5\030\001 \001(\t\022\022\n\nsiz" +
-      "e_bytes\030\002 \001(\005\"\022\n\020WorldFileRequest\".\n\021Wor" +
-      "ldFileResponse\022\013\n\003md5\030\001 \001(\t\022\014\n\004file\030\002 \001(" +
-      "\014\"E\n\004UUID\022\036\n\026least_significant_bits\030\001 \001(" +
-      "\022\022\035\n\025most_significant_bits\030\002 \001(\022\"\351\003\n\010Net" +
-      "Being\022\031\n\004uuid\030\001 \001(\0132\013.proto.UUID\022\014\n\004name" +
-      "\030\002 \001(\t\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\022\r\n\005" +
-      "vel_x\030\005 \001(\002\022\r\n\005vel_y\030\006 \001(\002\022\016\n\006max_hp\030\007 \001",
-      "(\002\022\n\n\002hp\030\010 \001(\002\022\025\n\rcurrentWeapon\030\t \001(\005\022!\n" +
-      "\007weapons\030\n \003(\0132\020.proto.NetWeapon\022\020\n\010reso" +
-      "urce\030\013 \001(\t\022\030\n\020ragdoll_resource\030\014 \001(\t\022,\n\007" +
-      "faction\030\r \001(\0162\033.proto.NetBeing.FactionEn" +
-      "um\022\013\n\003aim\030\016 \001(\002\022/\n\014player_class\030\017 \001(\0162\031." +
-      "proto.NetBeing.ClassEnum\"3\n\013FactionEnum\022" +
-      "\r\n\tUNDEFINED\020\000\022\n\n\006FRIEND\020\001\022\t\n\005ENEMY\020\002\"U\n" +
-      "\tClassEnum\022\r\n\tUndefined\020\000\022\013\n\007Soldier\020\001\022\t" +
-      "\n\005Medic\020\002\022\013\n\007Brawler\020\003\022\010\n\004Demo\020\004\022\n\n\006Snip" +
-      "er\020\005\"\027\n\tNetWeapon\022\n\n\002id\030\001 \001(\t\"O\n\006Attack\022",
-      "\014\n\004name\030\001 \001(\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID" +
-      "\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\"/\n\004Dead\022\014" +
-      "\n\004name\030\001 \001(\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\"" +
-      ")\n\010NPCState\022\035\n\004npcs\030\001 \003(\0132\017.proto.NetBei" +
-      "ng\"\032\n\nNameUpdate\022\014\n\004name\030\001 \001(\t\"/\n\013Player" +
-      "State\022 \n\007players\030\001 \003(\0132\017.proto.NetBeing\"" +
-      "#\n\006Reload\022\031\n\004uuid\030\001 \001(\0132\013.proto.UUID\"P\n\007" +
-      "Respawn\022\031\n\004uuid\030\001 \001(\0132\013.proto.UUID\022\014\n\004na" +
-      "me\030\002 \001(\t\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\"\'" +
-      "\n\004Text\022\017\n\007content\030\001 \001(\t\022\016\n\006origin\030\002 \001(\t\"",
-      "\036\n\013TextRequest\022\017\n\007content\030\001 \001(\tB/\n#com.b" +
-      "lastedstudios.freeboot.networkB\010Messages" +
-      "b\006proto3"
+      "\n\025network/network.proto\022\005proto\"\022\n\020WorldH" +
+      "ashRequest\"4\n\021WorldHashResponse\022\013\n\003md5\030\001" +
+      " \001(\t\022\022\n\nsize_bytes\030\002 \001(\005\"\022\n\020WorldFileReq" +
+      "uest\".\n\021WorldFileResponse\022\013\n\003md5\030\001 \001(\t\022\014" +
+      "\n\004file\030\002 \001(\014\"E\n\004UUID\022\036\n\026least_significan" +
+      "t_bits\030\001 \001(\022\022\035\n\025most_significant_bits\030\002 " +
+      "\001(\022\"\351\003\n\010NetBeing\022\031\n\004uuid\030\001 \001(\0132\013.proto.U" +
+      "UID\022\014\n\004name\030\002 \001(\t\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_" +
+      "y\030\004 \001(\002\022\r\n\005vel_x\030\005 \001(\002\022\r\n\005vel_y\030\006 \001(\002\022\016\n" +
+      "\006max_hp\030\007 \001(\002\022\n\n\002hp\030\010 \001(\002\022\025\n\rcurrentWeap",
+      "on\030\t \001(\005\022!\n\007weapons\030\n \003(\0132\020.proto.NetWea" +
+      "pon\022\020\n\010resource\030\013 \001(\t\022\030\n\020ragdoll_resourc" +
+      "e\030\014 \001(\t\022,\n\007faction\030\r \001(\0162\033.proto.NetBein" +
+      "g.FactionEnum\022\013\n\003aim\030\016 \001(\002\022/\n\014player_cla" +
+      "ss\030\017 \001(\0162\031.proto.NetBeing.ClassEnum\"3\n\013F" +
+      "actionEnum\022\r\n\tUNDEFINED\020\000\022\n\n\006FRIEND\020\001\022\t\n" +
+      "\005ENEMY\020\002\"U\n\tClassEnum\022\r\n\tUndefined\020\000\022\013\n\007" +
+      "Soldier\020\001\022\t\n\005Medic\020\002\022\013\n\007Brawler\020\003\022\010\n\004Dem" +
+      "o\020\004\022\n\n\006Sniper\020\005\"\027\n\tNetWeapon\022\n\n\002id\030\001 \001(\t" +
+      "\"O\n\006Attack\022\014\n\004name\030\001 \001(\t\022\031\n\004uuid\030\002 \001(\0132\013",
+      ".proto.UUID\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(" +
+      "\002\"/\n\004Dead\022\014\n\004name\030\001 \001(\t\022\031\n\004uuid\030\002 \001(\0132\013." +
+      "proto.UUID\")\n\010NPCState\022\035\n\004npcs\030\001 \003(\0132\017.p" +
+      "roto.NetBeing\"\032\n\nNameUpdate\022\014\n\004name\030\001 \001(" +
+      "\t\"/\n\013PlayerState\022 \n\007players\030\001 \003(\0132\017.prot" +
+      "o.NetBeing\"#\n\006Reload\022\031\n\004uuid\030\001 \001(\0132\013.pro" +
+      "to.UUID\"P\n\007Respawn\022\031\n\004uuid\030\001 \001(\0132\013.proto" +
+      ".UUID\022\014\n\004name\030\002 \001(\t\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005po" +
+      "s_y\030\004 \001(\002\"\'\n\004Text\022\017\n\007content\030\001 \001(\t\022\016\n\006or" +
+      "igin\030\002 \001(\t\"\036\n\013TextRequest\022\017\n\007content\030\001 \001",
+      "(\tB/\n#com.blastedstudios.freeboot.networ" +
+      "kB\010Messagesb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -12075,110 +11334,98 @@ public final class Messages {
       .internalBuildGeneratedFileFrom(descriptorData,
         new com.google.protobuf.Descriptors.FileDescriptor[] {
         }, assigner);
-    internal_static_proto_Connected_descriptor =
-      getDescriptor().getMessageTypes().get(0);
-    internal_static_proto_Connected_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_proto_Connected_descriptor,
-        new java.lang.String[] { });
-    internal_static_proto_Disconnected_descriptor =
-      getDescriptor().getMessageTypes().get(1);
-    internal_static_proto_Disconnected_fieldAccessorTable = new
-      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
-        internal_static_proto_Disconnected_descriptor,
-        new java.lang.String[] { });
     internal_static_proto_WorldHashRequest_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(0);
     internal_static_proto_WorldHashRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_WorldHashRequest_descriptor,
         new java.lang.String[] { });
     internal_static_proto_WorldHashResponse_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(1);
     internal_static_proto_WorldHashResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_WorldHashResponse_descriptor,
         new java.lang.String[] { "Md5", "SizeBytes", });
     internal_static_proto_WorldFileRequest_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(2);
     internal_static_proto_WorldFileRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_WorldFileRequest_descriptor,
         new java.lang.String[] { });
     internal_static_proto_WorldFileResponse_descriptor =
-      getDescriptor().getMessageTypes().get(5);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_proto_WorldFileResponse_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_WorldFileResponse_descriptor,
         new java.lang.String[] { "Md5", "File", });
     internal_static_proto_UUID_descriptor =
-      getDescriptor().getMessageTypes().get(6);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_proto_UUID_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_UUID_descriptor,
         new java.lang.String[] { "LeastSignificantBits", "MostSignificantBits", });
     internal_static_proto_NetBeing_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_proto_NetBeing_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_NetBeing_descriptor,
         new java.lang.String[] { "Uuid", "Name", "PosX", "PosY", "VelX", "VelY", "MaxHp", "Hp", "CurrentWeapon", "Weapons", "Resource", "RagdollResource", "Faction", "Aim", "PlayerClass", });
     internal_static_proto_NetWeapon_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(6);
     internal_static_proto_NetWeapon_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_NetWeapon_descriptor,
         new java.lang.String[] { "Id", });
     internal_static_proto_Attack_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(7);
     internal_static_proto_Attack_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Attack_descriptor,
         new java.lang.String[] { "Name", "Uuid", "PosX", "PosY", });
     internal_static_proto_Dead_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_proto_Dead_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Dead_descriptor,
         new java.lang.String[] { "Name", "Uuid", });
     internal_static_proto_NPCState_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_proto_NPCState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_NPCState_descriptor,
         new java.lang.String[] { "Npcs", });
     internal_static_proto_NameUpdate_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_proto_NameUpdate_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_NameUpdate_descriptor,
         new java.lang.String[] { "Name", });
     internal_static_proto_PlayerState_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_proto_PlayerState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_PlayerState_descriptor,
         new java.lang.String[] { "Players", });
     internal_static_proto_Reload_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_proto_Reload_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Reload_descriptor,
         new java.lang.String[] { "Uuid", });
     internal_static_proto_Respawn_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_proto_Respawn_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Respawn_descriptor,
         new java.lang.String[] { "Uuid", "Name", "PosX", "PosY", });
     internal_static_proto_Text_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_proto_Text_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Text_descriptor,
         new java.lang.String[] { "Content", "Origin", });
     internal_static_proto_TextRequest_descriptor =
-      getDescriptor().getMessageTypes().get(17);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_proto_TextRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_TextRequest_descriptor,
