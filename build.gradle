@@ -47,6 +47,7 @@ dependencies {
 	compile group: 'com.google.protobuf', name: 'protobuf-java', version: '3.0.0'
 	compile group: 'commons-codec', name: 'commons-codec', version: '1.10'
 	compile group: 'commons-io', name: 'commons-io', version: '2.5'
+    compile "com.blastedstudios:entente:1.0"
     compile "com.blastedstudios:GDXWorld:1.0"
     testCompile 'junit:junit:4.12'
 }

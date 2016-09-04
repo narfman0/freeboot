@@ -9,9 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextArea;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.blastedstudios.freeboot.network.BaseNetwork;
-import com.blastedstudios.freeboot.network.IMessageListener;
-import com.blastedstudios.freeboot.network.Messages.MessageType;
+import com.blastedstudios.entente.BaseNetwork;
+import com.blastedstudios.entente.IMessageListener;
 import com.blastedstudios.freeboot.network.Messages.Text;
 import com.blastedstudios.freeboot.network.Messages.TextRequest;
 import com.blastedstudios.freeboot.util.ui.FreebootTextButton;
@@ -30,21 +29,13 @@ public class ChatWindow extends FreebootWindow implements IMessageListener {
 		chatText.setPrefRows(5);
 		chatText.setTouchable(Touchable.disabled);
 		sendText = new TextField("", skin);
-		if(network.isConnected()){
-			network.addListener(MessageType.TEXT, this);
-		}else
-			network.addListener(MessageType.CONNECTED, new IMessageListener() {
-				@Override public void receive(MessageType messageType, Message object, Socket origin) {
-					network.removeListener(MessageType.CONNECTED, this);
-					network.addListener(MessageType.TEXT, ChatWindow.this);
-				}
-			});
+		network.subscribe(Text.class, this);
 		final Button sendButton = new FreebootTextButton("Send", skin, new ClickListener() {
 			@Override public void clicked(InputEvent event, float x, float y) {
 				if(network != null){
 					TextRequest.Builder textRequest = TextRequest.newBuilder();
 					textRequest.setContent(sendText.getText());
-					network.send(MessageType.TEXT_REQUEST, textRequest.build());
+					network.send(textRequest.build());
 				}
 				sendText.setText("");
 			}
@@ -64,11 +55,11 @@ public class ChatWindow extends FreebootWindow implements IMessageListener {
 	
 	@Override public boolean remove(){
 		if(network != null)
-			network.removeListener(MessageType.TEXT, this);
+			network.unsubscribe(Text.class, this);
 		return super.remove();
 	}
 
-	@Override public void receive(MessageType messageType, Message object, Socket origin) {
+	@Override public void receive(Message object, Socket origin) {
 		Text text = (Text) object;
 		String appended = chatText.getText().isEmpty() ? "" : "\n";
 		appended += text.getOrigin() + ": " + text.getContent();

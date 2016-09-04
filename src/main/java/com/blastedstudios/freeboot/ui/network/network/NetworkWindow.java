@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.blastedstudios.freeboot.network.BaseNetwork;
+import com.blastedstudios.entente.BaseNetwork;
 import com.blastedstudios.freeboot.util.ui.FreebootTextButton;
 import com.blastedstudios.freeboot.util.ui.FreebootWindow;
 import com.blastedstudios.freeboot.world.being.Being;

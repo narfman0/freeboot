@@ -39,8 +39,7 @@ import com.blastedstudios.gdxworld.world.quest.GDXQuest;
 import com.blastedstudios.gdxworld.world.quest.QuestStatus;
 import com.blastedstudios.gdxworld.world.quest.QuestStatus.CompletionEnum;
 import com.blastedstudios.freeboot.input.ActionEnum;
-import com.blastedstudios.freeboot.network.BaseNetwork;
-import com.blastedstudios.freeboot.network.Messages.MessageType;
+import com.blastedstudios.entente.BaseNetwork;
 import com.blastedstudios.freeboot.network.Messages.Reload;
 import com.blastedstudios.freeboot.plugin.level.ILevelCompletedListener;
 import com.blastedstudios.freeboot.ui.FreebootScreen;
@@ -107,7 +106,7 @@ public class GameplayScreen extends FreebootScreen {
 			particleManager.addParticle(particle);
 		worldManager = new WorldManager(player, level, sharedAssets);
 		if(type != MultiplayerType.Local){
-			receiver = new GameplayNetReceiver(this, worldManager, type, network);
+			receiver = new GameplayNetReceiver(worldManager, type, network);
 			worldManager.setReceiver(receiver);
 		}
 		player.getQuestManager().initialize(new QuestTriggerInformationProvider(this, worldManager), 
@@ -168,7 +167,7 @@ public class GameplayScreen extends FreebootScreen {
 					if(player.getUuid() != null)
 						builder.setUuid(UUIDConvert.convert(player.getUuid()));
 					if(receiver != null)
-						receiver.send(MessageType.RELOAD, builder.build());
+						receiver.send(builder.build());
 				}
 			}
 		});

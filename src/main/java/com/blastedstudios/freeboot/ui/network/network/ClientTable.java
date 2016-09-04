@@ -16,9 +16,8 @@ import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.Properties;
 import com.blastedstudios.gdxworld.world.GDXWorld;
 import com.google.protobuf.Message;
-import com.blastedstudios.freeboot.network.Client;
-import com.blastedstudios.freeboot.network.IMessageListener;
-import com.blastedstudios.freeboot.network.Messages.MessageType;
+import com.blastedstudios.entente.Client;
+import com.blastedstudios.entente.IMessageListener;
 import com.blastedstudios.freeboot.network.Messages.NameUpdate;
 import com.blastedstudios.freeboot.network.Messages.WorldFileRequest;
 import com.blastedstudios.freeboot.network.Messages.WorldFileResponse;
@@ -44,50 +43,41 @@ public class ClientTable extends Table {
 					Log.error("ClientTable.<init>", "Already connected to a host, aborting");
 					return;
 				}
-				client.addListener(MessageType.WORLD_FILE_RESPONSE, new IMessageListener() {
-					@Override public void receive(MessageType messageType, Message object, Socket origin) {
-						client.removeListener(this);
-						WorldFileResponse response = (WorldFileResponse) object;
-						Log.log("ClientTable.<init>", "World file response: " + response.getMd5());
-						File file = SaveHelper.getSaveDirectory().child("worlds").child(response.getMd5() + "." + Properties.get("save.extenstion", "xml")).file();
-						try {
-							FileUtils.writeByteArrayToFile(file, response.getFile().toByteArray());
-						} catch (IOException e) {
-							e.printStackTrace();
+				boolean success = client.connect(hostnameText.getText(), Properties.getInt("network.port"));
+				if(success){
+					// send minimal information - name!
+					NameUpdate.Builder builder = NameUpdate.newBuilder();
+					builder.setName(player.getName());
+					client.send(builder.build());
+					client.send(WorldHashRequest.getDefaultInstance());
+					client.subscribe(WorldFileResponse.class, new IMessageListener() {
+						@Override public void receive(Message object, Socket origin) {
+							client.unsubscribe(WorldFileResponse.class, this);
+							WorldFileResponse response = (WorldFileResponse) object;
+							Log.log("ClientTable.<init>", "World file response: " + response.getMd5());
+							File file = SaveHelper.getSaveDirectory().child("worlds").child(response.getMd5() + "." + Properties.get("save.extenstion", "xml")).file();
+							try {
+								FileUtils.writeByteArrayToFile(file, response.getFile().toByteArray());
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+							GDXWorld world = SaveHelper.loadWorld(response.getMd5());
+							listener.worldSelected(world);
 						}
-						GDXWorld world = SaveHelper.loadWorld(response.getMd5());
-						listener.worldSelected(world);
-					}
-				});
-				client.addListener(MessageType.WORLD_HASH_RESPONSE, new IMessageListener() {
-					@Override public void receive(MessageType messageType, Message object, Socket origin) {
-						client.removeListener(this);
-						WorldHashResponse response = (WorldHashResponse) object;
-						Log.log("ClientTable.<init>", "World hash response: " + response.getMd5());
-						GDXWorld responseWorld = SaveHelper.loadWorld(response.getMd5());
-						if(responseWorld == null)
-							client.send(MessageType.WORLD_FILE_REQUEST, WorldFileRequest.getDefaultInstance());
-						else
-							listener.worldSelected(responseWorld);
-					}
-				});
-				client.addListener(MessageType.CONNECTED, new IMessageListener() {
-					@Override public void receive(MessageType messageType, Message object, Socket origin) {
-						client.removeListener(this);
-						// send minimal information - name!
-						NameUpdate.Builder builder = NameUpdate.newBuilder();
-						builder.setName(player.getName());
-						client.send(MessageType.NAME_UPDATE, builder.build());
-						client.send(MessageType.WORLD_HASH_REQUEST, WorldHashRequest.getDefaultInstance());
-					}
-				});
-				client.addListener(MessageType.DISCONNECTED, new IMessageListener() {
-					@Override public void receive(MessageType messageType, Message object, Socket origin) {
-						client.removeListener(this);
-						client.dispose();
-					}
-				});
-				client.connect(hostnameText.getText());
+					});
+					client.subscribe(WorldHashResponse.class, new IMessageListener() {
+						@Override public void receive(Message object, Socket origin) {
+							client.unsubscribe(WorldHashResponse.class, this);
+							WorldHashResponse response = (WorldHashResponse) object;
+							Log.log("ClientTable.<init>", "World hash response: " + response.getMd5());
+							GDXWorld responseWorld = SaveHelper.loadWorld(response.getMd5());
+							if(responseWorld == null)
+								client.send(WorldFileRequest.getDefaultInstance());
+							else
+								listener.worldSelected(responseWorld);
+						}
+					});
+				}
 			}
 		});
 		clientTable.add("Hostname: ");
@@ -98,7 +88,7 @@ public class ClientTable extends Table {
 	}
 	
 	public void render(){
-		client.render();
+		client.update();
 	}
 	
 	@Override public boolean remove(){

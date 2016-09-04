@@ -1,15 +1,11 @@
 package com.blastedstudios.freeboot.ui.network.network;
 
-import com.badlogic.gdx.net.Socket;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.blastedstudios.freeboot.network.HostStruct;
-import com.blastedstudios.freeboot.network.Host;
-import com.blastedstudios.freeboot.network.IMessageListener;
-import com.blastedstudios.freeboot.network.Messages.MessageType;
+import com.blastedstudios.entente.Host;
 import com.blastedstudios.freeboot.world.being.Being;
-import com.google.protobuf.Message;
+import com.blastedstudios.gdxworld.util.Properties;
 
 public class HostTable extends Table {
 	private final Host host;
@@ -17,39 +13,13 @@ public class HostTable extends Table {
 	public HostTable(Skin skin, Being player){
 		super(skin);
 		List<String> clients = new List<String>(skin);
-		host = new Host(player);
-		host.addListener(MessageType.CONNECTED, new IMessageListener() {
-			@Override public void receive(MessageType messageType, Message object, Socket origin) {
-				if(object != null){
-					HostStruct struct = (HostStruct) object;
-					clients.getItems().add(struct.socket.getRemoteAddress());
-				}
-			}
-		});
-		host.addListener(MessageType.DISCONNECTED, new IMessageListener() {
-			@Override public void receive(MessageType messageType, Message object, Socket origin) {
-				HostStruct struct = (HostStruct) object;
-				if(struct.player != null)
-					clients.getItems().removeValue(struct.player.getName(), false);
-				if(struct != null && struct.isConnected())
-					clients.getItems().removeValue(struct.socket.getRemoteAddress(), false);
-			}
-		});
-		host.addListener(MessageType.NAME_UPDATE, new IMessageListener() {
-			@Override public void receive(MessageType messageType, Message object, Socket origin) {
-				HostStruct struct = (HostStruct) object;
-				// got name, append to ip
-				for(int i=0; i<clients.getItems().size; i++)
-					if(clients.getItems().get(i).equals(struct.socket.getRemoteAddress()))
-						clients.getItems().set(i, clients.getItems().get(i) + " " + struct.player.getName());
-			}
-		});
+		host = new Host(Properties.getInt("network.port", 23452));
 		add(clients);
 	}
 	
 	public void render(){
 		if(host != null)
-			host.render();
+			host.update();
 	}
 	
 	@Override public boolean remove(){

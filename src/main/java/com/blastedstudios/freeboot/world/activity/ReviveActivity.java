@@ -2,7 +2,6 @@ package com.blastedstudios.freeboot.world.activity;
 
 import com.badlogic.gdx.physics.box2d.World;
 import com.blastedstudios.gdxworld.util.Properties;
-import com.blastedstudios.freeboot.network.Messages.MessageType;
 import com.blastedstudios.freeboot.network.Messages.Respawn;
 import com.blastedstudios.freeboot.ui.gameplay.GameplayNetReceiver;
 import com.blastedstudios.freeboot.util.UUIDConvert;
@@ -32,7 +31,7 @@ public class ReviveActivity extends BaseActivity {
 			Respawn.Builder builder = Respawn.newBuilder();
 			builder.setUuid(UUIDConvert.convert(target.getUuid()));
 			if(receiver != null)
-				receiver.send(MessageType.RESPAWN, builder.build());
+				receiver.send(builder.build());
 			return false;
 		}
 		return true;

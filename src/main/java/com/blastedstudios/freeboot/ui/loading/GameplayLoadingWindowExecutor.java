@@ -10,7 +10,7 @@ import com.blastedstudios.gdxworld.util.GDXGame;
 import com.blastedstudios.gdxworld.util.GDXGameFade;
 import com.blastedstudios.gdxworld.world.GDXLevel;
 import com.blastedstudios.gdxworld.world.GDXWorld;
-import com.blastedstudios.freeboot.network.BaseNetwork;
+import com.blastedstudios.entente.BaseNetwork;
 import com.blastedstudios.freeboot.ui.gameplay.GameplayScreen;
 import com.blastedstudios.freeboot.ui.network.network.NetworkWindow.MultiplayerType;
 import com.blastedstudios.freeboot.ui.loading.LoadingWindow.ILoadingWindowExecutor;

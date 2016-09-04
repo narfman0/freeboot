@@ -39,6 +39,10 @@ console during gameplay)
 execution these are invoked
 * IRagdollPlugin - ragdoll creation plugins
 
+TODO
+----
+* Fix host (non dedicated, with player) to spawn separate host thread. Compeltely broken right now.
+
 Behavior trees
 --------------
 

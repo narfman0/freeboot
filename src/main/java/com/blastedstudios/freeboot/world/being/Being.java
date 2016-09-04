@@ -24,7 +24,6 @@ import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.PluginUtil;
 import com.blastedstudios.gdxworld.util.Properties;
 import com.blastedstudios.freeboot.network.Messages.Attack;
-import com.blastedstudios.freeboot.network.Messages.MessageType;
 import com.blastedstudios.freeboot.network.Messages.NetBeing;
 import com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum;
 import com.blastedstudios.freeboot.network.Messages.NetWeapon;
@@ -617,7 +616,7 @@ public class Being implements Serializable{
 				builder.setName(name);
 			builder.setPosX(direction.x);
 			builder.setPosY(direction.y);
-			world.getReceiver().send(MessageType.ATTACK, builder.build());
+			world.getReceiver().send(builder.build());
 			//process as normal
 			if(!(weapon instanceof Melee)){
 				Gun gun = (Gun) weapon;

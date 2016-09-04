@@ -12,6 +12,8 @@ import com.blastedstudios.gdxworld.util.GDXGame;
 import com.blastedstudios.gdxworld.util.GDXGameFade;
 import com.blastedstudios.gdxworld.util.PluginUtil;
 import com.blastedstudios.gdxworld.world.GDXWorld;
+import com.blastedstudios.entente.BaseNetwork;
+import com.blastedstudios.freeboot.network.Messages;
 import com.blastedstudios.freeboot.ui.loading.LoadingWindow.ILoadingWindowExecutor;
 import com.blastedstudios.freeboot.ui.main.MainScreen;
 import com.blastedstudios.freeboot.util.AssetUtil;
@@ -37,6 +39,7 @@ public class MainLoadingScreen extends AbstractScreen{
 		for(FileHandle handle : Gdx.files.internal("data/textures").list())
 			if(!handle.isDirectory() && handle.extension().equals("png"))
 				sharedAssets.load(handle.path(), Texture.class);
+		BaseNetwork.registerMessageOrigin(Messages.class);
 	}
 
 	@Override public void render(float delta){

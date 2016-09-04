@@ -38,7 +38,6 @@ import com.blastedstudios.gdxworld.world.GDXNPC;
 import com.blastedstudios.gdxworld.world.GDXPath;
 import com.blastedstudios.freeboot.ai.AIWorld;
 import com.blastedstudios.freeboot.network.Messages.Dead;
-import com.blastedstudios.freeboot.network.Messages.MessageType;
 import com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum;
 import com.blastedstudios.freeboot.physics.ContactListener;
 import com.blastedstudios.freeboot.ui.gameplay.GameplayNetReceiver;
@@ -284,7 +283,7 @@ public class WorldManager implements IDeathCallback{
 		builder.setName(being.getName());
 		if(being.getUuid() != null)
 			builder.setUuid(UUIDConvert.convert(being.getUuid()));
-		receiver.send(MessageType.DEAD, builder.build());
+		receiver.send(builder.build());
 	}
 
 	public void respawnPlayer() {

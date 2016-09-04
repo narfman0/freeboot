@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.PluginUtil;
 import com.blastedstudios.gdxworld.util.Properties;
-import com.blastedstudios.freeboot.network.Messages.MessageType;
 import com.blastedstudios.freeboot.network.Messages.TextRequest;
 import com.blastedstudios.freeboot.ui.gameplay.GameplayScreen;
 import com.blastedstudios.freeboot.util.IConsoleCommand;
@@ -102,7 +101,7 @@ public class ConsoleWindow extends FreebootWindow implements IHistoryListener{
 			TextRequest.Builder builder = TextRequest.newBuilder();
 			builder.setContent(text.getText());
 			if(screen.getReceiver() != null)
-				screen.getReceiver().send(MessageType.TEXT_REQUEST, builder.build());
+				screen.getReceiver().send(builder.build());
 		}
 		text.setText("");
 		redrawHistory();

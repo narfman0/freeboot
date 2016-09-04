@@ -12,7 +12,6 @@ import com.blastedstudios.gdxworld.world.GDXWorld;
 import com.blastedstudios.freeboot.input.ActionEnum;
 import com.blastedstudios.freeboot.plugin.quest.handler.manifestation.SoundThematicHandlerPlugin;
 import com.blastedstudios.freeboot.ui.FreebootScreen;
-import com.blastedstudios.freeboot.ui.network.network.ChatWindow;
 import com.blastedstudios.freeboot.ui.network.network.NetworkWindow;
 import com.blastedstudios.freeboot.ui.network.network.NetworkWindow.INetworkWindowListener;
 import com.blastedstudios.freeboot.ui.network.network.NetworkWindow.MultiplayerType;
@@ -24,7 +23,6 @@ public class NetworkSelectScreen extends FreebootScreen {
 	private final AssetManager sharedAssets;
 	private final PannerManager panner;
 	private final NetworkWindow networkWindow;
-	private ChatWindow chat;
 	/**
 	 * If we are the host or dedicated server, we use the initially loaded GDXWorld saved in the preferences.
 	 * However, if we are a client, we will want to load a world via the network and set it here. So, we set
@@ -41,22 +39,7 @@ public class NetworkSelectScreen extends FreebootScreen {
 		Log.log("LevelSelect.<init>", "Loaded world successfully");
 		sharedAssets.finishLoading();
 		networkWindow = new NetworkWindow(skin, player, new INetworkWindowListener() {
-			@Override public void networkSelected(MultiplayerType type) {
-				if(chat != null)
-					chat.remove();
-				chat = null;
-				switch(type){
-				case Client:
-				case DedicatedServer:
-				case Host:
-					chat = new ChatWindow(skin, networkWindow.getSource());
-					break;
-				case Local:
-					break;
-				}
-				if(chat != null)
-					stage.addActor(chat);
-			}
+			@Override public void networkSelected(MultiplayerType type) {}
 			@Override public void start(){
 				GDXLevel level = NetworkSelectScreen.this.gdxWorld.getLevels().get(0);
 				stage.addActor(new LoadingWindow(skin, 
