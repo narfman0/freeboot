@@ -1,8 +1,8 @@
 package com.blastedstudios.freeboot.plugin.network;
 
+import java.net.Socket;
 import java.util.UUID;
 
-import com.badlogic.gdx.net.Socket;
 import com.blastedstudios.freeboot.network.Messages.NetBeing;
 import com.blastedstudios.freeboot.network.Messages.PlayerState;
 import com.blastedstudios.freeboot.ui.network.network.NetworkWindow.MultiplayerType;

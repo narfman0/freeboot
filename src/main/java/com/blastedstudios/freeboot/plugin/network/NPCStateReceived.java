@@ -1,6 +1,7 @@
 package com.blastedstudios.freeboot.plugin.network;
 
-import com.badlogic.gdx.net.Socket;
+import java.net.Socket;
+
 import com.blastedstudios.freeboot.network.Messages.NPCState;
 import com.blastedstudios.freeboot.network.Messages.NetBeing;
 import com.blastedstudios.freeboot.world.being.NPC;

@@ -1,7 +1,8 @@
 package com.blastedstudios.freeboot.plugin.network;
 
+import java.net.Socket;
+
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.net.Socket;
 import com.blastedstudios.freeboot.network.Messages.Text;
 import com.blastedstudios.freeboot.ui.gameplay.console.History;
 import com.google.protobuf.Message;

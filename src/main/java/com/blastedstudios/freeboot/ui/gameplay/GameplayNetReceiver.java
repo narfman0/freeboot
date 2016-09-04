@@ -1,9 +1,9 @@
 package com.blastedstudios.freeboot.ui.gameplay;
 
+import java.net.Socket;
 import java.util.List;
 import java.util.UUID;
 
-import com.badlogic.gdx.net.Socket;
 import com.blastedstudios.entente.BaseNetwork;
 import com.blastedstudios.freeboot.network.Messages.NPCState;
 import com.blastedstudios.freeboot.network.Messages.PlayerState;

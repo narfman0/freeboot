@@ -2,10 +2,10 @@ package com.blastedstudios.freeboot.ui.network.network;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.Socket;
 
 import org.apache.commons.io.FileUtils;
 
-import com.badlogic.gdx.net.Socket;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;

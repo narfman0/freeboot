@@ -1,11 +1,11 @@
 package com.blastedstudios.freeboot.plugin.network;
 
 import java.io.IOException;
+import java.net.Socket;
 import java.util.Arrays;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
-import com.badlogic.gdx.net.Socket;
 import com.blastedstudios.freeboot.network.Messages.WorldFileRequest;
 import com.blastedstudios.freeboot.network.Messages.WorldFileResponse;
 import com.blastedstudios.freeboot.ui.main.MainScreen;

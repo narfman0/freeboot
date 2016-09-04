@@ -1,6 +1,7 @@
 package com.blastedstudios.freeboot.plugin.network;
 
-import com.badlogic.gdx.net.Socket;
+import java.net.Socket;
+
 import com.blastedstudios.freeboot.network.Messages.Dead;
 import com.blastedstudios.freeboot.util.UUIDConvert;
 import com.blastedstudios.freeboot.world.being.Being;
