@@ -115,7 +115,7 @@ public class Being implements Serializable{
 			boolean inputEnabled, GameplayNetReceiver receiver){
 		if(ticksToActivateWeapon != -1 && getEquippedWeapon() != null && ticksToActivateWeapon-- == 0)
 			getEquippedWeapon().activate(world, ragdoll, this);
-		Vector2 vel = ragdoll.getLinearVelocity();
+		Vector2 vel = ragdoll == null ? null : ragdoll.getLinearVelocity();
 		if(paused)
 			return;
 		if(activity != null)
@@ -128,24 +128,24 @@ public class Being implements Serializable{
 		setHp(hp + getHpRegen() * dt);
 
 		// cap max velocity on x		
-		if(Math.abs(vel.x) > MAX_VELOCITY) {			
+		if(vel != null && Math.abs(vel.x) > MAX_VELOCITY) {			
 			vel.x = Math.signum(vel.x) * MAX_VELOCITY;
 			ragdoll.setLinearVelocity(vel.x, vel.y);
 		}
 
 		// calculate stilltime & damp
-		if(!moveLeft && !moveRight)		
+		if(ragdoll != null && !moveLeft && !moveRight)		
 			ragdoll.setLinearVelocity(vel.x * 0.8f, vel.y);
 
 		if(jump && vel.y < CHARACTER_JUMP_IMPULSE)
 			jump(world);
 
 		// apply left impulse, but only if max velocity is not reached yet
-		if(moveLeft && vel.x > -MAX_VELOCITY ||
+		if(vel != null && moveLeft && vel.x > -MAX_VELOCITY ||
 				Gdx.input.getRoll() < -ACCELEROMETER_ROLL_THRESHOLD)
 			walk(true, world);
 		// apply right impulse, but only if max velocity is not reached yet
-		if(moveRight && vel.x < MAX_VELOCITY ||
+		if(vel != null && moveRight && vel.x < MAX_VELOCITY ||
 				Gdx.input.getRoll() > ACCELEROMETER_ROLL_THRESHOLD)
 			walk(false, world);
 		reload();

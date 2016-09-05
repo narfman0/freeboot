@@ -71,6 +71,11 @@ message Dead {
   UUID uuid = 2;
 }
 
+message Logout {
+  string name = 1;
+  UUID uuid = 2;
+}
+
 message NPCState {
   repeated NetBeing npcs = 1;
 }

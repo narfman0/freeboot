@@ -14,7 +14,7 @@ public class LevelCompleteConsole extends AbstractConsole{
 		if(tokens[1].equalsIgnoreCase("complete")){
 			if(tokens.length == 2){
 				if(screen != null){
-					screen.levelComplete(true);
+					screen.logout(true);
 					Log.log("LevelCompleteConsole.execute", "Current level completed");
 				}
 			}else if(tokens.length == 3){

@@ -44,9 +44,9 @@ public class ConsoleWindow extends FreebootWindow implements IHistoryListener{
 				listener.handle(event);
 			}
 		});
-		TextButton exitButton = new FreebootTextButton(Properties.get("ui.back.button.text", "Exit to Map"), skin, new ClickListener() {
+		TextButton exitButton = new FreebootTextButton(Properties.get("ui.back.button.text", "Log Out"), skin, new ClickListener() {
 			@Override public void clicked(InputEvent event, float x, float y) {
-				screen.levelComplete(false);
+				screen.logout(false);
 			}
 		});
 		add("Console").colspan(4);

@@ -40,6 +40,7 @@ import com.blastedstudios.gdxworld.world.quest.QuestStatus;
 import com.blastedstudios.gdxworld.world.quest.QuestStatus.CompletionEnum;
 import com.blastedstudios.freeboot.input.ActionEnum;
 import com.blastedstudios.entente.BaseNetwork;
+import com.blastedstudios.freeboot.network.Messages.Logout;
 import com.blastedstudios.freeboot.network.Messages.Reload;
 import com.blastedstudios.freeboot.plugin.level.ILevelCompletedListener;
 import com.blastedstudios.freeboot.ui.FreebootScreen;
@@ -293,7 +294,11 @@ public class GameplayScreen extends FreebootScreen {
 			receiver.update(delta);
 	}
 	
-	public void levelComplete(final boolean success){
+	public void logout(final boolean success){
+		Logout.Builder builder = Logout.newBuilder();
+		builder.setName(worldManager.getPlayer().getName());
+		builder.setUuid(UUIDConvert.convert(receiver.getUUID()));
+		receiver.send(builder.build());
 		for(ILevelCompletedListener listener : PluginUtil.getPlugins(ILevelCompletedListener.class))
 			listener.levelComplete(success, worldManager, level);
 		GDXGameFade.fadeOutPopScreen(game, new IPopListener() {
@@ -369,7 +374,7 @@ public class GameplayScreen extends FreebootScreen {
 			break;
 		case Keys.F12:
 			if(debugCommandEnabled()){
-				levelComplete(true);
+				logout(true);
 				Log.log("Gameplayscreen.keyDown", "beat level cheater");
 			}
 			break;
