@@ -125,11 +125,11 @@ public class WorldManager implements IDeathCallback{
 		batch.end();
 		batch.begin();
 		if(player.isSpawned())
-			player.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, inputEnable, receiver);
+			player.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, inputEnable);
 		for(NPC npc : npcs) 
-			npc.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true, receiver);
+			npc.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true);
 		for(Being being : remotePlayers)
-			being.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true, receiver);
+			being.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true);
 		for(Iterator<Entry<Body, GunShot>> iter = gunshots.entrySet().iterator(); iter.hasNext();){
 			Entry<Body, GunShot> entry = iter.next();
 			if(!entry.getValue().isCanRemove())
@@ -276,13 +276,15 @@ public class WorldManager implements IDeathCallback{
 
 	@Override public void dead(Being being) {
 		// let remote player be authoritative on himself. i know i know, but im lazy!
-		if(remotePlayers.contains(being) || (receiver.type == MultiplayerType.Client && being != player))
+		if(remotePlayers.contains(being) || (receiver != null && receiver.type == MultiplayerType.Client && being != player))
 			return;
 		being.death(this);
-		Dead.Builder builder = Dead.newBuilder();
-		builder.setName(being.getName());
-		builder.setUuid(UUIDConvert.convert(being.getUuid()));
-		receiver.send(builder.build());
+		if(receiver != null){
+			Dead.Builder builder = Dead.newBuilder();
+			builder.setName(being.getName());
+			builder.setUuid(UUIDConvert.convert(being.getUuid()));
+			receiver.send(builder.build());
+		}
 	}
 
 	public void respawnPlayer() {

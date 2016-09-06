@@ -154,7 +154,7 @@ public class Being implements Serializable{
 
 	public void render(float dt, World world, Batch batch, AssetManager sharedAssets,
 			GDXRenderer gdxRenderer, IDeathCallback deathCallback, boolean paused, 
-			boolean inputEnabled, GameplayNetReceiver receiver){
+			boolean inputEnabled){
 		this.sharedAssets = sharedAssets;
 		Vector2 vel = ragdoll.getLinearVelocity();
 		boolean facingLeft = !isDead() && ragdoll.aim(lastGunHeadingRadians);
@@ -609,12 +609,14 @@ public class Being implements Serializable{
 		Weapon weapon = getEquippedWeapon();
 		if(canAttack()){
 			// send network message request first, so clients start mulling it over
-			Attack.Builder builder = Attack.newBuilder();
-			builder.setUuid(UUIDConvert.convert(getUuid()));
-			builder.setName(name);
-			builder.setPosX(direction.x);
-			builder.setPosY(direction.y);
-			world.getReceiver().send(builder.build());
+			if(world.getReceiver() != null){
+				Attack.Builder builder = Attack.newBuilder();
+				builder.setUuid(UUIDConvert.convert(getUuid()));
+				builder.setName(name);
+				builder.setPosX(direction.x);
+				builder.setPosY(direction.y);
+				world.getReceiver().send(builder.build());
+			}
 			//process as normal
 			if(!(weapon instanceof Melee)){
 				Gun gun = (Gun) weapon;
