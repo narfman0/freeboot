@@ -2,7 +2,6 @@ package com.blastedstudios.freeboot.ui.gameplay;
 
 import java.net.Socket;
 import java.util.List;
-import java.util.UUID;
 
 import com.blastedstudios.entente.BaseNetwork;
 import com.blastedstudios.freeboot.network.Messages.NPCState;
@@ -20,18 +19,16 @@ public class GameplayNetReceiver{
 	public final MultiplayerType type;
 	public final BaseNetwork network;
 	private float beingStateAccumulator;
-	private final UUID uuid;
 	
 	public GameplayNetReceiver(WorldManager worldManager, MultiplayerType multiplayerType, BaseNetwork network){
 		this.worldManager = worldManager;
 		this.type = multiplayerType;
 		this.network = network;
-		this.uuid = UUID.randomUUID();
 		worldManager.setSimulate(multiplayerType != MultiplayerType.Client);
 		
 		for(IMessageReceive<?> messageReceiver : PluginUtil.getPlugins(IMessageReceive.class))
 			if(messageReceiver.applies(multiplayerType)){
-				messageReceiver.initialize(worldManager, network, multiplayerType, uuid);
+				messageReceiver.initialize(worldManager, network, multiplayerType);
 				network.subscribe(messageReceiver.getSubscription(), messageReceiver);
 			}
 	}
@@ -80,9 +77,5 @@ public class GameplayNetReceiver{
 	
 	public void send(Message message){
 		send(message, null);
-	}
-	
-	public UUID getUUID(){
-		return uuid;
 	}
 }

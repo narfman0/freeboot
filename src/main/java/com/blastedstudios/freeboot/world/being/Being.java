@@ -610,10 +610,8 @@ public class Being implements Serializable{
 		if(canAttack()){
 			// send network message request first, so clients start mulling it over
 			Attack.Builder builder = Attack.newBuilder();
-			if(uuid != null)
-				builder.setUuid(UUIDConvert.convert(uuid));
-			else
-				builder.setName(name);
+			builder.setUuid(UUIDConvert.convert(getUuid()));
+			builder.setName(name);
 			builder.setPosX(direction.x);
 			builder.setPosY(direction.y);
 			world.getReceiver().send(builder.build());
@@ -758,15 +756,14 @@ public class Being implements Serializable{
 	
 	public NetBeing buildMessage(boolean complete){
 		NetBeing.Builder builder = NetBeing.newBuilder();
-		if(uuid != null)
-			builder.setUuid(UUIDConvert.convert(uuid));
+		builder.setUuid(UUIDConvert.convert(getUuid()));
 		builder.setName(name);
 		builder.setHp(getHp());
 		builder.setMaxHp(getMaxHp());
 		builder.setAim(lastGunHeadingRadians);
 		if(getPosition() != null){
-			builder.setPosX(getPosition().x);
-			builder.setPosY(getPosition().y);
+			builder.setPosX(getRagdoll().getBodyPart(BodyPart.torso).getPosition().x);
+			builder.setPosY(getRagdoll().getBodyPart(BodyPart.torso).getPosition().y);
 			builder.setVelX(getVelocity().x);
 			builder.setVelY(getVelocity().y);
 		}
@@ -789,6 +786,8 @@ public class Being implements Serializable{
 	}
 
 	public UUID getUuid() {
+		if(uuid == null)
+			uuid = UUID.randomUUID();
 		return uuid;
 	}
 

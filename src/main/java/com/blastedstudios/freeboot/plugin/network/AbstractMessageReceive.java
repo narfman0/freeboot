@@ -14,11 +14,10 @@ public abstract class AbstractMessageReceive<T extends Message> implements IMess
 	protected UUID uuid;
 	
 	@Override
-	public void initialize(WorldManager worldManager, BaseNetwork network, MultiplayerType multiplayerType, UUID uuid){
+	public void initialize(WorldManager worldManager, BaseNetwork network, MultiplayerType multiplayerType){
 		this.worldManager = worldManager;
 		this.network = network;
 		this.multiplayerType = multiplayerType;
-		this.uuid = uuid;
 	}
 
 	@Override public boolean applies(MultiplayerType multiplayerType) {

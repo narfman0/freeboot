@@ -295,10 +295,12 @@ public class GameplayScreen extends FreebootScreen {
 	}
 	
 	public void logout(final boolean success){
-		Logout.Builder builder = Logout.newBuilder();
-		builder.setName(worldManager.getPlayer().getName());
-		builder.setUuid(UUIDConvert.convert(receiver.getUUID()));
-		receiver.send(builder.build());
+		if(receiver != null){
+			Logout.Builder builder = Logout.newBuilder();
+			builder.setName(worldManager.getPlayer().getName());
+			builder.setUuid(UUIDConvert.convert(worldManager.getPlayer().getUuid()));
+			receiver.send(builder.build());
+		}
 		for(ILevelCompletedListener listener : PluginUtil.getPlugins(ILevelCompletedListener.class))
 			listener.levelComplete(success, worldManager, level);
 		GDXGameFade.fadeOutPopScreen(game, new IPopListener() {
