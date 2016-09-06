@@ -281,8 +281,7 @@ public class WorldManager implements IDeathCallback{
 		being.death(this);
 		Dead.Builder builder = Dead.newBuilder();
 		builder.setName(being.getName());
-		if(being.getUuid() != null)
-			builder.setUuid(UUIDConvert.convert(being.getUuid()));
+		builder.setUuid(UUIDConvert.convert(being.getUuid()));
 		receiver.send(builder.build());
 	}
 
