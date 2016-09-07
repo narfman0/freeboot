@@ -11,14 +11,14 @@
       <polygons>
         <world.shape.GDXPolygon>
           <name>Polygon-0</name>
-          <resource>data/textures/tiled/dirt1.png</resource>
+          <resource>data/textures/tiled/sand1.png</resource>
           <density>1.0</density>
           <friction>0.5</friction>
           <restitution>0.3</restitution>
           <bodyType>StaticBody</bodyType>
           <center>
             <x>7.6574464</x>
-            <y>-1.307094</y>
+            <y>-1.3070936</y>
           </center>
           <filter>
             <categoryBits>1</categoryBits>
@@ -33,23 +33,23 @@
             </Vector2>
             <Vector2>
               <x>22.484913</x>
-              <y>1.0962785</y>
+              <y>1.0962782</y>
             </Vector2>
             <Vector2>
               <x>18.809221</x>
-              <y>-1.812905</y>
+              <y>-1.8129053</y>
             </Vector2>
             <Vector2>
               <x>-30.041058</x>
-              <y>-1.8754088</y>
+              <y>-1.8754091</y>
             </Vector2>
             <Vector2>
               <x>-34.362194</x>
-              <y>1.1713094</y>
+              <y>1.171309</y>
             </Vector2>
             <Vector2>
               <x>-36.79504</x>
-              <y>8.1643305</y>
+              <y>8.16433</y>
             </Vector2>
             <Vector2>
               <x>-38.718685</x>
@@ -57,7 +57,7 @@
             </Vector2>
             <Vector2>
               <x>-43.98043</x>
-              <y>20.249361</y>
+              <y>20.24936</y>
             </Vector2>
             <Vector2>
               <x>-58.803825</x>
@@ -91,14 +91,14 @@
         </world.shape.GDXPolygon>
         <world.shape.GDXPolygon>
           <name>Polygon-4</name>
-          <resource>data/textures/tiled/dirt1.png</resource>
+          <resource>data/textures/tiled/wood1.png</resource>
           <density>1.0</density>
           <friction>0.5</friction>
           <restitution>0.3</restitution>
           <bodyType>StaticBody</bodyType>
           <center>
             <x>1.0993619</x>
-            <y>-2.3398983</y>
+            <y>-2.339898</y>
           </center>
           <filter>
             <categoryBits>1</categoryBits>
@@ -109,303 +109,35 @@
           <vertices>
             <Vector2>
               <x>-0.7375218</x>
-              <y>-0.3982613</y>
+              <y>-0.39826155</y>
             </Vector2>
             <Vector2>
               <x>-0.7375218</x>
-              <y>0.5851009</y>
+              <y>0.58510065</y>
             </Vector2>
             <Vector2>
               <x>-1.2292049</x>
-              <y>0.5851009</y>
+              <y>0.58510065</y>
             </Vector2>
             <Vector2>
               <x>-1.1636469</x>
-              <y>-0.8702767</y>
+              <y>-0.8702769</y>
             </Vector2>
             <Vector2>
-              <x>1.1964251</x>
-              <y>-0.75227237</y>
+              <x>1.196425</x>
+              <y>-0.7522726</y>
             </Vector2>
             <Vector2>
-              <x>1.1964251</x>
-              <y>0.62443614</y>
+              <x>1.196425</x>
+              <y>0.6244359</y>
             </Vector2>
             <Vector2>
               <x>0.7047453</x>
-              <y>0.66377044</y>
+              <y>0.6637702</y>
             </Vector2>
             <Vector2>
-              <x>0.7703</x>
-              <y>-0.43759656</y>
-            </Vector2>
-          </vertices>
-        </world.shape.GDXPolygon>
-        <world.shape.GDXPolygon>
-          <name>Polygon-13</name>
-          <resource>data/textures/tiled/dirt1.png</resource>
-          <density>1.0</density>
-          <friction>0.5</friction>
-          <restitution>0.3</restitution>
-          <bodyType>StaticBody</bodyType>
-          <center>
-            <x>-1.6294702</x>
-            <y>1.2788799</y>
-          </center>
-          <filter>
-            <categoryBits>1</categoryBits>
-            <maskBits>-1</maskBits>
-            <groupIndex>0</groupIndex>
-          </filter>
-          <repeatable>true</repeatable>
-          <vertices>
-            <Vector2>
-              <x>-0.94239104</x>
-              <y>-0.23600745</y>
-            </Vector2>
-            <Vector2>
-              <x>0.9260013</x>
-              <y>-0.27534127</y>
-            </Vector2>
-            <Vector2>
-              <x>0.9260013</x>
-              <y>0.19667292</y>
-            </Vector2>
-            <Vector2>
-              <x>-0.9096118</x>
-              <y>0.31467605</y>
-            </Vector2>
-          </vertices>
-        </world.shape.GDXPolygon>
-        <world.shape.GDXPolygon>
-          <name>Polygon-17</name>
-          <resource>data/textures/tiled/dirt1.png</resource>
-          <density>1.0</density>
-          <friction>0.5</friction>
-          <restitution>0.3</restitution>
-          <bodyType>StaticBody</bodyType>
-          <center>
-            <x>-12.757867</x>
-            <y>7.0512238</y>
-          </center>
-          <filter>
-            <categoryBits>1</categoryBits>
-            <maskBits>-1</maskBits>
-            <groupIndex>0</groupIndex>
-          </filter>
-          <repeatable>true</repeatable>
-          <vertices>
-            <Vector2>
-              <x>-4.6627836</x>
-              <y>0.8751941</y>
-            </Vector2>
-            <Vector2>
-              <x>-3.744975</x>
-              <y>-0.9735298</y>
-            </Vector2>
-            <Vector2>
-              <x>3.6958075</x>
-              <y>-1.130867</y>
-            </Vector2>
-            <Vector2>
-              <x>4.908622</x>
-              <y>0.75718975</y>
-            </Vector2>
-            <Vector2>
-              <x>4.0891523</x>
-              <y>0.71785545</y>
-            </Vector2>
-            <Vector2>
-              <x>3.3352404</x>
-              <y>-0.4621806</y>
-            </Vector2>
-            <Vector2>
-              <x>-3.5810823</x>
-              <y>-0.4621806</y>
-            </Vector2>
-            <Vector2>
-              <x>-4.0399847</x>
-              <y>0.6785202</y>
-            </Vector2>
-          </vertices>
-        </world.shape.GDXPolygon>
-        <world.shape.GDXPolygon>
-          <name>Polygon-25</name>
-          <resource>data/textures/tiled/dirt1.png</resource>
-          <density>1.0</density>
-          <friction>0.5</friction>
-          <restitution>0.3</restitution>
-          <bodyType>StaticBody</bodyType>
-          <center>
-            <x>-19.410322</x>
-            <y>1.4086846</y>
-          </center>
-          <filter>
-            <categoryBits>1</categoryBits>
-            <maskBits>-1</maskBits>
-            <groupIndex>0</groupIndex>
-          </filter>
-          <repeatable>true</repeatable>
-          <vertices>
-            <Vector2>
-              <x>0.3507347</x>
-              <y>-1.7031859</y>
-            </Vector2>
-            <Vector2>
-              <x>-2.4026814</x>
-              <y>-1.7031859</y>
-            </Vector2>
-            <Vector2>
-              <x>-2.3371258</x>
-              <y>1.7975887</y>
-            </Vector2>
-            <Vector2>
-              <x>1.6291065</x>
-              <y>1.9549261</y>
-            </Vector2>
-            <Vector2>
-              <x>2.9730377</x>
-              <y>-0.16913855</y>
-            </Vector2>
-            <Vector2>
-              <x>2.317463</x>
-              <y>-0.48381436</y>
-            </Vector2>
-            <Vector2>
-              <x>1.071867</x>
-              <y>1.3255745</y>
-            </Vector2>
-            <Vector2>
-              <x>-2.0421162</x>
-              <y>1.2469052</y>
-            </Vector2>
-            <Vector2>
-              <x>-1.9765587</x>
-              <y>-1.1131672</y>
-            </Vector2>
-            <Vector2>
-              <x>0.4162922</x>
-              <y>-1.1525024</y>
-            </Vector2>
-          </vertices>
-        </world.shape.GDXPolygon>
-        <world.shape.GDXPolygon>
-          <name>Polygon-38</name>
-          <resource>data/textures/tiled/dirt1.png</resource>
-          <density>1.0</density>
-          <friction>0.5</friction>
-          <restitution>0.3</restitution>
-          <bodyType>StaticBody</bodyType>
-          <center>
-            <x>8.310698</x>
-            <y>5.676482</y>
-          </center>
-          <filter>
-            <categoryBits>1</categoryBits>
-            <maskBits>-1</maskBits>
-            <groupIndex>0</groupIndex>
-          </filter>
-          <repeatable>true</repeatable>
-          <vertices>
-            <Vector2>
-              <x>-0.9178071</x>
-              <y>0.7552223</y>
-            </Vector2>
-            <Vector2>
-              <x>0.09833622</x>
-              <y>-0.70015526</y>
-            </Vector2>
-            <Vector2>
-              <x>0.5900192</x>
-              <y>-0.58215094</y>
-            </Vector2>
-            <Vector2>
-              <x>0.5900192</x>
-              <y>-0.14947224</y>
-            </Vector2>
-            <Vector2>
-              <x>-0.36056614</x>
-              <y>0.6765547</y>
-            </Vector2>
-          </vertices>
-        </world.shape.GDXPolygon>
-        <world.shape.GDXPolygon>
-          <name>Polygon-43</name>
-          <resource>data/textures/tiled/dirt1.png</resource>
-          <density>1.0</density>
-          <friction>0.5</friction>
-          <restitution>0.3</restitution>
-          <bodyType>StaticBody</bodyType>
-          <center>
-            <x>14.740802</x>
-            <y>5.5007877</y>
-          </center>
-          <filter>
-            <categoryBits>1</categoryBits>
-            <maskBits>-1</maskBits>
-            <groupIndex>0</groupIndex>
-          </filter>
-          <repeatable>true</repeatable>
-          <vertices>
-            <Vector2>
-              <x>-5.0206156</x>
-              <y>-0.013111591</y>
-            </Vector2>
-            <Vector2>
-              <x>-5.0533953</x>
-              <y>-0.7211337</y>
-            </Vector2>
-            <Vector2>
-              <x>1.8301477</x>
-              <y>-0.83913565</y>
-            </Vector2>
-            <Vector2>
-              <x>3.5674238</x>
-              <y>0.6555762</y>
-            </Vector2>
-            <Vector2>
-              <x>3.0101843</x>
-              <y>0.9309168</y>
-            </Vector2>
-            <Vector2>
-              <x>1.666255</x>
-              <y>-0.013111591</y>
-            </Vector2>
-          </vertices>
-        </world.shape.GDXPolygon>
-        <world.shape.GDXPolygon>
-          <name>Polygon-52</name>
-          <resource>data/textures/tiled/dirt1.png</resource>
-          <density>1.0</density>
-          <friction>0.5</friction>
-          <restitution>0.3</restitution>
-          <bodyType>StaticBody</bodyType>
-          <center>
-            <x>4.623085</x>
-            <y>3.943796</y>
-          </center>
-          <filter>
-            <categoryBits>1</categoryBits>
-            <maskBits>-1</maskBits>
-            <groupIndex>0</groupIndex>
-          </filter>
-          <repeatable>true</repeatable>
-          <vertices>
-            <Vector2>
-              <x>-1.0980885</x>
-              <y>0.24584079</y>
-            </Vector2>
-            <Vector2>
-              <x>-1.0325305</x>
-              <y>-0.34417677</y>
-            </Vector2>
-            <Vector2>
-              <x>1.130866</x>
-              <y>-0.2261734</y>
-            </Vector2>
-            <Vector2>
-              <x>0.999753</x>
-              <y>0.3245089</y>
+              <x>0.7702999</x>
+              <y>-0.4375968</y>
             </Vector2>
           </vertices>
         </world.shape.GDXPolygon>
@@ -487,11 +219,6 @@
       </quests>
       <backgrounds/>
       <lights>
-        <world.light.DirectionalLight>
-          <color>-437918312</color>
-          <rays>1000</rays>
-          <direction>270.0</direction>
-        </world.light.DirectionalLight>
         <world.light.PointLight>
           <color>-438036328</color>
           <rays>1000</rays>
@@ -501,6 +228,11 @@
           </coordinates>
           <distance>40.0</distance>
         </world.light.PointLight>
+        <world.light.DirectionalLight>
+          <color>-437918312</color>
+          <rays>1000</rays>
+          <direction>270.0</direction>
+        </world.light.DirectionalLight>
       </lights>
       <groups/>
       <particles/>
@@ -510,7 +242,7 @@
         <cameraShots/>
       </metadata>
       <properties class="tree-map"/>
-      <lightAmbient>-437918439</lightAmbient>
+      <lightAmbient>-437918388</lightAmbient>
     </world.GDXLevel>
   </levels>
   <worldProperties>
