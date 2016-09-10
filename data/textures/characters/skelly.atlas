@@ -1,46 +1,46 @@
-forestSoldier.png
+skelly.png
 format: RGBA8888
 filter: Nearest,Nearest
 repeat: none
 head
   rotate: false
   xy: 0, 0
-  size: 208, 168
-  orig: 208, 168
+  size: 196, 208
+  orig: 196, 208
   offset: 0, 0
   index: -1
 torso
   rotate: false
   xy: 0, 200
-  size: 232, 312
-  orig: 232, 312
-  offset: 0, 0
-  index: -1
-larm
-  rotate: false
-  xy: 256, 168
-  size: 256, 96
-  orig: 256, 96
+  size: 232, 311
+  orig: 232, 311
   offset: 0, 0
   index: -1
 rarm
   rotate: false
-  xy: 256, 80
-  size: 256, 96
-  orig: 256, 96
+  xy: 279, 16
+  size: 200, 156
+  orig: 200, 156
+  offset: 0, 0
+  index: -1
+larm
+  rotate: false
+  xy: 279, 174
+  size: 219, 81
+  orig: 219, 81
   offset: 0, 0
   index: -1
 lleg
   rotate: false
-  xy: 288, 248
-  size: 192, 264
-  orig: 192, 264
+  xy: 311, 295
+  size: 154, 176
+  orig: 154, 176
   offset: 0, 0
   index: -1
 rleg
   rotate: false
-  xy: 288, 248
-  size: 192, 264
-  orig: 192, 264
+  xy: 311, 295
+  size: 154, 176
+  orig: 154, 176
   offset: 0, 0
   index: -1

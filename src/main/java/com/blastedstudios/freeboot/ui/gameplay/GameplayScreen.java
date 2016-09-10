@@ -343,7 +343,10 @@ public class GameplayScreen extends FreebootScreen {
 	}
 	
 	@Override public boolean scrolled(int amount) {
-		if(!worldManager.isPause() && worldManager.isInputEnable()){
+		if(Properties.getBool("camera.zoom.enable", true) && Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)){
+			camera.zoom += (amount*camera.zoom/10f);
+			camera.zoom = Math.min(.04f, Math.max(.002f, camera.zoom));
+		}else if(!worldManager.isPause() && worldManager.isInputEnable()){
 			int max = Math.min(Being.MAX_GUNS, worldManager.getPlayer().getGuns().size());
 			if(max > 0){
 				int gun = (worldManager.getPlayer().getCurrentGun() + amount + max) % max;

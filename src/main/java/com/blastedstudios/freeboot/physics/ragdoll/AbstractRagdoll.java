@@ -94,7 +94,7 @@ public abstract class AbstractRagdoll implements IRagdoll {
 		sprites.put(headBody, atlas.createSprite("head"));
 		sprites.put(rArmBody, atlas.createSprite("rarm"));
 		sprites.put(lArmBody, atlas.createSprite("larm"));
-		float scale = Properties.getFloat("gameplay.camera.zoom");
+		float scale = Properties.getFloat("gameplay.camera.zoom")/8f;
 		for(Sprite sprite : sprites.values())
 			sprite.setScale(scale);
 	}
