@@ -257,7 +257,7 @@ public class GameplayScreen extends FreebootScreen {
 		//if player is not spawned then we are in a cutscene, if input isn't enabled we shouldn't update camera
 		if(worldManager.getPlayer().isSpawned() && worldManager.isPlayerTrack() && !worldManager.isPause()){
 			Vector2 offset = new Vector2();
-			if(!Properties.getBool("camera.lead.mouse.modifier", false) ^ Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)){
+			if(Properties.getBool("camera.lead.mouse.modifier", false) ^ Gdx.input.isKeyPressed(Keys.SHIFT_LEFT)){
 				Dimension dim = GDXWorldEditor.getDimension(Properties.getBool("graphics.fullscreen"));
 				offset.add(-dim.width/2f + Gdx.input.getX(), dim.height/2f - Gdx.input.getY());
 				offset.scl(camera.zoom/5f);
