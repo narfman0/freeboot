@@ -50,8 +50,8 @@ public class Being implements Serializable{
 	public final static int MAX_GUNS = Properties.getInt("guns.max", 4);
 	public final static boolean INFINITE_AMMO = Properties.getBool("ammo.infinite", true);
 	protected final static float ACCELEROMETER_ROLL_THRESHOLD = Properties.getFloat("accelerometer.roll.threshold", 3f),
-			CHARACTER_IMPULSE_MAGNITUDE = Properties.getFloat("character.impulse.magnitude", 2f),
-			CHARACTER_JUMP_IMPULSE = Properties.getFloat("character.jump.impulse", 70),
+			CHARACTER_IMPULSE_MAGNITUDE = Properties.getFloat("character.impulse.magnitude", 4f),
+			CHARACTER_JUMP_IMPULSE = Properties.getFloat("character.jump.impulse", 110f),
 			MAX_VELOCITY = Properties.getFloat("character.velocity.max", 7f);
 	protected static final HashMap<BodyPart,Float> bodypartDmgMap = new HashMap<>();
 	protected final HashMap<AmmoTypeEnum,Integer> ammo = new HashMap<>();

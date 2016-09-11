@@ -222,7 +222,7 @@ public abstract class AbstractRagdoll implements IRagdoll {
 		j /= bodies.size();
 		for(Body body : bodies)
 			if(body != rArmBody && body != lArmBody && body != lHandBody && body != rHandBody)
-				body.applyLinearImpulse(i,j,x,y,true);
+				body.applyLinearImpulse(i*body.getMass(), j*body.getMass(), x, y, true);
 	}
 
 	@Override public void applyForceAtCenter(float x, float y) {
