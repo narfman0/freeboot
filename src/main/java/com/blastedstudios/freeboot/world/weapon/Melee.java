@@ -75,8 +75,8 @@ public class Melee extends Weapon {
 		}else{
 			RevoluteJointDef def = new RevoluteJointDef();
 			def.enableLimit = true;
-			def.lowerAngle = -.5f;
-			def.upperAngle = .01f;
+			def.lowerAngle = -.05f;
+			def.upperAngle = .05f;
 			def.initialize(body, ragdoll.getHandFacing(), ragdoll.getHandFacingPosition());
 			joint = world.createJoint(def);
 		}
