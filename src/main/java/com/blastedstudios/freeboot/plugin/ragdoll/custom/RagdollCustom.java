@@ -17,7 +17,7 @@ import com.blastedstudios.freeboot.world.being.Being;
 public class RagdollCustom extends AbstractRagdoll {
 	private static float DENSITY = Properties.getFloat("character.ragdoll.density", 5f),
 			SCALE = Properties.getFloat("character.ragdoll.scale", 1f);
-	private final static float torsoY = .27f, legX = .1f, legY = -.2f, armX = -.02f, armY = .3f, headY = .6f;
+	private final static float torsoY = .17f, legX = .1f, legY = -.2f, armX = -.02f, armY = .2f, headY = .55f;
 
 	public RagdollCustom(World world, float x, float y, Being being, TextureAtlas atlas){
 		super(being, atlas, x, y, 
@@ -35,23 +35,23 @@ public class RagdollCustom extends AbstractRagdoll {
 	}
 	
 	@Override protected void initializeJoints(World world){
-		lLegJoint = PhysicsEnvironment.addWeld(world, lLegBody, torsoBody, new Vector2(-.1f,-.05f).scl(SCALE));
-		rLegJoint = PhysicsEnvironment.addWeld(world, rLegBody, torsoBody, new Vector2(.1f,-.05f).scl(SCALE));
-		lArmJoint = PhysicsEnvironment.addRevolute(world, lArmBody, torsoBody, 0,0,new Vector2(-.17f,.3f).scl(SCALE));
-		lHandJoint = PhysicsEnvironment.addWeld(world, lHandBody, lArmBody, new Vector2(-armX,armY-.11f).scl(SCALE));
-		rHandJoint = PhysicsEnvironment.addWeld(world, rHandBody, rArmBody, new Vector2(armX,armY-.11f).scl(SCALE));
-		rArmJoint = PhysicsEnvironment.addRevolute(world, rArmBody, torsoBody, 0,0,new Vector2(.17f,.3f).scl(SCALE));
-		headJoint = PhysicsEnvironment.addWeld(world, headBody, torsoBody, new Vector2(0,.45f).scl(SCALE));
+		lLegJoint = PhysicsEnvironment.addWeld(world, lLegBody, torsoBody, new Vector2(-.1f, -.05f).scl(SCALE));
+		rLegJoint = PhysicsEnvironment.addWeld(world, rLegBody, torsoBody, new Vector2(.1f, -.05f).scl(SCALE));
+		lArmJoint = PhysicsEnvironment.addRevolute(world, lArmBody, torsoBody, 0,0,new Vector2(-.17f, .2f).scl(SCALE));
+		lHandJoint = PhysicsEnvironment.addWeld(world, lHandBody, lArmBody, new Vector2(-armX, armY-.11f).scl(SCALE));
+		rHandJoint = PhysicsEnvironment.addWeld(world, rHandBody, rArmBody, new Vector2(armX, armY-.11f).scl(SCALE));
+		rArmJoint = PhysicsEnvironment.addRevolute(world, rArmBody, torsoBody, 0,0,new Vector2(.17f, .2f).scl(SCALE));
+		headJoint = PhysicsEnvironment.addWeld(world, headBody, torsoBody, new Vector2(0, .4f).scl(SCALE));
 	}
 	
 	private static Body createTorso(World world, short mask, short cat){
-		return PhysicsHelper.createRectangle(world, .15f*SCALE, .3f*SCALE, 
+		return PhysicsHelper.createRectangle(world, .15f*SCALE, .25f*SCALE, 
 				new Vector2(0,torsoY).scl(SCALE), BodyType.DynamicBody, .2f, .5f, DENSITY, 
 				mask, cat, (short)0);
 	}
 	
 	private static Body createLLeg(World world, short mask, short cat){
-		Body lLegBody = PhysicsHelper.createRectangle(world, .1f*SCALE, .25f*SCALE, 
+		Body lLegBody = PhysicsHelper.createRectangle(world, .1f*SCALE, .15f*SCALE, 
 				new Vector2(-legX, legY).scl(SCALE), BodyType.DynamicBody, .2f, .5f, DENSITY, 
 				mask, cat, (short)0);
 		lLegBody.setTransform(lLegBody.getPosition(), -.2f*SCALE);
@@ -59,7 +59,7 @@ public class RagdollCustom extends AbstractRagdoll {
 	}
 	
 	private static Body createRLeg(World world, short mask, short cat){
-		Body rLegBody = PhysicsHelper.createRectangle(world, .1f*SCALE, .25f*SCALE, 
+		Body rLegBody = PhysicsHelper.createRectangle(world, .1f*SCALE, .15f*SCALE, 
 				new Vector2(legX, legY).scl(SCALE), BodyType.DynamicBody, .2f, .5f, DENSITY, 
 				mask, cat, (short)0);
 		rLegBody.setTransform(rLegBody.getPosition(), .2f*SCALE);
@@ -106,7 +106,7 @@ public class RagdollCustom extends AbstractRagdoll {
 	
 	private static Body createHead(World world, short mask, short cat){
 		CircleShape head = new CircleShape();
-		head.setRadius(.2f*SCALE);
+		head.setRadius(.25f*SCALE);
 		head.setPosition(new Vector2(0, headY).scl(SCALE));
 		Body headBody = world.createBody(getDynamicBody());
 		headBody.createFixture(head, DENSITY);

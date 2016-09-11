@@ -5,8 +5,8 @@ repeat: none
 head
   rotate: false
   xy: 0, 0
-  size: 196, 208
-  orig: 196, 208
+  size: 232, 208
+  orig: 232, 208
   offset: 0, 0
   index: -1
 torso

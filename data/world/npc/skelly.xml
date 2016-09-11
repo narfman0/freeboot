@@ -6,27 +6,27 @@
     </entry>
     <entry>
       <string>Attack</string>
-      <string>15</string>
+      <string>0</string>
     </entry>
     <entry>
       <string>Defense</string>
-      <string>3</string>
+      <string>0</string>
     </entry>
     <entry>
       <string>HPPerLevel</string>
-      <string>3</string>
+      <string>4</string>
     </entry>
     <entry>
       <string>AttackPerLevel</string>
-      <string>10</string>
+      <string>4</string>
     </entry>
     <entry>
       <string>DefensePerLevel</string>
-      <string>2</string>
+      <string>10</string>
     </entry>
     <entry>
       <string>Weapons</string>
-      <string>psg1</string>
+      <string>mp5</string>
     </entry>
     <entry>
       <string>Faction</string>
@@ -34,11 +34,11 @@
     </entry>
     <entry>
       <string>Resource</string>
-      <string>forestSoldier</string>
+      <string>skelly</string>
     </entry>
     <entry>
       <string>Behavior</string>
-      <string>EnemySentryBT</string>
+      <string>EnemyAggressiveBT</string>
     </entry>
     <entry>
       <string>Cash</string>
@@ -46,7 +46,7 @@
     </entry>
     <entry>
       <string>Level</string>
-      <string>3</string>
+      <string>1</string>
     </entry>
     <entry>
       <string>XP</string>
@@ -58,7 +58,7 @@
     </entry>
     <entry>
       <string>DistanceVision</string>
-      <string>3000</string>
+      <string>150</string>
     </entry>
   </properties>
 </com.blastedstudios.freeboot.world.being.NPCData>
