@@ -22,7 +22,7 @@ public class BeingSpawnHandlerPlugin implements IBeingSpawnHandler, IWorldManage
 		else if("player".matches(npc.getName()))
 			world.setRespawnLocation(npc.getCoordinates().cpy());
 		else
-			world.spawnNPC(npc, world.getAiWorld());
+			world.spawnNPC(npc);
 		return CompletionEnum.COMPLETED;
 	}
 }

@@ -13,8 +13,6 @@ import java.util.Map.Entry;
 import java.util.Random;
 import java.util.UUID;
 
-import aurelienribon.tweenengine.TweenManager;
-
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Camera;
@@ -29,15 +27,6 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Joint;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import com.blastedstudios.gdxworld.math.PolygonUtils;
-import com.blastedstudios.gdxworld.ui.GDXRenderer;
-import com.blastedstudios.gdxworld.util.Log;
-import com.blastedstudios.gdxworld.util.Properties;
-import com.blastedstudios.gdxworld.world.GDXLevel;
-import com.blastedstudios.gdxworld.world.GDXLevel.CreateLevelReturnStruct;
-import com.blastedstudios.gdxworld.world.shape.GDXPolygon;
-import com.blastedstudios.gdxworld.world.GDXNPC;
-import com.blastedstudios.gdxworld.world.GDXPath;
 import com.blastedstudios.freeboot.ai.AIWorld;
 import com.blastedstudios.freeboot.network.Messages.Dead;
 import com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum;
@@ -46,7 +35,6 @@ import com.blastedstudios.freeboot.ui.gameplay.GameplayNetReceiver;
 import com.blastedstudios.freeboot.ui.network.network.NetworkWindow.MultiplayerType;
 import com.blastedstudios.freeboot.util.UUIDConvert;
 import com.blastedstudios.freeboot.util.VisibilityReturnStruct;
-import com.blastedstudios.freeboot.world.StrategicPoint.CaptureListener;
 import com.blastedstudios.freeboot.world.being.Being;
 import com.blastedstudios.freeboot.world.being.Being.IDeathCallback;
 import com.blastedstudios.freeboot.world.being.NPC;
@@ -60,8 +48,17 @@ import com.blastedstudios.freeboot.world.weapon.Turret;
 import com.blastedstudios.freeboot.world.weapon.Weapon;
 import com.blastedstudios.freeboot.world.weapon.WeaponFactory;
 import com.blastedstudios.freeboot.world.weapon.shot.GunShot;
+import com.blastedstudios.gdxworld.ui.GDXRenderer;
+import com.blastedstudios.gdxworld.util.Log;
+import com.blastedstudios.gdxworld.util.Properties;
+import com.blastedstudios.gdxworld.world.GDXLevel;
+import com.blastedstudios.gdxworld.world.GDXLevel.CreateLevelReturnStruct;
+import com.blastedstudios.gdxworld.world.GDXNPC;
+import com.blastedstudios.gdxworld.world.GDXPath;
 
-public class WorldManager implements IDeathCallback, CaptureListener{
+import aurelienribon.tweenengine.TweenManager;
+
+public class WorldManager implements IDeathCallback{
 	public static final String REMOVE_USER_DATA = "r";
 	private final World world = new World(new Vector2(0, -10), true), aiWorldDebug;
 	private final List<NPC> npcs = new LinkedList<>();
@@ -81,7 +78,7 @@ public class WorldManager implements IDeathCallback, CaptureListener{
 	private boolean pause, inputEnable = true, playerTrack = true, desireFixedRotation = true, simulate = true;
 	private final Random random;
 	private GameplayNetReceiver receiver;
-	private final LinkedList<StrategicPoint> strategicPoints = new LinkedList<>();
+	private final Director director;
 	
 	public WorldManager(Player player, GDXLevel level, AssetManager sharedAssets){
 		this.player = player;
@@ -99,14 +96,10 @@ public class WorldManager implements IDeathCallback, CaptureListener{
 		aiWorld = new AIWorld(world);
 		aiWorldDebug = aiWorld.createGraphVisible();
 		for(GDXNPC gdxNPC : level.getNpcs())
-			spawnNPC(gdxNPC, aiWorld);
+			spawnNPC(gdxNPC);
 		if(Properties.getBool("world.debug.draw", false))
 			debugRenderer = new Box2DDebugRenderer();
-		for(GDXPolygon polygon : level.getPolygons())
-			if(polygon.getTag() != null && polygon.getTag().contains("strategicPoint")){
-				Vector2[] aabb = PolygonUtils.getAABB(polygon.getVerticesAbsolute().toArray(new Vector2[2]));
-				strategicPoints.add(new StrategicPoint(aabb, this));
-			}
+		director = new Director(level, this);
 	}
 
 	public void update(float dt){
@@ -140,11 +133,7 @@ public class WorldManager implements IDeathCallback, CaptureListener{
 		for(Being being : remotePlayers)
 			being.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true);
 		if(receiver == null || receiver.type != MultiplayerType.Client)
-			for(Being being : getAllBeings())
-				if(!being.isDead())
-					for(StrategicPoint strategicPoint : strategicPoints)
-						if(strategicPoint.contains(being.getPosition()))
-							strategicPoint.capture(dt, being.getFaction(), Properties.getFloat("strategicpoint.capture.amount", 1f));
+			director.update(dt);
 		for(Iterator<Entry<Body, GunShot>> iter = gunshots.entrySet().iterator(); iter.hasNext();){
 			Entry<Body, GunShot> entry = iter.next();
 			if(!entry.getValue().isCanRemove())
@@ -229,7 +218,7 @@ public class WorldManager implements IDeathCallback, CaptureListener{
 		return new VisibilityReturnStruct(enemies, closestEnemy);
 	}
 	
-	public NPC spawnNPC(GDXNPC gdxNPC, AIWorld aiWorld){
+	public NPC spawnNPC(GDXNPC gdxNPC){
 		String npcDataName = gdxNPC.getProperties().get("NPCData");
 		if(npcDataName == null)
 			npcDataName = gdxNPC.getName();
@@ -240,18 +229,19 @@ public class WorldManager implements IDeathCallback, CaptureListener{
 		}
 		try{
 			npcData.apply(gdxNPC.getProperties());
-			return spawnNPC(gdxNPC.getName(), gdxNPC.getCoordinates(), npcData, aiWorld);
+			return spawnNPC(gdxNPC.getName(), gdxNPC.getCoordinates(), npcData);
 		}catch(Exception e){
 			Log.error("WorldManager.spawnNPC", "NPC defaults failed for " + gdxNPC + ", giving up");
 		}
 		return null;
 	}
 	
-	public NPC spawnNPC(String name, Vector2 coordinates, NPCData npcData, AIWorld aiWorld){
+	public NPC spawnNPC(String name, Vector2 coordinates, NPCData npcData){
 		EnumSet<FactionEnum> factions = EnumSet.noneOf(FactionEnum.class);
 		for(String factionStr : npcData.get("Faction").split(","))
-			factions.add(FactionEnum.valueOf(factionStr.toUpperCase()));
-		FactionEnum faction = factions.iterator().next();
+			if(!factionStr.isEmpty())
+				factions.add(FactionEnum.valueOf(factionStr.toUpperCase()));
+		FactionEnum faction = factions.isEmpty() ? FactionEnum.values()[0] : factions.iterator().next();
 		int cash = npcData.getInteger("Cash"),
 				npcLevel = npcData.getInteger("Level"), 
 				xp = npcData.getInteger("XP");
@@ -550,15 +540,5 @@ public class WorldManager implements IDeathCallback, CaptureListener{
 
 	public LinkedList<Vector2> getSpawnPoints() {
 		return spawnPoints;
-	}
-
-	@Override
-	public void strategicPointCaptured(StrategicPoint point) {
-		Log.log("WorldManager.strategicPointCaptured", "Point captured: " + point);
-	}
-
-	@Override
-	public void strategicPointLost(StrategicPoint point) {
-		Log.log("WorldManager.strategicPointLost", "Point lost: " + point);
 	}
 }

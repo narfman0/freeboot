@@ -24,7 +24,7 @@ public class GroupSpawnHandlerPlugin implements IGroupSpawnHandler, IWorldManage
 			npc.getProperties().put("NPCData", npcDatum);
 			npc.getProperties().put("Level", level+"");
 			npc.setCoordinates(world.getFurthestSpawn().add(world.getRandom().nextFloat(), world.getRandom().nextFloat()));
-			world.spawnNPC(npc, world.getAiWorld());
+			world.spawnNPC(npc);
 		}
 		return CompletionEnum.COMPLETED;
 	}

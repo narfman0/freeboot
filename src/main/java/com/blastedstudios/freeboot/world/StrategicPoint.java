@@ -5,7 +5,7 @@ import com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum;
 import com.blastedstudios.gdxworld.util.Properties;
 
 public class StrategicPoint {
-	private static final float CAPTURE_AMOUNT = Properties.getFloat("strategicpoint.capture.max", 100f);
+	public static final float CAPTURE_AMOUNT = Properties.getFloat("strategicpoint.capture.max", 100f);
 	public final Vector2[] aabb;
 	private CapturedStruct captured;
 	private final CaptureListener listener;
@@ -26,12 +26,12 @@ public class StrategicPoint {
 		return new Vector2((aabb[0].x + aabb[1].x)/2f, Math.min(aabb[0].y, aabb[1].y));
 	}
 	
-	public CapturedStruct getPercentCaptured() {
-		return captured;
+	public float getPercentCaptured() {
+		return captured.percentCaptured;
 	}
 
-	public void setCaptured(CapturedStruct captured) {
-		this.captured = captured;
+	public void setCaptured(FactionEnum faction, float percentCaptured) {
+		this.captured = new CapturedStruct(faction, percentCaptured);
 	}
 	
 	public boolean contains(Vector2 position){
@@ -77,7 +77,7 @@ public class StrategicPoint {
 		void strategicPointLost(StrategicPoint point);
 	}
 
-	class CapturedStruct{
+	private class CapturedStruct{
 		public final FactionEnum faction;
 		private float percentCaptured;
 		
@@ -88,10 +88,6 @@ public class StrategicPoint {
 
 		public float getPercentCaptured() {
 			return percentCaptured;
-		}
-
-		public void setPercentCaptured(float percentCaptured) {
-			this.percentCaptured = Math.max(0,Math.min(percentCaptured, CAPTURE_AMOUNT));
 		}
 
 		public void addPercentCaptured(float add) {

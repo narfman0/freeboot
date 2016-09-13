@@ -374,7 +374,7 @@ public class GameplayScreen extends FreebootScreen {
 		case Keys.F10:
 			if(debugCommandEnabled()){
 				Vector2 position = worldManager.getPlayer().getPosition();
-				worldManager.spawnNPC(level.getClosestNPC(position.x, position.y), worldManager.getAiWorld());
+				worldManager.spawnNPC(level.getClosestNPC(position.x, position.y));
 			}
 			break;
 		case Keys.F12:

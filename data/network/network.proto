@@ -40,6 +40,7 @@ message NetBeing {
   ClassEnum player_class = 15;
 
   enum FactionEnum {
+  	FRIEND = 0;
   	BRITON = 1;
   	SPANISH = 2;
   	MAYAN = 3;
@@ -49,11 +50,11 @@ message NetBeing {
   }
 
   enum ClassEnum {
+  	Brawler = 0;
   	Soldier = 1;
   	Medic = 2;
-  	Brawler = 3;
-  	Demo = 4;
-  	Sniper = 5;
+  	Demo = 3;
+  	Sniper = 4;
   }
 }
 
