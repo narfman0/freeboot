@@ -29,11 +29,13 @@ import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Joint;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.blastedstudios.gdxworld.math.PolygonUtils;
 import com.blastedstudios.gdxworld.ui.GDXRenderer;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.Properties;
 import com.blastedstudios.gdxworld.world.GDXLevel;
 import com.blastedstudios.gdxworld.world.GDXLevel.CreateLevelReturnStruct;
+import com.blastedstudios.gdxworld.world.shape.GDXPolygon;
 import com.blastedstudios.gdxworld.world.GDXNPC;
 import com.blastedstudios.gdxworld.world.GDXPath;
 import com.blastedstudios.freeboot.ai.AIWorld;
@@ -44,6 +46,7 @@ import com.blastedstudios.freeboot.ui.gameplay.GameplayNetReceiver;
 import com.blastedstudios.freeboot.ui.network.network.NetworkWindow.MultiplayerType;
 import com.blastedstudios.freeboot.util.UUIDConvert;
 import com.blastedstudios.freeboot.util.VisibilityReturnStruct;
+import com.blastedstudios.freeboot.world.StrategicPoint.CaptureListener;
 import com.blastedstudios.freeboot.world.being.Being;
 import com.blastedstudios.freeboot.world.being.Being.IDeathCallback;
 import com.blastedstudios.freeboot.world.being.NPC;
@@ -58,7 +61,7 @@ import com.blastedstudios.freeboot.world.weapon.Weapon;
 import com.blastedstudios.freeboot.world.weapon.WeaponFactory;
 import com.blastedstudios.freeboot.world.weapon.shot.GunShot;
 
-public class WorldManager implements IDeathCallback{
+public class WorldManager implements IDeathCallback, CaptureListener{
 	public static final String REMOVE_USER_DATA = "r";
 	private final World world = new World(new Vector2(0, -10), true), aiWorldDebug;
 	private final List<NPC> npcs = new LinkedList<>();
@@ -78,6 +81,7 @@ public class WorldManager implements IDeathCallback{
 	private boolean pause, inputEnable = true, playerTrack = true, desireFixedRotation = true, simulate = true;
 	private final Random random;
 	private GameplayNetReceiver receiver;
+	private final LinkedList<StrategicPoint> strategicPoints = new LinkedList<>();
 	
 	public WorldManager(Player player, GDXLevel level, AssetManager sharedAssets){
 		this.player = player;
@@ -98,6 +102,11 @@ public class WorldManager implements IDeathCallback{
 			spawnNPC(gdxNPC, aiWorld);
 		if(Properties.getBool("world.debug.draw", false))
 			debugRenderer = new Box2DDebugRenderer();
+		for(GDXPolygon polygon : level.getPolygons())
+			if(polygon.getTag() != null && polygon.getTag().contains("strategicPoint")){
+				Vector2[] aabb = PolygonUtils.getAABB(polygon.getVerticesAbsolute().toArray(new Vector2[2]));
+				strategicPoints.add(new StrategicPoint(aabb, this));
+			}
 	}
 
 	public void update(float dt){
@@ -130,6 +139,12 @@ public class WorldManager implements IDeathCallback{
 			npc.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true);
 		for(Being being : remotePlayers)
 			being.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true);
+		if(receiver == null || receiver.type != MultiplayerType.Client)
+			for(Being being : getAllBeings())
+				if(!being.isDead())
+					for(StrategicPoint strategicPoint : strategicPoints)
+						if(strategicPoint.contains(being.getPosition()))
+							strategicPoint.capture(dt, being.getFaction(), Properties.getFloat("strategicpoint.capture.amount", 1f));
 		for(Iterator<Entry<Body, GunShot>> iter = gunshots.entrySet().iterator(); iter.hasNext();){
 			Entry<Body, GunShot> entry = iter.next();
 			if(!entry.getValue().isCanRemove())
@@ -535,5 +550,15 @@ public class WorldManager implements IDeathCallback{
 
 	public LinkedList<Vector2> getSpawnPoints() {
 		return spawnPoints;
+	}
+
+	@Override
+	public void strategicPointCaptured(StrategicPoint point) {
+		Log.log("WorldManager.strategicPointCaptured", "Point captured: " + point);
+	}
+
+	@Override
+	public void strategicPointLost(StrategicPoint point) {
+		Log.log("WorldManager.strategicPointLost", "Point lost: " + point);
 	}
 }

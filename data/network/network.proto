@@ -40,13 +40,15 @@ message NetBeing {
   ClassEnum player_class = 15;
 
   enum FactionEnum {
-    UNDEFINED = 0;
-  	FRIEND = 1;
-  	ENEMY = 2;
+  	BRITON = 1;
+  	SPANISH = 2;
+  	MAYAN = 3;
+  	PIRATE = 4;
+  	GATOR = 5;
+  	UNDEAD = 6;
   }
 
   enum ClassEnum {
-    Undefined = 0;
   	Soldier = 1;
   	Medic = 2;
   	Brawler = 3;
