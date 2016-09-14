@@ -7,7 +7,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
@@ -41,6 +40,8 @@ class NewCharacterWindow extends FreebootWindow{
 		nameField.setMaxLength(12);
 		final List<ClassEnum> classList = new List<>(skin);
 		classList.setItems(ClassEnum.values());
+		final List<FactionEnum> factionList = new List<>(skin);
+		factionList.setItems(FactionEnum.values());
 		final Button createButton = new FreebootTextButton("Create", skin, new ClickListener() {
 			@Override public void clicked(InputEvent event, float x, float y) {
 				if(nameField.getText().isEmpty())
@@ -49,7 +50,7 @@ class NewCharacterWindow extends FreebootWindow{
 				Player player = new Player(nameField.getText(), 
 						WeaponFactory.getGuns(npcData.get("Weapons")), new ArrayList<Weapon>(), 
 						Stats.parseNPCData(npcData),
-						0,0,1,0, FactionEnum.FRIEND, EnumSet.of(FactionEnum.FRIEND), 
+						0,0,1,0, factionList.getSelected(), EnumSet.of(factionList.getSelected()), 
 						npcData.get("Resource"), classList.getSelected());
 				SaveHelper.save(player);
 				listener.backButtonClicked();
@@ -60,11 +61,17 @@ class NewCharacterWindow extends FreebootWindow{
 				listener.backButtonClicked();
 			}
 		});
-		add(new Label("New Character", skin));
+		add("New Character");
 		row();
 		add(nameField).fillX();
 		row();
+		add("Choose Class");
+		row();
 		add(classList).fillX();
+		row();
+		add("Choose Faction");
+		row();
+		add(factionList).fillX();
 		row();
 		add(createButton).fillX();
 		row();

@@ -2679,46 +2679,44 @@ public final class Messages {
     public enum FactionEnum
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
-       * <code>FRIEND = 0;</code>
+       * <code>BRITON = 0;</code>
        */
-      FRIEND(0),
+      BRITON(0),
       /**
-       * <code>BRITON = 1;</code>
+       * <code>PIRATE = 1;</code>
        */
-      BRITON(1),
+      PIRATE(1),
       /**
        * <pre>
-       *SPANISH = 2;
-       *MAYAN = 3;
-       *PIRATE = 4;
+       *SPANISH = 3;
+       *MAYAN = 4;
        *GATOR = 5;
        * </pre>
        *
-       * <code>UNDEAD = 6;</code>
+       * <code>UNDEAD = 2;</code>
        */
-      UNDEAD(6),
+      UNDEAD(2),
       UNRECOGNIZED(-1),
       ;
 
       /**
-       * <code>FRIEND = 0;</code>
+       * <code>BRITON = 0;</code>
        */
-      public static final int FRIEND_VALUE = 0;
+      public static final int BRITON_VALUE = 0;
       /**
-       * <code>BRITON = 1;</code>
+       * <code>PIRATE = 1;</code>
        */
-      public static final int BRITON_VALUE = 1;
+      public static final int PIRATE_VALUE = 1;
       /**
        * <pre>
-       *SPANISH = 2;
-       *MAYAN = 3;
-       *PIRATE = 4;
+       *SPANISH = 3;
+       *MAYAN = 4;
        *GATOR = 5;
        * </pre>
        *
-       * <code>UNDEAD = 6;</code>
+       * <code>UNDEAD = 2;</code>
        */
-      public static final int UNDEAD_VALUE = 6;
+      public static final int UNDEAD_VALUE = 2;
 
 
       public final int getNumber() {
@@ -2739,9 +2737,9 @@ public final class Messages {
 
       public static FactionEnum forNumber(int value) {
         switch (value) {
-          case 0: return FRIEND;
-          case 1: return BRITON;
-          case 6: return UNDEAD;
+          case 0: return BRITON;
+          case 1: return PIRATE;
+          case 2: return UNDEAD;
           default: return null;
         }
       }
@@ -3230,7 +3228,7 @@ public final class Messages {
       if (!getRagdollResourceBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 12, ragdollResource_);
       }
-      if (faction_ != com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum.FRIEND.getNumber()) {
+      if (faction_ != com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum.BRITON.getNumber()) {
         output.writeEnum(13, faction_);
       }
       if (aim_ != 0F) {
@@ -3291,7 +3289,7 @@ public final class Messages {
       if (!getRagdollResourceBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, ragdollResource_);
       }
-      if (faction_ != com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum.FRIEND.getNumber()) {
+      if (faction_ != com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum.BRITON.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(13, faction_);
       }
@@ -12011,7 +12009,7 @@ public final class Messages {
       ",\n\007faction\030\r \001(\0162\033.proto.NetBeing.Factio" +
       "nEnum\022\013\n\003aim\030\016 \001(\002\022/\n\014player_class\030\017 \001(\016" +
       "2\031.proto.NetBeing.ClassEnum\"1\n\013FactionEn" +
-      "um\022\n\n\006FRIEND\020\000\022\n\n\006BRITON\020\001\022\n\n\006UNDEAD\020\006\"F" +
+      "um\022\n\n\006BRITON\020\000\022\n\n\006PIRATE\020\001\022\n\n\006UNDEAD\020\002\"F" +
       "\n\tClassEnum\022\013\n\007Brawler\020\000\022\013\n\007Soldier\020\001\022\t\n" +
       "\005Medic\020\002\022\010\n\004Demo\020\003\022\n\n\006Sniper\020\004\"\027\n\tNetWea" +
       "pon\022\n\n\002id\030\001 \001(\t\"O\n\006Attack\022\014\n\004name\030\001 \001(\t\022" +

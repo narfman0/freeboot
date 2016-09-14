@@ -7,9 +7,9 @@ import com.blastedstudios.freeboot.world.QuestManifestationExecutor;
 
 public class FactionChangeManifestation extends AbstractQuestManifestation {
 	private static final long serialVersionUID = 1L;
-	public static final FactionChangeManifestation DEFAULT = new FactionChangeManifestation("", FactionEnum.FRIEND);
+	public static final FactionChangeManifestation DEFAULT = new FactionChangeManifestation("", FactionEnum.values()[0]);
 	private String being = "";
-	private FactionEnum faction = FactionEnum.FRIEND;
+	private FactionEnum faction = FactionEnum.values()[0];
 	
 	public FactionChangeManifestation(){}
 	public FactionChangeManifestation(String being, FactionEnum faction){

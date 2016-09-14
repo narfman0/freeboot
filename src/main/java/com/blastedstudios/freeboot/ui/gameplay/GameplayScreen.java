@@ -2,7 +2,6 @@ package com.blastedstudios.freeboot.ui.gameplay;
 
 import java.awt.Dimension;
 import java.util.LinkedList;
-import java.util.List;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
@@ -16,30 +15,8 @@ import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.scenes.scene2d.Event;
 import com.badlogic.gdx.scenes.scene2d.EventListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.blastedstudios.gdxworld.GDXWorldEditor;
-import com.blastedstudios.gdxworld.plugin.quest.manifestation.beingspawn.BeingSpawnManifestation;
-import com.blastedstudios.gdxworld.plugin.quest.manifestation.dialog.DialogManifestation;
-import com.blastedstudios.gdxworld.ui.GDXRenderer;
-import com.blastedstudios.gdxworld.ui.drawable.Drawable;
-import com.blastedstudios.gdxworld.ui.drawable.DrawableSorter;
-import com.blastedstudios.gdxworld.ui.drawable.ShapeDrawable;
-import com.blastedstudios.gdxworld.ui.drawable.TiledMeshRendererDrawable;
-import com.blastedstudios.gdxworld.ui.leveleditor.LevelEditorScreen;
-import com.blastedstudios.gdxworld.util.GDXGame;
-import com.blastedstudios.gdxworld.util.GDXGameFade;
-import com.blastedstudios.gdxworld.util.GDXGameFade.IPopListener;
-import com.blastedstudios.gdxworld.util.Log;
-import com.blastedstudios.gdxworld.util.PluginUtil;
-import com.blastedstudios.gdxworld.util.Properties;
-import com.blastedstudios.gdxworld.util.TiledMeshRenderer;
-import com.blastedstudios.gdxworld.world.GDXLevel;
-import com.blastedstudios.gdxworld.world.GDXParticle;
-import com.blastedstudios.gdxworld.world.GDXWorld;
-import com.blastedstudios.gdxworld.world.quest.GDXQuest;
-import com.blastedstudios.gdxworld.world.quest.QuestStatus;
-import com.blastedstudios.gdxworld.world.quest.QuestStatus.CompletionEnum;
-import com.blastedstudios.freeboot.input.ActionEnum;
 import com.blastedstudios.entente.BaseNetwork;
+import com.blastedstudios.freeboot.input.ActionEnum;
 import com.blastedstudios.freeboot.network.Messages.Logout;
 import com.blastedstudios.freeboot.network.Messages.Reload;
 import com.blastedstudios.freeboot.plugin.level.ILevelCompletedListener;
@@ -63,6 +40,26 @@ import com.blastedstudios.freeboot.world.activity.ReviveActivity;
 import com.blastedstudios.freeboot.world.being.Being;
 import com.blastedstudios.freeboot.world.being.Player;
 import com.blastedstudios.freeboot.world.being.component.IComponent;
+import com.blastedstudios.gdxworld.GDXWorldEditor;
+import com.blastedstudios.gdxworld.plugin.quest.manifestation.dialog.DialogManifestation;
+import com.blastedstudios.gdxworld.ui.GDXRenderer;
+import com.blastedstudios.gdxworld.ui.drawable.Drawable;
+import com.blastedstudios.gdxworld.ui.drawable.DrawableSorter;
+import com.blastedstudios.gdxworld.ui.drawable.ShapeDrawable;
+import com.blastedstudios.gdxworld.ui.drawable.TiledMeshRendererDrawable;
+import com.blastedstudios.gdxworld.ui.leveleditor.LevelEditorScreen;
+import com.blastedstudios.gdxworld.util.GDXGame;
+import com.blastedstudios.gdxworld.util.GDXGameFade;
+import com.blastedstudios.gdxworld.util.GDXGameFade.IPopListener;
+import com.blastedstudios.gdxworld.util.Log;
+import com.blastedstudios.gdxworld.util.PluginUtil;
+import com.blastedstudios.gdxworld.util.Properties;
+import com.blastedstudios.gdxworld.util.TiledMeshRenderer;
+import com.blastedstudios.gdxworld.world.GDXLevel;
+import com.blastedstudios.gdxworld.world.GDXParticle;
+import com.blastedstudios.gdxworld.world.GDXWorld;
+import com.blastedstudios.gdxworld.world.quest.GDXQuest;
+import com.blastedstudios.gdxworld.world.quest.QuestStatus.CompletionEnum;
 
 import box2dLight.RayHandler;
 
@@ -114,12 +111,10 @@ public class GameplayScreen extends FreebootScreen {
 				new QuestManifestationExecutor(this, worldManager));
 		player.getQuestManager().setCurrentLevel(level);
 		player.getQuestManager().tick(0f);//to get "start" quest to set respawn location
-		if(worldManager.getRespawnLocation() == null && Properties.getBool("player.spawn.onnewlevel.loadsavedspawn", false)){
-			List<QuestStatus> statuses = player.getQuestManager().getQuestStatuses(level);
-			worldManager.setRespawnLocation(getSavedSpawn(statuses));
-		}
-		if(worldManager.getRespawnLocation() != null && !player.isSpawned())
+		if(!player.isSpawned()){
+			worldManager.setRespawnLocation(worldManager.getDirector().createSpawnPoint(worldManager.getPlayer().getFaction()));
 			worldManager.respawnPlayer();
+		}
 		camera = new OrthographicCamera(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 		camera.zoom = Properties.getFloat("gameplay.camera.zoom", .02f);
 		renderer = new Box2DDebugRenderer();
@@ -412,23 +407,6 @@ public class GameplayScreen extends FreebootScreen {
 		return particleManager;
 	}
 
-	/**
-	 * Find starting location from last completed myself. Since completion list is
-	 * ordered by completion of quest, it will be first "being spawn" quest.
-	 * @return coordinates the player should spawn, given saves
-	 */
-	private Vector2 getSavedSpawn(List<QuestStatus> statuses){
-		for(QuestStatus status : statuses)
-			for(GDXQuest quest : level.getQuests())
-				if(quest.getName().equals(status.questName) && status.getCompleted() == CompletionEnum.COMPLETED &&
-						quest.getManifestation() instanceof BeingSpawnManifestation){
-					BeingSpawnManifestation manifestation = ((BeingSpawnManifestation)quest.getManifestation());
-					if(manifestation.getNpc().getName().equals("player"))
-						return manifestation.getNpc().getCoordinates();
-				}
-		return null;
-	}
-	
 	public Camera getCamera(){
 		return camera;
 	}

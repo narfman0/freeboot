@@ -698,11 +698,11 @@ public class Being implements Serializable{
 	}
 	
 	public short getMask(){
-		return faction == FactionEnum.FRIEND ? PhysicsEnvironment.MASK_FRIEND : PhysicsEnvironment.MASK_ENEMY;
+		return PhysicsEnvironment.factionToMask(faction);
 	}
 	
 	public short getCat(){
-		return faction == FactionEnum.FRIEND ? PhysicsEnvironment.CAT_FRIEND : PhysicsEnvironment.CAT_ENEMY;
+		return PhysicsEnvironment.factionToCat(faction);
 	}
 	
 	public void stopMovement(){

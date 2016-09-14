@@ -81,12 +81,12 @@ public class Director implements CaptureListener {
 	/**
 	 * @return coordinates of a @param faction-owned prospective spawn point
 	 */
-	private Vector2 createSpawnPoint(FactionEnum faction){
+	public Vector2 createSpawnPoint(FactionEnum faction){
 		List<StrategicPoint> points = getFactionStrategicPoints(faction);
 		if(points.isEmpty())
 			return null;
 		StrategicPoint startingPoint = points.get(worldManager.getRandom().nextInt(points.size()));
-		return startingPoint.getBase().add(worldManager.getRandom().nextFloat()*10f-5f, worldManager.getRandom().nextFloat()*10f-5f);
+		return startingPoint.getBase().add(worldManager.getRandom().nextFloat()*10f-5f, worldManager.getRandom().nextFloat()*5f);
 	}
 	
 	/**

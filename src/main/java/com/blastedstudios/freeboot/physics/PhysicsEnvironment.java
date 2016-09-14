@@ -8,6 +8,7 @@ import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.RevoluteJointDef;
 import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 import com.blastedstudios.gdxworld.util.Properties;
+import com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum;
 import com.blastedstudios.freeboot.world.weapon.shot.GunShot;
 
 public class PhysicsEnvironment {
@@ -15,11 +16,7 @@ public class PhysicsEnvironment {
 		CAT_SCENERY		= 0x1,
 		CAT_NOTHING		= 0x2,
 		CAT_PROJECTILE	= 0x4,
-		CAT_FRIEND		= 0x8,
-		CAT_ENEMY		= 0x10,
-		CAT_DEAD		= 0x20,
-		MASK_FRIEND		= (short)-1 & ~CAT_FRIEND,
-		MASK_ENEMY		= (short)-1 & ~CAT_ENEMY,
+		CAT_DEAD		= 0x8,
 		MASK_PROJECTILE	= (short)-1 & ~CAT_PROJECTILE,
 		MASK_DEAD		= CAT_SCENERY | CAT_DEAD,
 		MASK_NOTHING	= CAT_SCENERY,
@@ -57,5 +54,13 @@ public class PhysicsEnvironment {
 		WeldJointDef joint = new WeldJointDef();
 		joint.initialize(bodyA, bodyB, anchor);
 		return world.createJoint(joint);
+	}
+	
+	public static short factionToCat(FactionEnum faction){
+		return (short)(2 << (CAT_DEAD + 1 + faction.getNumber()));
+	}
+	
+	public static short factionToMask(FactionEnum faction){
+		return (short)(-1 & ~factionToCat(faction));
 	}
 }

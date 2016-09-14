@@ -541,4 +541,8 @@ public class WorldManager implements IDeathCallback{
 	public LinkedList<Vector2> getSpawnPoints() {
 		return spawnPoints;
 	}
+	
+	public Director getDirector(){
+		return director;
+	}
 }
