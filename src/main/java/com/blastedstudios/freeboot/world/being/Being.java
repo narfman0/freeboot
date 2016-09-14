@@ -66,7 +66,7 @@ public class Being implements Serializable{
 	protected long xp;
 	protected FactionEnum faction;
 	protected EnumSet<FactionEnum> friendlyFactions;
-	protected transient float lastGunHeadingRadians, timeUntilReload;
+	protected transient float lastGunHeadingRadians, timeUntilReload, timeUntilRespawn = 0f;
 	protected transient int ticksToActivateWeapon = -1;
 	protected transient DamageStruct lastDamage;
 	protected transient Random random;
@@ -123,8 +123,10 @@ public class Being implements Serializable{
 				activity = null;
 		if(!dead && hp <= 0 && deathCallback != null)
 			deathCallback.dead(this);
-		if(dead)
+		if(dead){
+			timeUntilRespawn = Math.max(timeUntilRespawn - dt, 0f);
 			return;
+		}
 		setHp(hp + getHpRegen() * dt);
 
 		// cap max velocity on x		
@@ -290,6 +292,7 @@ public class Being implements Serializable{
 			getEquippedWeapon().death(worldManager.getWorld());
 		for(IComponent component : getListeners())
 			component.death(worldManager);
+		timeUntilRespawn = Properties.getFloat("respawn.interval", 3f);
 	}
 	
 	public static long calculateXPWorth(Being mob, int charLevel){
@@ -311,6 +314,7 @@ public class Being implements Serializable{
 		random = new Random();
 		dead = false;
 		hp = getMaxHp();
+		timeUntilRespawn = 0f;
 		dispose(world);
 
 		FileHandle atlasHandle = FileUtil.find(Gdx.files.internal("data/textures/characters"), resource);
@@ -799,5 +803,9 @@ public class Being implements Serializable{
 
 	public void applyActivity(BaseActivity activity) {
 		this.activity = activity;
+	}
+	
+	public boolean canRespawn(){
+		return timeUntilRespawn <= 0;
 	}
 }

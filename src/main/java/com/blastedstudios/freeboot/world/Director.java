@@ -38,6 +38,22 @@ public class Director implements CaptureListener {
 		for(int i=0; i<FactionEnum.values().length-1 && i<strategicPoints.size(); i++)
 			for(int j=0; j<rounds; j++)
 				createNPC(FactionEnum.values()[i]);
+	}	
+
+	public void update(float dt){
+		for(Being being : worldManager.getAllBeings())
+			if(!being.isDead()){
+				for(StrategicPoint strategicPoint : strategicPoints)
+					if(strategicPoint.contains(being.getPosition()))
+						strategicPoint.capture(dt, being.getFaction(), Properties.getFloat("strategicpoint.capture.amount", 1f));
+			}else{
+				if(being.canRespawn()){
+					Vector2 coordinates = createSpawnPoint(being.getFaction());
+					if(coordinates == null)
+						coordinates = being.getPosition();
+					being.respawn(worldManager.getWorld(), coordinates.x, coordinates.y);
+				}
+			}
 	}
 	
 	/**
@@ -57,27 +73,31 @@ public class Director implements CaptureListener {
 			return null;
 		}
 		npc.getProperties().put("NPCData", npcDataName);
-		List<StrategicPoint> points = getFactionStrategicPoints(faction);
-		StrategicPoint startingPoint = points.get(worldManager.getRandom().nextInt(points.size()));
-		npc.setCoordinates(startingPoint.getBase().add(worldManager.getRandom().nextFloat()*10f-5f, worldManager.getRandom().nextFloat()*10f-5f));
+		npc.setCoordinates(createSpawnPoint(faction));
 		npc.setName("NPC" + lastCreatedIndex++);
 		return worldManager.spawnNPC(npc);
 	}
 	
+	/**
+	 * @return coordinates of a @param faction-owned prospective spawn point
+	 */
+	private Vector2 createSpawnPoint(FactionEnum faction){
+		List<StrategicPoint> points = getFactionStrategicPoints(faction);
+		if(points.isEmpty())
+			return null;
+		StrategicPoint startingPoint = points.get(worldManager.getRandom().nextInt(points.size()));
+		return startingPoint.getBase().add(worldManager.getRandom().nextFloat()*10f-5f, worldManager.getRandom().nextFloat()*10f-5f);
+	}
+	
+	/**
+	 * @return list of spawn points owned by @param faction
+	 */
 	private List<StrategicPoint> getFactionStrategicPoints(FactionEnum faction){
 		LinkedList<StrategicPoint> points = new LinkedList<>();
 		for(StrategicPoint point : strategicPoints)
 			if(point.isCaptured(faction))
 				points.add(point);
 		return points;
-	}
-	
-	public void update(float dt){
-		for(Being being : worldManager.getAllBeings())
-			if(!being.isDead())
-				for(StrategicPoint strategicPoint : strategicPoints)
-					if(strategicPoint.contains(being.getPosition()))
-						strategicPoint.capture(dt, being.getFaction(), Properties.getFloat("strategicpoint.capture.amount", 1f));
 	}
 
 	@Override
