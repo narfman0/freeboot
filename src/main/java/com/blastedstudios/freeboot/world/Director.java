@@ -1,11 +1,13 @@
 package com.blastedstudios.freeboot.world;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import com.badlogic.gdx.math.Vector2;
 import com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum;
 import com.blastedstudios.freeboot.world.StrategicPoint.CaptureListener;
 import com.blastedstudios.freeboot.world.being.Being;
+import com.blastedstudios.freeboot.world.being.NPC;
 import com.blastedstudios.gdxworld.math.PolygonUtils;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.Properties;
@@ -16,6 +18,7 @@ import com.blastedstudios.gdxworld.world.shape.GDXPolygon;
 public class Director implements CaptureListener {
 	private final LinkedList<StrategicPoint> strategicPoints = new LinkedList<>();
 	private final WorldManager worldManager;
+	private int lastCreatedIndex = 0;
 	
 	public Director(GDXLevel level, WorldManager worldManager){
 		this.worldManager = worldManager;
@@ -32,14 +35,41 @@ public class Director implements CaptureListener {
 			}
 		
 		int rounds = Properties.getInt("ai.npcs.generated.count", 32) / FactionEnum.values().length;
-		for(int i=0; i<FactionEnum.values().length && i<strategicPoints.size(); i++)
-			for(int j=0; j<rounds; j++){
-				GDXNPC npc = new GDXNPC();
-				npc.getProperties().put("NPCData", "skelly");
-				npc.setCoordinates(strategicPoints.get(i).getBase());
-				npc.setName("NPC" + (i*rounds + j));
-				worldManager.spawnNPC(npc);
-			}
+		for(int i=0; i<FactionEnum.values().length-1 && i<strategicPoints.size(); i++)
+			for(int j=0; j<rounds; j++)
+				createNPC(FactionEnum.values()[i]);
+	}
+	
+	/**
+	 * @return created NPC or null if failed
+	 */
+	private NPC createNPC(FactionEnum faction){
+		GDXNPC npc = new GDXNPC();
+		String npcDataName = null;
+		switch(faction){
+		case BRITON:
+			npcDataName = "briton";
+			break;
+		case UNDEAD:
+			npcDataName = "skelly";
+			break;
+		default:
+			return null;
+		}
+		npc.getProperties().put("NPCData", npcDataName);
+		List<StrategicPoint> points = getFactionStrategicPoints(faction);
+		StrategicPoint startingPoint = points.get(worldManager.getRandom().nextInt(points.size()));
+		npc.setCoordinates(startingPoint.getBase().add(worldManager.getRandom().nextFloat()*10f-5f, worldManager.getRandom().nextFloat()*10f-5f));
+		npc.setName("NPC" + lastCreatedIndex++);
+		return worldManager.spawnNPC(npc);
+	}
+	
+	private List<StrategicPoint> getFactionStrategicPoints(FactionEnum faction){
+		LinkedList<StrategicPoint> points = new LinkedList<>();
+		for(StrategicPoint point : strategicPoints)
+			if(point.isCaptured(faction))
+				points.add(point);
+		return points;
 	}
 	
 	public void update(float dt){

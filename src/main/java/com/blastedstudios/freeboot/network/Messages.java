@@ -2687,22 +2687,13 @@ public final class Messages {
        */
       BRITON(1),
       /**
-       * <code>SPANISH = 2;</code>
-       */
-      SPANISH(2),
-      /**
-       * <code>MAYAN = 3;</code>
-       */
-      MAYAN(3),
-      /**
-       * <code>PIRATE = 4;</code>
-       */
-      PIRATE(4),
-      /**
-       * <code>GATOR = 5;</code>
-       */
-      GATOR(5),
-      /**
+       * <pre>
+       *SPANISH = 2;
+       *MAYAN = 3;
+       *PIRATE = 4;
+       *GATOR = 5;
+       * </pre>
+       *
        * <code>UNDEAD = 6;</code>
        */
       UNDEAD(6),
@@ -2718,22 +2709,13 @@ public final class Messages {
        */
       public static final int BRITON_VALUE = 1;
       /**
-       * <code>SPANISH = 2;</code>
-       */
-      public static final int SPANISH_VALUE = 2;
-      /**
-       * <code>MAYAN = 3;</code>
-       */
-      public static final int MAYAN_VALUE = 3;
-      /**
-       * <code>PIRATE = 4;</code>
-       */
-      public static final int PIRATE_VALUE = 4;
-      /**
-       * <code>GATOR = 5;</code>
-       */
-      public static final int GATOR_VALUE = 5;
-      /**
+       * <pre>
+       *SPANISH = 2;
+       *MAYAN = 3;
+       *PIRATE = 4;
+       *GATOR = 5;
+       * </pre>
+       *
        * <code>UNDEAD = 6;</code>
        */
       public static final int UNDEAD_VALUE = 6;
@@ -2759,10 +2741,6 @@ public final class Messages {
         switch (value) {
           case 0: return FRIEND;
           case 1: return BRITON;
-          case 2: return SPANISH;
-          case 3: return MAYAN;
-          case 4: return PIRATE;
-          case 5: return GATOR;
           case 6: return UNDEAD;
           default: return null;
         }
@@ -12023,7 +12001,7 @@ public final class Messages {
       "size_bytes\030\002 \001(\005\"\022\n\020WorldFileRequest\".\n\021" +
       "WorldFileResponse\022\013\n\003md5\030\001 \001(\t\022\014\n\004file\030\002" +
       " \001(\014\"E\n\004UUID\022\036\n\026least_significant_bits\030\001" +
-      " \001(\022\022\035\n\025most_significant_bits\030\002 \001(\022\"\207\004\n\010" +
+      " \001(\022\022\035\n\025most_significant_bits\030\002 \001(\022\"\330\003\n\010" +
       "NetBeing\022\031\n\004uuid\030\001 \001(\0132\013.proto.UUID\022\014\n\004n" +
       "ame\030\002 \001(\t\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\022" +
       "\r\n\005vel_x\030\005 \001(\002\022\r\n\005vel_y\030\006 \001(\002\022\016\n\006max_hp\030" +
@@ -12032,26 +12010,25 @@ public final class Messages {
       "esource\030\013 \001(\t\022\030\n\020ragdoll_resource\030\014 \001(\t\022" +
       ",\n\007faction\030\r \001(\0162\033.proto.NetBeing.Factio" +
       "nEnum\022\013\n\003aim\030\016 \001(\002\022/\n\014player_class\030\017 \001(\016" +
-      "2\031.proto.NetBeing.ClassEnum\"`\n\013FactionEn" +
-      "um\022\n\n\006FRIEND\020\000\022\n\n\006BRITON\020\001\022\013\n\007SPANISH\020\002\022" +
-      "\t\n\005MAYAN\020\003\022\n\n\006PIRATE\020\004\022\t\n\005GATOR\020\005\022\n\n\006UND" +
-      "EAD\020\006\"F\n\tClassEnum\022\013\n\007Brawler\020\000\022\013\n\007Soldi" +
-      "er\020\001\022\t\n\005Medic\020\002\022\010\n\004Demo\020\003\022\n\n\006Sniper\020\004\"\027\n" +
-      "\tNetWeapon\022\n\n\002id\030\001 \001(\t\"O\n\006Attack\022\014\n\004name",
-      "\030\001 \001(\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\022\r\n\005pos" +
-      "_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\"/\n\004Dead\022\014\n\004name\030" +
-      "\001 \001(\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\"1\n\006Logo" +
-      "ut\022\014\n\004name\030\001 \001(\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.U" +
-      "UID\")\n\010NPCState\022\035\n\004npcs\030\001 \003(\0132\017.proto.Ne" +
-      "tBeing\"\032\n\nNameUpdate\022\014\n\004name\030\001 \001(\t\"/\n\013Pl" +
-      "ayerState\022 \n\007players\030\001 \003(\0132\017.proto.NetBe" +
-      "ing\"#\n\006Reload\022\031\n\004uuid\030\001 \001(\0132\013.proto.UUID" +
-      "\"P\n\007Respawn\022\031\n\004uuid\030\001 \001(\0132\013.proto.UUID\022\014" +
-      "\n\004name\030\002 \001(\t\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001",
-      "(\002\"\'\n\004Text\022\017\n\007content\030\001 \001(\t\022\016\n\006origin\030\002 " +
-      "\001(\t\"\036\n\013TextRequest\022\017\n\007content\030\001 \001(\tB/\n#c" +
-      "om.blastedstudios.freeboot.networkB\010Mess" +
-      "agesb\006proto3"
+      "2\031.proto.NetBeing.ClassEnum\"1\n\013FactionEn" +
+      "um\022\n\n\006FRIEND\020\000\022\n\n\006BRITON\020\001\022\n\n\006UNDEAD\020\006\"F" +
+      "\n\tClassEnum\022\013\n\007Brawler\020\000\022\013\n\007Soldier\020\001\022\t\n" +
+      "\005Medic\020\002\022\010\n\004Demo\020\003\022\n\n\006Sniper\020\004\"\027\n\tNetWea" +
+      "pon\022\n\n\002id\030\001 \001(\t\"O\n\006Attack\022\014\n\004name\030\001 \001(\t\022" +
+      "\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\022\r\n\005pos_x\030\003 \001(",
+      "\002\022\r\n\005pos_y\030\004 \001(\002\"/\n\004Dead\022\014\n\004name\030\001 \001(\t\022\031" +
+      "\n\004uuid\030\002 \001(\0132\013.proto.UUID\"1\n\006Logout\022\014\n\004n" +
+      "ame\030\001 \001(\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\")\n\010" +
+      "NPCState\022\035\n\004npcs\030\001 \003(\0132\017.proto.NetBeing\"" +
+      "\032\n\nNameUpdate\022\014\n\004name\030\001 \001(\t\"/\n\013PlayerSta" +
+      "te\022 \n\007players\030\001 \003(\0132\017.proto.NetBeing\"#\n\006" +
+      "Reload\022\031\n\004uuid\030\001 \001(\0132\013.proto.UUID\"P\n\007Res" +
+      "pawn\022\031\n\004uuid\030\001 \001(\0132\013.proto.UUID\022\014\n\004name\030" +
+      "\002 \001(\t\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\"\'\n\004T" +
+      "ext\022\017\n\007content\030\001 \001(\t\022\016\n\006origin\030\002 \001(\t\"\036\n\013",
+      "TextRequest\022\017\n\007content\030\001 \001(\tB/\n#com.blas" +
+      "tedstudios.freeboot.networkB\010Messagesb\006p" +
+      "roto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

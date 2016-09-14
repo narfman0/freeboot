@@ -1,0 +1,46 @@
+briton.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+head
+  rotate: false
+  xy: 0, 0
+  size: 232, 208
+  orig: 232, 208
+  offset: 0, 0
+  index: -1
+torso
+  rotate: false
+  xy: 0, 200
+  size: 232, 311
+  orig: 232, 311
+  offset: 0, 0
+  index: -1
+rarm
+  rotate: false
+  xy: 279, 16
+  size: 200, 156
+  orig: 200, 156
+  offset: 0, 0
+  index: -1
+larm
+  rotate: false
+  xy: 279, 174
+  size: 219, 81
+  orig: 219, 81
+  offset: 0, 0
+  index: -1
+lleg
+  rotate: false
+  xy: 311, 295
+  size: 154, 176
+  orig: 154, 176
+  offset: 0, 0
+  index: -1
+rleg
+  rotate: false
+  xy: 311, 295
+  size: 154, 176
+  orig: 154, 176
+  offset: 0, 0
+  index: -1

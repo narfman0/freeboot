@@ -42,10 +42,10 @@ message NetBeing {
   enum FactionEnum {
   	FRIEND = 0;
   	BRITON = 1;
-  	SPANISH = 2;
-  	MAYAN = 3;
-  	PIRATE = 4;
-  	GATOR = 5;
+  	//SPANISH = 2;
+  	//MAYAN = 3;
+  	//PIRATE = 4;
+  	//GATOR = 5;
   	UNDEAD = 6;
   }
 
