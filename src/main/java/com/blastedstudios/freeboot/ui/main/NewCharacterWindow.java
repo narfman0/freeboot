@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.List;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Array;
 import com.blastedstudios.freeboot.network.Messages.NetBeing.ClassEnum;
 import com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum;
 import com.blastedstudios.freeboot.util.SaveHelper;
@@ -39,9 +40,13 @@ class NewCharacterWindow extends FreebootWindow{
 		nameField.setMessageText("<name>");
 		nameField.setMaxLength(12);
 		final List<ClassEnum> classList = new List<>(skin);
-		classList.setItems(ClassEnum.values());
+		Array<ClassEnum> selectableClasses = new Array<>(ClassEnum.values());
+		selectableClasses.removeValue(ClassEnum.UNRECOGNIZED, true);
+		classList.setItems(selectableClasses);
 		final List<FactionEnum> factionList = new List<>(skin);
-		factionList.setItems(FactionEnum.values());
+		Array<FactionEnum> selectableFactions = new Array<>();
+		selectableFactions.addAll(FactionEnum.Briton, FactionEnum.Spanish, FactionEnum.Pirate);
+		factionList.setItems(selectableFactions);
 		final Button createButton = new FreebootTextButton("Create", skin, new ClickListener() {
 			@Override public void clicked(InputEvent event, float x, float y) {
 				if(nameField.getText().isEmpty())
@@ -51,7 +56,7 @@ class NewCharacterWindow extends FreebootWindow{
 						WeaponFactory.getGuns(npcData.get("Weapons")), new ArrayList<Weapon>(), 
 						Stats.parseNPCData(npcData),
 						0,0,1,0, factionList.getSelected(), EnumSet.of(factionList.getSelected()), 
-						npcData.get("Resource"), classList.getSelected());
+						factionList.getSelected().name().toLowerCase(), classList.getSelected());
 				SaveHelper.save(player);
 				listener.backButtonClicked();
 			}

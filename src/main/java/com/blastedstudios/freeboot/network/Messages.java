@@ -2679,44 +2679,50 @@ public final class Messages {
     public enum FactionEnum
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
-       * <code>BRITON = 0;</code>
+       * <code>Briton = 0;</code>
        */
-      BRITON(0),
+      Briton(0),
       /**
-       * <code>PIRATE = 1;</code>
+       * <code>Pirate = 1;</code>
        */
-      PIRATE(1),
+      Pirate(1),
+      /**
+       * <code>Undead = 2;</code>
+       */
+      Undead(2),
       /**
        * <pre>
-       *SPANISH = 3;
-       *MAYAN = 4;
-       *GATOR = 5;
+       *Mayan = 4;
+       *Gator = 5;
        * </pre>
        *
-       * <code>UNDEAD = 2;</code>
+       * <code>Spanish = 3;</code>
        */
-      UNDEAD(2),
+      Spanish(3),
       UNRECOGNIZED(-1),
       ;
 
       /**
-       * <code>BRITON = 0;</code>
+       * <code>Briton = 0;</code>
        */
-      public static final int BRITON_VALUE = 0;
+      public static final int Briton_VALUE = 0;
       /**
-       * <code>PIRATE = 1;</code>
+       * <code>Pirate = 1;</code>
        */
-      public static final int PIRATE_VALUE = 1;
+      public static final int Pirate_VALUE = 1;
+      /**
+       * <code>Undead = 2;</code>
+       */
+      public static final int Undead_VALUE = 2;
       /**
        * <pre>
-       *SPANISH = 3;
-       *MAYAN = 4;
-       *GATOR = 5;
+       *Mayan = 4;
+       *Gator = 5;
        * </pre>
        *
-       * <code>UNDEAD = 2;</code>
+       * <code>Spanish = 3;</code>
        */
-      public static final int UNDEAD_VALUE = 2;
+      public static final int Spanish_VALUE = 3;
 
 
       public final int getNumber() {
@@ -2737,9 +2743,10 @@ public final class Messages {
 
       public static FactionEnum forNumber(int value) {
         switch (value) {
-          case 0: return BRITON;
-          case 1: return PIRATE;
-          case 2: return UNDEAD;
+          case 0: return Briton;
+          case 1: return Pirate;
+          case 2: return Undead;
+          case 3: return Spanish;
           default: return null;
         }
       }
@@ -3228,7 +3235,7 @@ public final class Messages {
       if (!getRagdollResourceBytes().isEmpty()) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 12, ragdollResource_);
       }
-      if (faction_ != com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum.BRITON.getNumber()) {
+      if (faction_ != com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum.Briton.getNumber()) {
         output.writeEnum(13, faction_);
       }
       if (aim_ != 0F) {
@@ -3289,7 +3296,7 @@ public final class Messages {
       if (!getRagdollResourceBytes().isEmpty()) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, ragdollResource_);
       }
-      if (faction_ != com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum.BRITON.getNumber()) {
+      if (faction_ != com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum.Briton.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(13, faction_);
       }
@@ -11999,7 +12006,7 @@ public final class Messages {
       "size_bytes\030\002 \001(\005\"\022\n\020WorldFileRequest\".\n\021" +
       "WorldFileResponse\022\013\n\003md5\030\001 \001(\t\022\014\n\004file\030\002" +
       " \001(\014\"E\n\004UUID\022\036\n\026least_significant_bits\030\001" +
-      " \001(\022\022\035\n\025most_significant_bits\030\002 \001(\022\"\330\003\n\010" +
+      " \001(\022\022\035\n\025most_significant_bits\030\002 \001(\022\"\345\003\n\010" +
       "NetBeing\022\031\n\004uuid\030\001 \001(\0132\013.proto.UUID\022\014\n\004n" +
       "ame\030\002 \001(\t\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\022" +
       "\r\n\005vel_x\030\005 \001(\002\022\r\n\005vel_y\030\006 \001(\002\022\016\n\006max_hp\030" +
@@ -12008,25 +12015,25 @@ public final class Messages {
       "esource\030\013 \001(\t\022\030\n\020ragdoll_resource\030\014 \001(\t\022" +
       ",\n\007faction\030\r \001(\0162\033.proto.NetBeing.Factio" +
       "nEnum\022\013\n\003aim\030\016 \001(\002\022/\n\014player_class\030\017 \001(\016" +
-      "2\031.proto.NetBeing.ClassEnum\"1\n\013FactionEn" +
-      "um\022\n\n\006BRITON\020\000\022\n\n\006PIRATE\020\001\022\n\n\006UNDEAD\020\002\"F" +
-      "\n\tClassEnum\022\013\n\007Brawler\020\000\022\013\n\007Soldier\020\001\022\t\n" +
-      "\005Medic\020\002\022\010\n\004Demo\020\003\022\n\n\006Sniper\020\004\"\027\n\tNetWea" +
-      "pon\022\n\n\002id\030\001 \001(\t\"O\n\006Attack\022\014\n\004name\030\001 \001(\t\022" +
-      "\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\022\r\n\005pos_x\030\003 \001(",
-      "\002\022\r\n\005pos_y\030\004 \001(\002\"/\n\004Dead\022\014\n\004name\030\001 \001(\t\022\031" +
-      "\n\004uuid\030\002 \001(\0132\013.proto.UUID\"1\n\006Logout\022\014\n\004n" +
-      "ame\030\001 \001(\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\")\n\010" +
-      "NPCState\022\035\n\004npcs\030\001 \003(\0132\017.proto.NetBeing\"" +
-      "\032\n\nNameUpdate\022\014\n\004name\030\001 \001(\t\"/\n\013PlayerSta" +
-      "te\022 \n\007players\030\001 \003(\0132\017.proto.NetBeing\"#\n\006" +
-      "Reload\022\031\n\004uuid\030\001 \001(\0132\013.proto.UUID\"P\n\007Res" +
-      "pawn\022\031\n\004uuid\030\001 \001(\0132\013.proto.UUID\022\014\n\004name\030" +
-      "\002 \001(\t\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\"\'\n\004T" +
-      "ext\022\017\n\007content\030\001 \001(\t\022\016\n\006origin\030\002 \001(\t\"\036\n\013",
-      "TextRequest\022\017\n\007content\030\001 \001(\tB/\n#com.blas" +
-      "tedstudios.freeboot.networkB\010Messagesb\006p" +
-      "roto3"
+      "2\031.proto.NetBeing.ClassEnum\">\n\013FactionEn" +
+      "um\022\n\n\006Briton\020\000\022\n\n\006Pirate\020\001\022\n\n\006Undead\020\002\022\013" +
+      "\n\007Spanish\020\003\"F\n\tClassEnum\022\013\n\007Brawler\020\000\022\013\n" +
+      "\007Soldier\020\001\022\t\n\005Medic\020\002\022\010\n\004Demo\020\003\022\n\n\006Snipe" +
+      "r\020\004\"\027\n\tNetWeapon\022\n\n\002id\030\001 \001(\t\"O\n\006Attack\022\014" +
+      "\n\004name\030\001 \001(\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\022",
+      "\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\"/\n\004Dead\022\014\n" +
+      "\004name\030\001 \001(\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\"1" +
+      "\n\006Logout\022\014\n\004name\030\001 \001(\t\022\031\n\004uuid\030\002 \001(\0132\013.p" +
+      "roto.UUID\")\n\010NPCState\022\035\n\004npcs\030\001 \003(\0132\017.pr" +
+      "oto.NetBeing\"\032\n\nNameUpdate\022\014\n\004name\030\001 \001(\t" +
+      "\"/\n\013PlayerState\022 \n\007players\030\001 \003(\0132\017.proto" +
+      ".NetBeing\"#\n\006Reload\022\031\n\004uuid\030\001 \001(\0132\013.prot" +
+      "o.UUID\"P\n\007Respawn\022\031\n\004uuid\030\001 \001(\0132\013.proto." +
+      "UUID\022\014\n\004name\030\002 \001(\t\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos" +
+      "_y\030\004 \001(\002\"\'\n\004Text\022\017\n\007content\030\001 \001(\t\022\016\n\006ori",
+      "gin\030\002 \001(\t\"\036\n\013TextRequest\022\017\n\007content\030\001 \001(" +
+      "\tB/\n#com.blastedstudios.freeboot.network" +
+      "B\010Messagesb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {

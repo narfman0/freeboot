@@ -3,6 +3,7 @@ package proto;
 
 option java_package = "com.blastedstudios.freeboot.network";
 option java_outer_classname = "Messages";
+// e.g. protoc --proto_path=%userprofile%\workspace\freeboot\data\network --java_out=%userprofile%\workspace\freeboot\src\main\java %userprofile%\workspace\freeboot\data\network\network.proto
 // @SuppressWarnings({ "unchecked", "unused" })
 
 message WorldHashRequest {}
@@ -40,12 +41,12 @@ message NetBeing {
   ClassEnum player_class = 15;
 
   enum FactionEnum {
-  	BRITON = 0;
-  	PIRATE = 1;
-  	UNDEAD = 2;
-  	//SPANISH = 3;
-  	//MAYAN = 4;
-  	//GATOR = 5;
+  	Briton = 0;
+  	Pirate = 1;
+  	Undead = 2;
+  	Spanish = 3;
+  	//Mayan = 4;
+  	//Gator = 5;
   }
 
   enum ClassEnum {

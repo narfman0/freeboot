@@ -63,10 +63,10 @@ public class Director implements CaptureListener {
 		GDXNPC npc = new GDXNPC();
 		String npcDataName = null;
 		switch(faction){
-		case BRITON:
+		case Briton:
 			npcDataName = "briton";
 			break;
-		case UNDEAD:
+		case Undead:
 			npcDataName = "skelly";
 			break;
 		default:
