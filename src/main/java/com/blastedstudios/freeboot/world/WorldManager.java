@@ -231,7 +231,7 @@ public class WorldManager implements IDeathCallback{
 			npcData.apply(gdxNPC.getProperties());
 			return spawnNPC(gdxNPC.getName(), gdxNPC.getCoordinates(), npcData);
 		}catch(Exception e){
-			Log.error("WorldManager.spawnNPC", "NPC defaults failed for " + gdxNPC + ", giving up");
+			Log.error("WorldManager.spawnNPC", "NPC defaults failed for " + gdxNPC + ", giving up. Message: " + e.getMessage());
 		}
 		return null;
 	}
@@ -240,7 +240,7 @@ public class WorldManager implements IDeathCallback{
 		EnumSet<FactionEnum> factions = EnumSet.noneOf(FactionEnum.class);
 		for(String factionStr : npcData.get("Faction").split(","))
 			if(!factionStr.isEmpty())
-				factions.add(FactionEnum.valueOf(factionStr.toUpperCase()));
+				factions.add(FactionEnum.valueOf(factionStr));
 		FactionEnum faction = factions.isEmpty() ? FactionEnum.values()[0] : factions.iterator().next();
 		int cash = npcData.getInteger("Cash"),
 				npcLevel = npcData.getInteger("Level"), 

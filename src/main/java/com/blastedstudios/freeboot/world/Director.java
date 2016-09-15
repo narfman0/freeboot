@@ -69,6 +69,9 @@ public class Director implements CaptureListener {
 		case Undead:
 			npcDataName = "skelly";
 			break;
+		case Spanish:
+			npcDataName = "spanish";
+			break;
 		default:
 			return null;
 		}
