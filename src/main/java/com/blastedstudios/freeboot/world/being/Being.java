@@ -125,6 +125,9 @@ public class Being implements Serializable{
 			deathCallback.dead(this);
 		if(dead){
 			timeUntilRespawn = Math.max(timeUntilRespawn - dt, 0f);
+			float respawnInterval = Properties.getFloat("respawn.interval");
+			if(timeUntilRespawn <= respawnInterval/2f)
+				ragdoll.setAlpha(Math.min(1f, 2*timeUntilRespawn/respawnInterval));
 			return;
 		}
 		setHp(hp + getHpRegen() * dt);
@@ -292,7 +295,7 @@ public class Being implements Serializable{
 			getEquippedWeapon().death(worldManager.getWorld());
 		for(IComponent component : getListeners())
 			component.death(worldManager);
-		timeUntilRespawn = Properties.getFloat("respawn.interval", 3f);
+		timeUntilRespawn = Properties.getFloat("respawn.interval", 4f);
 	}
 	
 	public static long calculateXPWorth(Being mob, int charLevel){

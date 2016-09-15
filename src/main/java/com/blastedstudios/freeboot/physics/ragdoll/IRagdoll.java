@@ -49,4 +49,5 @@ public interface IRagdoll{
 	 * If facing left, will return the right hand (as it is "behind" and further out)
 	 */
 	Vector2 getHandFacingPosition();
+	void setAlpha(float alpha);
 }

@@ -416,4 +416,9 @@ public abstract class AbstractRagdoll implements IRagdoll {
 	@Override public Vector2 getHandFacingPosition(){
 		return getHandFacing().getWorldCenter();
 	}
+	
+	@Override public void setAlpha(float alpha){
+		for(Sprite sprite : sprites.values())
+			sprite.setAlpha(alpha);
+	}
 }
