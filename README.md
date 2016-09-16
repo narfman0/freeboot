@@ -67,3 +67,10 @@ player is seen at which point it will run at him.
 enemySentry with no path will stay where he is at all times, while enemySentry
 with a path will patrol it if and only if the player hasn't been seen for some
 time (5 seconds default).
+
+License
+-------
+
+Copyright (c) 2016 Jon Robison
+
+See included LICENSE for licensing information

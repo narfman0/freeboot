@@ -2,6 +2,7 @@ apply plugin: "java"
 apply plugin: "eclipse"
 apply plugin: "application"
 apply plugin: 'maven'
+apply plugin: 'signing'
 
 group = 'com.blastedstudios'
 mainClassName = "com.blastedstudios.freeboot.Freeboot"
@@ -11,6 +12,7 @@ defaultTasks 'eclipse', 'build', 'install'
 
 ext {
     appName = "freeboot"
+	url = "https://github.com/narfman0/freeboot"
 }
 
 jar {
@@ -24,9 +26,13 @@ task sourcesJar(type: Jar, dependsOn: classes) {
     from sourceSets.main.allSource
 }
 
+task javadocsJar(type: Jar, dependsOn: javadoc) {
+	classifier = 'javadoc'
+	from javadoc.destinationDir
+}
+
 artifacts {
-    archives jar
-    archives sourcesJar
+	archives jar, sourcesJar, javadocsJar
 }
 
 repositories {
@@ -50,4 +56,74 @@ dependencies {
     compile "com.blastedstudios:entente:1.0.0"
     compile "com.blastedstudios:GDXWorld:1.0"
     testCompile 'junit:junit:4.12'
+}
+
+signing {
+	sign configurations.archives
+}
+
+task createPom {
+	pom {
+		project {
+			name "${appName}";
+			description "${description}";
+			url "${url}";
+			licenses {
+				license {
+					name 'The MIT License (MIT)'
+					url 'https://opensource.org/licenses/MIT'
+				}
+			}
+			developers {
+				developer {
+					name 'Jon Robison'
+					email 'narfman0@gmail.com'
+				}
+			}
+			scm {
+				connection "scm:git:${url}.git"
+				developerConnection "scm:git:${url}.git"
+				url "${url}"
+			}
+		}
+	}.writeTo("$buildDir/poms/pom.xml")
+}
+
+uploadArchives {
+	repositories {
+		mavenDeployer {
+			beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+	
+			repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+				authentication(userName: ossrhUsername, password: ossrhPassword)
+			}
+	
+			snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+				authentication(userName: ossrhUsername, password: ossrhPassword)
+			}
+	
+			pom.project {
+				name "${appName}";
+				description "${description}";
+				url "${url}";
+				licenses {
+					license {
+						name 'The MIT License (MIT)'
+						url 'https://opensource.org/licenses/MIT'
+					}
+				}
+				developers {
+					developer {
+						name 'Jon Robison'
+						email 'narfman0@gmail.com'
+					}
+				}
+				scm {
+					connection "scm:git:${url}.git"
+					developerConnection "scm:git:${url}.git"
+					url "${url}"
+				}
+			}
+		}
+	}
 }
