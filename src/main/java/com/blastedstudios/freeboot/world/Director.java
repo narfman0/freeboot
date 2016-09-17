@@ -51,7 +51,7 @@ public class Director implements CaptureListener {
 					Vector2 coordinates = createSpawnPoint(being.getFaction());
 					if(coordinates == null)
 						coordinates = being.getPosition();
-					being.respawn(worldManager.getWorld(), coordinates.x, coordinates.y);
+					being.respawn(worldManager, coordinates.x, coordinates.y);
 				}
 			}
 	}

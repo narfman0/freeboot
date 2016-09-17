@@ -32,7 +32,7 @@ message NetBeing {
   float vel_y = 6;
   float max_hp = 7;
   float hp = 8;
-  int32 currentWeapon = 9;
+  int32 current_weapon = 9;
   repeated NetWeapon weapons = 10;
   string resource = 11;
   string ragdoll_resource = 12;

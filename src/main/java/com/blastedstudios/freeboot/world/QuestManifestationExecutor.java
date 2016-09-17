@@ -66,7 +66,7 @@ public class QuestManifestationExecutor implements IQuestManifestationExecutor{
 			if(being.getName().matches(beingName) || 
 					"player".matches(beingName) && being == worldManager.getPlayer()){
 				being.setFaction(faction);
-				being.respawn(worldManager.getWorld(), being.getPosition().x, being.getPosition().y);
+				being.respawn(worldManager, being.getPosition().x, being.getPosition().y);
 			}
 		return CompletionEnum.COMPLETED;
 	}

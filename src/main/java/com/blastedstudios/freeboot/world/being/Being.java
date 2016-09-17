@@ -27,6 +27,7 @@ import com.blastedstudios.freeboot.network.Messages.Attack;
 import com.blastedstudios.freeboot.network.Messages.NetBeing;
 import com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum;
 import com.blastedstudios.freeboot.network.Messages.NetWeapon;
+import com.blastedstudios.freeboot.network.Messages.Respawn;
 import com.blastedstudios.freeboot.physics.PhysicsEnvironment;
 import com.blastedstudios.freeboot.physics.VisibleQueryCallback;
 import com.blastedstudios.freeboot.physics.ragdoll.IRagdoll;
@@ -103,7 +104,7 @@ public class Being implements Serializable{
 	
 	public Being(NetBeing message){
 		this(message.getName(), new LinkedList<>(), new LinkedList<>(), new Stats(), 
-				message.getCurrentWeapon(), 0, 0, 0, FactionEnum.valueOf(message.getFaction().name()),
+				message.getCurrentWeapon(), 0, 0, 0, message.getFaction(),
 				EnumSet.noneOf(FactionEnum.class), message.getResource(), message.getRagdollResource());
 		setUuid(UUIDConvert.convert(message.getUuid()));
 		stats.setHp(message.getHp());
@@ -313,12 +314,12 @@ public class Being implements Serializable{
 		return ragdoll != null;
 	}
 
-	public void respawn(World world, float x, float y) {
+	public void respawn(WorldManager world, float x, float y) {
 		random = new Random();
 		dead = false;
 		hp = getMaxHp();
 		timeUntilRespawn = 0f;
-		dispose(world);
+		dispose(world.getWorld());
 
 		FileHandle atlasHandle = FileUtil.find(Gdx.files.internal("data/textures/characters"), resource);
 		if(atlasHandle == null)
@@ -331,7 +332,7 @@ public class Being implements Serializable{
 		}
 		for(IRagdollPlugin plugin : PluginUtil.getPlugins(IRagdollPlugin.class))
 			if(plugin.canCreate(ragdollResource))
-				ragdoll = plugin.create(world, x, y, this, atlas, Gdx.files.internal("data/world/npc/ragdoll/" + ragdollResource));
+				ragdoll = plugin.create(world.getWorld(), x, y, this, atlas, Gdx.files.internal("data/world/npc/ragdoll/" + ragdollResource));
 		
 		for(Weapon weapon : guns){
 			if(!(weapon instanceof Melee)){
@@ -345,7 +346,16 @@ public class Being implements Serializable{
 			ticksToActivateWeapon = 5;
 		Log.log("Being.respawn", name + " initialized at " + x + "," + y);
 		for(IComponent component : getListeners())
-			component.respawn(world, x, y);
+			component.respawn(world.getWorld(), x, y);
+
+		if(world.getReceiver() != null){
+			Respawn.Builder builder = Respawn.newBuilder();
+			builder.setName(name);
+			builder.setPosX(x);
+			builder.setPosY(y);
+			builder.setUuid(UUIDConvert.convert(getUuid()));
+			world.getReceiver().send(builder.build());
+		}
 	}
 	
 	/**
@@ -772,6 +782,7 @@ public class Being implements Serializable{
 		builder.setHp(getHp());
 		builder.setMaxHp(getMaxHp());
 		builder.setAim(lastGunHeadingRadians);
+		builder.setFaction(faction);
 		if(getPosition() != null){
 			builder.setPosX(getRagdoll().getBodyPart(BodyPart.torso).getPosition().x);
 			builder.setPosY(getRagdoll().getBodyPart(BodyPart.torso).getPosition().y);

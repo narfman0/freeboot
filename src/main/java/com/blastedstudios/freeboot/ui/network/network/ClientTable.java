@@ -29,12 +29,13 @@ import com.blastedstudios.freeboot.world.being.Being;
 
 public class ClientTable extends Table {
 	private final Client client = new Client();
+	private final TextButton connectButton;
 	
 	public ClientTable(Skin skin, Being player, final INetworkWindowListener listener){
 		super(skin);
 		final Table clientTable = new Table(skin);
 		final TextField hostnameText = new TextField(Properties.get("host.default", "127.0.0.1"), skin);
-		TextButton connectButton = new FreebootTextButton("Connect", skin, new ClickListener() {
+		connectButton = new FreebootTextButton("Connect", skin, new ClickListener() {
 			@Override public void clicked(InputEvent event, float x, float y) {
 				Properties.set("host.default", hostnameText.getText());
 				SaveHelper.saveProperties();
@@ -44,6 +45,7 @@ public class ClientTable extends Table {
 				}
 				boolean success = client.connect(hostnameText.getText(), Properties.getInt("network.port"));
 				if(success){
+					connectButton.remove();
 					// send minimal information - name!
 					NameUpdate.Builder builder = NameUpdate.newBuilder();
 					builder.setName(player.getName());

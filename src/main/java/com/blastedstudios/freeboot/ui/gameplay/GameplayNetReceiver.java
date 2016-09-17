@@ -37,6 +37,7 @@ public class GameplayNetReceiver{
 		if(type != MultiplayerType.Local){
 			network.update();
 			beingStateAccumulator -= dt;
+			// send my own status
 			if(type != MultiplayerType.DedicatedServer && !worldManager.getPlayer().isDead()){
 				PlayerState.Builder builder = PlayerState.newBuilder();
 				builder.addPlayers(worldManager.getPlayer().buildMessage(true));

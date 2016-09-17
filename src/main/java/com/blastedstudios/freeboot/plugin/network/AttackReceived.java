@@ -4,6 +4,7 @@ import java.net.Socket;
 
 import com.badlogic.gdx.math.Vector2;
 import com.blastedstudios.freeboot.network.Messages.Attack;
+import com.blastedstudios.freeboot.ui.network.network.NetworkWindow.MultiplayerType;
 import com.blastedstudios.freeboot.util.UUIDConvert;
 import com.blastedstudios.freeboot.world.being.Being;
 import com.google.protobuf.Message;
@@ -20,8 +21,11 @@ public class AttackReceived extends AbstractMessageReceive<Attack>{
 			for(Being being : worldManager.getAllBeings())
 				if(being.getName().equals(message.getName()))
 					existing = being;
-		if(existing != null)
+		if(existing != null) {
 			existing.attack(new Vector2(message.getPosX(), message.getPosY()), worldManager);
+			if(multiplayerType == MultiplayerType.Host || multiplayerType == MultiplayerType.DedicatedServer)
+				network.send(message);
+		}
 	}
 
 	@Override public Class<? extends Message> getSubscription() {

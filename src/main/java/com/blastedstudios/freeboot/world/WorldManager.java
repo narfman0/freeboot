@@ -269,14 +269,14 @@ public class WorldManager implements IDeathCallback{
 				difficulty, aiWorld, npcData.getBool("Vendor"), vendorWeapons, npcData.getBool("boss"));
 		npc.aim(npcData.getFloat("Aim"));
 		npcs.add(npc);
-		npc.respawn(world, coordinates.x, coordinates.y);
+		npc.respawn(this, coordinates.x, coordinates.y);
 		return npc;
 	}
 	
 	public void setRespawnLocation(Vector2 respawnLocation) {
 		this.respawnLocation = respawnLocation;
 		if(!player.isSpawned())
-			player.respawn(world, respawnLocation.x, respawnLocation.y);
+			player.respawn(this, respawnLocation.x, respawnLocation.y);
 	}
 
 	@Override public void dead(Being being) {
@@ -293,7 +293,7 @@ public class WorldManager implements IDeathCallback{
 	}
 
 	public void respawnPlayer() {
-		player.respawn(world, respawnLocation.x, respawnLocation.y);
+		player.respawn(this, respawnLocation.x, respawnLocation.y);
 	}
 
 	public List<Being> getAllBeings() {

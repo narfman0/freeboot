@@ -215,7 +215,7 @@ public class GameplayScreen extends FreebootScreen {
 					if(!worldManager.isPause()){
 						Being closest = worldManager.getClosestBeing(player, true, true);
 						if(closest != null && closest.getPosition().dst(player.getPosition()) < Properties.getFloat("activity.revive.distance"))
-							player.applyActivity(new ReviveActivity(player, closest, worldManager.getWorld(), receiver));
+							player.applyActivity(new ReviveActivity(player, closest, worldManager, receiver));
 							//TODO if shot, cant revive pfft
 					}
 				}

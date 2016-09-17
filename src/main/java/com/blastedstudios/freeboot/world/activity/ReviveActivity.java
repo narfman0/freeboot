@@ -1,19 +1,19 @@
 package com.blastedstudios.freeboot.world.activity;
 
-import com.badlogic.gdx.physics.box2d.World;
 import com.blastedstudios.gdxworld.util.Properties;
 import com.blastedstudios.freeboot.network.Messages.Respawn;
 import com.blastedstudios.freeboot.ui.gameplay.GameplayNetReceiver;
 import com.blastedstudios.freeboot.util.UUIDConvert;
+import com.blastedstudios.freeboot.world.WorldManager;
 import com.blastedstudios.freeboot.world.being.Being;
 
 public class ReviveActivity extends BaseActivity {
 	private final Being target, self;
-	private final World world;
+	private final WorldManager world;
 	private final GameplayNetReceiver receiver;
 	private float duration = Properties.getFloat("activity.revive.duration", 3f);
 	
-	public ReviveActivity(Being self, Being target, World world, GameplayNetReceiver receiver){
+	public ReviveActivity(Being self, Being target, WorldManager world, GameplayNetReceiver receiver){
 		this.self = self;
 		this.target = target;
 		this.world = world;

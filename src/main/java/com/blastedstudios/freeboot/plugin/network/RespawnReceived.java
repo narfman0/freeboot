@@ -17,10 +17,11 @@ public class RespawnReceived extends AbstractMessageReceive<Respawn> {
 		UUID uuid = UUIDConvert.convert(message.getUuid());
 		Being existing = worldManager.getRemotePlayer(uuid);
 		if(existing != null)
-			existing.respawn(worldManager.getWorld(), message.getPosX(), message.getPosY());
+			existing.respawn(worldManager, message.getPosX(), message.getPosY());
 		else if(UUIDConvert.convert(message.getUuid()).equals(uuid)){
 			Player self = worldManager.getPlayer();
-			self.respawn(worldManager.getWorld(), self.getPosition().x, self.getPosition().y);
+			if(self != null && self.isDead())
+				self.respawn(worldManager, self.getPosition().x, self.getPosition().y);
 		}
 	}
 

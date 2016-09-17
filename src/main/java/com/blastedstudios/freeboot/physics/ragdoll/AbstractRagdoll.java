@@ -214,7 +214,8 @@ public abstract class AbstractRagdoll implements IRagdoll {
 	}
 
 	@Override public void setLinearVelocity(float x, float y) {
-		torsoBody.setLinearVelocity(x, y);
+		for(Body body : bodies)
+			body.setLinearVelocity(x, y);
 	}
 
 	@Override public void applyLinearImpulse(float i, float j, float x, float y) {

@@ -5,7 +5,6 @@ import java.util.UUID;
 
 import com.blastedstudios.freeboot.network.Messages.NetBeing;
 import com.blastedstudios.freeboot.network.Messages.PlayerState;
-import com.blastedstudios.freeboot.ui.network.network.NetworkWindow.MultiplayerType;
 import com.blastedstudios.freeboot.util.UUIDConvert;
 import com.blastedstudios.freeboot.world.being.Player;
 import com.blastedstudios.gdxworld.util.Log;
@@ -25,13 +24,11 @@ public class PlayerStateReceived extends AbstractMessageReceive<PlayerState> {
 			if(remotePlayer == null){
 				remotePlayer = new Player(netBeing);
 				worldManager.getRemotePlayers().add(remotePlayer);
-				remotePlayer.respawn(worldManager.getWorld(), netBeing.getPosX(), netBeing.getPosY());
+				remotePlayer.respawn(worldManager, netBeing.getPosX(), netBeing.getPosY());
 				Log.log("GameplayScreen.receive", "Received first player update: " + netBeing.getName());
 			}else if(remotePlayer.getPosition() != null)
 				remotePlayer.updateFromMessage(netBeing);
 		}
-		if(multiplayerType == MultiplayerType.Host || multiplayerType == MultiplayerType.DedicatedServer)
-			network.send(message);
 	}
 
 	@Override
