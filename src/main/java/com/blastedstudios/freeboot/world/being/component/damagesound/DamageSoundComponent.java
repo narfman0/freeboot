@@ -14,7 +14,7 @@ public class DamageSoundComponent extends AbstractComponent implements ISharedAs
 	private AssetManager assets;
 	
 	@Override public void receivedDamage(DamageStruct damage){
-		if(damage == null || damage.getOrigin() == null)
+		if(damage == null || damage.getOrigin() == null || assets == null)
 			return;
 		assets.get("data/sounds/thud004.mp3", Sound.class).play(Properties.getFloat("sound.volume", 1f));
 	}

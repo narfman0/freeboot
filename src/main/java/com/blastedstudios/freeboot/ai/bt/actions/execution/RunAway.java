@@ -40,7 +40,7 @@ public class RunAway extends jbt.execution.task.leaf.action.ExecutionAction {
 	protected jbt.execution.core.ExecutionTask.Status internalTick() {
 		NPC self = (NPC) getContext().getVariable(AIFieldEnum.SELF.name());
 		WorldManager world = (WorldManager) getContext().getVariable(AIFieldEnum.WORLD.name());
-		boolean playerLeft = world.getPlayer().getPosition().x < self.getPosition().x;
+		boolean playerLeft = world.getClosestBeing(self, false, false).getPosition().x < self.getPosition().x;
 		self.setMoveLeft(!playerLeft);
 		self.setMoveRight(playerLeft);
 		self.aim(playerLeft ? 0f : 3.14f);

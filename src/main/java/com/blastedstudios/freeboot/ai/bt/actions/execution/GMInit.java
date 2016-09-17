@@ -12,6 +12,7 @@ import jbt.execution.core.IContext;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Joint;
 import com.badlogic.gdx.physics.box2d.World;
@@ -146,7 +147,8 @@ jbt.execution.task.leaf.action.ExecutionAction {
 			context.setVariable(TIME_LAST, System.currentTimeMillis());
 			time += dt;
 			
-			float playerDistance = world.getPlayer().getPosition().dst(self.getPosition());
+			Vector2 closestEnemyPosition = world.getPlayer() == null ? Vector2.Zero : world.getPlayer().getPosition();
+			float playerDistance = closestEnemyPosition.dst(self.getPosition());
 			if(identifier.equals("sword")){
 				// check if we should start if, if not already started
 				if(!handler.getCurrentAnimation().getName().equals("sword")){
@@ -177,7 +179,7 @@ jbt.execution.task.leaf.action.ExecutionAction {
 			}else if(identifier.equals("shoot")){
 				if(playerDistance > Properties.getFloat("garbageman.shoot.distance", 10f) && !world.getPlayer().isDead()){
 					setWeaponClass(false);
-					self.attack(world.getPlayer().getPosition().cpy().add(0, 1f).sub(self.getPosition()).nor(), world);
+					self.attack(closestEnemyPosition.cpy().add(0, 1f).sub(self.getPosition()).nor(), world);
 				}else
 					return Status.FAILURE;
 				handler.render(dt);

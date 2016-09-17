@@ -11,6 +11,7 @@ package com.blastedstudios.freeboot.ai.bt.conditions.execution;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.Properties;
 import com.blastedstudios.freeboot.world.WorldManager;
+import com.blastedstudios.freeboot.world.being.Being;
 import com.blastedstudios.freeboot.world.being.NPC;
 import com.blastedstudios.freeboot.world.being.NPC.AIFieldEnum;
 
@@ -42,8 +43,9 @@ public class PlayerUnder extends
 	protected jbt.execution.core.ExecutionTask.Status internalTick() {
 		NPC self = (NPC) getContext().getVariable(AIFieldEnum.SELF.name());
 		WorldManager world = (WorldManager) getContext().getVariable(AIFieldEnum.WORLD.name());
-		return Math.abs(self.getPosition().x - world.getPlayer().getPosition().x) < Properties.getFloat("ai.player.under.distance", 2f) && 
-				world.getPlayer().getPosition().y < self.getPosition().y ?
+		Being target = world.getClosestBeing(self, false, false);
+		return Math.abs(self.getPosition().x - target.getPosition().x) < Properties.getFloat("ai.player.under.distance", 2f) && 
+				target.getPosition().y < self.getPosition().y ?
 						Status.SUCCESS : Status.FAILURE;
 	}
 

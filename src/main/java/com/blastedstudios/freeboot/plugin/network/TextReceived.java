@@ -12,7 +12,7 @@ import net.xeoh.plugins.base.annotations.PluginImplementation;
 @PluginImplementation
 public class TextReceived extends AbstractMessageReceive<Text> {
 	@Override public void receive(Text message, Socket origin) {
-		if(!message.getOrigin().equals(worldManager.getPlayer().getName()))
+		if(!message.getOrigin().equals(worldManager.getPlayer() == null ? null : worldManager.getPlayer().getName()))
 			History.add(message.getContent(), Color.BLACK);
 	}
 

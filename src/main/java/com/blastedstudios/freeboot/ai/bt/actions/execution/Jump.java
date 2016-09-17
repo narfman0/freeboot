@@ -79,7 +79,7 @@ public class Jump extends jbt.execution.task.leaf.action.ExecutionAction {
 		WorldManager world = (WorldManager) getContext().getVariable(AIFieldEnum.WORLD.name());
 		Vector2 jumpVector = new Vector2(0, 90f);
 		if(getTowardPlayer() != null){
-			boolean playerLeft = world.getPlayer().getPosition().x < self.getPosition().x;
+			boolean playerLeft = world.getClosestBeing(self, false, false).getPosition().x < self.getPosition().x;
 			jumpVector.x = 200f;
 			boolean moveLeft = (getTowardPlayer() && playerLeft) || (!getTowardPlayer() && !playerLeft);
 			if(moveLeft)

@@ -388,6 +388,8 @@ public class Being implements Serializable{
 	}
 	
 	public static float getAimAngle(Being origin, Being target){
+		if(target == null || origin == null)
+			return 0f;
 		return (float) Math.atan2(
 				target.getPosition().y - origin.getPosition().y, 
 				target.getPosition().x - origin.getPosition().x);

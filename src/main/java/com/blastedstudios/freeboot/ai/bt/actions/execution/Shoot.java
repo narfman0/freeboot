@@ -11,6 +11,7 @@ package com.blastedstudios.freeboot.ai.bt.actions.execution;
 import com.badlogic.gdx.math.Vector2;
 import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.freeboot.world.WorldManager;
+import com.blastedstudios.freeboot.world.being.Being;
 import com.blastedstudios.freeboot.world.being.NPC;
 import com.blastedstudios.freeboot.world.being.NPC.AIFieldEnum;
 import com.blastedstudios.freeboot.world.weapon.Weapon;
@@ -77,15 +78,16 @@ public class Shoot extends jbt.execution.task.leaf.action.ExecutionAction {
 	protected jbt.execution.core.ExecutionTask.Status internalTick() {
 		Log.debug(this.getClass().getCanonicalName(), "ticked");
 		WorldManager world = (WorldManager) getContext().getVariable(AIFieldEnum.WORLD.name());
-		NPC npc = (NPC) getContext().getVariable(AIFieldEnum.SELF.name());
+		NPC self = (NPC) getContext().getVariable(AIFieldEnum.SELF.name());
 		if(!world.isPause()){
 			Vector2 target = new Vector2(getTarget()[0], getTarget()[1]);
-			Vector2 direction = target.cpy().sub(npc.getPosition()).nor();
-			npc.aim((float)Math.atan2(direction.y, direction.x));
-			Weapon equipped = npc.getEquippedWeapon();
-			int topLevel = Math.max(world.getPlayer().getLevel(), npc.getLevel());
-			if(equipped != null && equipped.getMSSinceAttack() > NPC.shootDelay(topLevel, npc.getDifficulty()))
-				npc.attack(direction, world);
+			Vector2 direction = target.cpy().sub(self.getPosition()).nor();
+			self.aim((float)Math.atan2(direction.y, direction.x));
+			Weapon equipped = self.getEquippedWeapon();
+			Being targetBeing = world.getClosestBeing(self, false, false);
+			int topLevel = Math.max(targetBeing == null ? 1 : targetBeing.getLevel(), self.getLevel());
+			if(equipped != null && equipped.getMSSinceAttack() > NPC.shootDelay(topLevel, self.getDifficulty()))
+				self.attack(direction, world);
 		}
 		return Status.SUCCESS;
 	}

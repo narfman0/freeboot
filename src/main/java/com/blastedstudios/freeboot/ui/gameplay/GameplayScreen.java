@@ -414,7 +414,8 @@ public class GameplayScreen extends FreebootScreen {
 	@Override public void dispose(){
 		super.dispose();
 		assetManager.dispose();
-		worldManager.getPlayer().dispose(worldManager.getWorld());
+		if(worldManager.getPlayer() != null)
+			worldManager.getPlayer().dispose(worldManager.getWorld());
 		worldManager.getWorld().dispose();
 	}
 

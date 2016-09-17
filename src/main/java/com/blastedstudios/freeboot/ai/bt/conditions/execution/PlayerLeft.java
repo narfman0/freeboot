@@ -41,7 +41,7 @@ public class PlayerLeft extends
 	protected jbt.execution.core.ExecutionTask.Status internalTick() {
 		NPC self = (NPC) getContext().getVariable(AIFieldEnum.SELF.name());
 		WorldManager world = (WorldManager) getContext().getVariable(AIFieldEnum.WORLD.name());
-		return world.getPlayer().getPosition().x < self.getPosition().x ? Status.SUCCESS : Status.FAILURE ;
+		return world.getClosestBeing(self, false, false).getPosition().x < self.getPosition().x ? Status.SUCCESS : Status.FAILURE ;
 	}
 
 	protected void internalTerminate() {}

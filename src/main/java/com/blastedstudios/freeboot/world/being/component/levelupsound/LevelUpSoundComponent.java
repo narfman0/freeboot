@@ -13,7 +13,8 @@ public class LevelUpSoundComponent extends AbstractComponent implements ISharedA
 	private AssetManager assets;
 	
 	@Override public void levelUp(){
-		assets.get("data/sounds/levelup.mp3", Sound.class).play(Properties.getFloat("sound.volume", 1f));
+		if(assets != null)
+			assets.get("data/sounds/levelup.mp3", Sound.class).play(Properties.getFloat("sound.volume", 1f));
 	}
 
 	@Override public void setAssets(AssetManager assets) {

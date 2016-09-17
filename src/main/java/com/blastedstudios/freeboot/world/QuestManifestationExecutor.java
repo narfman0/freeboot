@@ -116,7 +116,8 @@ public class QuestManifestationExecutor implements IQuestManifestationExecutor{
 
 	public CompletionEnum beingInvuln(String beingName, boolean invuln) {
 		if("player".matches(beingName))
-			worldManager.getPlayer().setInvulnerable(invuln);
+			if(worldManager.getPlayer() != null)
+				worldManager.getPlayer().setInvulnerable(invuln);
 		else
 			for(Being being : worldManager.getAllBeings())
 				if(being.getName().matches(beingName))

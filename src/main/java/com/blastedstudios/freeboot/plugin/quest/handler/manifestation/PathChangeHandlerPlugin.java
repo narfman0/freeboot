@@ -22,13 +22,6 @@ public class PathChangeHandlerPlugin implements IPathChangeHandler, IWorldManage
 	}
 	
 	public CompletionEnum pathChange(String beingString, String pathString) {
-		final GDXPath path;
-		if(pathString.equals("player")){
-			path = new GDXPath();
-			path.getNodes().add(world.getPlayer().getPosition());
-		}else
-			path = world.getPath(pathString);
-		
 		boolean found = false;
 		LinkedList<String> names = new LinkedList<>();
 		if(beingString.contains(","))
@@ -39,13 +32,14 @@ public class PathChangeHandlerPlugin implements IPathChangeHandler, IWorldManage
 		for(Being being : world.getAllBeings())
 			for(String name : names)
 				if(being.getName().matches(name)){
-					((NPC)being).setPath(path);
+					NPC self = ((NPC)being);
+					if(pathString.equals("player")){
+						Being target = world.getClosestBeing(self, false, false);
+						self.setPath(new GDXPath(target.getPosition()));
+					}else
+						self.setPath(world.getPath(pathString));
 					found = true;
 				}
-		
-		if(path == null)
-			Log.error("QuestManifestationExecutor.pathChange", "Path null " +
-					"for quest manifestation! path:" + pathString + " being:" + beingString);
 		if(!found)
 			Log.error("QuestManifestationExecutor.pathChange", "Being null " +
 					"for quest manifestation! path:" + pathString + " being:" + beingString);

@@ -38,11 +38,11 @@ public class FreebootServer extends ApplicationAdapter{
 	
 	@Override public void render() {
 		float dt = Gdx.graphics.getDeltaTime();
-		worldManager.update(dt);
-		receiver.update(dt);
 		try {
+			worldManager.update(dt);
+			receiver.update(dt);
 			Thread.sleep((long)dt);
-		} catch (InterruptedException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

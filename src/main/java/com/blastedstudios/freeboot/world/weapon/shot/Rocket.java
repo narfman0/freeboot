@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.WorldManifold;
 import com.blastedstudios.gdxworld.util.Log;
+import com.blastedstudios.freeboot.ui.network.network.NetworkWindow.MultiplayerType;
 import com.blastedstudios.freeboot.world.WorldManager;
 import com.blastedstudios.freeboot.world.being.Being;
 import com.blastedstudios.freeboot.world.being.Being.BodyPart;
@@ -20,16 +21,20 @@ import com.blastedstudios.freeboot.world.weapon.Gun;
 import com.blastedstudios.freeboot.world.weapon.RocketLauncher;
 
 public class Rocket extends GunShot {
-	private final ParticleEffect trail, explosion;
+	private ParticleEffect trail, explosion;
 	
 	public Rocket(Being origin, Vector2 dir, Gun gun){
 		super(origin, dir, gun);
-		trail = new ParticleEffect();
-		trail.load(Gdx.files.internal("data/particles/rocketTrail.p"), Gdx.files.internal("data/particles"));
-		trail.start();
-		trail.setDuration(99999);
-		explosion = new ParticleEffect();
-		explosion.load(Gdx.files.internal("data/particles/rocketExplosion.p"), Gdx.files.internal("data/particles"));
+		try{
+			trail = new ParticleEffect();
+			trail.load(Gdx.files.internal("data/particles/rocketTrail.p"), Gdx.files.internal("data/particles"));
+			trail.start();
+			trail.setDuration(99999);
+			explosion = new ParticleEffect();
+			explosion.load(Gdx.files.internal("data/particles/rocketExplosion.p"), Gdx.files.internal("data/particles"));
+		}catch(Exception e){
+			// well, here's to hoping headless exceptions don't barf too much in this case.
+		}
 	}
 	
 	@Override public void render(float dt, Batch batch, AssetManager assetManager, 
@@ -66,6 +71,8 @@ public class Rocket extends GunShot {
 					being.getKey().getRagdoll().getBodyPart(BodyPart.torso).getFixtureList().get(0), 
 					manifold.getNormal(), manifold.getPoints()[0]);
 		}
+		if(worldManager.getReceiver().type == MultiplayerType.DedicatedServer)
+			return;
 		//send off particles to particle manager
 		explosion.setPosition(gunshotBody.getPosition().x, gunshotBody.getPosition().y);
 		explosion.start();
