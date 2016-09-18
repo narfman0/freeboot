@@ -2,6 +2,7 @@ package com.blastedstudios.freeboot.ui.main;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.UUID;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
@@ -52,7 +53,7 @@ class NewCharacterWindow extends FreebootWindow{
 				if(nameField.getText().isEmpty())
 					return;
 				NPCData npcData = NPCData.parse(classList.getSelected().name().toLowerCase());
-				Player player = new Player(nameField.getText(), 
+				Player player = new Player(UUID.randomUUID(), nameField.getText(), 
 						WeaponFactory.getGuns(npcData.get("Weapons")), new ArrayList<Weapon>(), 
 						Stats.parseNPCData(npcData),
 						0,0,1,0, factionList.getSelected(), EnumSet.of(factionList.getSelected()), 

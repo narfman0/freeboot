@@ -58,6 +58,7 @@ public class Being implements Serializable{
 	protected final HashMap<AmmoTypeEnum,Integer> ammo = new HashMap<>();
 	protected transient boolean jump, moveRight, moveLeft, dead, reloading, invulnerable;
 	protected transient IRagdoll ragdoll = null;
+	protected UUID uuid;
 	protected String name;
 	protected String resource, ragdollResource;
 	protected float hp;
@@ -73,12 +74,12 @@ public class Being implements Serializable{
 	protected transient Random random;
 	protected transient List<IComponent> listeners;
 	protected transient AssetManager sharedAssets;
-	private transient UUID uuid;
 	private transient BaseActivity activity;
 
-	public Being(String name, List<Weapon> guns, List<Weapon> inventory, Stats stats,
+	public Being(UUID uuid, String name, List<Weapon> guns, List<Weapon> inventory, Stats stats,
 			int currentWeapon, int cash, int level, int xp, FactionEnum faction,
 			EnumSet<FactionEnum> factions, String resource, String ragdollResource){
+		this.uuid = uuid;
 		this.name = name;
 		this.guns = guns;
 		this.inventory = inventory;
@@ -103,10 +104,9 @@ public class Being implements Serializable{
 	}
 	
 	public Being(NetBeing message){
-		this(message.getName(), new LinkedList<>(), new LinkedList<>(), new Stats(), 
+		this(UUIDConvert.convert(message.getUuid()), message.getName(), new LinkedList<>(), new LinkedList<>(), new Stats(), 
 				message.getCurrentWeapon(), 0, 0, 0, message.getFaction(),
 				EnumSet.noneOf(FactionEnum.class), message.getResource(), message.getRagdollResource());
-		setUuid(UUIDConvert.convert(message.getUuid()));
 		stats.setHp(message.getHp());
 		for(NetWeapon netWeapon : message.getWeaponsList())
 			guns.add(WeaponFactory.getWeapon(netWeapon.getId()));
@@ -432,14 +432,18 @@ public class Being implements Serializable{
 	}
 
 	public void setPosition(float x, float y, float angle) {
-		ragdoll.setTransform(x,y, angle);
+		if(ragdoll != null)
+			ragdoll.setTransform(x,y, angle);
 	}
 
 	public void setVelocity(Vector2 velocity) {
-		ragdoll.setLinearVelocity(velocity.x, velocity.y);
+		if(ragdoll != null)
+			ragdoll.setLinearVelocity(velocity.x, velocity.y);
 	}
 
 	public Vector2 getVelocity() {
+		if(ragdoll == null)
+			return null;
 		return ragdoll.getLinearVelocity().cpy();
 	}
 
@@ -808,22 +812,21 @@ public class Being implements Serializable{
 		return builder.build();
 	}
 	
-	public void updateFromMessage(NetBeing update){
-		if(isSpawned())
+	public void updateFromMessage(WorldManager world, NetBeing update){
+		if(isSpawned()){
 			getRagdoll().getBodyPart(BodyPart.torso).setTransform(update.getPosX(), update.getPosY(), 0);
-		setVelocity(new Vector2(update.getVelX(), update.getVelY()));
-		aim(update.getAim());
+			setVelocity(new Vector2(update.getVelX(), update.getVelY()));
+			aim(update.getAim());
+		}
 		setHp(update.getHp());
+		if(hp > 0f)
+			respawn(world, update.getPosX(), update.getPosY());
 	}
 
 	public UUID getUuid() {
 		if(uuid == null)
 			uuid = UUID.randomUUID();
 		return uuid;
-	}
-
-	public void setUuid(UUID uuid) {
-		this.uuid = uuid;
 	}
 
 	public void applyActivity(BaseActivity activity) {

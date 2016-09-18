@@ -3,6 +3,7 @@ package com.blastedstudios.freeboot.world.being;
 import java.util.EnumSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.World;
@@ -10,6 +11,7 @@ import com.blastedstudios.gdxworld.util.Log;
 import com.blastedstudios.gdxworld.util.Properties;
 import com.blastedstudios.gdxworld.world.GDXPath;
 import com.blastedstudios.freeboot.ai.AIWorld;
+import com.blastedstudios.freeboot.network.Messages.NetBeing;
 import com.blastedstudios.freeboot.network.Messages.NetBeing.FactionEnum;
 import com.blastedstudios.freeboot.ui.gameplay.GameplayNetReceiver;
 import com.blastedstudios.freeboot.world.Stats;
@@ -36,19 +38,27 @@ public class NPC extends Being {
 	private final boolean vendor, boss;
 	private final LinkedList<Weapon> vendorWeapons;
 	
-	public NPC(String name, List<Weapon> guns, List<Weapon> inventory, Stats stats,
+	public NPC(UUID uuid, String name, List<Weapon> guns, List<Weapon> inventory, Stats stats,
 			int currentGun, int cash, int level, int xp, String behavior,
 			GDXPath path, FactionEnum faction, EnumSet<FactionEnum> factions,
 			WorldManager world, String resource, String ragdollResource, 
 			DifficultyEnum difficulty, AIWorld aiWorld, boolean vendor,
 			LinkedList<Weapon> vendorWeapons, boolean boss) {
-		super(name, guns, inventory, stats, currentGun, cash, level, xp, 
+		super(uuid, name, guns, inventory, stats, currentGun, cash, level, xp, 
 				faction, factions, resource, ragdollResource);
 		this.difficulty = difficulty;
 		this.vendor = vendor;
 		this.vendorWeapons = vendorWeapons;
 		this.boss = boss;
 		applyBehaviorTree(behavior, aiWorld, world, path);
+	}
+	
+	public NPC(NetBeing message){
+		super(message);
+		vendorWeapons = null;
+		vendor = false;
+		boss = false;
+		difficulty = DifficultyEnum.MEDIUM;
 	}
 	
 	public void applyBehaviorTree(String behavior, AIWorld aiWorld, WorldManager world, GDXPath path){

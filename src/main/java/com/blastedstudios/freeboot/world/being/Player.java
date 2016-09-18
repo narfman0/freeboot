@@ -4,6 +4,7 @@ import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import com.badlogic.gdx.physics.box2d.World;
 import com.blastedstudios.gdxworld.world.GDXLevel;
@@ -23,10 +24,10 @@ public class Player extends Being {
 	private final Map<String,Boolean> levelCompleted = new HashMap<>();
 	protected final ClassEnum playerClass;
 
-	public Player(String name, List<Weapon> guns, List<Weapon> inventory, Stats stats,
+	public Player(UUID uuid, String name, List<Weapon> guns, List<Weapon> inventory, Stats stats,
 			int currentGun,	int cash, int level, int xp, FactionEnum faction,
 			EnumSet<FactionEnum> factions, String resource, ClassEnum playerClass) {
-		super(name, guns, inventory, stats, currentGun, cash, level, xp, faction, factions, resource, null);
+		super(uuid, name, guns, inventory, stats, currentGun, cash, level, xp, faction, factions, resource, null);
 		this.playerClass = playerClass;
 	}
 	

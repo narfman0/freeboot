@@ -42,7 +42,7 @@ public class Director implements CaptureListener {
 
 	public void update(float dt){
 		for(Being being : worldManager.getAllBeings())
-			if(!being.isDead()){
+			if(!being.isDead() && being.isSpawned()){
 				for(StrategicPoint strategicPoint : strategicPoints)
 					if(strategicPoint.contains(being.getPosition()))
 						strategicPoint.capture(dt, being.getFaction(), Properties.getFloat("strategicpoint.capture.amount", 1f));

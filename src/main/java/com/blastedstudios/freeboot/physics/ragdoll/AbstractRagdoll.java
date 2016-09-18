@@ -365,6 +365,8 @@ public abstract class AbstractRagdoll implements IRagdoll {
 		for(BodyPart part : facingLeft ? LEFT_FACING_ORDER : RIGHT_FACING_ORDER){
 			Body body = getBodyPart(part);
 			Sprite sprite = sprites.get(body);
+			if(body == null || sprite == null)
+				continue;
 			applyBodyTransform(sprite, body);
 			if(part == BodyPart.head || part == BodyPart.torso)
 				sprite.flip(facingLeft, false);
@@ -389,6 +391,8 @@ public abstract class AbstractRagdoll implements IRagdoll {
 	}
 
 	private static void applyBodyTransform(Sprite sprite, Body body){
+		if(sprite == null || body == null)
+			return;
 		sprite.setPosition(body.getWorldCenter().x - sprite.getWidth()/2f, 
 				body.getWorldCenter().y - sprite.getHeight()/2);
 		sprite.setRotation((float)Math.toDegrees(body.getAngle()));

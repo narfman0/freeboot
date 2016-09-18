@@ -56,7 +56,7 @@ public class GameplayNetReceiver{
 	 */
 	private void updateNPCs(){
 		NPCState.Builder builder = NPCState.newBuilder(); 
-		for(NPC npc : worldManager.getNpcs())
+		for(NPC npc : worldManager.getNpcs().values())
 			builder.addNpcs(npc.buildMessage(false));
 		network.send(builder.build(), null);
 	}

@@ -61,7 +61,7 @@ import aurelienribon.tweenengine.TweenManager;
 public class WorldManager implements IDeathCallback{
 	public static final String REMOVE_USER_DATA = "r";
 	private final World world = new World(new Vector2(0, -10), true), aiWorldDebug;
-	private final List<NPC> npcs = new LinkedList<>();
+	private final HashMap<UUID, NPC> npcs = new HashMap<>();
 	private final List<Player> remotePlayers = new LinkedList<>();
 	private final Player player;
 	private final Map<Body,GunShot> gunshots = new HashMap<>();
@@ -78,7 +78,7 @@ public class WorldManager implements IDeathCallback{
 	private boolean pause, inputEnable = true, playerTrack = true, desireFixedRotation = true, simulate = true;
 	private final Random random;
 	private GameplayNetReceiver receiver;
-	private final Director director;
+	private Director director;
 	
 	public WorldManager(Player player, GDXLevel level, AssetManager sharedAssets){
 		this.player = player;
@@ -99,7 +99,8 @@ public class WorldManager implements IDeathCallback{
 			spawnNPC(gdxNPC);
 		if(Properties.getBool("world.debug.draw", false))
 			debugRenderer = new Box2DDebugRenderer();
-		director = new Director(level, this);
+		if(receiver == null || receiver.type != MultiplayerType.Client)
+			director = new Director(level, this);
 	}
 
 	public void update(float dt){
@@ -107,7 +108,7 @@ public class WorldManager implements IDeathCallback{
 			player.setFixedRotation(desireFixedRotation);
 		if(player != null && player.isSpawned())
 			player.update(dt, world, this, pause, inputEnable, receiver);
-		for(NPC npc : npcs)
+		for(NPC npc : npcs.values())
 			npc.update(dt, world, this, pause, true, simulate, receiver);
 		for(Being being : remotePlayers)
 			being.update(dt, world, this, pause, true, receiver);
@@ -121,7 +122,7 @@ public class WorldManager implements IDeathCallback{
 		for(Body body : getBodiesIterable())
 			if(body != null && body.getUserData() != null && body.getUserData().equals(REMOVE_USER_DATA))
 				world.destroyBody(body);
-		if(receiver == null || receiver.type != MultiplayerType.Client)
+		if(director != null && (receiver == null || receiver.type != MultiplayerType.Client))
 			director.update(dt);
 	}
 	
@@ -130,7 +131,7 @@ public class WorldManager implements IDeathCallback{
 		batch.begin();
 		if(player.isSpawned())
 			player.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, inputEnable);
-		for(NPC npc : npcs) 
+		for(NPC npc : npcs.values()) 
 			npc.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true);
 		for(Being being : remotePlayers)
 			being.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true);
@@ -262,13 +263,13 @@ public class WorldManager implements IDeathCallback{
 		for(int i=0; i<weapons.size(); i++)
 			if(!(weapons.get(i) instanceof Melee))
 				currentWeapon = i;
-		NPC npc = new NPC(name, weapons, 
+		NPC npc = new NPC(UUID.randomUUID(), name, weapons, 
 				new ArrayList<Weapon>(), Stats.parseNPCData(npcData), currentWeapon, cash, 
 				npcLevel, xp, npcData.get("Behavior"), level.getPath(npcData.get("Path")),
 				faction, factions, this, npcData.get("Resource"), npcData.get("RagdollResource"),
 				difficulty, aiWorld, npcData.getBool("Vendor"), vendorWeapons, npcData.getBool("boss"));
 		npc.aim(npcData.getFloat("Aim"));
-		npcs.add(npc);
+		npcs.put(npc.getUuid(), npc);
 		npc.respawn(this, coordinates.x, coordinates.y);
 		return npc;
 	}
@@ -298,7 +299,7 @@ public class WorldManager implements IDeathCallback{
 
 	public List<Being> getAllBeings() {
 		List<Being> beings = new LinkedList<>();
-		beings.addAll(npcs);
+		beings.addAll(npcs.values());
 		beings.addAll(remotePlayers);
 		if(player != null && player.isSpawned())
 			beings.add(player);
@@ -422,16 +423,6 @@ public class WorldManager implements IDeathCallback{
 		return tweenManager;
 	}
 
-	/**
-	 * @return vendor if player is close enough, otherwise null
-	 */
-	public NPC findVendor() {
-		for(NPC npc : npcs)
-			if(npc.isVendor() && npc.getPosition().dst(player.getPosition()) < Properties.getFloat("vendor.distance", 2f))
-				return npc;
-		return null;
-	}
-
 	public void dispose(Being being) {
 		being.dispose(world);
 		npcs.remove(being);
@@ -466,7 +457,7 @@ public class WorldManager implements IDeathCallback{
 		return remotePlayers;
 	}
 
-	public List<NPC> getNpcs() {
+	public HashMap<UUID, NPC> getNpcs() {
 		return npcs;
 	}
 

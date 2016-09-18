@@ -24,10 +24,11 @@ public class PlayerStateReceived extends AbstractMessageReceive<PlayerState> {
 			if(remotePlayer == null){
 				remotePlayer = new Player(netBeing);
 				worldManager.getRemotePlayers().add(remotePlayer);
-				remotePlayer.respawn(worldManager, netBeing.getPosX(), netBeing.getPosY());
+				if(remotePlayer.getHp() > 0)
+					remotePlayer.respawn(worldManager, netBeing.getPosX(), netBeing.getPosY());
 				Log.log("GameplayScreen.receive", "Received first player update: " + netBeing.getName());
 			}else if(remotePlayer.getPosition() != null)
-				remotePlayer.updateFromMessage(netBeing);
+				remotePlayer.updateFromMessage(worldManager, netBeing);
 		}
 	}
 
