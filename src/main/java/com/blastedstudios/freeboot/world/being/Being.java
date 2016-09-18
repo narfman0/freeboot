@@ -125,10 +125,10 @@ public class Being implements Serializable{
 		if(!dead && hp <= 0 && deathCallback != null)
 			deathCallback.dead(this);
 		if(dead){
-			timeUntilRespawn = Math.max(timeUntilRespawn - dt, 0f);
-			float respawnInterval = Properties.getFloat("respawn.interval");
-			if(timeUntilRespawn <= respawnInterval/2f)
-				ragdoll.setAlpha(Math.min(1f, 2*timeUntilRespawn/respawnInterval));
+			if(timeUntilRespawn <= 0)
+				dispose(world);
+			else
+				timeUntilRespawn -= dt;
 			return;
 		}
 		setHp(hp + getHpRegen() * dt);
@@ -140,7 +140,7 @@ public class Being implements Serializable{
 		}
 
 		// calculate stilltime & damp
-		if(ragdoll != null && !moveLeft && !moveRight)		
+		if(isSpawned() && !moveLeft && !moveRight)		
 			ragdoll.setLinearVelocity(vel.x * 0.8f, vel.y);
 
 		if(jump && vel.y < CHARACTER_JUMP_IMPULSE)
@@ -161,6 +161,13 @@ public class Being implements Serializable{
 	public void render(float dt, World world, Batch batch, AssetManager sharedAssets,
 			GDXRenderer gdxRenderer, IDeathCallback deathCallback, boolean paused, 
 			boolean inputEnabled){
+		if(!isSpawned())
+			return;
+		if(dead){
+			float respawnInterval = Properties.getFloat("respawn.interval");
+			if(isSpawned() && timeUntilRespawn <= respawnInterval/2f)
+				ragdoll.setAlpha(Math.min(1f, 2*timeUntilRespawn/respawnInterval));
+		}
 		this.sharedAssets = sharedAssets;
 		Vector2 vel = ragdoll.getLinearVelocity();
 		boolean facingLeft = !isDead() && ragdoll.aim(lastGunHeadingRadians);
@@ -285,7 +292,8 @@ public class Being implements Serializable{
 	}
 
 	public void death(WorldManager worldManager) {
-		ragdoll.death(worldManager.getWorld(), lastDamage);
+		if(isSpawned())
+			ragdoll.death(worldManager.getWorld(), lastDamage);
 		if(lastDamage != null && lastDamage.getOrigin() != null && lastDamage.getOrigin() != this)
 			lastDamage.getOrigin().addXp(Properties.getBool("being.xp.usestatic", false) ? xp : 
 				calculateXPWorth(this, lastDamage.getOrigin().getLevel()));
@@ -364,7 +372,7 @@ public class Being implements Serializable{
 	public void dispose(World world){
 		if(getEquippedWeapon() != null)
 			getEquippedWeapon().dispose(world);
-		if(ragdoll != null)
+		if(isSpawned())
 			ragdoll.dispose(world);
 		ragdoll = null;
 	}
@@ -612,7 +620,7 @@ public class Being implements Serializable{
 
 	public void setResource(String resource) {
 		this.resource = resource;
-		if(ragdoll != null)
+		if(isSpawned())
 			ragdoll.setTextureAtlas(new TextureAtlas(
 					Gdx.files.internal("data/textures/characters/" + resource + ".atlas")));
 	}
@@ -729,7 +737,7 @@ public class Being implements Serializable{
 	}
 
 	public void setFixedRotation(boolean fixedRotation) {
-		if(ragdoll != null && fixedRotation != ragdoll.isFixedRotation()){
+		if(isSpawned() && fixedRotation != ragdoll.isFixedRotation()){
 			ragdoll.setFixedRotation(fixedRotation);
 			for(IComponent component : getListeners())
 				component.setFixedRotation(fixedRotation);
@@ -801,7 +809,8 @@ public class Being implements Serializable{
 	}
 	
 	public void updateFromMessage(NetBeing update){
-		getRagdoll().getBodyPart(BodyPart.torso).setTransform(update.getPosX(), update.getPosY(), 0);
+		if(isSpawned())
+			getRagdoll().getBodyPart(BodyPart.torso).setTransform(update.getPosX(), update.getPosY(), 0);
 		setVelocity(new Vector2(update.getVelX(), update.getVelY()));
 		aim(update.getAim());
 		setHp(update.getHp());
