@@ -73,7 +73,6 @@ public class SelectWeapon extends
 	protected void internalSpawn() {
 		this.getExecutor().requestInsertionIntoList(
 				jbt.execution.core.BTExecutor.BTExecutorList.TICKABLE, this);
-		System.out.println(this.getClass().getCanonicalName() + " spawned");
 		Log.debug(this.getClass().getCanonicalName(), "spawned");
 	}
 

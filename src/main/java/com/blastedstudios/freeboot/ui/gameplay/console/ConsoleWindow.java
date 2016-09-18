@@ -31,7 +31,7 @@ public class ConsoleWindow extends FreebootWindow implements IHistoryListener{
 		history = new TextArea("", skin);
 		redrawHistory();
 		for(IConsoleCommand command : PluginUtil.getPlugins(IConsoleCommand.class))
-			command.initialize(world, screen);
+			command.initialize(world);
 		text = new TextField("", skin);
 		text.setMessageText("<enter command>");
 		TextButton executeButton = new FreebootTextButton("Send", skin, new ClickListener() {
