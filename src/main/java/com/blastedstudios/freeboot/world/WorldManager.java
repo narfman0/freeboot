@@ -121,6 +121,8 @@ public class WorldManager implements IDeathCallback{
 		for(Body body : getBodiesIterable())
 			if(body != null && body.getUserData() != null && body.getUserData().equals(REMOVE_USER_DATA))
 				world.destroyBody(body);
+		if(receiver == null || receiver.type != MultiplayerType.Client)
+			director.update(dt);
 	}
 	
 	public void render(float dt, GDXRenderer gdxRenderer, Camera cam, Batch batch){
@@ -132,8 +134,6 @@ public class WorldManager implements IDeathCallback{
 			npc.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true);
 		for(Being being : remotePlayers)
 			being.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true);
-		if(receiver == null || receiver.type != MultiplayerType.Client)
-			director.update(dt);
 		for(Iterator<Entry<Body, GunShot>> iter = gunshots.entrySet().iterator(); iter.hasNext();){
 			Entry<Body, GunShot> entry = iter.next();
 			if(!entry.getValue().isCanRemove())
