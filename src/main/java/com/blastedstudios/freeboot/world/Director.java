@@ -1,5 +1,6 @@
 package com.blastedstudios.freeboot.world;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,17 +28,16 @@ public class Director implements CaptureListener {
 				Vector2[] aabb = PolygonUtils.getAABB(polygon.getVerticesAbsolute().toArray(new Vector2[2]));
 				strategicPoints.add(new StrategicPoint(aabb, this));
 			}
+		List<FactionEnum> viableFactions = Arrays.asList(FactionEnum.Briton, FactionEnum.Undead, FactionEnum.Spanish);
 		LinkedList<StrategicPoint> points = new LinkedList<>(strategicPoints);
-		for(FactionEnum faction : FactionEnum.values())
+		for(FactionEnum faction : viableFactions)
 			if(!points.isEmpty()){
 				StrategicPoint point = points.pop();
 				point.setCaptured(faction, StrategicPoint.CAPTURE_AMOUNT);
 			}
 		
-		int rounds = Properties.getInt("ai.npcs.generated.count", 32) / FactionEnum.values().length;
-		for(int i=0; i<FactionEnum.values().length-1 && i<strategicPoints.size(); i++)
-			for(int j=0; j<rounds; j++)
-				createNPC(FactionEnum.values()[i]);
+		for(int i=0; i<Properties.getInt("ai.npcs.generated.count", 32); i++)
+			createNPC(viableFactions.get(i % viableFactions.size()));
 	}	
 
 	public void update(float dt){
