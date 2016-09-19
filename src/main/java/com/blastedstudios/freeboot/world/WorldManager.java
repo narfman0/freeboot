@@ -77,13 +77,15 @@ public class WorldManager implements IDeathCallback{
 	private Box2DDebugRenderer debugRenderer;
 	private boolean pause, inputEnable = true, playerTrack = true, desireFixedRotation = true, simulate = true;
 	private final Random random;
-	private GameplayNetReceiver receiver;
+	private GameplayNetReceiver receiver; // not initialized until after WorldManager!
 	private Director director;
+	private final MultiplayerType multiplayerType;
 	
-	public WorldManager(Player player, GDXLevel level, AssetManager sharedAssets){
+	public WorldManager(Player player, GDXLevel level, AssetManager sharedAssets, MultiplayerType multiplayerType){
 		this.player = player;
 		this.level = level;
 		this.sharedAssets = sharedAssets;
+		this.multiplayerType = multiplayerType;
 		random = new Random();
 		tweenManager = new TweenManager();
 		if(player != null){
@@ -99,7 +101,7 @@ public class WorldManager implements IDeathCallback{
 			spawnNPC(gdxNPC);
 		if(Properties.getBool("world.debug.draw", false))
 			debugRenderer = new Box2DDebugRenderer();
-		if(receiver == null || receiver.type != MultiplayerType.Client)
+		if(multiplayerType != MultiplayerType.Client)
 			director = new Director(level, this);
 	}
 
@@ -122,7 +124,7 @@ public class WorldManager implements IDeathCallback{
 		for(Body body : getBodiesIterable())
 			if(body != null && body.getUserData() != null && body.getUserData().equals(REMOVE_USER_DATA))
 				world.destroyBody(body);
-		if(director != null && (receiver == null || receiver.type != MultiplayerType.Client))
+		if(director != null && multiplayerType != MultiplayerType.Client)
 			director.update(dt);
 	}
 	
@@ -283,7 +285,7 @@ public class WorldManager implements IDeathCallback{
 
 	@Override public void dead(Being being) {
 		// let remote player be authoritative on himself. i know i know, but im lazy!
-		if(remotePlayers.containsKey(being.getUuid()) || (receiver != null && receiver.type == MultiplayerType.Client && being != player))
+		if(remotePlayers.containsKey(being.getUuid()) || (multiplayerType == MultiplayerType.Client && being != player))
 			return;
 		being.death(this);
 		if(receiver != null){
@@ -427,8 +429,8 @@ public class WorldManager implements IDeathCallback{
 
 	public void dispose(Being being) {
 		being.dispose(world);
-		npcs.remove(being);
-		remotePlayers.remove(being);
+		npcs.remove(being.getUuid());
+		remotePlayers.remove(being.getUuid());
 	}
 
 	public Random getRandom() {
@@ -534,5 +536,9 @@ public class WorldManager implements IDeathCallback{
 	
 	public Director getDirector(){
 		return director;
+	}
+
+	public MultiplayerType getMultiplayerType() {
+		return multiplayerType;
 	}
 }

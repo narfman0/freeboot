@@ -71,7 +71,7 @@ public class Rocket extends GunShot {
 					being.getKey().getRagdoll().getBodyPart(BodyPart.torso).getFixtureList().get(0), 
 					manifold.getNormal(), manifold.getPoints()[0]);
 		}
-		if(worldManager.getReceiver().type == MultiplayerType.DedicatedServer)
+		if(worldManager.getMultiplayerType() == MultiplayerType.DedicatedServer)
 			return;
 		//send off particles to particle manager
 		explosion.setPosition(gunshotBody.getPosition().x, gunshotBody.getPosition().y);

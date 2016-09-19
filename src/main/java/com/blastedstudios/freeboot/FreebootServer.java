@@ -33,7 +33,7 @@ public class FreebootServer extends ApplicationAdapter{
 		BaseNetwork.registerMessageOrigin(Messages.class);
 		host = new Host(Properties.getInt("network.port"));
 		gdxWorld = GDXWorld.load(MainScreen.WORLD_FILE);
-		worldManager = new WorldManager(null, gdxWorld.getLevels().get(0), null);
+		worldManager = new WorldManager(null, gdxWorld.getLevels().get(0), null, MultiplayerType.DedicatedServer);
 		receiver = new GameplayNetReceiver(worldManager, MultiplayerType.DedicatedServer, host);
 		worldManager.setReceiver(receiver);
 		consoleInput = new ConsoleInput(worldManager);

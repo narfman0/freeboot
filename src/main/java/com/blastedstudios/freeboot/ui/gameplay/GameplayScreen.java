@@ -102,7 +102,7 @@ public class GameplayScreen extends FreebootScreen {
 		particleManager = new ParticleManager();
 		for(GDXParticle particle : level.getParticles())
 			particleManager.addParticle(particle);
-		worldManager = new WorldManager(player, level, sharedAssets);
+		worldManager = new WorldManager(player, level, sharedAssets, type);
 		if(type != MultiplayerType.Local){
 			receiver = new GameplayNetReceiver(worldManager, type, network);
 			worldManager.setReceiver(receiver);
