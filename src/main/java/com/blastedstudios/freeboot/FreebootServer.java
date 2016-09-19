@@ -44,7 +44,7 @@ public class FreebootServer extends ApplicationAdapter{
 		try {
 			worldManager.update(dt);
 			receiver.update(dt);
-			consoleInput.execute();
+			consoleInput.update();
 			Thread.sleep((long)dt);
 		} catch (Exception e) {
 			e.printStackTrace();

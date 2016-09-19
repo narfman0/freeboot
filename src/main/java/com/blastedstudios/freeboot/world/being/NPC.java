@@ -37,12 +37,13 @@ public class NPC extends Being {
 	private final DifficultyEnum difficulty;
 	private final boolean vendor, boss;
 	private final LinkedList<Weapon> vendorWeapons;
+	private final String behavior;
 	
 	public NPC(UUID uuid, String name, List<Weapon> guns, List<Weapon> inventory, Stats stats,
 			int currentGun, int cash, int level, int xp, String behavior,
 			GDXPath path, FactionEnum faction, EnumSet<FactionEnum> factions,
 			WorldManager world, String resource, String ragdollResource, 
-			DifficultyEnum difficulty, AIWorld aiWorld, boolean vendor,
+			DifficultyEnum difficulty, boolean vendor,
 			LinkedList<Weapon> vendorWeapons, boolean boss) {
 		super(uuid, name, guns, inventory, stats, currentGun, cash, level, xp, 
 				faction, factions, resource, ragdollResource);
@@ -50,15 +51,24 @@ public class NPC extends Being {
 		this.vendor = vendor;
 		this.vendorWeapons = vendorWeapons;
 		this.boss = boss;
-		applyBehaviorTree(behavior, aiWorld, world, path);
+		this.behavior = behavior;
+		applyBehaviorTree(behavior, world.getAiWorld(), world, path);
 	}
 	
-	public NPC(NetBeing message){
+	public NPC(WorldManager world, NetBeing message){
 		super(message);
 		vendorWeapons = null;
 		vendor = false;
 		boss = false;
 		difficulty = DifficultyEnum.MEDIUM;
+		behavior = message.getBehavior();
+		applyBehaviorTree(message.getBehavior(), world.getAiWorld(), world, path);
+	}
+	
+	@Override public NetBeing.Builder buildMessage(boolean complete){
+		NetBeing.Builder builder = super.buildMessage(complete);
+		builder.setBehavior(behavior);
+		return builder;
 	}
 	
 	public void applyBehaviorTree(String behavior, AIWorld aiWorld, WorldManager world, GDXPath path){

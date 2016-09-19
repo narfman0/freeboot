@@ -37,7 +37,7 @@ public class ParticleManager {
 			ParticleStruct struct = entry.getValue();
 			if(!struct.particle.getAttachedBody().isEmpty()){
 				boolean found = false;
-				for(Being being : worldManager.getAllBeings())
+				for(Being being : worldManager.getAllBeings().values())
 					if(being.getName().equalsIgnoreCase(struct.particle.getAttachedBody()) || 
 							struct.particle.getAttachedBody().equalsIgnoreCase("player") && being == worldManager.getPlayer()){
 						struct.effect.setPosition(being.getPosition().x, being.getPosition().y);

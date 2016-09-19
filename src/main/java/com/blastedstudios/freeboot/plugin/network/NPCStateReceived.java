@@ -18,9 +18,9 @@ public class NPCStateReceived extends AbstractMessageReceive<NPCState> {
 			UUID uuid = UUIDConvert.convert(updateNPC.getUuid());
 			NPC npc = worldManager.getNpcs().get(uuid);
 			if(npc == null){
-				npc = new NPC(updateNPC);
+				npc = new NPC(worldManager, updateNPC);
 				worldManager.getNpcs().put(uuid, npc);
-				if(npc.getHp() > 0)
+				if(!updateNPC.getDead())
 					npc.respawn(worldManager, updateNPC.getPosX(), updateNPC.getPosY());
 					
 			}else if(!npc.isDead())

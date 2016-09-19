@@ -41,7 +41,7 @@ public class Director implements CaptureListener {
 	}	
 
 	public void update(float dt){
-		for(Being being : worldManager.getAllBeings())
+		for(Being being : worldManager.getAllBeings().values())
 			if(!being.isDead() && being.isSpawned()){
 				for(StrategicPoint strategicPoint : strategicPoints)
 					if(strategicPoint.contains(being.getPosition()))
@@ -50,7 +50,7 @@ public class Director implements CaptureListener {
 				if(being.canRespawn()){
 					Vector2 coordinates = createSpawnPoint(being.getFaction());
 					if(coordinates == null)
-						coordinates = being.getPosition();
+						coordinates = being.getPosition() == null ? Vector2.Zero : being.getPosition();
 					being.respawn(worldManager, coordinates.x, coordinates.y);
 				}
 			}

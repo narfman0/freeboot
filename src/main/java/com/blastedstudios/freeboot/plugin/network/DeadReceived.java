@@ -1,6 +1,7 @@
 package com.blastedstudios.freeboot.plugin.network;
 
 import java.net.Socket;
+import java.util.UUID;
 
 import com.blastedstudios.freeboot.network.Messages.Dead;
 import com.blastedstudios.freeboot.ui.network.network.NetworkWindow.MultiplayerType;
@@ -13,11 +14,10 @@ import net.xeoh.plugins.base.annotations.PluginImplementation;
 @PluginImplementation
 public class DeadReceived extends AbstractMessageReceive<Dead>{
 	@Override public void receive(Dead message, Socket origin) {
-		Being existing = worldManager.getRemotePlayer(UUIDConvert.convert(message.getUuid()));
+		UUID uuid = UUIDConvert.convert(message.getUuid());
+		Being existing = worldManager.getRemotePlayer(uuid);
 		if(existing == null)
-			for(Being being : worldManager.getAllBeings())
-				if(being.getName().equals(message.getName()))
-					existing = being;
+			existing = worldManager.getAllBeings().get(uuid);
 		if(existing != null){
 			existing.death(worldManager);
 			if(multiplayerType == MultiplayerType.Host || multiplayerType == MultiplayerType.DedicatedServer)

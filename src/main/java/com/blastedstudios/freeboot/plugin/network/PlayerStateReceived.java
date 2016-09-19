@@ -23,7 +23,7 @@ public class PlayerStateReceived extends AbstractMessageReceive<PlayerState> {
 			Player remotePlayer = worldManager.getRemotePlayer(uuid);
 			if(remotePlayer == null){
 				remotePlayer = new Player(netBeing);
-				worldManager.getRemotePlayers().add(remotePlayer);
+				worldManager.getRemotePlayers().put(remotePlayer.getUuid(), remotePlayer);
 				if(remotePlayer.getHp() > 0)
 					remotePlayer.respawn(worldManager, netBeing.getPosX(), netBeing.getPosY());
 				Log.log("GameplayScreen.receive", "Received first player update: " + netBeing.getName());

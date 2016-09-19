@@ -40,7 +40,7 @@ public class GameplayNetReceiver{
 			// send my own status
 			if(type != MultiplayerType.DedicatedServer && !worldManager.getPlayer().isDead()){
 				PlayerState.Builder builder = PlayerState.newBuilder();
-				builder.addPlayers(worldManager.getPlayer().buildMessage(true));
+				builder.addPlayers(worldManager.getPlayer().buildMessage(true).build());
 				network.send(builder.build(), null);
 			}
 			if(type == MultiplayerType.Host || type == MultiplayerType.DedicatedServer && beingStateAccumulator < 0){
@@ -57,7 +57,7 @@ public class GameplayNetReceiver{
 	private void updateNPCs(){
 		NPCState.Builder builder = NPCState.newBuilder(); 
 		for(NPC npc : worldManager.getNpcs().values())
-			builder.addNpcs(npc.buildMessage(false));
+			builder.addNpcs(npc.buildMessage(true).build());
 		network.send(builder.build(), null);
 	}
 	
@@ -66,8 +66,8 @@ public class GameplayNetReceiver{
 	 */
 	private void updatePlayers(){
 		PlayerState.Builder playerBuilder = PlayerState.newBuilder();
-		for(Player player : worldManager.getAllPlayers())
-			playerBuilder.addPlayers(player.buildMessage(true));
+		for(Player player : worldManager.getAllPlayers().values())
+			playerBuilder.addPlayers(player.buildMessage(true).build());
 		network.send(playerBuilder.build(), null);
 	}
 

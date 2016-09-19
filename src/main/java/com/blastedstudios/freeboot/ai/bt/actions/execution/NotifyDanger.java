@@ -87,7 +87,7 @@ public class NotifyDanger extends
 		WorldManager world = (WorldManager) getContext().getVariable(AIFieldEnum.WORLD.name());
 		AIWorld aiWorld = (AIWorld) getContext().getVariable(AIFieldEnum.AI_WORLD.name());
 		Vector2 target = new Vector2(getTarget()[0], getTarget()[1]);
-		for(Being being : world.getAllBeings()){
+		for(Being being : world.getAllBeings().values()){
 			if(being.getPosition() == null)
 				// they are not spawned yet, scrub
 				continue;

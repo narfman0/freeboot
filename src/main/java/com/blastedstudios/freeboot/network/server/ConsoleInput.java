@@ -34,7 +34,7 @@ public class ConsoleInput {
 		}
 	}
 	
-	public void execute(){
+	public void update(){
 		List<String> result = new ArrayList<>(lines);
 		lines.clear();
 		for(String commandText : result){

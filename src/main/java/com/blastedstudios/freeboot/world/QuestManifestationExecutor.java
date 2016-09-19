@@ -62,7 +62,7 @@ public class QuestManifestationExecutor implements IQuestManifestationExecutor{
 	}
 
 	public CompletionEnum factionChange(String beingName, FactionEnum faction) {
-		for(Being being : worldManager.getAllBeings())
+		for(Being being : worldManager.getAllBeings().values())
 			if(being.getName().matches(beingName) || 
 					"player".matches(beingName) && being == worldManager.getPlayer()){
 				being.setFaction(faction);
@@ -72,7 +72,7 @@ public class QuestManifestationExecutor implements IQuestManifestationExecutor{
 	}
 
 	public CompletionEnum beingRotation(String beingString, boolean fixedRotation, float torque) {
-		for(Being being : worldManager.getAllBeings())
+		for(Being being : worldManager.getAllBeings().values())
 			if(being.getName().matches(beingString) || 
 					"player".matches(beingString) && being == worldManager.getPlayer()){
 				being.setFixedRotation(fixedRotation);
@@ -82,7 +82,7 @@ public class QuestManifestationExecutor implements IQuestManifestationExecutor{
 	}
 
 	public CompletionEnum weaponAdd(String weapon, String target) {
-		for(Being being : worldManager.getAllBeings())
+		for(Being being : worldManager.getAllBeings().values())
 			if(being.getName().matches(target) ||
 					"player".matches(target) && being == worldManager.getPlayer()){
 				if(!being.getGuns().isEmpty())
@@ -96,7 +96,7 @@ public class QuestManifestationExecutor implements IQuestManifestationExecutor{
 	}
 
 	public CompletionEnum addXP(String beingName, long xp) {
-		for(Being being : worldManager.getAllBeings())
+		for(Being being : worldManager.getAllBeings().values())
 			if(being.getName().matches(beingName) || 
 					"player".matches(beingName) && being == worldManager.getPlayer())
 				being.addXp(xp);
@@ -119,7 +119,7 @@ public class QuestManifestationExecutor implements IQuestManifestationExecutor{
 			if(worldManager.getPlayer() != null)
 				worldManager.getPlayer().setInvulnerable(invuln);
 		else
-			for(Being being : worldManager.getAllBeings())
+			for(Being being : worldManager.getAllBeings().values())
 				if(being.getName().matches(beingName))
 					being.setInvulnerable(invuln);
 		return CompletionEnum.COMPLETED;
@@ -132,7 +132,7 @@ public class QuestManifestationExecutor implements IQuestManifestationExecutor{
 		if("player".matches(beingName))
 			target = worldManager.getPlayer();
 		else
-			for(Being being : worldManager.getAllBeings())
+			for(Being being : worldManager.getAllBeings().values())
 				if(being.getName().matches(beingName))
 					target = being;
 		if(target == null)

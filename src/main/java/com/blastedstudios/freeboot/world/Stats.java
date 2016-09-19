@@ -2,6 +2,7 @@ package com.blastedstudios.freeboot.world;
 
 import java.io.Serializable;
 
+import com.blastedstudios.freeboot.network.Messages.NetStats;
 import com.blastedstudios.freeboot.world.being.NPCData;
 
 public class Stats implements Serializable {
@@ -10,6 +11,50 @@ public class Stats implements Serializable {
 		damage, accuracy, rateOfFire, reloadSpeed, muzzleVelocity, recoil, 
 		jetpackRecharge, jetpackMax, jetpackImpulse, distanceAware, distanceVision;
 	private int projectileCount, roundsPerClip;
+	
+	public Stats(){}
+	
+	public Stats(NetStats message){
+		this.hp = message.getHp();
+		this.attack = message.getAttack();
+		this.defense = message.getDefense();
+		this.hpPerLevel = message.getHpPerLevel();
+		this.hpRegen = message.getHpRegen();
+		this.hpRegenPerLevel = message.getHpRegenPerLevel();
+		this.attackPerLevel = message.getAttackPerLevel();
+		this.defensePerLevel = message.getDefensePerLevel();
+	}
+	
+	public static NetStats toNetStats(Stats stats){
+		NetStats.Builder builder = NetStats.newBuilder();
+		builder.setHp(stats.hp);
+		builder.setAttack(stats.attack);
+		builder.setDefense(stats.defense);
+		builder.setHpPerLevel(stats.hpPerLevel);
+		builder.setHpRegen(stats.hpRegen);
+		builder.setHpRegenPerLevel(stats.hpRegenPerLevel);
+		builder.setAttackPerLevel(stats.attackPerLevel);
+		builder.setDefensePerLevel(stats.getDefensePerLevel());
+		return builder.build();
+	}
+	
+	public static Stats parseNPCData(NPCData npcData){
+		Stats stats = new Stats();
+		stats.hp = npcData.getFloat("HP");
+		stats.attack = npcData.getFloat("Attack");
+		stats.defense = npcData.getFloat("Defense");
+		stats.hpPerLevel = npcData.getFloat("HPPerLevel");
+		stats.setHpRegen(npcData.getFloat("HPRegen"));
+		stats.setHpRegenPerLevel(npcData.getFloat("HPRegenPerLevel"));
+		stats.attackPerLevel = npcData.getFloat("AttackPerLevel");
+		stats.defensePerLevel = npcData.getFloat("DefensePerLevel");
+		stats.jetpackRecharge = npcData.getFloat("JetpackRecharge");
+		stats.jetpackMax = npcData.getFloat("JetpackMax");
+		stats.jetpackImpulse = npcData.getFloat("JetpackImpulse");
+		stats.distanceAware = npcData.getFloat("DistanceAware");
+		stats.distanceVision = npcData.getFloat("DistanceVision");
+		return stats;
+	}
 
 	public float getDamage() {
 		return damage;
@@ -181,23 +226,5 @@ public class Stats implements Serializable {
 
 	public void setHpRegenPerLevel(float hpRegenPerLevel) {
 		this.hpRegenPerLevel = hpRegenPerLevel;
-	}
-	
-	public static Stats parseNPCData(NPCData npcData){
-		Stats stats = new Stats();
-		stats.hp = npcData.getFloat("HP");
-		stats.attack = npcData.getFloat("Attack");
-		stats.defense = npcData.getFloat("Defense");
-		stats.hpPerLevel = npcData.getFloat("HPPerLevel");
-		stats.setHpRegen(npcData.getFloat("HPRegen"));
-		stats.setHpRegenPerLevel(npcData.getFloat("HPRegenPerLevel"));
-		stats.attackPerLevel = npcData.getFloat("AttackPerLevel");
-		stats.defensePerLevel = npcData.getFloat("DefensePerLevel");
-		stats.jetpackRecharge = npcData.getFloat("JetpackRecharge");
-		stats.jetpackMax = npcData.getFloat("JetpackMax");
-		stats.jetpackImpulse = npcData.getFloat("JetpackImpulse");
-		stats.distanceAware = npcData.getFloat("DistanceAware");
-		stats.distanceVision = npcData.getFloat("DistanceVision");
-		return stats;
 	}
 }

@@ -13,7 +13,7 @@ public class BeingStateConsole extends AbstractConsole{
 
 	@Override public void execute(String[] tokens) {
 		if(tokens.length == 2 && tokens[1].equalsIgnoreCase("list")){
-			for(Being being : world.getAllBeings())
+			for(Being being : world.getAllBeings().values())
 				Log.log(this.getClass().getSimpleName() + ".execute", "NPC uuid: " + being.getUuid() + 
 						" name: " + being.getName() + " position: " + being.getPosition());
 		}

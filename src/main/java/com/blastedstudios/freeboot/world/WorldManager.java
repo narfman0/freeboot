@@ -62,7 +62,7 @@ public class WorldManager implements IDeathCallback{
 	public static final String REMOVE_USER_DATA = "r";
 	private final World world = new World(new Vector2(0, -10), true), aiWorldDebug;
 	private final HashMap<UUID, NPC> npcs = new HashMap<>();
-	private final List<Player> remotePlayers = new LinkedList<>();
+	private final HashMap<UUID, Player> remotePlayers = new HashMap<>();
 	private final Player player;
 	private final Map<Body,GunShot> gunshots = new HashMap<>();
 	private final CreateLevelReturnStruct createLevelStruct;
@@ -110,7 +110,7 @@ public class WorldManager implements IDeathCallback{
 			player.update(dt, world, this, pause, inputEnable, receiver);
 		for(NPC npc : npcs.values())
 			npc.update(dt, world, this, pause, true, simulate, receiver);
-		for(Being being : remotePlayers)
+		for(Being being : remotePlayers.values())
 			being.update(dt, world, this, pause, true, receiver);
 		for(Iterator<Entry<Body, GunShot>> iter = gunshots.entrySet().iterator(); iter.hasNext();)
 			if(iter.next().getValue().isCanRemove())
@@ -133,7 +133,7 @@ public class WorldManager implements IDeathCallback{
 			player.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, inputEnable);
 		for(NPC npc : npcs.values()) 
 			npc.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true);
-		for(Being being : remotePlayers)
+		for(Being being : remotePlayers.values())
 			being.render(dt, world, batch, sharedAssets, gdxRenderer, this, pause, true);
 		for(Iterator<Entry<Body, GunShot>> iter = gunshots.entrySet().iterator(); iter.hasNext();){
 			Entry<Body, GunShot> entry = iter.next();
@@ -200,8 +200,9 @@ public class WorldManager implements IDeathCallback{
 		Being closestEnemy = null;
 		float closestDistanceSq = Float.MAX_VALUE;
 		LinkedList<Being> enemies = new LinkedList<>();
-		for(Being being : getAllBeings())
-			if(being != origin && !origin.isFriendly(being.getFaction()) && !being.isDead()){
+		for(Being being : getAllBeings().values())
+			if(being != null && origin != null && origin.isSpawned() && being.isSpawned() && 
+				being != origin && !origin.isFriendly(being.getFaction()) && !being.isDead()){
 				float currentClosestDistanceSq = being.getPosition().dst2(origin.getPosition());
 				boolean closer = closestEnemy == null || closestDistanceSq > currentClosestDistanceSq,
 						facingCorrectly = origin.getRagdoll().isFacingLeft() ?
@@ -267,7 +268,7 @@ public class WorldManager implements IDeathCallback{
 				new ArrayList<Weapon>(), Stats.parseNPCData(npcData), currentWeapon, cash, 
 				npcLevel, xp, npcData.get("Behavior"), level.getPath(npcData.get("Path")),
 				faction, factions, this, npcData.get("Resource"), npcData.get("RagdollResource"),
-				difficulty, aiWorld, npcData.getBool("Vendor"), vendorWeapons, npcData.getBool("boss"));
+				difficulty, npcData.getBool("Vendor"), vendorWeapons, npcData.getBool("boss"));
 		npc.aim(npcData.getFloat("Aim"));
 		npcs.put(npc.getUuid(), npc);
 		npc.respawn(this, coordinates.x, coordinates.y);
@@ -282,12 +283,11 @@ public class WorldManager implements IDeathCallback{
 
 	@Override public void dead(Being being) {
 		// let remote player be authoritative on himself. i know i know, but im lazy!
-		if(remotePlayers.contains(being) || (receiver != null && receiver.type == MultiplayerType.Client && being != player))
+		if(remotePlayers.containsKey(being.getUuid()) || (receiver != null && receiver.type == MultiplayerType.Client && being != player))
 			return;
 		being.death(this);
 		if(receiver != null){
 			Dead.Builder builder = Dead.newBuilder();
-			builder.setName(being.getName());
 			builder.setUuid(UUIDConvert.convert(being.getUuid()));
 			receiver.send(builder.build());
 		}
@@ -297,12 +297,14 @@ public class WorldManager implements IDeathCallback{
 		player.respawn(this, respawnLocation.x, respawnLocation.y);
 	}
 
-	public List<Being> getAllBeings() {
-		List<Being> beings = new LinkedList<>();
-		beings.addAll(npcs.values());
-		beings.addAll(remotePlayers);
+	public HashMap<UUID, Being> getAllBeings() {
+		HashMap<UUID, Being> beings = new HashMap<>();
+		for(Entry<UUID, NPC> entry : npcs.entrySet())
+			beings.put(entry.getKey(), entry.getValue());
+		for(Entry<UUID, Player> entry : remotePlayers.entrySet())
+			beings.put(entry.getKey(), entry.getValue());
 		if(player != null && player.isSpawned())
-			beings.add(player);
+			beings.put(player.getUuid(), player);
 		return beings;
 	}
 
@@ -371,7 +373,7 @@ public class WorldManager implements IDeathCallback{
 		LinkedList<Being> targets = new LinkedList<>();
 		if("player".matches(beingName))
 			targets.add(player);
-		for(Being being : getAllBeings())
+		for(Being being : getAllBeings().values())
 			if(being.getName().matches(beingName))
 				targets.add(being);
 		return targets;
@@ -453,7 +455,7 @@ public class WorldManager implements IDeathCallback{
 		return player;
 	}
 
-	public List<Player> getRemotePlayers() {
+	public HashMap<UUID, Player> getRemotePlayers() {
 		return remotePlayers;
 	}
 
@@ -466,10 +468,7 @@ public class WorldManager implements IDeathCallback{
 	}
 	
 	public Player getRemotePlayer(UUID uuid){
-		for(Player being : remotePlayers)
-			if(uuid.equals(being.getUuid()))
-				return being;
-		return null;
+		return remotePlayers.get(uuid);
 	}
 
 	public boolean isSimulate() {
@@ -491,8 +490,8 @@ public class WorldManager implements IDeathCallback{
 	public Being getClosestBeing(Being self, boolean friendly, boolean dead){
 		Being closest = null;
 		float closestSq = Float.MAX_VALUE;
-		for(Being being : getAllBeings())
-			if(being != self && (!dead ^ being.isDead()) &&
+		for(Being being : getAllBeings().values())
+			if(being != self && being.getPosition() != null && (!dead ^ being.isDead()) &&
 					(!friendly ^ being.isFriendly(self.getFaction()))){
 				float distanceSq = being.getPosition().dst2(self.getPosition());
 				if(closest == null || distanceSq < closestSq){
@@ -506,10 +505,10 @@ public class WorldManager implements IDeathCallback{
 	public Vector2 getFurthestSpawn(){
 		Vector2 furthest = null;
 		float maxDistance = 0f;
-		List<Player> targets = getAllPlayers();
+		HashMap<UUID, Player> targets = getAllPlayers();
 		for(Vector2 spawn : spawnPoints){
 			float distance = Float.MAX_VALUE;
-			for(Player player : targets)
+			for(Player player : targets.values())
 				distance = Math.min(distance, player.getPosition().dst(spawn));
 			if(distance > maxDistance){
 				furthest = spawn;
@@ -522,10 +521,10 @@ public class WorldManager implements IDeathCallback{
 		return furthest;
 	}
 	
-	public List<Player> getAllPlayers(){
-		List<Player> players = new ArrayList<>(remotePlayers);
+	public HashMap<UUID, Player> getAllPlayers(){
+		HashMap<UUID, Player> players = new HashMap<>(remotePlayers);
 		if(player != null)
-			players.add(player);
+			players.put(player.getUuid(), player);
 		return players;
 	}
 

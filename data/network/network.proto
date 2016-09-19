@@ -30,7 +30,6 @@ message NetBeing {
   float pos_y = 4;
   float vel_x = 5;
   float vel_y = 6;
-  float max_hp = 7;
   float hp = 8;
   int32 current_weapon = 9;
   repeated NetWeapon weapons = 10;
@@ -39,6 +38,9 @@ message NetBeing {
   FactionEnum faction = 13;
   float aim = 14;
   ClassEnum player_class = 15;
+  bool dead = 16;
+  NetStats stats = 17;
+  string behavior = 18;
 
   enum FactionEnum {
   	Briton = 0;
@@ -58,25 +60,33 @@ message NetBeing {
   }
 }
 
+message NetStats {
+	float hp = 1;
+	float attack = 2;
+	float defense = 3;
+	float hpPerLevel = 4;
+	float hpRegen = 5;
+	float hpRegenPerLevel = 6;
+	float attackPerLevel = 7;
+	float defensePerLevel = 8;
+}
+
 message NetWeapon {
   string id = 1;
 }
 
 message Attack {
-  string name = 1;
-  UUID uuid = 2;
-  float pos_x = 3;
-  float pos_y = 4;
+  UUID uuid = 1;
+  float pos_x = 2;
+  float pos_y = 3;
 }
 
 message Dead {
-  string name = 1;
-  UUID uuid = 2;
+  UUID uuid = 1;
 }
 
 message Logout {
-  string name = 1;
-  UUID uuid = 2;
+  UUID uuid = 1;
 }
 
 message NPCState {
@@ -97,9 +107,8 @@ message Reload {
 
 message Respawn {
   UUID uuid = 1;
-  string name = 2;
-  float pos_x = 3;
-  float pos_y = 4;
+  float pos_x = 2;
+  float pos_y = 3;
 }
 
 message Text {

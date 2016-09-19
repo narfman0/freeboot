@@ -2421,11 +2421,6 @@ public final class Messages {
     float getVelY();
 
     /**
-     * <code>optional float max_hp = 7;</code>
-     */
-    float getMaxHp();
-
-    /**
      * <code>optional float hp = 8;</code>
      */
     float getHp();
@@ -2501,6 +2496,34 @@ public final class Messages {
      * <code>optional .proto.NetBeing.ClassEnum player_class = 15;</code>
      */
     com.blastedstudios.freeboot.network.Messages.NetBeing.ClassEnum getPlayerClass();
+
+    /**
+     * <code>optional bool dead = 16;</code>
+     */
+    boolean getDead();
+
+    /**
+     * <code>optional .proto.NetStats stats = 17;</code>
+     */
+    boolean hasStats();
+    /**
+     * <code>optional .proto.NetStats stats = 17;</code>
+     */
+    com.blastedstudios.freeboot.network.Messages.NetStats getStats();
+    /**
+     * <code>optional .proto.NetStats stats = 17;</code>
+     */
+    com.blastedstudios.freeboot.network.Messages.NetStatsOrBuilder getStatsOrBuilder();
+
+    /**
+     * <code>optional string behavior = 18;</code>
+     */
+    java.lang.String getBehavior();
+    /**
+     * <code>optional string behavior = 18;</code>
+     */
+    com.google.protobuf.ByteString
+        getBehaviorBytes();
   }
   /**
    * Protobuf type {@code proto.NetBeing}
@@ -2519,7 +2542,6 @@ public final class Messages {
       posY_ = 0F;
       velX_ = 0F;
       velY_ = 0F;
-      maxHp_ = 0F;
       hp_ = 0F;
       currentWeapon_ = 0;
       weapons_ = java.util.Collections.emptyList();
@@ -2528,6 +2550,8 @@ public final class Messages {
       faction_ = 0;
       aim_ = 0F;
       playerClass_ = 0;
+      dead_ = false;
+      behavior_ = "";
     }
 
     @java.lang.Override
@@ -2594,11 +2618,6 @@ public final class Messages {
               velY_ = input.readFloat();
               break;
             }
-            case 61: {
-
-              maxHp_ = input.readFloat();
-              break;
-            }
             case 69: {
 
               hp_ = input.readFloat();
@@ -2610,9 +2629,9 @@ public final class Messages {
               break;
             }
             case 82: {
-              if (!((mutable_bitField0_ & 0x00000200) == 0x00000200)) {
+              if (!((mutable_bitField0_ & 0x00000100) == 0x00000100)) {
                 weapons_ = new java.util.ArrayList<com.blastedstudios.freeboot.network.Messages.NetWeapon>();
-                mutable_bitField0_ |= 0x00000200;
+                mutable_bitField0_ |= 0x00000100;
               }
               weapons_.add(
                   input.readMessage(com.blastedstudios.freeboot.network.Messages.NetWeapon.parser(), extensionRegistry));
@@ -2647,6 +2666,30 @@ public final class Messages {
               playerClass_ = rawValue;
               break;
             }
+            case 128: {
+
+              dead_ = input.readBool();
+              break;
+            }
+            case 138: {
+              com.blastedstudios.freeboot.network.Messages.NetStats.Builder subBuilder = null;
+              if (stats_ != null) {
+                subBuilder = stats_.toBuilder();
+              }
+              stats_ = input.readMessage(com.blastedstudios.freeboot.network.Messages.NetStats.parser(), extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(stats_);
+                stats_ = subBuilder.buildPartial();
+              }
+
+              break;
+            }
+            case 146: {
+              java.lang.String s = input.readStringRequireUtf8();
+
+              behavior_ = s;
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -2655,7 +2698,7 @@ public final class Messages {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000200) == 0x00000200)) {
+        if (((mutable_bitField0_ & 0x00000100) == 0x00000100)) {
           weapons_ = java.util.Collections.unmodifiableList(weapons_);
         }
         makeExtensionsImmutable();
@@ -3016,15 +3059,6 @@ public final class Messages {
       return velY_;
     }
 
-    public static final int MAX_HP_FIELD_NUMBER = 7;
-    private float maxHp_;
-    /**
-     * <code>optional float max_hp = 7;</code>
-     */
-    public float getMaxHp() {
-      return maxHp_;
-    }
-
     public static final int HP_FIELD_NUMBER = 8;
     private float hp_;
     /**
@@ -3187,6 +3221,70 @@ public final class Messages {
       return result == null ? com.blastedstudios.freeboot.network.Messages.NetBeing.ClassEnum.UNRECOGNIZED : result;
     }
 
+    public static final int DEAD_FIELD_NUMBER = 16;
+    private boolean dead_;
+    /**
+     * <code>optional bool dead = 16;</code>
+     */
+    public boolean getDead() {
+      return dead_;
+    }
+
+    public static final int STATS_FIELD_NUMBER = 17;
+    private com.blastedstudios.freeboot.network.Messages.NetStats stats_;
+    /**
+     * <code>optional .proto.NetStats stats = 17;</code>
+     */
+    public boolean hasStats() {
+      return stats_ != null;
+    }
+    /**
+     * <code>optional .proto.NetStats stats = 17;</code>
+     */
+    public com.blastedstudios.freeboot.network.Messages.NetStats getStats() {
+      return stats_ == null ? com.blastedstudios.freeboot.network.Messages.NetStats.getDefaultInstance() : stats_;
+    }
+    /**
+     * <code>optional .proto.NetStats stats = 17;</code>
+     */
+    public com.blastedstudios.freeboot.network.Messages.NetStatsOrBuilder getStatsOrBuilder() {
+      return getStats();
+    }
+
+    public static final int BEHAVIOR_FIELD_NUMBER = 18;
+    private volatile java.lang.Object behavior_;
+    /**
+     * <code>optional string behavior = 18;</code>
+     */
+    public java.lang.String getBehavior() {
+      java.lang.Object ref = behavior_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        behavior_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>optional string behavior = 18;</code>
+     */
+    public com.google.protobuf.ByteString
+        getBehaviorBytes() {
+      java.lang.Object ref = behavior_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        behavior_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
@@ -3217,9 +3315,6 @@ public final class Messages {
       if (velY_ != 0F) {
         output.writeFloat(6, velY_);
       }
-      if (maxHp_ != 0F) {
-        output.writeFloat(7, maxHp_);
-      }
       if (hp_ != 0F) {
         output.writeFloat(8, hp_);
       }
@@ -3243,6 +3338,15 @@ public final class Messages {
       }
       if (playerClass_ != com.blastedstudios.freeboot.network.Messages.NetBeing.ClassEnum.Brawler.getNumber()) {
         output.writeEnum(15, playerClass_);
+      }
+      if (dead_ != false) {
+        output.writeBool(16, dead_);
+      }
+      if (stats_ != null) {
+        output.writeMessage(17, getStats());
+      }
+      if (!getBehaviorBytes().isEmpty()) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 18, behavior_);
       }
     }
 
@@ -3274,10 +3378,6 @@ public final class Messages {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(6, velY_);
       }
-      if (maxHp_ != 0F) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(7, maxHp_);
-      }
       if (hp_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
           .computeFloatSize(8, hp_);
@@ -3307,6 +3407,17 @@ public final class Messages {
       if (playerClass_ != com.blastedstudios.freeboot.network.Messages.NetBeing.ClassEnum.Brawler.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(15, playerClass_);
+      }
+      if (dead_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(16, dead_);
+      }
+      if (stats_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(17, getStats());
+      }
+      if (!getBehaviorBytes().isEmpty()) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(18, behavior_);
       }
       memoizedSize = size;
       return size;
@@ -3348,10 +3459,6 @@ public final class Messages {
           == java.lang.Float.floatToIntBits(
               other.getVelY()));
       result = result && (
-          java.lang.Float.floatToIntBits(getMaxHp())
-          == java.lang.Float.floatToIntBits(
-              other.getMaxHp()));
-      result = result && (
           java.lang.Float.floatToIntBits(getHp())
           == java.lang.Float.floatToIntBits(
               other.getHp()));
@@ -3369,6 +3476,15 @@ public final class Messages {
           == java.lang.Float.floatToIntBits(
               other.getAim()));
       result = result && playerClass_ == other.playerClass_;
+      result = result && (getDead()
+          == other.getDead());
+      result = result && (hasStats() == other.hasStats());
+      if (hasStats()) {
+        result = result && getStats()
+            .equals(other.getStats());
+      }
+      result = result && getBehavior()
+          .equals(other.getBehavior());
       return result;
     }
 
@@ -3397,9 +3513,6 @@ public final class Messages {
       hash = (37 * hash) + VEL_Y_FIELD_NUMBER;
       hash = (53 * hash) + java.lang.Float.floatToIntBits(
           getVelY());
-      hash = (37 * hash) + MAX_HP_FIELD_NUMBER;
-      hash = (53 * hash) + java.lang.Float.floatToIntBits(
-          getMaxHp());
       hash = (37 * hash) + HP_FIELD_NUMBER;
       hash = (53 * hash) + java.lang.Float.floatToIntBits(
           getHp());
@@ -3420,6 +3533,15 @@ public final class Messages {
           getAim());
       hash = (37 * hash) + PLAYER_CLASS_FIELD_NUMBER;
       hash = (53 * hash) + playerClass_;
+      hash = (37 * hash) + DEAD_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getDead());
+      if (hasStats()) {
+        hash = (37 * hash) + STATS_FIELD_NUMBER;
+        hash = (53 * hash) + getStats().hashCode();
+      }
+      hash = (37 * hash) + BEHAVIOR_FIELD_NUMBER;
+      hash = (53 * hash) + getBehavior().hashCode();
       hash = (29 * hash) + unknownFields.hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -3555,15 +3677,13 @@ public final class Messages {
 
         velY_ = 0F;
 
-        maxHp_ = 0F;
-
         hp_ = 0F;
 
         currentWeapon_ = 0;
 
         if (weaponsBuilder_ == null) {
           weapons_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000200);
+          bitField0_ = (bitField0_ & ~0x00000100);
         } else {
           weaponsBuilder_.clear();
         }
@@ -3576,6 +3696,16 @@ public final class Messages {
         aim_ = 0F;
 
         playerClass_ = 0;
+
+        dead_ = false;
+
+        if (statsBuilder_ == null) {
+          stats_ = null;
+        } else {
+          stats_ = null;
+          statsBuilder_ = null;
+        }
+        behavior_ = "";
 
         return this;
       }
@@ -3611,13 +3741,12 @@ public final class Messages {
         result.posY_ = posY_;
         result.velX_ = velX_;
         result.velY_ = velY_;
-        result.maxHp_ = maxHp_;
         result.hp_ = hp_;
         result.currentWeapon_ = currentWeapon_;
         if (weaponsBuilder_ == null) {
-          if (((bitField0_ & 0x00000200) == 0x00000200)) {
+          if (((bitField0_ & 0x00000100) == 0x00000100)) {
             weapons_ = java.util.Collections.unmodifiableList(weapons_);
-            bitField0_ = (bitField0_ & ~0x00000200);
+            bitField0_ = (bitField0_ & ~0x00000100);
           }
           result.weapons_ = weapons_;
         } else {
@@ -3628,6 +3757,13 @@ public final class Messages {
         result.faction_ = faction_;
         result.aim_ = aim_;
         result.playerClass_ = playerClass_;
+        result.dead_ = dead_;
+        if (statsBuilder_ == null) {
+          result.stats_ = stats_;
+        } else {
+          result.stats_ = statsBuilder_.build();
+        }
+        result.behavior_ = behavior_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -3689,9 +3825,6 @@ public final class Messages {
         if (other.getVelY() != 0F) {
           setVelY(other.getVelY());
         }
-        if (other.getMaxHp() != 0F) {
-          setMaxHp(other.getMaxHp());
-        }
         if (other.getHp() != 0F) {
           setHp(other.getHp());
         }
@@ -3702,7 +3835,7 @@ public final class Messages {
           if (!other.weapons_.isEmpty()) {
             if (weapons_.isEmpty()) {
               weapons_ = other.weapons_;
-              bitField0_ = (bitField0_ & ~0x00000200);
+              bitField0_ = (bitField0_ & ~0x00000100);
             } else {
               ensureWeaponsIsMutable();
               weapons_.addAll(other.weapons_);
@@ -3715,7 +3848,7 @@ public final class Messages {
               weaponsBuilder_.dispose();
               weaponsBuilder_ = null;
               weapons_ = other.weapons_;
-              bitField0_ = (bitField0_ & ~0x00000200);
+              bitField0_ = (bitField0_ & ~0x00000100);
               weaponsBuilder_ = 
                 com.google.protobuf.GeneratedMessageV3.alwaysUseFieldBuilders ?
                    getWeaponsFieldBuilder() : null;
@@ -3740,6 +3873,16 @@ public final class Messages {
         }
         if (other.playerClass_ != 0) {
           setPlayerClassValue(other.getPlayerClassValue());
+        }
+        if (other.getDead() != false) {
+          setDead(other.getDead());
+        }
+        if (other.hasStats()) {
+          mergeStats(other.getStats());
+        }
+        if (!other.getBehavior().isEmpty()) {
+          behavior_ = other.behavior_;
+          onChanged();
         }
         onChanged();
         return this;
@@ -4058,32 +4201,6 @@ public final class Messages {
         return this;
       }
 
-      private float maxHp_ ;
-      /**
-       * <code>optional float max_hp = 7;</code>
-       */
-      public float getMaxHp() {
-        return maxHp_;
-      }
-      /**
-       * <code>optional float max_hp = 7;</code>
-       */
-      public Builder setMaxHp(float value) {
-        
-        maxHp_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional float max_hp = 7;</code>
-       */
-      public Builder clearMaxHp() {
-        
-        maxHp_ = 0F;
-        onChanged();
-        return this;
-      }
-
       private float hp_ ;
       /**
        * <code>optional float hp = 8;</code>
@@ -4139,9 +4256,9 @@ public final class Messages {
       private java.util.List<com.blastedstudios.freeboot.network.Messages.NetWeapon> weapons_ =
         java.util.Collections.emptyList();
       private void ensureWeaponsIsMutable() {
-        if (!((bitField0_ & 0x00000200) == 0x00000200)) {
+        if (!((bitField0_ & 0x00000100) == 0x00000100)) {
           weapons_ = new java.util.ArrayList<com.blastedstudios.freeboot.network.Messages.NetWeapon>(weapons_);
-          bitField0_ |= 0x00000200;
+          bitField0_ |= 0x00000100;
          }
       }
 
@@ -4291,7 +4408,7 @@ public final class Messages {
       public Builder clearWeapons() {
         if (weaponsBuilder_ == null) {
           weapons_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000200);
+          bitField0_ = (bitField0_ & ~0x00000100);
           onChanged();
         } else {
           weaponsBuilder_.clear();
@@ -4368,7 +4485,7 @@ public final class Messages {
           weaponsBuilder_ = new com.google.protobuf.RepeatedFieldBuilderV3<
               com.blastedstudios.freeboot.network.Messages.NetWeapon, com.blastedstudios.freeboot.network.Messages.NetWeapon.Builder, com.blastedstudios.freeboot.network.Messages.NetWeaponOrBuilder>(
                   weapons_,
-                  ((bitField0_ & 0x00000200) == 0x00000200),
+                  ((bitField0_ & 0x00000100) == 0x00000100),
                   getParentForChildren(),
                   isClean());
           weapons_ = null;
@@ -4627,6 +4744,218 @@ public final class Messages {
         onChanged();
         return this;
       }
+
+      private boolean dead_ ;
+      /**
+       * <code>optional bool dead = 16;</code>
+       */
+      public boolean getDead() {
+        return dead_;
+      }
+      /**
+       * <code>optional bool dead = 16;</code>
+       */
+      public Builder setDead(boolean value) {
+        
+        dead_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bool dead = 16;</code>
+       */
+      public Builder clearDead() {
+        
+        dead_ = false;
+        onChanged();
+        return this;
+      }
+
+      private com.blastedstudios.freeboot.network.Messages.NetStats stats_ = null;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.blastedstudios.freeboot.network.Messages.NetStats, com.blastedstudios.freeboot.network.Messages.NetStats.Builder, com.blastedstudios.freeboot.network.Messages.NetStatsOrBuilder> statsBuilder_;
+      /**
+       * <code>optional .proto.NetStats stats = 17;</code>
+       */
+      public boolean hasStats() {
+        return statsBuilder_ != null || stats_ != null;
+      }
+      /**
+       * <code>optional .proto.NetStats stats = 17;</code>
+       */
+      public com.blastedstudios.freeboot.network.Messages.NetStats getStats() {
+        if (statsBuilder_ == null) {
+          return stats_ == null ? com.blastedstudios.freeboot.network.Messages.NetStats.getDefaultInstance() : stats_;
+        } else {
+          return statsBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .proto.NetStats stats = 17;</code>
+       */
+      public Builder setStats(com.blastedstudios.freeboot.network.Messages.NetStats value) {
+        if (statsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          stats_ = value;
+          onChanged();
+        } else {
+          statsBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>optional .proto.NetStats stats = 17;</code>
+       */
+      public Builder setStats(
+          com.blastedstudios.freeboot.network.Messages.NetStats.Builder builderForValue) {
+        if (statsBuilder_ == null) {
+          stats_ = builderForValue.build();
+          onChanged();
+        } else {
+          statsBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>optional .proto.NetStats stats = 17;</code>
+       */
+      public Builder mergeStats(com.blastedstudios.freeboot.network.Messages.NetStats value) {
+        if (statsBuilder_ == null) {
+          if (stats_ != null) {
+            stats_ =
+              com.blastedstudios.freeboot.network.Messages.NetStats.newBuilder(stats_).mergeFrom(value).buildPartial();
+          } else {
+            stats_ = value;
+          }
+          onChanged();
+        } else {
+          statsBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>optional .proto.NetStats stats = 17;</code>
+       */
+      public Builder clearStats() {
+        if (statsBuilder_ == null) {
+          stats_ = null;
+          onChanged();
+        } else {
+          stats_ = null;
+          statsBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>optional .proto.NetStats stats = 17;</code>
+       */
+      public com.blastedstudios.freeboot.network.Messages.NetStats.Builder getStatsBuilder() {
+        
+        onChanged();
+        return getStatsFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .proto.NetStats stats = 17;</code>
+       */
+      public com.blastedstudios.freeboot.network.Messages.NetStatsOrBuilder getStatsOrBuilder() {
+        if (statsBuilder_ != null) {
+          return statsBuilder_.getMessageOrBuilder();
+        } else {
+          return stats_ == null ?
+              com.blastedstudios.freeboot.network.Messages.NetStats.getDefaultInstance() : stats_;
+        }
+      }
+      /**
+       * <code>optional .proto.NetStats stats = 17;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.blastedstudios.freeboot.network.Messages.NetStats, com.blastedstudios.freeboot.network.Messages.NetStats.Builder, com.blastedstudios.freeboot.network.Messages.NetStatsOrBuilder> 
+          getStatsFieldBuilder() {
+        if (statsBuilder_ == null) {
+          statsBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.blastedstudios.freeboot.network.Messages.NetStats, com.blastedstudios.freeboot.network.Messages.NetStats.Builder, com.blastedstudios.freeboot.network.Messages.NetStatsOrBuilder>(
+                  getStats(),
+                  getParentForChildren(),
+                  isClean());
+          stats_ = null;
+        }
+        return statsBuilder_;
+      }
+
+      private java.lang.Object behavior_ = "";
+      /**
+       * <code>optional string behavior = 18;</code>
+       */
+      public java.lang.String getBehavior() {
+        java.lang.Object ref = behavior_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          behavior_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string behavior = 18;</code>
+       */
+      public com.google.protobuf.ByteString
+          getBehaviorBytes() {
+        java.lang.Object ref = behavior_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          behavior_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string behavior = 18;</code>
+       */
+      public Builder setBehavior(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        behavior_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string behavior = 18;</code>
+       */
+      public Builder clearBehavior() {
+        
+        behavior_ = getDefaultInstance().getBehavior();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string behavior = 18;</code>
+       */
+      public Builder setBehaviorBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        behavior_ = value;
+        onChanged();
+        return this;
+      }
       public final Builder setUnknownFields(
           final com.google.protobuf.UnknownFieldSet unknownFields) {
         return this;
@@ -4671,6 +5000,900 @@ public final class Messages {
     }
 
     public com.blastedstudios.freeboot.network.Messages.NetBeing getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
+  public interface NetStatsOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:proto.NetStats)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>optional float hp = 1;</code>
+     */
+    float getHp();
+
+    /**
+     * <code>optional float attack = 2;</code>
+     */
+    float getAttack();
+
+    /**
+     * <code>optional float defense = 3;</code>
+     */
+    float getDefense();
+
+    /**
+     * <code>optional float hpPerLevel = 4;</code>
+     */
+    float getHpPerLevel();
+
+    /**
+     * <code>optional float hpRegen = 5;</code>
+     */
+    float getHpRegen();
+
+    /**
+     * <code>optional float hpRegenPerLevel = 6;</code>
+     */
+    float getHpRegenPerLevel();
+
+    /**
+     * <code>optional float attackPerLevel = 7;</code>
+     */
+    float getAttackPerLevel();
+
+    /**
+     * <code>optional float defensePerLevel = 8;</code>
+     */
+    float getDefensePerLevel();
+  }
+  /**
+   * Protobuf type {@code proto.NetStats}
+   */
+  public  static final class NetStats extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:proto.NetStats)
+      NetStatsOrBuilder {
+    // Use NetStats.newBuilder() to construct.
+    private NetStats(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private NetStats() {
+      hp_ = 0F;
+      attack_ = 0F;
+      defense_ = 0F;
+      hpPerLevel_ = 0F;
+      hpRegen_ = 0F;
+      hpRegenPerLevel_ = 0F;
+      attackPerLevel_ = 0F;
+      defensePerLevel_ = 0F;
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return com.google.protobuf.UnknownFieldSet.getDefaultInstance();
+    }
+    private NetStats(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      this();
+      int mutable_bitField0_ = 0;
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!input.skipField(tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 13: {
+
+              hp_ = input.readFloat();
+              break;
+            }
+            case 21: {
+
+              attack_ = input.readFloat();
+              break;
+            }
+            case 29: {
+
+              defense_ = input.readFloat();
+              break;
+            }
+            case 37: {
+
+              hpPerLevel_ = input.readFloat();
+              break;
+            }
+            case 45: {
+
+              hpRegen_ = input.readFloat();
+              break;
+            }
+            case 53: {
+
+              hpRegenPerLevel_ = input.readFloat();
+              break;
+            }
+            case 61: {
+
+              attackPerLevel_ = input.readFloat();
+              break;
+            }
+            case 69: {
+
+              defensePerLevel_ = input.readFloat();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e).setUnfinishedMessage(this);
+      } finally {
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.blastedstudios.freeboot.network.Messages.internal_static_proto_NetStats_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.blastedstudios.freeboot.network.Messages.internal_static_proto_NetStats_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.blastedstudios.freeboot.network.Messages.NetStats.class, com.blastedstudios.freeboot.network.Messages.NetStats.Builder.class);
+    }
+
+    public static final int HP_FIELD_NUMBER = 1;
+    private float hp_;
+    /**
+     * <code>optional float hp = 1;</code>
+     */
+    public float getHp() {
+      return hp_;
+    }
+
+    public static final int ATTACK_FIELD_NUMBER = 2;
+    private float attack_;
+    /**
+     * <code>optional float attack = 2;</code>
+     */
+    public float getAttack() {
+      return attack_;
+    }
+
+    public static final int DEFENSE_FIELD_NUMBER = 3;
+    private float defense_;
+    /**
+     * <code>optional float defense = 3;</code>
+     */
+    public float getDefense() {
+      return defense_;
+    }
+
+    public static final int HPPERLEVEL_FIELD_NUMBER = 4;
+    private float hpPerLevel_;
+    /**
+     * <code>optional float hpPerLevel = 4;</code>
+     */
+    public float getHpPerLevel() {
+      return hpPerLevel_;
+    }
+
+    public static final int HPREGEN_FIELD_NUMBER = 5;
+    private float hpRegen_;
+    /**
+     * <code>optional float hpRegen = 5;</code>
+     */
+    public float getHpRegen() {
+      return hpRegen_;
+    }
+
+    public static final int HPREGENPERLEVEL_FIELD_NUMBER = 6;
+    private float hpRegenPerLevel_;
+    /**
+     * <code>optional float hpRegenPerLevel = 6;</code>
+     */
+    public float getHpRegenPerLevel() {
+      return hpRegenPerLevel_;
+    }
+
+    public static final int ATTACKPERLEVEL_FIELD_NUMBER = 7;
+    private float attackPerLevel_;
+    /**
+     * <code>optional float attackPerLevel = 7;</code>
+     */
+    public float getAttackPerLevel() {
+      return attackPerLevel_;
+    }
+
+    public static final int DEFENSEPERLEVEL_FIELD_NUMBER = 8;
+    private float defensePerLevel_;
+    /**
+     * <code>optional float defensePerLevel = 8;</code>
+     */
+    public float getDefensePerLevel() {
+      return defensePerLevel_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (hp_ != 0F) {
+        output.writeFloat(1, hp_);
+      }
+      if (attack_ != 0F) {
+        output.writeFloat(2, attack_);
+      }
+      if (defense_ != 0F) {
+        output.writeFloat(3, defense_);
+      }
+      if (hpPerLevel_ != 0F) {
+        output.writeFloat(4, hpPerLevel_);
+      }
+      if (hpRegen_ != 0F) {
+        output.writeFloat(5, hpRegen_);
+      }
+      if (hpRegenPerLevel_ != 0F) {
+        output.writeFloat(6, hpRegenPerLevel_);
+      }
+      if (attackPerLevel_ != 0F) {
+        output.writeFloat(7, attackPerLevel_);
+      }
+      if (defensePerLevel_ != 0F) {
+        output.writeFloat(8, defensePerLevel_);
+      }
+    }
+
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (hp_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(1, hp_);
+      }
+      if (attack_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(2, attack_);
+      }
+      if (defense_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(3, defense_);
+      }
+      if (hpPerLevel_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(4, hpPerLevel_);
+      }
+      if (hpRegen_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(5, hpRegen_);
+      }
+      if (hpRegenPerLevel_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(6, hpRegenPerLevel_);
+      }
+      if (attackPerLevel_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(7, attackPerLevel_);
+      }
+      if (defensePerLevel_ != 0F) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeFloatSize(8, defensePerLevel_);
+      }
+      memoizedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.blastedstudios.freeboot.network.Messages.NetStats)) {
+        return super.equals(obj);
+      }
+      com.blastedstudios.freeboot.network.Messages.NetStats other = (com.blastedstudios.freeboot.network.Messages.NetStats) obj;
+
+      boolean result = true;
+      result = result && (
+          java.lang.Float.floatToIntBits(getHp())
+          == java.lang.Float.floatToIntBits(
+              other.getHp()));
+      result = result && (
+          java.lang.Float.floatToIntBits(getAttack())
+          == java.lang.Float.floatToIntBits(
+              other.getAttack()));
+      result = result && (
+          java.lang.Float.floatToIntBits(getDefense())
+          == java.lang.Float.floatToIntBits(
+              other.getDefense()));
+      result = result && (
+          java.lang.Float.floatToIntBits(getHpPerLevel())
+          == java.lang.Float.floatToIntBits(
+              other.getHpPerLevel()));
+      result = result && (
+          java.lang.Float.floatToIntBits(getHpRegen())
+          == java.lang.Float.floatToIntBits(
+              other.getHpRegen()));
+      result = result && (
+          java.lang.Float.floatToIntBits(getHpRegenPerLevel())
+          == java.lang.Float.floatToIntBits(
+              other.getHpRegenPerLevel()));
+      result = result && (
+          java.lang.Float.floatToIntBits(getAttackPerLevel())
+          == java.lang.Float.floatToIntBits(
+              other.getAttackPerLevel()));
+      result = result && (
+          java.lang.Float.floatToIntBits(getDefensePerLevel())
+          == java.lang.Float.floatToIntBits(
+              other.getDefensePerLevel()));
+      return result;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptorForType().hashCode();
+      hash = (37 * hash) + HP_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getHp());
+      hash = (37 * hash) + ATTACK_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getAttack());
+      hash = (37 * hash) + DEFENSE_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getDefense());
+      hash = (37 * hash) + HPPERLEVEL_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getHpPerLevel());
+      hash = (37 * hash) + HPREGEN_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getHpRegen());
+      hash = (37 * hash) + HPREGENPERLEVEL_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getHpRegenPerLevel());
+      hash = (37 * hash) + ATTACKPERLEVEL_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getAttackPerLevel());
+      hash = (37 * hash) + DEFENSEPERLEVEL_FIELD_NUMBER;
+      hash = (53 * hash) + java.lang.Float.floatToIntBits(
+          getDefensePerLevel());
+      hash = (29 * hash) + unknownFields.hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.blastedstudios.freeboot.network.Messages.NetStats parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.NetStats parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.NetStats parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.NetStats parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.NetStats parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.NetStats parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.NetStats parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.NetStats parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.NetStats parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.blastedstudios.freeboot.network.Messages.NetStats parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.blastedstudios.freeboot.network.Messages.NetStats prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code proto.NetStats}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:proto.NetStats)
+        com.blastedstudios.freeboot.network.Messages.NetStatsOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_NetStats_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_NetStats_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.blastedstudios.freeboot.network.Messages.NetStats.class, com.blastedstudios.freeboot.network.Messages.NetStats.Builder.class);
+      }
+
+      // Construct using com.blastedstudios.freeboot.network.Messages.NetStats.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessageV3
+                .alwaysUseFieldBuilders) {
+        }
+      }
+      public Builder clear() {
+        super.clear();
+        hp_ = 0F;
+
+        attack_ = 0F;
+
+        defense_ = 0F;
+
+        hpPerLevel_ = 0F;
+
+        hpRegen_ = 0F;
+
+        hpRegenPerLevel_ = 0F;
+
+        attackPerLevel_ = 0F;
+
+        defensePerLevel_ = 0F;
+
+        return this;
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.blastedstudios.freeboot.network.Messages.internal_static_proto_NetStats_descriptor;
+      }
+
+      public com.blastedstudios.freeboot.network.Messages.NetStats getDefaultInstanceForType() {
+        return com.blastedstudios.freeboot.network.Messages.NetStats.getDefaultInstance();
+      }
+
+      public com.blastedstudios.freeboot.network.Messages.NetStats build() {
+        com.blastedstudios.freeboot.network.Messages.NetStats result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public com.blastedstudios.freeboot.network.Messages.NetStats buildPartial() {
+        com.blastedstudios.freeboot.network.Messages.NetStats result = new com.blastedstudios.freeboot.network.Messages.NetStats(this);
+        result.hp_ = hp_;
+        result.attack_ = attack_;
+        result.defense_ = defense_;
+        result.hpPerLevel_ = hpPerLevel_;
+        result.hpRegen_ = hpRegen_;
+        result.hpRegenPerLevel_ = hpRegenPerLevel_;
+        result.attackPerLevel_ = attackPerLevel_;
+        result.defensePerLevel_ = defensePerLevel_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder clone() {
+        return (Builder) super.clone();
+      }
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.setField(field, value);
+      }
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return (Builder) super.clearField(field);
+      }
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return (Builder) super.clearOneof(oneof);
+      }
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, Object value) {
+        return (Builder) super.setRepeatedField(field, index, value);
+      }
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          Object value) {
+        return (Builder) super.addRepeatedField(field, value);
+      }
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.blastedstudios.freeboot.network.Messages.NetStats) {
+          return mergeFrom((com.blastedstudios.freeboot.network.Messages.NetStats)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.blastedstudios.freeboot.network.Messages.NetStats other) {
+        if (other == com.blastedstudios.freeboot.network.Messages.NetStats.getDefaultInstance()) return this;
+        if (other.getHp() != 0F) {
+          setHp(other.getHp());
+        }
+        if (other.getAttack() != 0F) {
+          setAttack(other.getAttack());
+        }
+        if (other.getDefense() != 0F) {
+          setDefense(other.getDefense());
+        }
+        if (other.getHpPerLevel() != 0F) {
+          setHpPerLevel(other.getHpPerLevel());
+        }
+        if (other.getHpRegen() != 0F) {
+          setHpRegen(other.getHpRegen());
+        }
+        if (other.getHpRegenPerLevel() != 0F) {
+          setHpRegenPerLevel(other.getHpRegenPerLevel());
+        }
+        if (other.getAttackPerLevel() != 0F) {
+          setAttackPerLevel(other.getAttackPerLevel());
+        }
+        if (other.getDefensePerLevel() != 0F) {
+          setDefensePerLevel(other.getDefensePerLevel());
+        }
+        onChanged();
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        com.blastedstudios.freeboot.network.Messages.NetStats parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (com.blastedstudios.freeboot.network.Messages.NetStats) e.getUnfinishedMessage();
+          throw e.unwrapIOException();
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      private float hp_ ;
+      /**
+       * <code>optional float hp = 1;</code>
+       */
+      public float getHp() {
+        return hp_;
+      }
+      /**
+       * <code>optional float hp = 1;</code>
+       */
+      public Builder setHp(float value) {
+        
+        hp_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional float hp = 1;</code>
+       */
+      public Builder clearHp() {
+        
+        hp_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float attack_ ;
+      /**
+       * <code>optional float attack = 2;</code>
+       */
+      public float getAttack() {
+        return attack_;
+      }
+      /**
+       * <code>optional float attack = 2;</code>
+       */
+      public Builder setAttack(float value) {
+        
+        attack_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional float attack = 2;</code>
+       */
+      public Builder clearAttack() {
+        
+        attack_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float defense_ ;
+      /**
+       * <code>optional float defense = 3;</code>
+       */
+      public float getDefense() {
+        return defense_;
+      }
+      /**
+       * <code>optional float defense = 3;</code>
+       */
+      public Builder setDefense(float value) {
+        
+        defense_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional float defense = 3;</code>
+       */
+      public Builder clearDefense() {
+        
+        defense_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float hpPerLevel_ ;
+      /**
+       * <code>optional float hpPerLevel = 4;</code>
+       */
+      public float getHpPerLevel() {
+        return hpPerLevel_;
+      }
+      /**
+       * <code>optional float hpPerLevel = 4;</code>
+       */
+      public Builder setHpPerLevel(float value) {
+        
+        hpPerLevel_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional float hpPerLevel = 4;</code>
+       */
+      public Builder clearHpPerLevel() {
+        
+        hpPerLevel_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float hpRegen_ ;
+      /**
+       * <code>optional float hpRegen = 5;</code>
+       */
+      public float getHpRegen() {
+        return hpRegen_;
+      }
+      /**
+       * <code>optional float hpRegen = 5;</code>
+       */
+      public Builder setHpRegen(float value) {
+        
+        hpRegen_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional float hpRegen = 5;</code>
+       */
+      public Builder clearHpRegen() {
+        
+        hpRegen_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float hpRegenPerLevel_ ;
+      /**
+       * <code>optional float hpRegenPerLevel = 6;</code>
+       */
+      public float getHpRegenPerLevel() {
+        return hpRegenPerLevel_;
+      }
+      /**
+       * <code>optional float hpRegenPerLevel = 6;</code>
+       */
+      public Builder setHpRegenPerLevel(float value) {
+        
+        hpRegenPerLevel_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional float hpRegenPerLevel = 6;</code>
+       */
+      public Builder clearHpRegenPerLevel() {
+        
+        hpRegenPerLevel_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float attackPerLevel_ ;
+      /**
+       * <code>optional float attackPerLevel = 7;</code>
+       */
+      public float getAttackPerLevel() {
+        return attackPerLevel_;
+      }
+      /**
+       * <code>optional float attackPerLevel = 7;</code>
+       */
+      public Builder setAttackPerLevel(float value) {
+        
+        attackPerLevel_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional float attackPerLevel = 7;</code>
+       */
+      public Builder clearAttackPerLevel() {
+        
+        attackPerLevel_ = 0F;
+        onChanged();
+        return this;
+      }
+
+      private float defensePerLevel_ ;
+      /**
+       * <code>optional float defensePerLevel = 8;</code>
+       */
+      public float getDefensePerLevel() {
+        return defensePerLevel_;
+      }
+      /**
+       * <code>optional float defensePerLevel = 8;</code>
+       */
+      public Builder setDefensePerLevel(float value) {
+        
+        defensePerLevel_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional float defensePerLevel = 8;</code>
+       */
+      public Builder clearDefensePerLevel() {
+        
+        defensePerLevel_ = 0F;
+        onChanged();
+        return this;
+      }
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return this;
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:proto.NetStats)
+    }
+
+    // @@protoc_insertion_point(class_scope:proto.NetStats)
+    private static final com.blastedstudios.freeboot.network.Messages.NetStats DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.blastedstudios.freeboot.network.Messages.NetStats();
+    }
+
+    public static com.blastedstudios.freeboot.network.Messages.NetStats getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<NetStats>
+        PARSER = new com.google.protobuf.AbstractParser<NetStats>() {
+      public NetStats parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+          return new NetStats(input, extensionRegistry);
+      }
+    };
+
+    public static com.google.protobuf.Parser<NetStats> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<NetStats> getParserForType() {
+      return PARSER;
+    }
+
+    public com.blastedstudios.freeboot.network.Messages.NetStats getDefaultInstanceForType() {
       return DEFAULT_INSTANCE;
     }
 
@@ -5184,35 +6407,25 @@ public final class Messages {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional string name = 1;</code>
-     */
-    java.lang.String getName();
-    /**
-     * <code>optional string name = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getNameBytes();
-
-    /**
-     * <code>optional .proto.UUID uuid = 2;</code>
+     * <code>optional .proto.UUID uuid = 1;</code>
      */
     boolean hasUuid();
     /**
-     * <code>optional .proto.UUID uuid = 2;</code>
+     * <code>optional .proto.UUID uuid = 1;</code>
      */
     com.blastedstudios.freeboot.network.Messages.UUID getUuid();
     /**
-     * <code>optional .proto.UUID uuid = 2;</code>
+     * <code>optional .proto.UUID uuid = 1;</code>
      */
     com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder getUuidOrBuilder();
 
     /**
-     * <code>optional float pos_x = 3;</code>
+     * <code>optional float pos_x = 2;</code>
      */
     float getPosX();
 
     /**
-     * <code>optional float pos_y = 4;</code>
+     * <code>optional float pos_y = 3;</code>
      */
     float getPosY();
   }
@@ -5228,7 +6441,6 @@ public final class Messages {
       super(builder);
     }
     private Attack() {
-      name_ = "";
       posX_ = 0F;
       posY_ = 0F;
     }
@@ -5259,12 +6471,6 @@ public final class Messages {
               break;
             }
             case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              name_ = s;
-              break;
-            }
-            case 18: {
               com.blastedstudios.freeboot.network.Messages.UUID.Builder subBuilder = null;
               if (uuid_ != null) {
                 subBuilder = uuid_.toBuilder();
@@ -5277,12 +6483,12 @@ public final class Messages {
 
               break;
             }
-            case 29: {
+            case 21: {
 
               posX_ = input.readFloat();
               break;
             }
-            case 37: {
+            case 29: {
 
               posY_ = input.readFloat();
               break;
@@ -5310,74 +6516,40 @@ public final class Messages {
               com.blastedstudios.freeboot.network.Messages.Attack.class, com.blastedstudios.freeboot.network.Messages.Attack.Builder.class);
     }
 
-    public static final int NAME_FIELD_NUMBER = 1;
-    private volatile java.lang.Object name_;
-    /**
-     * <code>optional string name = 1;</code>
-     */
-    public java.lang.String getName() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        name_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string name = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getNameBytes() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        name_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int UUID_FIELD_NUMBER = 2;
+    public static final int UUID_FIELD_NUMBER = 1;
     private com.blastedstudios.freeboot.network.Messages.UUID uuid_;
     /**
-     * <code>optional .proto.UUID uuid = 2;</code>
+     * <code>optional .proto.UUID uuid = 1;</code>
      */
     public boolean hasUuid() {
       return uuid_ != null;
     }
     /**
-     * <code>optional .proto.UUID uuid = 2;</code>
+     * <code>optional .proto.UUID uuid = 1;</code>
      */
     public com.blastedstudios.freeboot.network.Messages.UUID getUuid() {
       return uuid_ == null ? com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance() : uuid_;
     }
     /**
-     * <code>optional .proto.UUID uuid = 2;</code>
+     * <code>optional .proto.UUID uuid = 1;</code>
      */
     public com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder getUuidOrBuilder() {
       return getUuid();
     }
 
-    public static final int POS_X_FIELD_NUMBER = 3;
+    public static final int POS_X_FIELD_NUMBER = 2;
     private float posX_;
     /**
-     * <code>optional float pos_x = 3;</code>
+     * <code>optional float pos_x = 2;</code>
      */
     public float getPosX() {
       return posX_;
     }
 
-    public static final int POS_Y_FIELD_NUMBER = 4;
+    public static final int POS_Y_FIELD_NUMBER = 3;
     private float posY_;
     /**
-     * <code>optional float pos_y = 4;</code>
+     * <code>optional float pos_y = 3;</code>
      */
     public float getPosY() {
       return posY_;
@@ -5395,17 +6567,14 @@ public final class Messages {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getNameBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
-      }
       if (uuid_ != null) {
-        output.writeMessage(2, getUuid());
+        output.writeMessage(1, getUuid());
       }
       if (posX_ != 0F) {
-        output.writeFloat(3, posX_);
+        output.writeFloat(2, posX_);
       }
       if (posY_ != 0F) {
-        output.writeFloat(4, posY_);
+        output.writeFloat(3, posY_);
       }
     }
 
@@ -5414,20 +6583,17 @@ public final class Messages {
       if (size != -1) return size;
 
       size = 0;
-      if (!getNameBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
-      }
       if (uuid_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getUuid());
+          .computeMessageSize(1, getUuid());
       }
       if (posX_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(3, posX_);
+          .computeFloatSize(2, posX_);
       }
       if (posY_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(4, posY_);
+          .computeFloatSize(3, posY_);
       }
       memoizedSize = size;
       return size;
@@ -5445,8 +6611,6 @@ public final class Messages {
       com.blastedstudios.freeboot.network.Messages.Attack other = (com.blastedstudios.freeboot.network.Messages.Attack) obj;
 
       boolean result = true;
-      result = result && getName()
-          .equals(other.getName());
       result = result && (hasUuid() == other.hasUuid());
       if (hasUuid()) {
         result = result && getUuid()
@@ -5470,8 +6634,6 @@ public final class Messages {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + NAME_FIELD_NUMBER;
-      hash = (53 * hash) + getName().hashCode();
       if (hasUuid()) {
         hash = (37 * hash) + UUID_FIELD_NUMBER;
         hash = (53 * hash) + getUuid().hashCode();
@@ -5600,8 +6762,6 @@ public final class Messages {
       }
       public Builder clear() {
         super.clear();
-        name_ = "";
-
         if (uuidBuilder_ == null) {
           uuid_ = null;
         } else {
@@ -5634,7 +6794,6 @@ public final class Messages {
 
       public com.blastedstudios.freeboot.network.Messages.Attack buildPartial() {
         com.blastedstudios.freeboot.network.Messages.Attack result = new com.blastedstudios.freeboot.network.Messages.Attack(this);
-        result.name_ = name_;
         if (uuidBuilder_ == null) {
           result.uuid_ = uuid_;
         } else {
@@ -5683,10 +6842,6 @@ public final class Messages {
 
       public Builder mergeFrom(com.blastedstudios.freeboot.network.Messages.Attack other) {
         if (other == com.blastedstudios.freeboot.network.Messages.Attack.getDefaultInstance()) return this;
-        if (!other.getName().isEmpty()) {
-          name_ = other.name_;
-          onChanged();
-        }
         if (other.hasUuid()) {
           mergeUuid(other.getUuid());
         }
@@ -5722,86 +6877,17 @@ public final class Messages {
         return this;
       }
 
-      private java.lang.Object name_ = "";
-      /**
-       * <code>optional string name = 1;</code>
-       */
-      public java.lang.String getName() {
-        java.lang.Object ref = name_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          name_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string name = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getNameBytes() {
-        java.lang.Object ref = name_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          name_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string name = 1;</code>
-       */
-      public Builder setName(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        name_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string name = 1;</code>
-       */
-      public Builder clearName() {
-        
-        name_ = getDefaultInstance().getName();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string name = 1;</code>
-       */
-      public Builder setNameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        name_ = value;
-        onChanged();
-        return this;
-      }
-
       private com.blastedstudios.freeboot.network.Messages.UUID uuid_ = null;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.blastedstudios.freeboot.network.Messages.UUID, com.blastedstudios.freeboot.network.Messages.UUID.Builder, com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder> uuidBuilder_;
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       public boolean hasUuid() {
         return uuidBuilder_ != null || uuid_ != null;
       }
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       public com.blastedstudios.freeboot.network.Messages.UUID getUuid() {
         if (uuidBuilder_ == null) {
@@ -5811,7 +6897,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       public Builder setUuid(com.blastedstudios.freeboot.network.Messages.UUID value) {
         if (uuidBuilder_ == null) {
@@ -5827,7 +6913,7 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       public Builder setUuid(
           com.blastedstudios.freeboot.network.Messages.UUID.Builder builderForValue) {
@@ -5841,7 +6927,7 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       public Builder mergeUuid(com.blastedstudios.freeboot.network.Messages.UUID value) {
         if (uuidBuilder_ == null) {
@@ -5859,7 +6945,7 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       public Builder clearUuid() {
         if (uuidBuilder_ == null) {
@@ -5873,7 +6959,7 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       public com.blastedstudios.freeboot.network.Messages.UUID.Builder getUuidBuilder() {
         
@@ -5881,7 +6967,7 @@ public final class Messages {
         return getUuidFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       public com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder getUuidOrBuilder() {
         if (uuidBuilder_ != null) {
@@ -5892,7 +6978,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.blastedstudios.freeboot.network.Messages.UUID, com.blastedstudios.freeboot.network.Messages.UUID.Builder, com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder> 
@@ -5910,13 +6996,13 @@ public final class Messages {
 
       private float posX_ ;
       /**
-       * <code>optional float pos_x = 3;</code>
+       * <code>optional float pos_x = 2;</code>
        */
       public float getPosX() {
         return posX_;
       }
       /**
-       * <code>optional float pos_x = 3;</code>
+       * <code>optional float pos_x = 2;</code>
        */
       public Builder setPosX(float value) {
         
@@ -5925,7 +7011,7 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>optional float pos_x = 3;</code>
+       * <code>optional float pos_x = 2;</code>
        */
       public Builder clearPosX() {
         
@@ -5936,13 +7022,13 @@ public final class Messages {
 
       private float posY_ ;
       /**
-       * <code>optional float pos_y = 4;</code>
+       * <code>optional float pos_y = 3;</code>
        */
       public float getPosY() {
         return posY_;
       }
       /**
-       * <code>optional float pos_y = 4;</code>
+       * <code>optional float pos_y = 3;</code>
        */
       public Builder setPosY(float value) {
         
@@ -5951,7 +7037,7 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>optional float pos_y = 4;</code>
+       * <code>optional float pos_y = 3;</code>
        */
       public Builder clearPosY() {
         
@@ -6013,25 +7099,15 @@ public final class Messages {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional string name = 1;</code>
-     */
-    java.lang.String getName();
-    /**
-     * <code>optional string name = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getNameBytes();
-
-    /**
-     * <code>optional .proto.UUID uuid = 2;</code>
+     * <code>optional .proto.UUID uuid = 1;</code>
      */
     boolean hasUuid();
     /**
-     * <code>optional .proto.UUID uuid = 2;</code>
+     * <code>optional .proto.UUID uuid = 1;</code>
      */
     com.blastedstudios.freeboot.network.Messages.UUID getUuid();
     /**
-     * <code>optional .proto.UUID uuid = 2;</code>
+     * <code>optional .proto.UUID uuid = 1;</code>
      */
     com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder getUuidOrBuilder();
   }
@@ -6047,7 +7123,6 @@ public final class Messages {
       super(builder);
     }
     private Dead() {
-      name_ = "";
     }
 
     @java.lang.Override
@@ -6076,12 +7151,6 @@ public final class Messages {
               break;
             }
             case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              name_ = s;
-              break;
-            }
-            case 18: {
               com.blastedstudios.freeboot.network.Messages.UUID.Builder subBuilder = null;
               if (uuid_ != null) {
                 subBuilder = uuid_.toBuilder();
@@ -6117,56 +7186,22 @@ public final class Messages {
               com.blastedstudios.freeboot.network.Messages.Dead.class, com.blastedstudios.freeboot.network.Messages.Dead.Builder.class);
     }
 
-    public static final int NAME_FIELD_NUMBER = 1;
-    private volatile java.lang.Object name_;
-    /**
-     * <code>optional string name = 1;</code>
-     */
-    public java.lang.String getName() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        name_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string name = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getNameBytes() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        name_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int UUID_FIELD_NUMBER = 2;
+    public static final int UUID_FIELD_NUMBER = 1;
     private com.blastedstudios.freeboot.network.Messages.UUID uuid_;
     /**
-     * <code>optional .proto.UUID uuid = 2;</code>
+     * <code>optional .proto.UUID uuid = 1;</code>
      */
     public boolean hasUuid() {
       return uuid_ != null;
     }
     /**
-     * <code>optional .proto.UUID uuid = 2;</code>
+     * <code>optional .proto.UUID uuid = 1;</code>
      */
     public com.blastedstudios.freeboot.network.Messages.UUID getUuid() {
       return uuid_ == null ? com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance() : uuid_;
     }
     /**
-     * <code>optional .proto.UUID uuid = 2;</code>
+     * <code>optional .proto.UUID uuid = 1;</code>
      */
     public com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder getUuidOrBuilder() {
       return getUuid();
@@ -6184,11 +7219,8 @@ public final class Messages {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getNameBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
-      }
       if (uuid_ != null) {
-        output.writeMessage(2, getUuid());
+        output.writeMessage(1, getUuid());
       }
     }
 
@@ -6197,12 +7229,9 @@ public final class Messages {
       if (size != -1) return size;
 
       size = 0;
-      if (!getNameBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
-      }
       if (uuid_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getUuid());
+          .computeMessageSize(1, getUuid());
       }
       memoizedSize = size;
       return size;
@@ -6220,8 +7249,6 @@ public final class Messages {
       com.blastedstudios.freeboot.network.Messages.Dead other = (com.blastedstudios.freeboot.network.Messages.Dead) obj;
 
       boolean result = true;
-      result = result && getName()
-          .equals(other.getName());
       result = result && (hasUuid() == other.hasUuid());
       if (hasUuid()) {
         result = result && getUuid()
@@ -6237,8 +7264,6 @@ public final class Messages {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + NAME_FIELD_NUMBER;
-      hash = (53 * hash) + getName().hashCode();
       if (hasUuid()) {
         hash = (37 * hash) + UUID_FIELD_NUMBER;
         hash = (53 * hash) + getUuid().hashCode();
@@ -6361,8 +7386,6 @@ public final class Messages {
       }
       public Builder clear() {
         super.clear();
-        name_ = "";
-
         if (uuidBuilder_ == null) {
           uuid_ = null;
         } else {
@@ -6391,7 +7414,6 @@ public final class Messages {
 
       public com.blastedstudios.freeboot.network.Messages.Dead buildPartial() {
         com.blastedstudios.freeboot.network.Messages.Dead result = new com.blastedstudios.freeboot.network.Messages.Dead(this);
-        result.name_ = name_;
         if (uuidBuilder_ == null) {
           result.uuid_ = uuid_;
         } else {
@@ -6438,10 +7460,6 @@ public final class Messages {
 
       public Builder mergeFrom(com.blastedstudios.freeboot.network.Messages.Dead other) {
         if (other == com.blastedstudios.freeboot.network.Messages.Dead.getDefaultInstance()) return this;
-        if (!other.getName().isEmpty()) {
-          name_ = other.name_;
-          onChanged();
-        }
         if (other.hasUuid()) {
           mergeUuid(other.getUuid());
         }
@@ -6471,86 +7489,17 @@ public final class Messages {
         return this;
       }
 
-      private java.lang.Object name_ = "";
-      /**
-       * <code>optional string name = 1;</code>
-       */
-      public java.lang.String getName() {
-        java.lang.Object ref = name_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          name_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string name = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getNameBytes() {
-        java.lang.Object ref = name_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          name_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string name = 1;</code>
-       */
-      public Builder setName(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        name_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string name = 1;</code>
-       */
-      public Builder clearName() {
-        
-        name_ = getDefaultInstance().getName();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string name = 1;</code>
-       */
-      public Builder setNameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        name_ = value;
-        onChanged();
-        return this;
-      }
-
       private com.blastedstudios.freeboot.network.Messages.UUID uuid_ = null;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.blastedstudios.freeboot.network.Messages.UUID, com.blastedstudios.freeboot.network.Messages.UUID.Builder, com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder> uuidBuilder_;
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       public boolean hasUuid() {
         return uuidBuilder_ != null || uuid_ != null;
       }
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       public com.blastedstudios.freeboot.network.Messages.UUID getUuid() {
         if (uuidBuilder_ == null) {
@@ -6560,7 +7509,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       public Builder setUuid(com.blastedstudios.freeboot.network.Messages.UUID value) {
         if (uuidBuilder_ == null) {
@@ -6576,7 +7525,7 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       public Builder setUuid(
           com.blastedstudios.freeboot.network.Messages.UUID.Builder builderForValue) {
@@ -6590,7 +7539,7 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       public Builder mergeUuid(com.blastedstudios.freeboot.network.Messages.UUID value) {
         if (uuidBuilder_ == null) {
@@ -6608,7 +7557,7 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       public Builder clearUuid() {
         if (uuidBuilder_ == null) {
@@ -6622,7 +7571,7 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       public com.blastedstudios.freeboot.network.Messages.UUID.Builder getUuidBuilder() {
         
@@ -6630,7 +7579,7 @@ public final class Messages {
         return getUuidFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       public com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder getUuidOrBuilder() {
         if (uuidBuilder_ != null) {
@@ -6641,7 +7590,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.blastedstudios.freeboot.network.Messages.UUID, com.blastedstudios.freeboot.network.Messages.UUID.Builder, com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder> 
@@ -6710,25 +7659,15 @@ public final class Messages {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>optional string name = 1;</code>
-     */
-    java.lang.String getName();
-    /**
-     * <code>optional string name = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getNameBytes();
-
-    /**
-     * <code>optional .proto.UUID uuid = 2;</code>
+     * <code>optional .proto.UUID uuid = 1;</code>
      */
     boolean hasUuid();
     /**
-     * <code>optional .proto.UUID uuid = 2;</code>
+     * <code>optional .proto.UUID uuid = 1;</code>
      */
     com.blastedstudios.freeboot.network.Messages.UUID getUuid();
     /**
-     * <code>optional .proto.UUID uuid = 2;</code>
+     * <code>optional .proto.UUID uuid = 1;</code>
      */
     com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder getUuidOrBuilder();
   }
@@ -6744,7 +7683,6 @@ public final class Messages {
       super(builder);
     }
     private Logout() {
-      name_ = "";
     }
 
     @java.lang.Override
@@ -6773,12 +7711,6 @@ public final class Messages {
               break;
             }
             case 10: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              name_ = s;
-              break;
-            }
-            case 18: {
               com.blastedstudios.freeboot.network.Messages.UUID.Builder subBuilder = null;
               if (uuid_ != null) {
                 subBuilder = uuid_.toBuilder();
@@ -6814,56 +7746,22 @@ public final class Messages {
               com.blastedstudios.freeboot.network.Messages.Logout.class, com.blastedstudios.freeboot.network.Messages.Logout.Builder.class);
     }
 
-    public static final int NAME_FIELD_NUMBER = 1;
-    private volatile java.lang.Object name_;
-    /**
-     * <code>optional string name = 1;</code>
-     */
-    public java.lang.String getName() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        name_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string name = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getNameBytes() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        name_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int UUID_FIELD_NUMBER = 2;
+    public static final int UUID_FIELD_NUMBER = 1;
     private com.blastedstudios.freeboot.network.Messages.UUID uuid_;
     /**
-     * <code>optional .proto.UUID uuid = 2;</code>
+     * <code>optional .proto.UUID uuid = 1;</code>
      */
     public boolean hasUuid() {
       return uuid_ != null;
     }
     /**
-     * <code>optional .proto.UUID uuid = 2;</code>
+     * <code>optional .proto.UUID uuid = 1;</code>
      */
     public com.blastedstudios.freeboot.network.Messages.UUID getUuid() {
       return uuid_ == null ? com.blastedstudios.freeboot.network.Messages.UUID.getDefaultInstance() : uuid_;
     }
     /**
-     * <code>optional .proto.UUID uuid = 2;</code>
+     * <code>optional .proto.UUID uuid = 1;</code>
      */
     public com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder getUuidOrBuilder() {
       return getUuid();
@@ -6881,11 +7779,8 @@ public final class Messages {
 
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (!getNameBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 1, name_);
-      }
       if (uuid_ != null) {
-        output.writeMessage(2, getUuid());
+        output.writeMessage(1, getUuid());
       }
     }
 
@@ -6894,12 +7789,9 @@ public final class Messages {
       if (size != -1) return size;
 
       size = 0;
-      if (!getNameBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(1, name_);
-      }
       if (uuid_ != null) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getUuid());
+          .computeMessageSize(1, getUuid());
       }
       memoizedSize = size;
       return size;
@@ -6917,8 +7809,6 @@ public final class Messages {
       com.blastedstudios.freeboot.network.Messages.Logout other = (com.blastedstudios.freeboot.network.Messages.Logout) obj;
 
       boolean result = true;
-      result = result && getName()
-          .equals(other.getName());
       result = result && (hasUuid() == other.hasUuid());
       if (hasUuid()) {
         result = result && getUuid()
@@ -6934,8 +7824,6 @@ public final class Messages {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptorForType().hashCode();
-      hash = (37 * hash) + NAME_FIELD_NUMBER;
-      hash = (53 * hash) + getName().hashCode();
       if (hasUuid()) {
         hash = (37 * hash) + UUID_FIELD_NUMBER;
         hash = (53 * hash) + getUuid().hashCode();
@@ -7058,8 +7946,6 @@ public final class Messages {
       }
       public Builder clear() {
         super.clear();
-        name_ = "";
-
         if (uuidBuilder_ == null) {
           uuid_ = null;
         } else {
@@ -7088,7 +7974,6 @@ public final class Messages {
 
       public com.blastedstudios.freeboot.network.Messages.Logout buildPartial() {
         com.blastedstudios.freeboot.network.Messages.Logout result = new com.blastedstudios.freeboot.network.Messages.Logout(this);
-        result.name_ = name_;
         if (uuidBuilder_ == null) {
           result.uuid_ = uuid_;
         } else {
@@ -7135,10 +8020,6 @@ public final class Messages {
 
       public Builder mergeFrom(com.blastedstudios.freeboot.network.Messages.Logout other) {
         if (other == com.blastedstudios.freeboot.network.Messages.Logout.getDefaultInstance()) return this;
-        if (!other.getName().isEmpty()) {
-          name_ = other.name_;
-          onChanged();
-        }
         if (other.hasUuid()) {
           mergeUuid(other.getUuid());
         }
@@ -7168,86 +8049,17 @@ public final class Messages {
         return this;
       }
 
-      private java.lang.Object name_ = "";
-      /**
-       * <code>optional string name = 1;</code>
-       */
-      public java.lang.String getName() {
-        java.lang.Object ref = name_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          name_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string name = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getNameBytes() {
-        java.lang.Object ref = name_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          name_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string name = 1;</code>
-       */
-      public Builder setName(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        name_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string name = 1;</code>
-       */
-      public Builder clearName() {
-        
-        name_ = getDefaultInstance().getName();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string name = 1;</code>
-       */
-      public Builder setNameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        name_ = value;
-        onChanged();
-        return this;
-      }
-
       private com.blastedstudios.freeboot.network.Messages.UUID uuid_ = null;
       private com.google.protobuf.SingleFieldBuilderV3<
           com.blastedstudios.freeboot.network.Messages.UUID, com.blastedstudios.freeboot.network.Messages.UUID.Builder, com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder> uuidBuilder_;
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       public boolean hasUuid() {
         return uuidBuilder_ != null || uuid_ != null;
       }
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       public com.blastedstudios.freeboot.network.Messages.UUID getUuid() {
         if (uuidBuilder_ == null) {
@@ -7257,7 +8069,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       public Builder setUuid(com.blastedstudios.freeboot.network.Messages.UUID value) {
         if (uuidBuilder_ == null) {
@@ -7273,7 +8085,7 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       public Builder setUuid(
           com.blastedstudios.freeboot.network.Messages.UUID.Builder builderForValue) {
@@ -7287,7 +8099,7 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       public Builder mergeUuid(com.blastedstudios.freeboot.network.Messages.UUID value) {
         if (uuidBuilder_ == null) {
@@ -7305,7 +8117,7 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       public Builder clearUuid() {
         if (uuidBuilder_ == null) {
@@ -7319,7 +8131,7 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       public com.blastedstudios.freeboot.network.Messages.UUID.Builder getUuidBuilder() {
         
@@ -7327,7 +8139,7 @@ public final class Messages {
         return getUuidFieldBuilder().getBuilder();
       }
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       public com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder getUuidOrBuilder() {
         if (uuidBuilder_ != null) {
@@ -7338,7 +8150,7 @@ public final class Messages {
         }
       }
       /**
-       * <code>optional .proto.UUID uuid = 2;</code>
+       * <code>optional .proto.UUID uuid = 1;</code>
        */
       private com.google.protobuf.SingleFieldBuilderV3<
           com.blastedstudios.freeboot.network.Messages.UUID, com.blastedstudios.freeboot.network.Messages.UUID.Builder, com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder> 
@@ -9953,22 +10765,12 @@ public final class Messages {
     com.blastedstudios.freeboot.network.Messages.UUIDOrBuilder getUuidOrBuilder();
 
     /**
-     * <code>optional string name = 2;</code>
-     */
-    java.lang.String getName();
-    /**
-     * <code>optional string name = 2;</code>
-     */
-    com.google.protobuf.ByteString
-        getNameBytes();
-
-    /**
-     * <code>optional float pos_x = 3;</code>
+     * <code>optional float pos_x = 2;</code>
      */
     float getPosX();
 
     /**
-     * <code>optional float pos_y = 4;</code>
+     * <code>optional float pos_y = 3;</code>
      */
     float getPosY();
   }
@@ -9984,7 +10786,6 @@ public final class Messages {
       super(builder);
     }
     private Respawn() {
-      name_ = "";
       posX_ = 0F;
       posY_ = 0F;
     }
@@ -10027,18 +10828,12 @@ public final class Messages {
 
               break;
             }
-            case 18: {
-              java.lang.String s = input.readStringRequireUtf8();
-
-              name_ = s;
-              break;
-            }
-            case 29: {
+            case 21: {
 
               posX_ = input.readFloat();
               break;
             }
-            case 37: {
+            case 29: {
 
               posY_ = input.readFloat();
               break;
@@ -10087,53 +10882,19 @@ public final class Messages {
       return getUuid();
     }
 
-    public static final int NAME_FIELD_NUMBER = 2;
-    private volatile java.lang.Object name_;
-    /**
-     * <code>optional string name = 2;</code>
-     */
-    public java.lang.String getName() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        name_ = s;
-        return s;
-      }
-    }
-    /**
-     * <code>optional string name = 2;</code>
-     */
-    public com.google.protobuf.ByteString
-        getNameBytes() {
-      java.lang.Object ref = name_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        name_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    public static final int POS_X_FIELD_NUMBER = 3;
+    public static final int POS_X_FIELD_NUMBER = 2;
     private float posX_;
     /**
-     * <code>optional float pos_x = 3;</code>
+     * <code>optional float pos_x = 2;</code>
      */
     public float getPosX() {
       return posX_;
     }
 
-    public static final int POS_Y_FIELD_NUMBER = 4;
+    public static final int POS_Y_FIELD_NUMBER = 3;
     private float posY_;
     /**
-     * <code>optional float pos_y = 4;</code>
+     * <code>optional float pos_y = 3;</code>
      */
     public float getPosY() {
       return posY_;
@@ -10154,14 +10915,11 @@ public final class Messages {
       if (uuid_ != null) {
         output.writeMessage(1, getUuid());
       }
-      if (!getNameBytes().isEmpty()) {
-        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, name_);
-      }
       if (posX_ != 0F) {
-        output.writeFloat(3, posX_);
+        output.writeFloat(2, posX_);
       }
       if (posY_ != 0F) {
-        output.writeFloat(4, posY_);
+        output.writeFloat(3, posY_);
       }
     }
 
@@ -10174,16 +10932,13 @@ public final class Messages {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, getUuid());
       }
-      if (!getNameBytes().isEmpty()) {
-        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, name_);
-      }
       if (posX_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(3, posX_);
+          .computeFloatSize(2, posX_);
       }
       if (posY_ != 0F) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(4, posY_);
+          .computeFloatSize(3, posY_);
       }
       memoizedSize = size;
       return size;
@@ -10206,8 +10961,6 @@ public final class Messages {
         result = result && getUuid()
             .equals(other.getUuid());
       }
-      result = result && getName()
-          .equals(other.getName());
       result = result && (
           java.lang.Float.floatToIntBits(getPosX())
           == java.lang.Float.floatToIntBits(
@@ -10230,8 +10983,6 @@ public final class Messages {
         hash = (37 * hash) + UUID_FIELD_NUMBER;
         hash = (53 * hash) + getUuid().hashCode();
       }
-      hash = (37 * hash) + NAME_FIELD_NUMBER;
-      hash = (53 * hash) + getName().hashCode();
       hash = (37 * hash) + POS_X_FIELD_NUMBER;
       hash = (53 * hash) + java.lang.Float.floatToIntBits(
           getPosX());
@@ -10362,8 +11113,6 @@ public final class Messages {
           uuid_ = null;
           uuidBuilder_ = null;
         }
-        name_ = "";
-
         posX_ = 0F;
 
         posY_ = 0F;
@@ -10395,7 +11144,6 @@ public final class Messages {
         } else {
           result.uuid_ = uuidBuilder_.build();
         }
-        result.name_ = name_;
         result.posX_ = posX_;
         result.posY_ = posY_;
         onBuilt();
@@ -10441,10 +11189,6 @@ public final class Messages {
         if (other == com.blastedstudios.freeboot.network.Messages.Respawn.getDefaultInstance()) return this;
         if (other.hasUuid()) {
           mergeUuid(other.getUuid());
-        }
-        if (!other.getName().isEmpty()) {
-          name_ = other.name_;
-          onChanged();
         }
         if (other.getPosX() != 0F) {
           setPosX(other.getPosX());
@@ -10595,84 +11339,15 @@ public final class Messages {
         return uuidBuilder_;
       }
 
-      private java.lang.Object name_ = "";
-      /**
-       * <code>optional string name = 2;</code>
-       */
-      public java.lang.String getName() {
-        java.lang.Object ref = name_;
-        if (!(ref instanceof java.lang.String)) {
-          com.google.protobuf.ByteString bs =
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          name_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>optional string name = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getNameBytes() {
-        java.lang.Object ref = name_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          name_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>optional string name = 2;</code>
-       */
-      public Builder setName(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  
-        name_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string name = 2;</code>
-       */
-      public Builder clearName() {
-        
-        name_ = getDefaultInstance().getName();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>optional string name = 2;</code>
-       */
-      public Builder setNameBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  checkByteStringIsUtf8(value);
-        
-        name_ = value;
-        onChanged();
-        return this;
-      }
-
       private float posX_ ;
       /**
-       * <code>optional float pos_x = 3;</code>
+       * <code>optional float pos_x = 2;</code>
        */
       public float getPosX() {
         return posX_;
       }
       /**
-       * <code>optional float pos_x = 3;</code>
+       * <code>optional float pos_x = 2;</code>
        */
       public Builder setPosX(float value) {
         
@@ -10681,7 +11356,7 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>optional float pos_x = 3;</code>
+       * <code>optional float pos_x = 2;</code>
        */
       public Builder clearPosX() {
         
@@ -10692,13 +11367,13 @@ public final class Messages {
 
       private float posY_ ;
       /**
-       * <code>optional float pos_y = 4;</code>
+       * <code>optional float pos_y = 3;</code>
        */
       public float getPosY() {
         return posY_;
       }
       /**
-       * <code>optional float pos_y = 4;</code>
+       * <code>optional float pos_y = 3;</code>
        */
       public Builder setPosY(float value) {
         
@@ -10707,7 +11382,7 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>optional float pos_y = 4;</code>
+       * <code>optional float pos_y = 3;</code>
        */
       public Builder clearPosY() {
         
@@ -11938,6 +12613,11 @@ public final class Messages {
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_proto_NetBeing_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_proto_NetStats_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_proto_NetStats_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_proto_NetWeapon_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -12006,34 +12686,38 @@ public final class Messages {
       "size_bytes\030\002 \001(\005\"\022\n\020WorldFileRequest\".\n\021" +
       "WorldFileResponse\022\013\n\003md5\030\001 \001(\t\022\014\n\004file\030\002" +
       " \001(\014\"E\n\004UUID\022\036\n\026least_significant_bits\030\001" +
-      " \001(\022\022\035\n\025most_significant_bits\030\002 \001(\022\"\346\003\n\010" +
+      " \001(\022\022\035\n\025most_significant_bits\030\002 \001(\022\"\226\004\n\010" +
       "NetBeing\022\031\n\004uuid\030\001 \001(\0132\013.proto.UUID\022\014\n\004n" +
       "ame\030\002 \001(\t\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\022" +
-      "\r\n\005vel_x\030\005 \001(\002\022\r\n\005vel_y\030\006 \001(\002\022\016\n\006max_hp\030" +
-      "\007 \001(\002\022\n\n\002hp\030\010 \001(\002\022\026\n\016current_weapon\030\t \001(",
-      "\005\022!\n\007weapons\030\n \003(\0132\020.proto.NetWeapon\022\020\n\010" +
-      "resource\030\013 \001(\t\022\030\n\020ragdoll_resource\030\014 \001(\t" +
-      "\022,\n\007faction\030\r \001(\0162\033.proto.NetBeing.Facti" +
-      "onEnum\022\013\n\003aim\030\016 \001(\002\022/\n\014player_class\030\017 \001(" +
-      "\0162\031.proto.NetBeing.ClassEnum\">\n\013FactionE" +
-      "num\022\n\n\006Briton\020\000\022\n\n\006Pirate\020\001\022\n\n\006Undead\020\002\022" +
-      "\013\n\007Spanish\020\003\"F\n\tClassEnum\022\013\n\007Brawler\020\000\022\013" +
-      "\n\007Soldier\020\001\022\t\n\005Medic\020\002\022\010\n\004Demo\020\003\022\n\n\006Snip" +
-      "er\020\004\"\027\n\tNetWeapon\022\n\n\002id\030\001 \001(\t\"O\n\006Attack\022" +
-      "\014\n\004name\030\001 \001(\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID",
-      "\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005pos_y\030\004 \001(\002\"/\n\004Dead\022\014" +
-      "\n\004name\030\001 \001(\t\022\031\n\004uuid\030\002 \001(\0132\013.proto.UUID\"" +
-      "1\n\006Logout\022\014\n\004name\030\001 \001(\t\022\031\n\004uuid\030\002 \001(\0132\013." +
-      "proto.UUID\")\n\010NPCState\022\035\n\004npcs\030\001 \003(\0132\017.p" +
-      "roto.NetBeing\"\032\n\nNameUpdate\022\014\n\004name\030\001 \001(" +
-      "\t\"/\n\013PlayerState\022 \n\007players\030\001 \003(\0132\017.prot" +
-      "o.NetBeing\"#\n\006Reload\022\031\n\004uuid\030\001 \001(\0132\013.pro" +
-      "to.UUID\"P\n\007Respawn\022\031\n\004uuid\030\001 \001(\0132\013.proto" +
-      ".UUID\022\014\n\004name\030\002 \001(\t\022\r\n\005pos_x\030\003 \001(\002\022\r\n\005po" +
-      "s_y\030\004 \001(\002\"\'\n\004Text\022\017\n\007content\030\001 \001(\t\022\016\n\006or",
-      "igin\030\002 \001(\t\"\036\n\013TextRequest\022\017\n\007content\030\001 \001" +
-      "(\tB/\n#com.blastedstudios.freeboot.networ" +
-      "kB\010Messagesb\006proto3"
+      "\r\n\005vel_x\030\005 \001(\002\022\r\n\005vel_y\030\006 \001(\002\022\n\n\002hp\030\010 \001(" +
+      "\002\022\026\n\016current_weapon\030\t \001(\005\022!\n\007weapons\030\n \003",
+      "(\0132\020.proto.NetWeapon\022\020\n\010resource\030\013 \001(\t\022\030" +
+      "\n\020ragdoll_resource\030\014 \001(\t\022,\n\007faction\030\r \001(" +
+      "\0162\033.proto.NetBeing.FactionEnum\022\013\n\003aim\030\016 " +
+      "\001(\002\022/\n\014player_class\030\017 \001(\0162\031.proto.NetBei" +
+      "ng.ClassEnum\022\014\n\004dead\030\020 \001(\010\022\036\n\005stats\030\021 \001(" +
+      "\0132\017.proto.NetStats\022\020\n\010behavior\030\022 \001(\t\">\n\013" +
+      "FactionEnum\022\n\n\006Briton\020\000\022\n\n\006Pirate\020\001\022\n\n\006U" +
+      "ndead\020\002\022\013\n\007Spanish\020\003\"F\n\tClassEnum\022\013\n\007Bra" +
+      "wler\020\000\022\013\n\007Soldier\020\001\022\t\n\005Medic\020\002\022\010\n\004Demo\020\003" +
+      "\022\n\n\006Sniper\020\004\"\246\001\n\010NetStats\022\n\n\002hp\030\001 \001(\002\022\016\n",
+      "\006attack\030\002 \001(\002\022\017\n\007defense\030\003 \001(\002\022\022\n\nhpPerL" +
+      "evel\030\004 \001(\002\022\017\n\007hpRegen\030\005 \001(\002\022\027\n\017hpRegenPe" +
+      "rLevel\030\006 \001(\002\022\026\n\016attackPerLevel\030\007 \001(\002\022\027\n\017" +
+      "defensePerLevel\030\010 \001(\002\"\027\n\tNetWeapon\022\n\n\002id" +
+      "\030\001 \001(\t\"A\n\006Attack\022\031\n\004uuid\030\001 \001(\0132\013.proto.U" +
+      "UID\022\r\n\005pos_x\030\002 \001(\002\022\r\n\005pos_y\030\003 \001(\002\"!\n\004Dea" +
+      "d\022\031\n\004uuid\030\001 \001(\0132\013.proto.UUID\"#\n\006Logout\022\031" +
+      "\n\004uuid\030\001 \001(\0132\013.proto.UUID\")\n\010NPCState\022\035\n" +
+      "\004npcs\030\001 \003(\0132\017.proto.NetBeing\"\032\n\nNameUpda" +
+      "te\022\014\n\004name\030\001 \001(\t\"/\n\013PlayerState\022 \n\007playe",
+      "rs\030\001 \003(\0132\017.proto.NetBeing\"#\n\006Reload\022\031\n\004u" +
+      "uid\030\001 \001(\0132\013.proto.UUID\"B\n\007Respawn\022\031\n\004uui" +
+      "d\030\001 \001(\0132\013.proto.UUID\022\r\n\005pos_x\030\002 \001(\002\022\r\n\005p" +
+      "os_y\030\003 \001(\002\"\'\n\004Text\022\017\n\007content\030\001 \001(\t\022\016\n\006o" +
+      "rigin\030\002 \001(\t\"\036\n\013TextRequest\022\017\n\007content\030\001 " +
+      "\001(\tB/\n#com.blastedstudios.freeboot.netwo" +
+      "rkB\010Messagesb\006proto3"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
         new com.google.protobuf.Descriptors.FileDescriptor.    InternalDescriptorAssigner() {
@@ -12082,69 +12766,75 @@ public final class Messages {
     internal_static_proto_NetBeing_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_NetBeing_descriptor,
-        new java.lang.String[] { "Uuid", "Name", "PosX", "PosY", "VelX", "VelY", "MaxHp", "Hp", "CurrentWeapon", "Weapons", "Resource", "RagdollResource", "Faction", "Aim", "PlayerClass", });
-    internal_static_proto_NetWeapon_descriptor =
+        new java.lang.String[] { "Uuid", "Name", "PosX", "PosY", "VelX", "VelY", "Hp", "CurrentWeapon", "Weapons", "Resource", "RagdollResource", "Faction", "Aim", "PlayerClass", "Dead", "Stats", "Behavior", });
+    internal_static_proto_NetStats_descriptor =
       getDescriptor().getMessageTypes().get(6);
+    internal_static_proto_NetStats_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_proto_NetStats_descriptor,
+        new java.lang.String[] { "Hp", "Attack", "Defense", "HpPerLevel", "HpRegen", "HpRegenPerLevel", "AttackPerLevel", "DefensePerLevel", });
+    internal_static_proto_NetWeapon_descriptor =
+      getDescriptor().getMessageTypes().get(7);
     internal_static_proto_NetWeapon_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_NetWeapon_descriptor,
         new java.lang.String[] { "Id", });
     internal_static_proto_Attack_descriptor =
-      getDescriptor().getMessageTypes().get(7);
+      getDescriptor().getMessageTypes().get(8);
     internal_static_proto_Attack_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Attack_descriptor,
-        new java.lang.String[] { "Name", "Uuid", "PosX", "PosY", });
+        new java.lang.String[] { "Uuid", "PosX", "PosY", });
     internal_static_proto_Dead_descriptor =
-      getDescriptor().getMessageTypes().get(8);
+      getDescriptor().getMessageTypes().get(9);
     internal_static_proto_Dead_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Dead_descriptor,
-        new java.lang.String[] { "Name", "Uuid", });
+        new java.lang.String[] { "Uuid", });
     internal_static_proto_Logout_descriptor =
-      getDescriptor().getMessageTypes().get(9);
+      getDescriptor().getMessageTypes().get(10);
     internal_static_proto_Logout_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Logout_descriptor,
-        new java.lang.String[] { "Name", "Uuid", });
+        new java.lang.String[] { "Uuid", });
     internal_static_proto_NPCState_descriptor =
-      getDescriptor().getMessageTypes().get(10);
+      getDescriptor().getMessageTypes().get(11);
     internal_static_proto_NPCState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_NPCState_descriptor,
         new java.lang.String[] { "Npcs", });
     internal_static_proto_NameUpdate_descriptor =
-      getDescriptor().getMessageTypes().get(11);
+      getDescriptor().getMessageTypes().get(12);
     internal_static_proto_NameUpdate_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_NameUpdate_descriptor,
         new java.lang.String[] { "Name", });
     internal_static_proto_PlayerState_descriptor =
-      getDescriptor().getMessageTypes().get(12);
+      getDescriptor().getMessageTypes().get(13);
     internal_static_proto_PlayerState_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_PlayerState_descriptor,
         new java.lang.String[] { "Players", });
     internal_static_proto_Reload_descriptor =
-      getDescriptor().getMessageTypes().get(13);
+      getDescriptor().getMessageTypes().get(14);
     internal_static_proto_Reload_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Reload_descriptor,
         new java.lang.String[] { "Uuid", });
     internal_static_proto_Respawn_descriptor =
-      getDescriptor().getMessageTypes().get(14);
+      getDescriptor().getMessageTypes().get(15);
     internal_static_proto_Respawn_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Respawn_descriptor,
-        new java.lang.String[] { "Uuid", "Name", "PosX", "PosY", });
+        new java.lang.String[] { "Uuid", "PosX", "PosY", });
     internal_static_proto_Text_descriptor =
-      getDescriptor().getMessageTypes().get(15);
+      getDescriptor().getMessageTypes().get(16);
     internal_static_proto_Text_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_Text_descriptor,
         new java.lang.String[] { "Content", "Origin", });
     internal_static_proto_TextRequest_descriptor =
-      getDescriptor().getMessageTypes().get(16);
+      getDescriptor().getMessageTypes().get(17);
     internal_static_proto_TextRequest_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_proto_TextRequest_descriptor,

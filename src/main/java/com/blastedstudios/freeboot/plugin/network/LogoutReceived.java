@@ -1,7 +1,6 @@
 package com.blastedstudios.freeboot.plugin.network;
 
 import java.net.Socket;
-import java.util.ArrayList;
 
 import com.blastedstudios.freeboot.network.Messages.Logout;
 import com.blastedstudios.freeboot.ui.network.network.NetworkWindow.MultiplayerType;
@@ -15,9 +14,9 @@ import net.xeoh.plugins.base.annotations.PluginImplementation;
 public class LogoutReceived extends AbstractMessageReceive<Logout> {
 	@Override
 	public void receive(Logout message, Socket origin) {
-		for(Player player : new ArrayList<>(worldManager.getAllPlayers()))
-			if(UUIDConvert.convert(player.getUuid()) == message.getUuid() || player.getName().equals(message.getName()))
-				worldManager.dispose(player);
+		Player player = worldManager.getAllPlayers().get(UUIDConvert.convert(message.getUuid()));
+		if(player != null)
+			worldManager.dispose(player);
 		if(multiplayerType == MultiplayerType.Host || multiplayerType == MultiplayerType.DedicatedServer)
 			network.send(message);
 	}

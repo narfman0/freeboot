@@ -29,7 +29,7 @@ public class QuestTriggerInformationProvider implements IQuestTriggerInformation
 	}
 
 	@Override public boolean isDead(String name) {
-		for(Being being : worldManager.getAllBeings())
+		for(Being being : worldManager.getAllBeings().values())
 			if(being.getName().equalsIgnoreCase(name) && being.isDead())
 				return true;
 		return false;

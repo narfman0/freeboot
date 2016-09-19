@@ -104,10 +104,9 @@ public class Being implements Serializable{
 	}
 	
 	public Being(NetBeing message){
-		this(UUIDConvert.convert(message.getUuid()), message.getName(), new LinkedList<>(), new LinkedList<>(), new Stats(), 
+		this(UUIDConvert.convert(message.getUuid()), message.getName(), new LinkedList<>(), new LinkedList<>(), new Stats(message.getStats()), 
 				message.getCurrentWeapon(), 0, 0, 0, message.getFaction(),
 				EnumSet.noneOf(FactionEnum.class), message.getResource(), message.getRagdollResource());
-		stats.setHp(message.getHp());
 		for(NetWeapon netWeapon : message.getWeaponsList())
 			guns.add(WeaponFactory.getWeapon(netWeapon.getId()));
 	}
@@ -358,7 +357,6 @@ public class Being implements Serializable{
 
 		if(world.getReceiver() != null){
 			Respawn.Builder builder = Respawn.newBuilder();
-			builder.setName(name);
 			builder.setPosX(x);
 			builder.setPosY(y);
 			builder.setUuid(UUIDConvert.convert(getUuid()));
@@ -643,7 +641,6 @@ public class Being implements Serializable{
 			if(world.getReceiver() != null){
 				Attack.Builder builder = Attack.newBuilder();
 				builder.setUuid(UUIDConvert.convert(getUuid()));
-				builder.setName(name);
 				builder.setPosX(direction.x);
 				builder.setPosY(direction.y);
 				world.getReceiver().send(builder.build());
@@ -787,14 +784,12 @@ public class Being implements Serializable{
 		return invulnerable;
 	}
 	
-	public NetBeing buildMessage(boolean complete){
+	public NetBeing.Builder buildMessage(boolean complete){
 		NetBeing.Builder builder = NetBeing.newBuilder();
 		builder.setUuid(UUIDConvert.convert(getUuid()));
-		builder.setName(name);
 		builder.setHp(getHp());
-		builder.setMaxHp(getMaxHp());
 		builder.setAim(lastGunHeadingRadians);
-		builder.setFaction(faction);
+		builder.setDead(dead);
 		if(getPosition() != null){
 			builder.setPosX(getRagdoll().getBodyPart(BodyPart.torso).getPosition().x);
 			builder.setPosY(getRagdoll().getBodyPart(BodyPart.torso).getPosition().y);
@@ -802,6 +797,9 @@ public class Being implements Serializable{
 			builder.setVelY(getVelocity().y);
 		}
 		if(complete){
+			builder.setName(name);
+			builder.setFaction(faction);
+			builder.setStats(Stats.toNetStats(stats));
 			builder.setCurrentWeapon(currentWeapon);
 			for(Weapon weapon : guns)
 				builder.addWeapons(weapon.buildMessage());
@@ -809,7 +807,7 @@ public class Being implements Serializable{
 			if(ragdollResource != null && !ragdollResource.isEmpty())
 				builder.setRagdollResource(ragdollResource);
 		}
-		return builder.build();
+		return builder;
 	}
 	
 	public void updateFromMessage(WorldManager world, NetBeing update){
@@ -819,7 +817,7 @@ public class Being implements Serializable{
 			aim(update.getAim());
 		}
 		setHp(update.getHp());
-		if(hp > 0f)
+		if(!update.getDead() && isDead())
 			respawn(world, update.getPosX(), update.getPosY());
 	}
 

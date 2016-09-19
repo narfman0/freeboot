@@ -292,7 +292,6 @@ public class GameplayScreen extends FreebootScreen {
 	public void logout(final boolean success){
 		if(receiver != null){
 			Logout.Builder builder = Logout.newBuilder();
-			builder.setName(worldManager.getPlayer().getName());
 			builder.setUuid(UUIDConvert.convert(worldManager.getPlayer().getUuid()));
 			receiver.send(builder.build());
 		}

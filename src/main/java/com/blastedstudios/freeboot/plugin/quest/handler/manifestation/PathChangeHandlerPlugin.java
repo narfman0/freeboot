@@ -29,7 +29,7 @@ public class PathChangeHandlerPlugin implements IPathChangeHandler, IWorldManage
 				names.add(name.trim());
 		else
 			names.add(beingString);
-		for(Being being : world.getAllBeings())
+		for(Being being : world.getAllBeings().values())
 			for(String name : names)
 				if(being.getName().matches(name)){
 					NPC self = ((NPC)being);

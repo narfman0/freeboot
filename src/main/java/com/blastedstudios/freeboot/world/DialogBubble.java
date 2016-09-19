@@ -34,7 +34,7 @@ public class DialogBubble {
 				if(world.getPlayer().getPosition() != null) //when player isn't spawned, perhaps colliganSuit?
 					renderLocations.add(world.getPlayer().getPosition());
 			else
-				for(Being npc : world.getAllBeings())
+				for(Being npc : world.getAllBeings().values())
 					if(extractName(npc.getName()).equals(name) ||
 							(npc.getName().equals("colliganSuit") && (name.equals("player") || name.equals("colligan"))))
 						renderLocations.add(npc.getPosition());
