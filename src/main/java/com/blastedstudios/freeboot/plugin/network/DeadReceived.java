@@ -17,7 +17,7 @@ public class DeadReceived extends AbstractMessageReceive<Dead>{
 		UUID uuid = UUIDConvert.convert(message.getUuid());
 		Being existing = worldManager.getRemotePlayer(uuid);
 		if(existing == null)
-			existing = worldManager.getAllBeings().get(uuid);
+			existing = worldManager.getNpcs().get(uuid);
 		if(existing != null){
 			existing.death(worldManager);
 			if(multiplayerType == MultiplayerType.Host || multiplayerType == MultiplayerType.DedicatedServer)

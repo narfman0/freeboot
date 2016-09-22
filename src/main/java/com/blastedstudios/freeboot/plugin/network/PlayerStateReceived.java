@@ -16,10 +16,10 @@ import net.xeoh.plugins.base.annotations.PluginImplementation;
 public class PlayerStateReceived extends AbstractMessageReceive<PlayerState> {
 	@Override public void receive(PlayerState message, Socket origin) {
 		for(NetBeing netBeing : message.getPlayersList()){
-			if(worldManager.getPlayer() != null && netBeing.getName().equals(worldManager.getPlayer().getName()))
-				// don't want to make a new player with my name! should refactor to use ids somehow in future
-				break;
 			UUID uuid = UUIDConvert.convert(netBeing.getUuid());
+			if(worldManager.getPlayer() != null && uuid.equals(worldManager.getPlayer().getUuid()))
+				// don't want to make a new player with my name!
+				break;
 			Player remotePlayer = worldManager.getRemotePlayer(uuid);
 			if(remotePlayer == null){
 				remotePlayer = new Player(netBeing);

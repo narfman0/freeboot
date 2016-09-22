@@ -64,7 +64,7 @@ public class GunShot {
 	}
 	
 	public void beginContact(Body gunshotBody, Fixture hit, WorldManager worldManager, WorldManifold manifold){
-		if(!origin.getRagdoll().isOwned(hit)){
+		if(origin.isSpawned() && !origin.getRagdoll().isOwned(hit)){
 			gunshotBody.setUserData(WorldManager.REMOVE_USER_DATA);
 			canRemove = true;
 		}

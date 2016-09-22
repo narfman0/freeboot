@@ -33,6 +33,7 @@ import com.blastedstudios.freeboot.physics.VisibleQueryCallback;
 import com.blastedstudios.freeboot.physics.ragdoll.IRagdoll;
 import com.blastedstudios.freeboot.physics.ragdoll.IRagdoll.IRagdollPlugin;
 import com.blastedstudios.freeboot.ui.gameplay.GameplayNetReceiver;
+import com.blastedstudios.freeboot.ui.network.network.NetworkWindow.MultiplayerType;
 import com.blastedstudios.freeboot.util.UUIDConvert;
 import com.blastedstudios.freeboot.util.VectorHelper;
 import com.blastedstudios.freeboot.world.Stats;
@@ -355,7 +356,7 @@ public class Being implements Serializable{
 		for(IComponent component : getListeners())
 			component.respawn(world.getWorld(), x, y);
 
-		if(world.getReceiver() != null){
+		if(world.getReceiver() != null && world.getReceiver().type != MultiplayerType.Client){
 			Respawn.Builder builder = Respawn.newBuilder();
 			builder.setPosX(x);
 			builder.setPosY(y);
@@ -629,7 +630,7 @@ public class Being implements Serializable{
 
 	public boolean canAttack(){
 		Weapon equipped = getEquippedWeapon();
-		return !isDead() && !reloading && equipped != null && equipped.canAttack();
+		return !isDead() && isSpawned() && !reloading && equipped != null && equipped.canAttack();
 	}
 
 	public boolean attack(Vector2 direction, WorldManager world){

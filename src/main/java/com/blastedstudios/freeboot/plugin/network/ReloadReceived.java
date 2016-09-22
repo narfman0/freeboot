@@ -15,6 +15,8 @@ public class ReloadReceived extends AbstractMessageReceive<Reload>{
 	@Override public void receive(Reload message, Socket origin) {
 		UUID uuid = UUIDConvert.convert(message.getUuid());
 		Being existing = worldManager.getRemotePlayer(uuid);
+		if(existing == null)
+			existing = worldManager.getNpcs().get(uuid);
 		if(existing != null)
 			existing.reload();
 	}

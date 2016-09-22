@@ -30,13 +30,12 @@ public class DialogBubble {
 		LinkedList<Vector2> renderLocations = new LinkedList<>();
 		for(String nameRaw : current.portrait.split(",")){
 			String name = extractName(nameRaw);
-			if(name.equals("player") || name.equals("colligan"))
-				if(world.getPlayer().getPosition() != null) //when player isn't spawned, perhaps colliganSuit?
+			if(name.equals("player"))
+				if(world.getPlayer().getPosition() != null) //when player isn't spawned?
 					renderLocations.add(world.getPlayer().getPosition());
 			else
 				for(Being npc : world.getAllBeings().values())
-					if(extractName(npc.getName()).equals(name) ||
-							(npc.getName().equals("colliganSuit") && (name.equals("player") || name.equals("colligan"))))
+					if(extractName(npc.getName()).equals(name) || name.equals("player"))
 						renderLocations.add(npc.getPosition());
 		}
 
