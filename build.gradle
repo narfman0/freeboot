@@ -54,7 +54,7 @@ dependencies {
 	compile group: 'commons-codec', name: 'commons-codec', version: '1.10'
 	compile group: 'commons-io', name: 'commons-io', version: '2.5'
 	compile 'com.blastedstudios:GDXWorld:1.0.1'
-	compile 'com.blastedstudios:entente:1.0.1'
+	compile 'com.blastedstudios:entente:1.0.3'
     testCompile 'junit:junit:4.12'
 }
 

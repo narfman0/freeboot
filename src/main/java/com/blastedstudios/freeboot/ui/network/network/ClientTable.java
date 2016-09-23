@@ -28,8 +28,8 @@ import com.blastedstudios.freeboot.util.ui.FreebootTextButton;
 import com.blastedstudios.freeboot.world.being.Being;
 
 public class ClientTable extends Table {
-	private final Client client = new Client();
 	private final TextButton connectButton;
+	private Client client;
 	
 	public ClientTable(Skin skin, Being player, final INetworkWindowListener listener){
 		super(skin);
@@ -39,12 +39,12 @@ public class ClientTable extends Table {
 			@Override public void clicked(InputEvent event, float x, float y) {
 				Properties.set("host.default", hostnameText.getText());
 				SaveHelper.saveProperties();
-				if(client.isConnected()){
+				if(client != null && client.isConnected()){
 					Log.error("ClientTable.<init>", "Already connected to a host, aborting");
 					return;
 				}
-				boolean success = client.connect(hostnameText.getText(), Properties.getInt("network.port"));
-				if(success){
+				client = new Client(hostnameText.getText(), Properties.getInt("network.port"));
+				if(client.isConnected()){
 					connectButton.remove();
 					// send minimal information - name!
 					NameUpdate.Builder builder = NameUpdate.newBuilder();
@@ -87,11 +87,13 @@ public class ClientTable extends Table {
 	}
 	
 	public void render(){
-		client.update();
+		if(client != null)
+			client.update();
 	}
 	
 	@Override public boolean remove(){
-		client.dispose();
+		if(client != null)
+			client.dispose();
 		return super.remove();
 	}
 
